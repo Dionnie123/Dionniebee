@@ -11,13 +11,10 @@ class Logo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(
-          width: 50,
-          height: 50,
-          child: Image.asset(
-            'assets/splash.png',
-            width: 50,
-          ),
+        Image.asset(
+          'assets/bee.png',
+          width: 100,
+          color: Colors.red,
         ),
         hSpaceRegular,
         Text(

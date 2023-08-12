@@ -1,7 +1,6 @@
 import 'package:dionniebee/app/models/login_dto.dart';
 import 'package:dionniebee/app/models/register_dto.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
-import 'package:dionniebee/ui/views/auth/widgets/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -26,8 +25,7 @@ class AuthViewMobile extends ViewModelWidget<AuthViewModel> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Logo(),
-                    vSpaceMedium,
+                    vSpaceRegular,
                     (viewModel.authType == AuthType.signIn)
                         ? ReactiveLoginDtoForm(
                             key: ObjectKey(viewModel.loginFormModel),
@@ -39,9 +37,7 @@ class AuthViewMobile extends ViewModelWidget<AuthViewModel> {
                             form: viewModel.registerFormModel,
                             child: const RegisterForm(),
                           ),
-                    Container(
-                      height: 60,
-                    ),
+                    vSpaceRegular,
                   ],
                 ),
               ),
