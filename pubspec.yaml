@@ -41,6 +41,7 @@ dependencies:
   scaled_app: ^2.0.0
   flutter_map: ^5.0.0
   flutter_map_location_marker: ^7.0.2
+  flutter_map_animations: ^0.4.1
   latlong2: ^0.9.0
   rename: ^2.1.1
 dev_dependencies:

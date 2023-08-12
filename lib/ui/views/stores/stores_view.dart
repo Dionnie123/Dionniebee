@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_animations/flutter_map_animations.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:stacked/stacked.dart';
-import 'package:latlong2/latlong.dart' as latLng;
 import 'stores_viewmodel.dart';
 
 class StoresView extends StackedView<StoresViewModel> {
@@ -13,85 +15,9 @@ class StoresView extends StackedView<StoresViewModel> {
     StoresViewModel viewModel,
     Widget? child,
   ) {
-    AnchorAlign anchorAlign = AnchorAlign.top;
-    bool counterRotate = false;
-    final customMarkers = <Marker>[];
-
-    Marker buildPin(latLng.LatLng point) => Marker(
-          point: point,
-          builder: (ctx) => const Icon(Icons.location_pin, size: 60),
-          width: 60,
-          height: 60,
-        );
-
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: FlutterMap(
-        options: MapOptions(
-            center: const latLng.LatLng(51.5, -0.09),
-            zoom: 5,
-            onTap: (_, p) {}),
-        children: [
-          TileLayer(
-            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            userAgentPackageName: 'dev.fleaflet.flutter_map.example',
-          ),
-          MarkerLayer(
-            rotate: counterRotate,
-            anchorPos: AnchorPos.align(anchorAlign),
-            markers: [
-              buildPin(
-                  const latLng.LatLng(51.51868093513547, -0.12835376940892318)),
-              buildPin(
-                  const latLng.LatLng(53.33360293799854, -6.284001062079881)),
-              Marker(
-                point:
-                    const latLng.LatLng(47.18664724067855, -1.5436768515939427),
-                width: 64,
-                height: 64,
-                anchorPos: AnchorPos.align(AnchorAlign.left),
-                builder: (context) => const ColoredBox(
-                  color: Colors.lightBlue,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text('-->'),
-                  ),
-                ),
-              ),
-              Marker(
-                point:
-                    const latLng.LatLng(47.18664724067855, -1.5436768515939427),
-                width: 64,
-                height: 64,
-                anchorPos: AnchorPos.align(AnchorAlign.right),
-                builder: (context) => const ColoredBox(
-                  color: Colors.pink,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text('<--'),
-                  ),
-                ),
-              ),
-              Marker(
-                point:
-                    const latLng.LatLng(47.18664724067855, -1.5436768515939427),
-                rotate: false,
-                builder: (context) => const ColoredBox(color: Colors.black),
-              ),
-            ],
-          ),
-          MarkerLayer(
-            markers: customMarkers,
-            rotate: counterRotate,
-            anchorPos: AnchorPos.align(anchorAlign),
-          ),
-          TileLayer(
-            urlTemplate:
-                'https://basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png',
-          ),
-        ],
-      ),
-    );
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: const MyMap());
   }
 
   @override
@@ -99,4 +25,225 @@ class StoresView extends StackedView<StoresViewModel> {
     BuildContext context,
   ) =>
       StoresViewModel();
+}
+
+class MyMap extends StatefulWidget {
+  const MyMap({super.key});
+
+  @override
+  State<MyMap> createState() => _MyMapState();
+}
+
+class _MyMapState extends State<MyMap> with TickerProviderStateMixin {
+  late final _animatedMapController = AnimatedMapController(vsync: this);
+
+  static const _useTransformerId = 'useTransformerId';
+
+  final markerSize = 50.0;
+  final markers = ValueNotifier<List<AnimatedMarker>>([]);
+  final center = const LatLng(14.58691000, 121.06140000);
+
+  bool _useTransformer = true;
+
+  Marker buildPin(LatLng point) => Marker(
+      point: point,
+      builder: (ctx) => const Icon(
+            Icons.location_pin,
+            size: 35,
+            color: Colors.red,
+          ),
+      width: 35,
+      height: 35,
+      anchorPos: AnchorPos.align(AnchorAlign.center));
+
+  Widget actions() {
+    return SeparatedColumn(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      separator: const SizedBox(height: 8),
+      children: [
+        FloatingActionButton(
+          onPressed: () => _animatedMapController.animatedRotateFrom(
+            90,
+            customId: _useTransformer ? _useTransformerId : null,
+          ),
+          tooltip: 'Rotate 90°',
+          child: const Icon(Icons.rotate_right),
+        ),
+        FloatingActionButton(
+          onPressed: () => _animatedMapController.animatedRotateFrom(
+            -90,
+            customId: _useTransformer ? _useTransformerId : null,
+          ),
+          tooltip: 'Rotate -90°',
+          child: const Icon(Icons.rotate_left),
+        ),
+        FloatingActionButton(
+          onPressed: () {
+            markers.value = [];
+            _animatedMapController.animateTo(
+              dest: center,
+              rotation: 0,
+              customId: _useTransformer ? _useTransformerId : null,
+            );
+          },
+          tooltip: 'Clear modifications',
+          child: const Icon(Icons.clear_all),
+        ),
+        FloatingActionButton(
+          onPressed: () => _animatedMapController.animatedZoomIn(
+            customId: _useTransformer ? _useTransformerId : null,
+          ),
+          tooltip: 'Zoom in',
+          child: const Icon(Icons.zoom_in),
+        ),
+        FloatingActionButton(
+          onPressed: () => _animatedMapController.animatedZoomOut(
+            customId: _useTransformer ? _useTransformerId : null,
+          ),
+          tooltip: 'Zoom out',
+          child: const Icon(Icons.zoom_out),
+        ),
+        FloatingActionButton(
+          tooltip: 'Center on markers',
+          onPressed: () {
+            if (markers.value.isEmpty) return;
+
+            final points = markers.value.map((m) => m.point).toList();
+            _animatedMapController.centerOnPoints(
+              points,
+              customId: _useTransformer ? _useTransformerId : null,
+            );
+          },
+          child: const Icon(Icons.center_focus_strong),
+        ),
+        FloatingActionButton.extended(
+          label: Row(
+            children: [
+              const Text('Transformer'),
+              Switch(
+                activeColor: Colors.blue.shade200,
+                activeTrackColor: Colors.black38,
+                value: _useTransformer,
+                onChanged: (newValue) {
+                  setState(() {
+                    _useTransformer = newValue;
+                  });
+                },
+              ),
+            ],
+          ),
+          onPressed: () {
+            setState(() {
+              _useTransformer = !_useTransformer;
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  @override
+  void dispose() {
+    markers.dispose();
+    _animatedMapController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: actions(),
+      body: FlutterMap(
+        mapController: _animatedMapController.mapController,
+        options: MapOptions(
+          center: const LatLng(14.58691000, 121.06140000),
+          zoom: 10.5,
+        ),
+        nonRotatedChildren: const [
+          RichAttributionWidget(
+            attributions: [
+              TextSourceAttribution(
+                'OpenStreetMap contributors',
+                /*       onTap: () => launchUrl(
+                        Uri.parse('https://openstreetmap.org/copyright')), */
+              ),
+            ],
+          ),
+        ],
+        children: [
+          TileLayer(
+            urlTemplate:
+                'https://api.mapbox.com/styles/v1/mbulingit/cll89rse000b401puaxxlcroa/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWJ1bGluZ2l0IiwiYSI6ImNsbDdqdG1ucTBzd2Izc3FxYXF2Nnp3NXMifQ.C0RXDFn0tmETYAAhKrITDw',
+            additionalOptions: const {
+              'token':
+                  'pk.eyJ1IjoibWJ1bGluZ2l0IiwiYSI6ImNsbDdqdG1ucTBzd2Izc3FxYXF2Nnp3NXMifQ.C0RXDFn0tmETYAAhKrITDw',
+              'id': 'mapbox.mapbox-streets-v8'
+            },
+          ),
+          MarkerLayer(
+            markers: [buildPin(const LatLng(14.58691000, 121.06140000))],
+          ),
+          CurrentLocationLayer(
+              followOnLocationUpdate: FollowOnLocationUpdate.always,
+              turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
+              style: const LocationMarkerStyle(
+                marker: DefaultLocationMarker(
+                  child: Icon(
+                    Icons.navigation,
+                    color: Colors.white,
+                  ),
+                ),
+                markerSize: Size(40, 40),
+                markerDirection: MarkerDirection.heading,
+              )),
+          CircleLayer(
+            circles: [
+              CircleMarker(
+                borderColor: Colors.red,
+                borderStrokeWidth: 2,
+                color: Colors.orange.withOpacity(0.1),
+                point: const LatLng(14.58691000, 121.06140000),
+                radius: 12000,
+                useRadiusInMeter: true,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SeparatedColumn extends StatelessWidget {
+  const SeparatedColumn({
+    super.key,
+    required this.separator,
+    this.children = const [],
+    this.mainAxisSize = MainAxisSize.max,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
+  });
+
+  final Widget separator;
+  final List<Widget> children;
+  final MainAxisSize mainAxisSize;
+  final CrossAxisAlignment crossAxisAlignment;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: mainAxisSize,
+      crossAxisAlignment: crossAxisAlignment,
+      children: [
+        ..._buildChildren(),
+      ],
+    );
+  }
+
+  Iterable<Widget> _buildChildren() sync* {
+    for (var i = 0; i < children.length; i++) {
+      yield children[i];
+      if (i < children.length - 1) yield separator;
+    }
+  }
 }
