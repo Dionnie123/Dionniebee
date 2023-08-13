@@ -7,12 +7,13 @@ import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/ui/views/auth/auth_view.dart';
 import 'package:dionniebee/ui/views/cart/cart_view.dart';
 import 'package:dionniebee/ui/views/home/home_view.dart';
-import 'package:dionniebee/services/shopping_service.dart';
+import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/ui/views/startup/startup_view.dart';
 import 'package:dionniebee/ui/views/foo/foo_view.dart';
 import 'package:dionniebee/ui/views/orders/orders_view.dart';
 import 'package:dionniebee/ui/views/stores/stores_view.dart';
 import 'package:dionniebee/services/location_service.dart';
+import 'package:dionniebee/services/cart_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -56,8 +57,9 @@ import 'package:dionniebee/services/location_service.dart';
     LazySingleton(classType: RouterService),
 
     InitializableSingleton(classType: AuthService),
-    LazySingleton(classType: ShoppingService),
+    LazySingleton(classType: ProductService),
     LazySingleton(classType: LocationService),
+    LazySingleton(classType: CartService),
 // @stacked-service
   ],
   bottomsheets: [

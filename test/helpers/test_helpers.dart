@@ -3,8 +3,9 @@ import 'package:mockito/mockito.dart';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:dionniebee/services/auth_service.dart';
-import 'package:dionniebee/services/shopping_service.dart';
+import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/services/location_service.dart';
+import 'package:dionniebee/services/cart_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -15,8 +16,9 @@ import 'test_helpers.mocks.dart';
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
 
   MockSpec<AuthService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<ShoppingService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<ProductService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<LocationService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<CartService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -24,8 +26,9 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterAuthService();
-  getAndRegisterShoppingService();
+  getAndRegisterProductService();
   getAndRegisterLocationService();
+  getAndRegisterCartService();
 // @stacked-mock-register
 }
 
@@ -86,10 +89,10 @@ MockAuthService getAndRegisterAuthService() {
   return service;
 }
 
-MockShoppingService getAndRegisterShoppingService() {
-  _removeRegistrationIfExists<ShoppingService>();
-  final service = MockShoppingService();
-  locator.registerSingleton<ShoppingService>(service);
+MockProductService getAndRegisterProductService() {
+  _removeRegistrationIfExists<ProductService>();
+  final service = MockProductService();
+  locator.registerSingleton<ProductService>(service);
   return service;
 }
 
@@ -97,6 +100,13 @@ MockLocationService getAndRegisterLocationService() {
   _removeRegistrationIfExists<LocationService>();
   final service = MockLocationService();
   locator.registerSingleton<LocationService>(service);
+  return service;
+}
+
+MockCartService getAndRegisterCartService() {
+  _removeRegistrationIfExists<CartService>();
+  final service = MockCartService();
+  locator.registerSingleton<CartService>(service);
   return service;
 }
 // @stacked-mock-create

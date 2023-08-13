@@ -22,7 +22,9 @@ class AuthService with Initialisable {
     );
 
     _supabase = Supabase.instance.client;
+  }
 
+  AuthService() {
 /*     _supabase.auth.onAuthStateChange.listen((state) async {
       if (state.event.name == SupabaseAuthEvent.passwordRecovery.name) {
         //Go to Password Reset Route

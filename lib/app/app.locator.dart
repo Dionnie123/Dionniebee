@@ -12,8 +12,9 @@ import 'package:stacked_services/src/navigation/router_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/auth_service.dart';
+import '../services/cart_service.dart';
 import '../services/location_service.dart';
-import '../services/shopping_service.dart';
+import '../services/product_service.dart';
 import 'app.router.dart';
 
 final locator = StackedLocator.instance;
@@ -35,8 +36,9 @@ Future<void> setupLocator({
   await authService.initialise();
   locator.registerSingleton(authService);
 
-  locator.registerLazySingleton(() => ShoppingService());
+  locator.registerLazySingleton(() => ProductService());
   locator.registerLazySingleton(() => LocationService());
+  locator.registerLazySingleton(() => CartService());
   if (stackedRouter == null) {
     throw Exception(
         'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');
