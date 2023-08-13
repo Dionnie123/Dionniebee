@@ -157,6 +157,12 @@ class _MyMapState extends State<MyMap> with TickerProviderStateMixin {
       body: FlutterMap(
         mapController: _animatedMapController.mapController,
         options: MapOptions(
+          boundsOptions:
+              const FitBoundsOptions(forceIntegerZoomLevel: true, inside: true),
+          maxBounds: LatLngBounds.fromPoints([
+            const LatLng(4.382696, 112.1661),
+            const LatLng(21.53021, 127.0742)
+          ]),
           center: const LatLng(14.58691000, 121.06140000),
           zoom: 10.5,
         ),
