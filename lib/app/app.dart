@@ -12,6 +12,7 @@ import 'package:dionniebee/ui/views/startup/startup_view.dart';
 import 'package:dionniebee/ui/views/foo/foo_view.dart';
 import 'package:dionniebee/ui/views/orders/orders_view.dart';
 import 'package:dionniebee/ui/views/stores/stores_view.dart';
+import 'package:dionniebee/services/location_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -56,6 +57,7 @@ import 'package:dionniebee/ui/views/stores/stores_view.dart';
 
     InitializableSingleton(classType: AuthService),
     LazySingleton(classType: ShoppingService),
+    LazySingleton(classType: LocationService),
 // @stacked-service
   ],
   bottomsheets: [

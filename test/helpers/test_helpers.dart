@@ -4,6 +4,7 @@ import 'package:dionniebee/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/shopping_service.dart';
+import 'package:dionniebee/services/location_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -15,6 +16,7 @@ import 'test_helpers.mocks.dart';
 
   MockSpec<AuthService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ShoppingService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<LocationService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -23,6 +25,7 @@ void registerServices() {
   getAndRegisterDialogService();
   getAndRegisterAuthService();
   getAndRegisterShoppingService();
+  getAndRegisterLocationService();
 // @stacked-mock-register
 }
 
@@ -87,6 +90,13 @@ MockShoppingService getAndRegisterShoppingService() {
   _removeRegistrationIfExists<ShoppingService>();
   final service = MockShoppingService();
   locator.registerSingleton<ShoppingService>(service);
+  return service;
+}
+
+MockLocationService getAndRegisterLocationService() {
+  _removeRegistrationIfExists<LocationService>();
+  final service = MockLocationService();
+  locator.registerSingleton<LocationService>(service);
   return service;
 }
 // @stacked-mock-create

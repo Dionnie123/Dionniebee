@@ -8,6 +8,7 @@ import 'dart:ui' as _i6;
 
 import 'package:dionniebee/app/models/product_dto.dart' as _i9;
 import 'package:dionniebee/services/auth_service.dart' as _i7;
+import 'package:dionniebee/services/location_service.dart' as _i10;
 import 'package:dionniebee/services/shopping_service.dart' as _i8;
 import 'package:faker/faker.dart' as _i2;
 import 'package:flutter/material.dart' as _i4;
@@ -844,3 +845,8 @@ class MockShoppingService extends _i1.Mock implements _i8.ShoppingService {
         returnValueForMissingStub: null,
       );
 }
+
+/// A class which mocks [LocationService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLocationService extends _i1.Mock implements _i10.LocationService {}
