@@ -1,3 +1,4 @@
+import 'package:dionniebee/app/helpers/offline_checker.dart';
 import 'package:dionniebee/ui/widgets/common/dashboard/widgets/drawer_widget.dart';
 import 'package:dionniebee/ui/widgets/common/product_menu_item/food_menu_item.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +26,11 @@ class HomeView extends StackedView<HomeViewModel> {
     return Scaffold(
       drawer: const DrawerWidget(),
       bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
+        onDestinationSelected: (int index) async {
           if (index == 3) {
-            viewModel.navService.navigateToStoresView();
+            if (await hasNetwork() == true) {
+              viewModel.navService.navigateToStoresView();
+            }
           }
         },
         selectedIndex: 0,

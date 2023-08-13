@@ -3,8 +3,7 @@ import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/shopping_service.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -14,10 +13,23 @@ class HomeViewModel extends ReactiveViewModel {
   final _authService = locator<AuthService>();
   final navService = locator<RouterService>();
   final _shopService = locator<ShoppingService>();
+  final _dialogService = locator<DialogService>();
   @override
   List<ListenableServiceMixin> get listenableServices => [
         _shopService,
       ];
+
+  @override
+  void onFutureError(error, Object? key) {
+    super.onFutureError(error, key);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _dialogService.showDialog(
+          title: "Error",
+          barrierDismissible: true,
+          description: error.toString(),
+          dialogPlatform: DialogPlatform.Custom);
+    });
+  }
 
   Future start(bool showLoading) async {
     if (showLoading) {
@@ -29,7 +41,6 @@ class HomeViewModel extends ReactiveViewModel {
         await Future.delayed(const Duration(milliseconds: 500))
       ]);
     }
-    if (!kIsWeb) FlutterNativeSplash.remove();
   }
 
   Future addToCart(ProductDto product) async {

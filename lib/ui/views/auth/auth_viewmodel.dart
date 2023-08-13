@@ -2,9 +2,7 @@ import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/login_dto.dart';
 import 'package:dionniebee/app/models/register_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -49,7 +47,6 @@ class AuthViewModel extends BaseViewModel {
     if (registerFormModel.form.disabled) {
       registerFormModel.form.markAsDisabled();
     }
-    if (!kIsWeb) FlutterNativeSplash.remove();
   }
 
   Future signIn({required email, required password}) async {
