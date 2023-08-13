@@ -4,17 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:faker/faker.dart';
 
-mixin MamaloanServiceMixin {
-  foo() {}
-}
-
-class ProductService with ListenableServiceMixin, MamaloanServiceMixin {
-  @override
-  foo() {
-    // TODO: implement foo
-    return super.foo();
-  }
-
+class ProductService with ListenableServiceMixin {
   var faker = Faker();
   final _supabase = Supabase.instance.client;
 
