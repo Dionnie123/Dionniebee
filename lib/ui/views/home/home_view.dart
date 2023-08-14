@@ -1,4 +1,4 @@
-import 'package:dionniebee/app/helpers/offline_checker.dart';
+import 'package:dionniebee/ui/widgets/common/dashboard/widgets/bottom_nav_widget.dart';
 import 'package:dionniebee/ui/widgets/common/dashboard/widgets/drawer_widget.dart';
 import 'package:dionniebee/ui/widgets/common/product_menu_item/food_menu_item.dart';
 import 'package:flutter/material.dart';
@@ -25,50 +25,9 @@ class HomeView extends StackedView<HomeViewModel> {
   ) {
     return Scaffold(
       drawer: const DrawerWidget(),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) async {
-          if (index == 3) {
-            if (await hasNetwork() == true) {
-              viewModel.navService.navigateToStoresView();
-            }
-          }
-        },
-        selectedIndex: 0,
-        destinations: <Widget>[
-          NavigationDestination(
-            icon: Image.asset(
-              'assets/icons/home.png',
-              width: 24,
-            ),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Image.asset(
-              'assets/icons/promo.png',
-              width: 24,
-            ),
-            label: 'Promo',
-          ),
-          NavigationDestination(
-            icon: Image.asset(
-              'assets/icons/orders.png',
-              width: 24,
-            ),
-            label: 'Orders',
-          ),
-          NavigationDestination(
-            icon: Image.asset(
-              'assets/icons/shop.png',
-              width: 24,
-            ),
-            label: 'Stores',
-          ),
-        ],
-      ),
+      bottomNavigationBar: const NavigationBarWidget(selectedIndex: 0),
       appBar: AppBar(
         elevation: 0,
-
-        //automaticallyImplyLeading: false,
         title: const Text(
           "DionnieBee",
           style: TextStyle(

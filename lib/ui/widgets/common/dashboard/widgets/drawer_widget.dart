@@ -34,21 +34,9 @@ class DrawerMenu extends StatelessWidget {
   }
 }
 
-class DrawerWidget extends StatefulWidget {
-  const DrawerWidget({super.key});
-
-  @override
-  State<DrawerWidget> createState() => _DrawerWidgetState();
-}
-
-class _DrawerWidgetState extends State<DrawerWidget> {
-  int? selectedItem;
-
-  setItem(int index) {
-    setState(() {
-      selectedItem = index;
-    });
-  }
+class DrawerWidget extends StatelessWidget {
+  final int? selectedIndex;
+  const DrawerWidget({super.key, this.selectedIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -73,66 +61,58 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             ),
             Column(children: [
               DrawerMenu(
-                selected: selectedItem == 0,
+                selected: selectedIndex == 0,
                 title: "Tutorial",
                 onTap: () async {
-                  setItem(0);
                   await navService.replaceWithHomeView();
                 },
               ),
               DrawerMenu(
-                selected: selectedItem == 1,
+                selected: selectedIndex == 1,
                 title: "About Use",
                 onTap: () async {
-                  setItem(1);
                   await navService.replaceWithHomeView();
                 },
               ),
               DrawerMenu(
-                selected: selectedItem == 2,
+                selected: selectedIndex == 2,
                 title: "Feedback",
                 onTap: () async {
-                  setItem(2);
                   await navService.replaceWithHomeView();
                 },
               ),
               DrawerMenu(
-                selected: selectedItem == 3,
+                selected: selectedIndex == 3,
                 title: "Contact Us",
                 onTap: () async {
-                  setItem(3);
                   await navService.replaceWithHomeView();
                 },
               ),
               DrawerMenu(
-                selected: selectedItem == 4,
+                selected: selectedIndex == 4,
                 title: "Book a Virtual Party",
                 onTap: () async {
-                  setItem(4);
                   await navService.replaceWithHomeView();
                 },
               ),
               DrawerMenu(
-                selected: selectedItem == 5,
+                selected: selectedIndex == 5,
                 title: "FAQs",
                 onTap: () async {
-                  setItem(5);
                   await navService.replaceWithHomeView();
                 },
               ),
               DrawerMenu(
-                selected: selectedItem == 6,
+                selected: selectedIndex == 6,
                 title: "Terms & Conditions",
                 onTap: () async {
-                  setItem(6);
                   await navService.replaceWithHomeView();
                 },
               ),
               DrawerMenu(
-                selected: selectedItem == 7,
+                selected: selectedIndex == 7,
                 title: "Privacy Policy",
                 onTap: () async {
-                  setItem(7);
                   await navService.replaceWithHomeView();
                 },
               ),
