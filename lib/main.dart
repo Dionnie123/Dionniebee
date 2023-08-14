@@ -36,7 +36,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final supabase = Supabase.instance.client;
-    if (!kIsWeb) FlutterNativeSplash.remove();
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      FlutterNativeSplash.remove();
+    });
     return MaterialApp.router(
       scrollBehavior: AppScrollBehavior(),
       debugShowCheckedModeBanner: false,

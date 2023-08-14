@@ -1,7 +1,8 @@
 String errorDefinition(String value) {
   final val = value.trim().toLowerCase();
 
-  if (val.contains('failed host lookup')) {
+  if (val.contains('failed host lookup') ||
+      val.contains('xmlhttprequest error')) {
     return "Your internet connection appears to be offline.\nPlease connect and retry.";
   }
 

@@ -2,45 +2,46 @@ import 'package:dionniebee/app/helpers/error_definitions.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:faker/faker.dart';
 
-class ProductService with ListenableServiceMixin {
-  var faker = Faker();
+mixin SupabaseMixin<T> on ListenableServiceMixin {
   final _supabase = Supabase.instance.client;
+  late final String table;
 
-  ProductService() {
-    listenToReactiveValues([
-      _products,
-    ]);
-  }
-  final ReactiveValue<List<ProductDto>> _products =
-      ReactiveValue<List<ProductDto>>([]);
-  List<ProductDto> get products => _products.value;
+  /// Converts json response into data class model. E.g:
+  /// transformer = (e) { return ProductDto.fromJson(e); };
+  late final T Function(dynamic) transformer;
 
-  Future fetchAllProducts() async {
+  final ReactiveValue<List<T>> _items = ReactiveValue<List<T>>([]);
+  List<T> get items => _items.value;
+
+  Future fetchAll() async {
+    assert(table.isNotEmpty, 'Table name must not be empty');
+    assert(transformer != () {}, 'Transformer function must be provided');
     try {
-      final data = await _supabase.from('products').select('*');
+      final session = _supabase.auth.currentSession;
 
+      if (session != null && session.isExpired) {
+        await _supabase.auth.refreshSession();
+      }
+      final data = await _supabase.from(table).select('*');
       if (data is List && data.isNotEmpty) {
-        // _products.value = data.map((e) => ProductDto.fromJson(e)).toList();
-        _products.value = List.generate(30, (index) {
-          var faker = Faker();
-          return ProductDto(
-            id: index,
-            imageUrl: faker.image.image(
-                keywords: ["fast food", "burger", "fries"], random: true),
-            name: "${faker.food.dish()} ${faker.food.dish()}",
-            description: faker.lorem.sentences(5).join(),
-            price: faker.randomGenerator.integer(1000),
-            quantityInCart: faker.randomGenerator.integer(100, min: 10),
-            quantityInStock: faker.randomGenerator.integer(100, min: 10),
-            createdAt: faker.date.dateTime(),
-          );
+        _items.value = data.map((e) {
+          return transformer(e);
         }).toList();
+        print(_items.value);
       }
     } catch (e) {
-      //_supabase.auth.currentSession.expiresIn;
       return Future.error(errorDefinition(e.toString()));
     }
+  }
+}
+
+class ProductService with ListenableServiceMixin, SupabaseMixin<ProductDto> {
+  ProductService() {
+    table = "products";
+    transformer = (e) {
+      return ProductDto.fromJson(e);
+    };
+    listenToReactiveValues([items]);
   }
 }

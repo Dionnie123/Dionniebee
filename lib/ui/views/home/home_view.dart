@@ -165,73 +165,76 @@ class HomeView extends StackedView<HomeViewModel> {
               ),
             ]),
           ),
-          const SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-            sliver: SliverToBoxAdapter(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Menu",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    alignment: WrapAlignment.center,
-                    children: [
-                      Text(
-                        "View All",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+          if (viewModel.products.isNotEmpty)
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Menu",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
-                      Icon(Icons.chevron_right_rounded)
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          ProductMenuListView(
-            size: const Size(double.infinity, 108.0),
-            products: viewModel.products,
-            itemBuilder: (context, i) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 4.0),
-                child: FoodMenuItem(
-                  onTap: () {
-                    viewModel.navService.navigateToFooView();
-                  },
-                  viewModel.products[i],
-                  size: const Size(120, 108.0),
-                  onAdd: () {
-                    viewModel.addToCart(viewModel.products[i]);
-                  },
-                ),
-              );
-            },
-          ),
-          const SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-            sliver: SliverToBoxAdapter(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Featured Products",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ],
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        Text(
+                          "View All",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        Icon(Icons.chevron_right_rounded)
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
+          if (viewModel.products.isNotEmpty)
+            ProductMenuListView(
+              size: const Size(double.infinity, 108.0),
+              products: viewModel.products,
+              itemBuilder: (context, i) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: FoodMenuItem(
+                    onTap: () {
+                      viewModel.navService.navigateToFooView();
+                    },
+                    viewModel.products[i],
+                    size: const Size(120, 108.0),
+                    onAdd: () {
+                      viewModel.addToCart(viewModel.products[i]);
+                    },
+                  ),
+                );
+              },
+            ),
+          if (viewModel.products.isNotEmpty)
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Featured Products",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           SuggestedProductListview(
             size: const Size(double.infinity, 238.0),
             products: viewModel.products,
@@ -246,19 +249,21 @@ class HomeView extends StackedView<HomeViewModel> {
               );
             },
           ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-            sliver: SliverToBoxAdapter(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  OutlinedButton(
-                      onPressed: () {}, child: const Text("Show me more!"))
-                ],
+          if (viewModel.products.isNotEmpty)
+            SliverToBoxAdapter(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    OutlinedButton(
+                        onPressed: () {}, child: const Text("Show me more!"))
+                  ],
+                ),
               ),
-            ),
-          ),
+            )
         ]),
       ),
     );

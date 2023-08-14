@@ -34,15 +34,7 @@ class HomeViewModel extends ReactiveViewModel {
   }
 
   Future start(bool showLoading) async {
-    if (showLoading) {
-      await runBusyFuture(_productService.fetchAllProducts(),
-          throwException: true);
-    } else {
-      await Future.value([
-        _productService.fetchAllProducts(),
-        await Future.delayed(const Duration(milliseconds: 500))
-      ]);
-    }
+    await runBusyFuture(_productService.fetchAll(), throwException: true);
   }
 
   Future addToCart(ProductDto product) async {
@@ -64,6 +56,6 @@ class HomeViewModel extends ReactiveViewModel {
 
   num get cartTotal => _cartService.cartTotal;
   int get cartItemsQuantity => _cartService.cartItemsQuantity;
-  List<ProductDto> get products => _productService.products;
+  List<ProductDto> get products => _productService.items;
   List<ProductDto> get cart => _cartService.cart;
 }
