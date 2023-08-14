@@ -13,6 +13,13 @@ class NavigationBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavigationBar(
       onDestinationSelected: (int index) async {
+        if (index == 0) {
+          locator<RouterService>().replaceWithHomeView();
+        } else if (index == 1) {
+          locator<RouterService>().replaceWithPromoView();
+        } else if (index == 2) {
+          locator<RouterService>().replaceWithOrdersView();
+        }
         if (index == 3) {
           if (await hasNetwork() == true) {
             locator<RouterService>().navigateToStoresView();

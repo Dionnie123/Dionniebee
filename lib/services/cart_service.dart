@@ -23,7 +23,7 @@ class CartService with ListenableServiceMixin {
     return temp;
   }
 
-  int get cartItemsQuantity {
+  int get cartCount {
     int temp = 0;
     for (var element in _cart.value) {
       temp += element.quantityInCart ?? 0;

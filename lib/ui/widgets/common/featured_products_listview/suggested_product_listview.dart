@@ -3,11 +3,11 @@ import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/special/sliver_grid_delegate.dart';
 import 'package:flutter/material.dart';
 
-class SuggestedProductListview extends StatelessWidget {
+class FeaturedProductsListview extends StatelessWidget {
   final Size size;
   final List<ProductDto> products;
   final Widget? Function(BuildContext, int) itemBuilder;
-  const SuggestedProductListview(
+  const FeaturedProductsListview(
       {super.key,
       required this.products,
       required this.itemBuilder,

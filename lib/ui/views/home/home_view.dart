@@ -1,12 +1,11 @@
+import 'package:dionniebee/ui/widgets/common/dashboard/widgets/app_bar_widget.dart';
 import 'package:dionniebee/ui/widgets/common/dashboard/widgets/bottom_nav_widget.dart';
 import 'package:dionniebee/ui/widgets/common/dashboard/widgets/drawer_widget.dart';
 import 'package:dionniebee/ui/widgets/common/product_menu_item/food_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:badges/badges.dart' as badges;
 import 'home_viewmodel.dart';
 import 'package:dionniebee/app/app.router.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/widgets/common/cart_item/cart_item.dart';
 import 'package:dionniebee/ui/widgets/common/cart_listview/cart_breakdown.dart';
 import 'package:dionniebee/ui/widgets/common/product_item/product_item.dart';
@@ -26,38 +25,14 @@ class HomeView extends StackedView<HomeViewModel> {
     return Scaffold(
       drawer: const DrawerWidget(),
       bottomNavigationBar: const NavigationBarWidget(selectedIndex: 0),
-      appBar: AppBar(
-        elevation: 0,
-        title: const Text(
-          "DionnieBee",
-          style: TextStyle(
-              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle_rounded),
-            onPressed: () async {
-              await viewModel.signOut();
-            },
-          ),
-          Builder(builder: (context) {
-            return IconButton(
-              icon: badges.Badge(
-                  position: badges.BadgePosition.custom(top: -15, end: -10),
-                  showBadge: viewModel.cartItemsQuantity > 0,
-                  badgeAnimation: const badges.BadgeAnimation.scale(),
-                  badgeContent: Text(
-                    viewModel.cartItemsQuantity.toString(),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  child: const Icon(Icons.shopping_cart_rounded)),
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-            );
-          }),
-          hSpaceRegular,
-        ],
+      appBar: AppBarWidget(
+        onCartTap: () {
+          Scaffold.of(context).openEndDrawer();
+        },
+        onSignOut: () async {
+          await viewModel.signOut();
+        },
+        cartCount: viewModel.cartCount,
       ),
       endDrawer: SideCart(
         itemCount: viewModel.cart.length,
@@ -194,20 +169,21 @@ class HomeView extends StackedView<HomeViewModel> {
                 ),
               ),
             ),
-          SuggestedProductListview(
-            size: const Size(double.infinity, 238.0),
-            products: viewModel.products,
-            itemBuilder: (context, i) {
-              return ProductItem(
-                onTap: () {},
-                viewModel.products[i],
-                size: const Size(double.infinity, 238.0),
-                onAdd: () async {
-                  await viewModel.addToCart(viewModel.products[i]);
-                },
-              );
-            },
-          ),
+          if (viewModel.products.isNotEmpty)
+            FeaturedProductsListview(
+              size: const Size(double.infinity, 238.0),
+              products: viewModel.products,
+              itemBuilder: (context, i) {
+                return ProductItem(
+                  onTap: () {},
+                  viewModel.products[i],
+                  size: const Size(double.infinity, 238.0),
+                  onAdd: () async {
+                    await viewModel.addToCart(viewModel.products[i]);
+                  },
+                );
+              },
+            ),
           if (viewModel.products.isNotEmpty)
             SliverToBoxAdapter(
               child: Padding(
