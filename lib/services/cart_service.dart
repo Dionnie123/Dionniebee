@@ -32,9 +32,11 @@ class CartService with ListenableServiceMixin {
   }
 
   addToCart(ProductDto product) {
+    print('add');
     final index = _cart.value.indexWhere((element) => element.id == product.id);
     if (index == -1) {
       _cart.value.add(product.copyWith(quantityInCart: 1));
+      notifyListeners();
     } else {
       final temp = _cart.value[index].copyWith(
           quantityInCart: (_cart.value[index].quantityInCart ?? 0) + 1);

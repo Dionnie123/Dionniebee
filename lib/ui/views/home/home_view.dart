@@ -209,8 +209,8 @@ class HomeView extends StackedView<HomeViewModel> {
                     },
                     viewModel.products[i],
                     size: const Size(120, 108.0),
-                    onAdd: () {
-                      viewModel.addToCart(viewModel.products[i]);
+                    onAdd: () async {
+                      await viewModel.addToCart(viewModel.products[i]);
                     },
                   ),
                 );
@@ -243,8 +243,8 @@ class HomeView extends StackedView<HomeViewModel> {
                 onTap: () {},
                 viewModel.products[i],
                 size: const Size(double.infinity, 238.0),
-                onAdd: () {
-                  viewModel.addToCart(viewModel.products[i]);
+                onAdd: () async {
+                  await viewModel.addToCart(viewModel.products[i]);
                 },
               );
             },

@@ -29,6 +29,8 @@ class _ProductItemState extends State<ProductItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        widget.onAdd();
+
         setState(() {
           visible = true;
           Future.delayed(const Duration(milliseconds: 1000), () {
@@ -37,7 +39,6 @@ class _ProductItemState extends State<ProductItem> {
             });
           });
         });
-        widget.onTap();
       },
       child: Stack(
         children: [

@@ -17,9 +17,8 @@ class HomeViewModel extends ReactiveViewModel {
   final _cartService = locator<CartService>();
   final _dialogService = locator<DialogService>();
   @override
-  List<ListenableServiceMixin> get listenableServices => [
-        _productService,
-      ];
+  List<ListenableServiceMixin> get listenableServices =>
+      [_productService, _cartService];
 
   @override
   void onFutureError(error, Object? key) {
@@ -37,8 +36,8 @@ class HomeViewModel extends ReactiveViewModel {
     await runBusyFuture(_productService.fetchAll(), throwException: true);
   }
 
-  Future addToCart(ProductDto product) async {
-    await runBusyFuture(_cartService.addToCart(product), throwException: true);
+  addToCart(ProductDto product) {
+    _cartService.addToCart(product);
   }
 
   addCartItemQuantity(int id) {
