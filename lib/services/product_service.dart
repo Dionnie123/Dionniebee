@@ -28,7 +28,6 @@ mixin SupabaseMixin<T> on ListenableServiceMixin {
         _items.value = data.map((e) {
           return transformer(e);
         }).toList();
-        print(_items.value);
       }
     } catch (e) {
       return Future.error(errorDefinition(e.toString()));
