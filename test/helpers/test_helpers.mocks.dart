@@ -866,11 +866,29 @@ class MockLocationService extends _i1.Mock implements _i11.LocationService {
         returnValueForMissingStub: null,
       );
   @override
-  int get listenersCount => (super.noSuchMethod(
-        Invocation.getter(#listenersCount),
-        returnValue: 0,
-        returnValueForMissingStub: 0,
-      ) as int);
+  _i7.Stream<_i12.LatLng> get locationStream => (super.noSuchMethod(
+        Invocation.getter(#locationStream),
+        returnValue: _i7.Stream<_i12.LatLng>.empty(),
+        returnValueForMissingStub: _i7.Stream<_i12.LatLng>.empty(),
+      ) as _i7.Stream<_i12.LatLng>);
+  @override
+  _i7.Stream<int> epochUpdatesNumbers() => (super.noSuchMethod(
+        Invocation.method(
+          #epochUpdatesNumbers,
+          [],
+        ),
+        returnValue: _i7.Stream<int>.empty(),
+        returnValueForMissingStub: _i7.Stream<int>.empty(),
+      ) as _i7.Stream<int>);
+  @override
+  _i7.Stream<int> loc() => (super.noSuchMethod(
+        Invocation.method(
+          #loc,
+          [],
+        ),
+        returnValue: _i7.Stream<int>.empty(),
+        returnValueForMissingStub: _i7.Stream<int>.empty(),
+      ) as _i7.Stream<int>);
   @override
   _i7.Future<_i12.LatLng?> getLocation() => (super.noSuchMethod(
         Invocation.method(
@@ -880,39 +898,6 @@ class MockLocationService extends _i1.Mock implements _i11.LocationService {
         returnValue: _i7.Future<_i12.LatLng?>.value(),
         returnValueForMissingStub: _i7.Future<_i12.LatLng?>.value(),
       ) as _i7.Future<_i12.LatLng?>);
-  @override
-  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #listenToReactiveValues,
-          [reactiveValues],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  void addListener(void Function()? listener) => super.noSuchMethod(
-        Invocation.method(
-          #addListener,
-          [listener],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  void removeListener(void Function()? listener) => super.noSuchMethod(
-        Invocation.method(
-          #removeListener,
-          [listener],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  void notifyListeners() => super.noSuchMethod(
-        Invocation.method(
-          #notifyListeners,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
 }
 
 /// A class which mocks [CartService].
