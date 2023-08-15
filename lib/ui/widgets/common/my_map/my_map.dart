@@ -164,6 +164,14 @@ class MyMap extends StackedView<MyMapModel> {
                                   MarkerLayer(
                                     markers: [
                                       viewModel.buildPin(
+                                          const LatLng(14.4690, 121.1927)),
+                                      viewModel.buildPin(
+                                        const LatLng(14.4796, 120.9809),
+                                      ),
+                                      viewModel.buildPin(
+                                        const LatLng(14.7050, 120.9842),
+                                      ),
+                                      viewModel.buildPin(
                                           viewModel.currentCoordinates ??
                                               const LatLng(0, 0))
                                     ],
@@ -201,7 +209,12 @@ class MyMap extends StackedView<MyMapModel> {
                     ),
                   ],
                 ),
-                Align(alignment: Alignment.bottomRight, child: actions()),
+                Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: actions(),
+                    )),
                 Positioned(
                   top: (size.maxHeight - 35) / 2,
                   left: viewModel.getPointX(context) - 35 / 2,
