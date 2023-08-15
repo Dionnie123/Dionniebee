@@ -3,6 +3,7 @@ import 'package:dionniebee/ui/widgets/common/my_map/widgets/non_rotated_children
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/separated_column.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:stacked/stacked.dart';
 
@@ -22,6 +23,26 @@ class MyMap extends StackedView<MyMapModel> {
       body: AnimatedMap(
         onPop: () {},
         builder: (context, controller) {
+          final markers = [
+            viewModel.buildPin(const LatLng(14.4690, 121.1927)),
+            viewModel.buildPin(
+              const LatLng(14.4796, 120.9809),
+            ),
+            viewModel.buildPin(
+              const LatLng(14.7050, 120.9842),
+            ),
+            viewModel
+                .buildPin(viewModel.currentCoordinates ?? const LatLng(0, 0)),
+            viewModel.buildPin(
+              const LatLng(14.5712, 121.0725),
+            ),
+            viewModel.buildPin(
+              const LatLng(14.5738, 121.0679),
+            ),
+            viewModel.buildPin(
+              const LatLng(14.5704, 121.0803),
+            ),
+          ];
           WidgetsBinding.instance.addPostFrameCallback((_) {
             viewModel.updatePoint(context, controller, null);
           });
@@ -134,22 +155,23 @@ class MyMap extends StackedView<MyMapModel> {
                               return FlutterMap(
                                 mapController: controller.mapController,
                                 options: MapOptions(
-                                    interactiveFlags: InteractiveFlag.drag |
-                                        InteractiveFlag.flingAnimation |
-                                        InteractiveFlag.pinchMove |
-                                        InteractiveFlag.pinchZoom |
-                                        InteractiveFlag.doubleTapZoom,
-                                    boundsOptions: const FitBoundsOptions(
-                                        forceIntegerZoomLevel: true,
-                                        inside: true),
-                                    maxBounds: LatLngBounds.fromPoints([
-                                      const LatLng(4.382696, 112.1661),
-                                      const LatLng(21.53021, 127.0742)
-                                    ]),
-                                    center: viewModel.currentCoordinates ??
-                                        const LatLng(0, 0),
-                                    zoom: 10.5,
-                                    rotationThreshold: 0.0),
+                                  interactiveFlags: InteractiveFlag.drag |
+                                      InteractiveFlag.flingAnimation |
+                                      InteractiveFlag.pinchMove |
+                                      InteractiveFlag.pinchZoom |
+                                      InteractiveFlag.doubleTapZoom,
+                                  boundsOptions: const FitBoundsOptions(
+                                      forceIntegerZoomLevel: true,
+                                      inside: true),
+                                  maxBounds: LatLngBounds.fromPoints([
+                                    const LatLng(4.382696, 112.1661),
+                                    const LatLng(21.53021, 127.0742)
+                                  ]),
+                                  center: viewModel.currentCoordinates ??
+                                      const LatLng(0, 0),
+                                  zoom: 10.5,
+                                  rotationThreshold: 0.0,
+                                ),
                                 nonRotatedChildren: nrChildren,
                                 children: [
                                   TileLayer(
@@ -161,21 +183,9 @@ class MyMap extends StackedView<MyMapModel> {
                                       'id': 'mapbox.mapbox-streets-v8'
                                     },
                                   ),
-                                  MarkerLayer(
-                                    markers: [
-                                      viewModel.buildPin(
-                                          const LatLng(14.4690, 121.1927)),
-                                      viewModel.buildPin(
-                                        const LatLng(14.4796, 120.9809),
-                                      ),
-                                      viewModel.buildPin(
-                                        const LatLng(14.7050, 120.9842),
-                                      ),
-                                      viewModel.buildPin(
-                                          viewModel.currentCoordinates ??
-                                              const LatLng(0, 0))
-                                    ],
-                                  ),
+                                  /*  const MarkerLayer(
+                                    markers: [],
+                                  ), */
                                   /*   CurrentLocationLayer(
 
                                     // followOnLocationUpdate: FollowOnLocationUpdate.always,
@@ -190,7 +200,7 @@ class MyMap extends StackedView<MyMapModel> {
                                       markerSize: Size(40, 40),
                                       markerDirection: MarkerDirection.heading,
                                     )), */
-                                  CircleLayer(
+                                  /*    CircleLayer(
                                     circles: [
                                       CircleMarker(
                                         borderColor: Colors.red,
@@ -202,6 +212,34 @@ class MyMap extends StackedView<MyMapModel> {
                                         useRadiusInMeter: true,
                                       ),
                                     ],
+                                  ), */
+                                  MarkerClusterLayerWidget(
+                                    options: MarkerClusterLayerOptions(
+                                      anchorPos:
+                                          AnchorPos.align(AnchorAlign.center),
+                                      maxClusterRadius: 100,
+                                      size: const Size(40, 40),
+                                      fitBoundsOptions: const FitBoundsOptions(
+                                        padding: EdgeInsets.all(50),
+                                        maxZoom: 15,
+                                      ),
+                                      markers: markers,
+                                      builder: (context, markers) {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Colors.blue),
+                                          child: Center(
+                                            child: Text(
+                                              markers.length.toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ],
                               );
