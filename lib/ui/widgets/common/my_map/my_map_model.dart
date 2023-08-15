@@ -10,13 +10,12 @@ class MyMapModel extends StreamViewModel<LatLng> {
   final locationService = locator<LocationService>();
 
   LatLng? get currentCoordinates {
-    print(data);
+    // print(data);
     return data;
   }
 
   @override
   Stream<LatLng> get stream => locationService.locationStream;
-
   final useTransformerId = 'useTransformerId';
   final markerSize = 50.0;
 
@@ -61,5 +60,5 @@ class MyMapModel extends StreamViewModel<LatLng> {
       height: 35,
       anchorPos: AnchorPos.align(AnchorAlign.center));
 
-  List<AnimatedMarker> markers = [];
+  List<Marker> markers = [];
 }

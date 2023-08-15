@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/animated_map.dart';
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/non_rotated_children.dart';
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/separated_column.dart';
@@ -23,8 +25,8 @@ class MyMap extends StackedView<MyMapModel> {
       body: AnimatedMap(
         onPop: () {},
         builder: (context, controller) {
-          final markers = [
-            viewModel.buildPin(const LatLng(14.4690, 121.1927)),
+          /* [
+           
             viewModel.buildPin(
               const LatLng(14.4796, 120.9809),
             ),
@@ -42,7 +44,7 @@ class MyMap extends StackedView<MyMapModel> {
             viewModel.buildPin(
               const LatLng(14.5704, 121.0803),
             ),
-          ];
+          ]; */
           WidgetsBinding.instance.addPostFrameCallback((_) {
             viewModel.updatePoint(context, controller, null);
           });
@@ -169,7 +171,7 @@ class MyMap extends StackedView<MyMapModel> {
                                   ]),
                                   center: viewModel.currentCoordinates ??
                                       const LatLng(0, 0),
-                                  zoom: 10.5,
+                                  //zoom: 10.5,
                                   rotationThreshold: 0.0,
                                 ),
                                 nonRotatedChildren: nrChildren,
@@ -224,18 +226,19 @@ class MyMap extends StackedView<MyMapModel> {
                                         forceIntegerZoomLevel: false,
                                         padding: EdgeInsets.all(50),
                                       ),
-                                      markers: markers,
+                                      markers: viewModel.markers,
                                       builder: (context, markers) {
                                         return Container(
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(20),
-                                              color: Colors.blue),
+                                              color: Colors.red),
                                           child: Center(
                                             child: Text(
                                               markers.length.toString(),
                                               style: const TextStyle(
-                                                  color: Colors.white),
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         );
@@ -284,4 +287,20 @@ class MyMap extends StackedView<MyMapModel> {
     BuildContext context,
   ) =>
       MyMapModel();
+
+  @override
+  void onViewModelReady(MyMapModel viewModel) {
+    viewModel.markers = List.generate(
+      10,
+      (index) {
+        double randomLatitude = 14.55 + Random().nextDouble() * (14.65 - 14.55);
+
+        // Longitude range for the Philippines: approximately 117.0 to 127.0
+        double randomLongitude =
+            121.03 + Random().nextDouble() * (121.09 - 121.03);
+        return viewModel.buildPin(LatLng(randomLatitude, randomLongitude));
+      },
+    );
+    super.onViewModelReady(viewModel);
+  }
 }
