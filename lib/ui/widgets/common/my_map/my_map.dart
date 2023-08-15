@@ -220,8 +220,9 @@ class MyMap extends StackedView<MyMapModel> {
                                       maxClusterRadius: 100,
                                       size: const Size(40, 40),
                                       fitBoundsOptions: const FitBoundsOptions(
+                                        //Pag-tap pakita agad ng branch
+                                        forceIntegerZoomLevel: false,
                                         padding: EdgeInsets.all(50),
-                                        maxZoom: 15,
                                       ),
                                       markers: markers,
                                       builder: (context, markers) {
@@ -259,7 +260,7 @@ class MyMap extends StackedView<MyMapModel> {
                   child: const Icon(
                     Icons.location_pin,
                     size: 35,
-                    color: Colors.blue,
+                    color: Colors.green,
                   ),
                 ),
                 Align(
