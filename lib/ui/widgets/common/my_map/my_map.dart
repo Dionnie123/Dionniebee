@@ -22,6 +22,10 @@ class MyMap extends StackedView<MyMapModel> {
       body: AnimatedMap(
         onPop: () {},
         builder: (context, controller) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            viewModel.updatePoint(context, controller, null);
+          });
+
           Widget actions() {
             return SeparatedColumn(
               mainAxisSize: MainAxisSize.min,
@@ -52,7 +56,7 @@ class MyMap extends StackedView<MyMapModel> {
                   onPressed: () {
                     viewModel.markers = [];
                     controller.animateTo(
-                      dest: viewModel.center,
+                      dest: viewModel.currentCoordinates,
                       rotation: 0,
                       customId: viewModel.useTransformer
                           ? viewModel.useTransformerId
@@ -118,85 +122,106 @@ class MyMap extends StackedView<MyMapModel> {
             );
           }
 
-          return Stack(
-            children: [
-              Column(
-                children: [
-                  Text(viewModel.currentCoordinates.toString()),
-                  Expanded(
-                    child: viewModel.currentCoordinates == null
-                        ? const SizedBox.shrink()
-                        : FlutterMap(
-                            mapController: controller.mapController,
-                            options: MapOptions(
-                                interactiveFlags: InteractiveFlag.drag |
-                                    InteractiveFlag.flingAnimation |
-                                    InteractiveFlag.pinchMove |
-                                    InteractiveFlag.pinchZoom |
-                                    InteractiveFlag.doubleTapZoom,
-                                boundsOptions: const FitBoundsOptions(
-                                    forceIntegerZoomLevel: true, inside: true),
-                                maxBounds: LatLngBounds.fromPoints([
-                                  const LatLng(4.382696, 112.1661),
-                                  const LatLng(21.53021, 127.0742)
-                                ]),
-                                center: viewModel.currentCoordinates ??
-                                    const LatLng(0, 0),
-                                zoom: 10.5,
-                                rotationThreshold: 0.0),
-                            nonRotatedChildren: nrChildren,
-                            children: [
-                              TileLayer(
-                                urlTemplate:
-                                    'https://api.mapbox.com/styles/v1/mbulingit/cll89rse000b401puaxxlcroa/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWJ1bGluZ2l0IiwiYSI6ImNsbDdqdG1ucTBzd2Izc3FxYXF2Nnp3NXMifQ.C0RXDFn0tmETYAAhKrITDw',
-                                additionalOptions: const {
-                                  'token':
-                                      'pk.eyJ1IjoibWJ1bGluZ2l0IiwiYSI6ImNsbDdqdG1ucTBzd2Izc3FxYXF2Nnp3NXMifQ.C0RXDFn0tmETYAAhKrITDw',
-                                  'id': 'mapbox.mapbox-streets-v8'
-                                },
-                              ),
-                              MarkerLayer(
-                                markers: [
-                                  viewModel.buildPin(
-                                      viewModel.currentCoordinates ??
-                                          const LatLng(0, 0))
-                                ],
-                              ),
-                              /*   CurrentLocationLayer(
-
-                            // followOnLocationUpdate: FollowOnLocationUpdate.always,
-                            turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
-                            style: const LocationMarkerStyle(
-                              marker: DefaultLocationMarker(
-                                child: Icon(
-                                  Icons.navigation,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              markerSize: Size(40, 40),
-                              markerDirection: MarkerDirection.heading,
-                            )), */
-                              CircleLayer(
-                                circles: [
-                                  CircleMarker(
-                                    borderColor: Colors.red,
-                                    borderStrokeWidth: 2,
-                                    color: Colors.orange.withOpacity(0.1),
-                                    point: viewModel.currentCoordinates ??
+          return LayoutBuilder(builder: (context, size) {
+            return Stack(
+              children: [
+                Column(
+                  children: [
+                    Expanded(
+                      child: viewModel.currentCoordinates == null
+                          ? const SizedBox.shrink()
+                          : LayoutBuilder(builder: (context, size) {
+                              return FlutterMap(
+                                mapController: controller.mapController,
+                                options: MapOptions(
+                                    interactiveFlags: InteractiveFlag.drag |
+                                        InteractiveFlag.flingAnimation |
+                                        InteractiveFlag.pinchMove |
+                                        InteractiveFlag.pinchZoom |
+                                        InteractiveFlag.doubleTapZoom,
+                                    boundsOptions: const FitBoundsOptions(
+                                        forceIntegerZoomLevel: true,
+                                        inside: true),
+                                    maxBounds: LatLngBounds.fromPoints([
+                                      const LatLng(4.382696, 112.1661),
+                                      const LatLng(21.53021, 127.0742)
+                                    ]),
+                                    center: viewModel.currentCoordinates ??
                                         const LatLng(0, 0),
-                                    radius: 12000,
-                                    useRadiusInMeter: true,
+                                    zoom: 10.5,
+                                    rotationThreshold: 0.0),
+                                nonRotatedChildren: nrChildren,
+                                children: [
+                                  TileLayer(
+                                    urlTemplate:
+                                        'https://api.mapbox.com/styles/v1/mbulingit/cll89rse000b401puaxxlcroa/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWJ1bGluZ2l0IiwiYSI6ImNsbDdqdG1ucTBzd2Izc3FxYXF2Nnp3NXMifQ.C0RXDFn0tmETYAAhKrITDw',
+                                    additionalOptions: const {
+                                      'token':
+                                          'pk.eyJ1IjoibWJ1bGluZ2l0IiwiYSI6ImNsbDdqdG1ucTBzd2Izc3FxYXF2Nnp3NXMifQ.C0RXDFn0tmETYAAhKrITDw',
+                                      'id': 'mapbox.mapbox-streets-v8'
+                                    },
+                                  ),
+                                  MarkerLayer(
+                                    markers: [
+                                      viewModel.buildPin(
+                                          viewModel.currentCoordinates ??
+                                              const LatLng(0, 0))
+                                    ],
+                                  ),
+                                  /*   CurrentLocationLayer(
+
+                                    // followOnLocationUpdate: FollowOnLocationUpdate.always,
+                                    turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
+                                    style: const LocationMarkerStyle(
+                                      marker: DefaultLocationMarker(
+                                        child: Icon(
+                                          Icons.navigation,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      markerSize: Size(40, 40),
+                                      markerDirection: MarkerDirection.heading,
+                                    )), */
+                                  CircleLayer(
+                                    circles: [
+                                      CircleMarker(
+                                        borderColor: Colors.red,
+                                        borderStrokeWidth: 2,
+                                        color: Colors.orange.withOpacity(0.1),
+                                        point: viewModel.currentCoordinates ??
+                                            const LatLng(0, 0),
+                                        radius: 12000,
+                                        useRadiusInMeter: true,
+                                      ),
+                                    ],
                                   ),
                                 ],
-                              ),
-                            ],
-                          ),
+                              );
+                            }),
+                    ),
+                  ],
+                ),
+                Align(alignment: Alignment.bottomRight, child: actions()),
+                Positioned(
+                  top: (size.maxHeight - 35) / 2,
+                  left: viewModel.getPointX(context) - 35 / 2,
+                  child: const Icon(
+                    Icons.location_pin,
+                    size: 35,
+                    color: Colors.blue,
                   ),
-                ],
-              ),
-              Align(alignment: Alignment.bottomRight, child: actions())
-            ],
-          );
+                ),
+                Align(
+                  child: Column(
+                    children: [
+                      Text(viewModel.currentCoordinates.toString()),
+                      Text(viewModel.pointer.toString()),
+                    ],
+                  ),
+                )
+              ],
+            );
+          });
         },
       ),
     );
