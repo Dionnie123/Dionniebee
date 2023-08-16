@@ -189,7 +189,7 @@ class MyMap extends StackedView<MyMapModel> {
                                     markers: [],
                                   ), */
                                   /*   CurrentLocationLayer(
-
+            
                                     // followOnLocationUpdate: FollowOnLocationUpdate.always,
                                     turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
                                     style: const LocationMarkerStyle(
