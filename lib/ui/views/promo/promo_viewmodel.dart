@@ -1,6 +1,5 @@
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
-import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/product_service.dart';
@@ -8,9 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-const String fuck = 'xxx';
-
-class HomeViewModel extends ReactiveViewModel {
+class PromoViewModel extends ReactiveViewModel {
   final _authService = locator<AuthService>();
   final navService = locator<RouterService>();
   final _productService = locator<ProductService>();
@@ -32,31 +29,10 @@ class HomeViewModel extends ReactiveViewModel {
     });
   }
 
-  Future start(bool showLoading) async {
-    await runBusyFuture(_productService.fetchAll(), throwException: true);
-  }
-
-  addToCart(ProductDto product) {
-    _cartService.addToCart(product);
-  }
-
-  addCartItemQuantity(int id) {
-    _cartService.addCartItemQuantity(id);
-  }
-
-  minusCartItemQuantity(int id) {
-    _cartService.minusCartItemQuantity(id);
-  }
-
   signOut() async {
     await _authService.signOut();
     await navService.replaceWithAuthView();
   }
 
   int get cartCount => _cartService.cartCount;
-
-  num get cartTotal => _cartService.cartTotal;
-
-  List<ProductDto> get products => _productService.items;
-  List<ProductDto> get cart => _cartService.cart;
 }

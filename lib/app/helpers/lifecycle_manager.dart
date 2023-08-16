@@ -5,7 +5,7 @@ class LifeCycleManager extends StatefulWidget {
   const LifeCycleManager({Key? key, required this.child}) : super(key: key);
 
   @override
-  _LifeCycleManagerState createState() => _LifeCycleManagerState();
+  State<LifeCycleManager> createState() => _LifeCycleManagerState();
 }
 
 class _LifeCycleManagerState extends State<LifeCycleManager>

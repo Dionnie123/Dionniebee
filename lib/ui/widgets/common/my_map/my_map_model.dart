@@ -1,18 +1,52 @@
+import 'package:dionniebee/app/app.locator.dart';
+import 'package:dionniebee/services/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:stacked/stacked.dart';
 
-class MyMapModel extends BaseViewModel {
+class MyMapModel extends StreamViewModel<LatLng> {
+  final locationService = locator<LocationService>();
+
+  LatLng? get currentCoordinates {
+    // print(data);
+    return data;
+  }
+
+  @override
+  Stream<LatLng> get stream => locationService.locationStream;
   final useTransformerId = 'useTransformerId';
   final markerSize = 50.0;
-  final center = const LatLng(14.58691000, 121.06140000);
+
   bool _useTransformer = true;
   get useTransformer => _useTransformer;
   set useTransformer(val) {
     _useTransformer = val;
     notifyListeners();
+  }
+
+  LatLng pointer = const LatLng(0, 0);
+
+  void updatePoint(
+    BuildContext context,
+    AnimatedMapController controller,
+    MapEvent? event,
+  ) {
+    final pointX = getPointX(context);
+    final pointY = getPointY(context);
+
+    pointer =
+        controller.mapController.pointToLatLng(CustomPoint(pointX, pointY));
+    notifyListeners();
+  }
+
+  double getPointX(BuildContext context) {
+    return MediaQuery.of(context).size.width / 2;
+  }
+
+  double getPointY(BuildContext context) {
+    return MediaQuery.of(context).size.height / 2;
   }
 
   Marker buildPin(LatLng point) => Marker(
@@ -26,5 +60,5 @@ class MyMapModel extends BaseViewModel {
       height: 35,
       anchorPos: AnchorPos.align(AnchorAlign.center));
 
-  List<AnimatedMarker> markers = [];
+  List<Marker> markers = [];
 }

@@ -23,7 +23,7 @@ class CartService with ListenableServiceMixin {
     return temp;
   }
 
-  int get cartItemsQuantity {
+  int get cartCount {
     int temp = 0;
     for (var element in _cart.value) {
       temp += element.quantityInCart ?? 0;
@@ -32,9 +32,11 @@ class CartService with ListenableServiceMixin {
   }
 
   addToCart(ProductDto product) {
+    print('add');
     final index = _cart.value.indexWhere((element) => element.id == product.id);
     if (index == -1) {
       _cart.value.add(product.copyWith(quantityInCart: 1));
+      notifyListeners();
     } else {
       final temp = _cart.value[index].copyWith(
           quantityInCart: (_cart.value[index].quantityInCart ?? 0) + 1);

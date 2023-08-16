@@ -1,3 +1,4 @@
+import 'package:dionniebee/app/helpers/lifecycle_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -36,31 +37,36 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final supabase = Supabase.instance.client;
-    if (!kIsWeb) FlutterNativeSplash.remove();
-    return MaterialApp.router(
-      scrollBehavior: AppScrollBehavior(),
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      theme: ThemeData(
-        fontFamily: GoogleFonts.quicksand().fontFamily,
-        // useMaterial3: true,
-        brightness: Brightness.light,
-        textTheme: GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
-        colorSchemeSeed: Colors.red,
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      FlutterNativeSplash.remove();
+    });
+    return LifeCycleManager(
+      child: MaterialApp.router(
+        scrollBehavior: AppScrollBehavior(),
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.light,
+        theme: ThemeData(
+          fontFamily: GoogleFonts.quicksand().fontFamily,
+          // useMaterial3: true,
+          brightness: Brightness.light,
+          textTheme:
+              GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
+          colorSchemeSeed: Colors.red,
+        ),
+        darkTheme: ThemeData(
+          fontFamily: GoogleFonts.openSans().fontFamily,
+          useMaterial3: true,
+          brightness: Brightness.dark,
+        ).copyWith(
+            // colorScheme: darkColorScheme,
+            ),
+        routerDelegate: stackedRouter.delegate(initialRoutes: [
+          supabase.auth.currentUser != null
+              ? const HomeViewRoute()
+              : const AuthViewRoute()
+        ]),
+        routeInformationParser: stackedRouter.defaultRouteParser(),
       ),
-      darkTheme: ThemeData(
-        fontFamily: GoogleFonts.openSans().fontFamily,
-        useMaterial3: true,
-        brightness: Brightness.dark,
-      ).copyWith(
-          // colorScheme: darkColorScheme,
-          ),
-      routerDelegate: stackedRouter.delegate(initialRoutes: [
-        supabase.auth.currentUser != null
-            ? const HomeViewRoute()
-            : const AuthViewRoute()
-      ]),
-      routeInformationParser: stackedRouter.defaultRouteParser(),
     );
   }
 }

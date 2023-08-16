@@ -14,6 +14,7 @@ import 'package:dionniebee/ui/views/orders/orders_view.dart';
 import 'package:dionniebee/ui/views/stores/stores_view.dart';
 import 'package:dionniebee/services/location_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
+import 'package:dionniebee/ui/views/promo/promo_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -48,7 +49,16 @@ import 'package:dionniebee/services/cart_service.dart';
       page: OrdersView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
-    MaterialRoute(page: StoresView),
+    CustomRoute(
+      path: '/',
+      page: StoresView,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+    ),
+    CustomRoute(
+      path: '/',
+      page: PromoView,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+    ),
 // @stacked-route
   ],
   dependencies: [

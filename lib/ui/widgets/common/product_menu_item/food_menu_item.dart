@@ -1,5 +1,6 @@
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dionniebee/ui/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -37,11 +38,11 @@ class FoodMenuItem extends StatelessWidget {
                       children: [
                         CachedNetworkImage(
                           imageUrl: product.imageUrl.toString(),
-                          placeholder: (context, url) => Container(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
+                          placeholder: (context, url) =>
+                              Container(color: kcLightGrey),
+                          errorWidget: (context, url, error) => Container(
+                              color: kcLightGrey,
+                              child: const Icon(Icons.error)),
                           height: 100,
                           width: double.infinity,
                           fit: BoxFit.cover,

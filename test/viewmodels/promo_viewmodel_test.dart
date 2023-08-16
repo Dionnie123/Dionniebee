@@ -4,7 +4,7 @@ import 'package:dionniebee/app/app.locator.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  group('FeaturedProductsListviewModel Tests -', () {
+  group('PromoViewModel Tests -', () {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
   });

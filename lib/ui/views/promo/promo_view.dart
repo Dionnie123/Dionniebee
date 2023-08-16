@@ -3,15 +3,16 @@ import 'package:dionniebee/ui/widgets/common/dashboard/widgets/bottom_nav_widget
 import 'package:dionniebee/ui/widgets/common/dashboard/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'orders_viewmodel.dart';
 
-class OrdersView extends StackedView<OrdersViewModel> {
-  const OrdersView({super.key});
+import 'promo_viewmodel.dart';
+
+class PromoView extends StackedView<PromoViewModel> {
+  const PromoView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
     BuildContext context,
-    OrdersViewModel viewModel,
+    PromoViewModel viewModel,
     Widget? child,
   ) {
     return Scaffold(
@@ -25,20 +26,20 @@ class OrdersView extends StackedView<OrdersViewModel> {
         cartCount: viewModel.cartCount,
       ),
       drawer: const DrawerWidget(),
-      bottomNavigationBar: const NavigationBarWidget(selectedIndex: 2),
+      bottomNavigationBar: const NavigationBarWidget(selectedIndex: 1),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
           padding: const EdgeInsets.only(
             left: 25.0,
             right: 25.0,
           ),
-          child: const Text("Orders")),
+          child: const Text("Promo")),
     );
   }
 
   @override
-  OrdersViewModel viewModelBuilder(
+  PromoViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      OrdersViewModel();
+      PromoViewModel();
 }
