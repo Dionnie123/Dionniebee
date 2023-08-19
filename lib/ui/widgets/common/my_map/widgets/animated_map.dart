@@ -97,6 +97,18 @@ class _AnimatedMapState extends State<AnimatedMap>
     );
   }
 
+  Marker dragPointMarker() {
+    return Marker(
+        point: dragPoint ?? const LatLng(0, 0),
+        builder: (context) {
+          return const Icon(
+            Icons.location_pin,
+            size: 35,
+            color: Colors.pink,
+          );
+        });
+  }
+
   Marker currentPointMarker() {
     return Marker(
         point: widget.currentPoint ?? const LatLng(0, 0),
@@ -165,11 +177,6 @@ class _AnimatedMapState extends State<AnimatedMap>
                         children: [
                           mapTemplate(),
                           circle(),
-                          MarkerLayer(
-                            markers: [
-                              currentPointMarker(),
-                            ],
-                          ),
                           MarkerClusterLayerWidget(
                             options: MarkerClusterLayerOptions(
                               anchorPos: AnchorPos.align(AnchorAlign.center),
@@ -187,6 +194,12 @@ class _AnimatedMapState extends State<AnimatedMap>
                                 return clusteredMapWidget();
                               },
                             ),
+                          ),
+                          MarkerLayer(
+                            markers: [
+                              dragPointMarker(),
+                              currentPointMarker(),
+                            ],
                           ),
                         ],
                       ),
