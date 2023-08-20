@@ -671,15 +671,6 @@ class MockDialogService extends _i1.Mock implements _i5.DialogService {
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthService extends _i1.Mock implements _i9.AuthService {
   @override
-  _i7.Future<void> initialise() => (super.noSuchMethod(
-        Invocation.method(
-          #initialise,
-          [],
-        ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
-  @override
   _i7.Future<dynamic> signInWithEmail({
     required String? email,
     required String? password,

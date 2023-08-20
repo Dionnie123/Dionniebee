@@ -1,3 +1,4 @@
+import 'package:dionniebee/services/authentication_service.firebase.dart';
 import 'package:dionniebee/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:dionniebee/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:stacked/stacked.dart';
@@ -62,11 +63,14 @@ import 'package:dionniebee/ui/views/promo/promo_view.dart';
 // @stacked-route
   ],
   dependencies: [
+    InitializableSingleton(
+      classType: FirebaseAuthService,
+      asType: AuthService,
+    ),
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: RouterService),
 
-    InitializableSingleton(classType: AuthService),
     LazySingleton(classType: ProductService),
     LazySingleton(classType: LocationService),
     LazySingleton(classType: CartService),

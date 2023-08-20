@@ -1,4 +1,4 @@
-import 'dart:js_interop';
+import 'package:dionniebee/app/helpers/error_definitions.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -10,8 +10,8 @@ enum SupabaseAuthEvent {
   passwordRecovery
 }
 
-class SupabaseAuthenticationService with Initialisable {
-  final _supabase = Supabase.instance.client;
+class AuthService with Initialisable {
+  late SupabaseClient _supabase;
 
   @override
   Future<void> initialise() async {
@@ -21,24 +21,23 @@ class SupabaseAuthenticationService with Initialisable {
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4and6bWhsdmt4dHF2eW51aHpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTAzODA2MDEsImV4cCI6MjAwNTk1NjYwMX0.20rPk4V8N4NLJ1o2QpsDonVUXinynPlNWHi7kOL5vLg",
     );
 
+    _supabase = Supabase.instance.client;
+  }
+
+/*   AuthService() {
     _supabase.auth.onAuthStateChange.listen((state) async {
       if (state.event.name == SupabaseAuthEvent.passwordRecovery.name) {
         //Go to Password Reset Route
       }
     });
-  }
+  } */
 
   Future signInWithEmail(
       {required String email, required String password}) async {
     try {
-      final res = await _supabase.auth
-          .signInWithPassword(email: email, password: password);
-      if (res.session.isNull) {
-        return await Future.error(
-            "Please verify your email address.Check your email.");
-      }
+      await _supabase.auth.signInWithPassword(email: email, password: password);
     } catch (e) {
-      return await Future.error(e.toString());
+      return await Future.error(errorDefinition(e.toString()));
     }
   }
 
@@ -50,14 +49,17 @@ class SupabaseAuthenticationService with Initialisable {
         password: password,
       );
       if ((res.user?.identities ?? []).isEmpty) {
-        return await Future.error("User already exists.");
+        return await Future.value("User already exists.");
       }
-      if (res.session.isNull) {
-        return await Future.error(
-            "Please verify your email address.Check your email.");
+      if (res.user != null && res.session == null) {
+        return await Future.value(
+            "Please verify your email address.\nCheck your email.");
+      }
+      if (res.user != null && res.session != null) {
+        // Go to dashboard page
       }
     } catch (e) {
-      return await Future.error(e.toString());
+      return await Future.error(errorDefinition(e.toString()));
     }
   }
 
