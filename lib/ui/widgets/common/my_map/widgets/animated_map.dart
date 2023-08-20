@@ -6,6 +6,9 @@ import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
 
 import 'map_floating_action_buttons.dart';
+import 'package:location/location.dart';
+
+enum MapStatus { ready, loading, error }
 
 class AnimatedMap extends StatefulWidget {
   final LatLngBounds? boundary;
@@ -30,8 +33,8 @@ class _AnimatedMapState extends State<AnimatedMap>
 
   AnimatedMapController? _animatedMapController;
   MapController? _mapController;
-  bool mapReady = false;
-
+  MapStatus mapStatus = MapStatus.loading;
+  var location = Location();
   updatePointOnDrag() {
     setState(() {
       dragPoint = _animatedMapController?.mapController.center;
@@ -44,14 +47,12 @@ class _AnimatedMapState extends State<AnimatedMap>
       _animatedMapController = AnimatedMapController(vsync: this);
       _mapController = _animatedMapController?.mapController;
 
-      setState(() {
-        if (_animatedMapController != null &&
-            _mapController != null &&
-            widget.currentPoint != null) {}
-        mapReady = true;
-      });
+      if (_animatedMapController != null &&
+          _mapController != null &&
+          widget.currentPoint != null) {}
+      mapStatus = MapStatus.ready;
     } catch (e) {
-      print(e);
+      mapStatus = MapStatus.error;
     }
 
     super.initState();
@@ -141,7 +142,7 @@ class _AnimatedMapState extends State<AnimatedMap>
 
   @override
   Widget build(BuildContext context) {
-    return !mapReady
+    return (mapStatus == MapStatus.loading)
         ? const Center(
             child: CircularProgressIndicator(),
           )

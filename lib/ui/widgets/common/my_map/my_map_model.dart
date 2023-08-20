@@ -51,13 +51,27 @@ class MyMapModel extends StreamViewModel<LatLng> {
 
   Marker buildPin(LatLng point) => Marker(
       point: point,
-      builder: (ctx) => const Icon(
-            Icons.location_pin,
-            size: 35,
-            color: Colors.red,
+      builder: (ctx) => Wrap(
+            alignment: WrapAlignment.center,
+            runAlignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Card(
+                  color: Colors.red,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child:
+                        Image.asset('assets/logo.png', width: 30, height: 30),
+                  )),
+              const Icon(
+                Icons.location_pin,
+                size: 35,
+                color: Colors.red,
+              ),
+            ],
           ),
-      width: 35,
-      height: 35,
+      width: 70,
+      height: 70,
       anchorPos: AnchorPos.align(AnchorAlign.center));
 
   List<Marker> markers = [];
