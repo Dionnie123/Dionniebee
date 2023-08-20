@@ -8,7 +8,7 @@ part of 'product_dto.dart';
 
 _$_ProductDto _$$_ProductDtoFromJson(Map<String, dynamic> json) =>
     _$_ProductDto(
-      id: json['id'] as int?,
+      id: json['id'] as String?,
       imageUrl: json['image_url'] as String?,
       name: json['name'] as String?,
       description: json['description'] as String?,

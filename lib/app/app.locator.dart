@@ -6,6 +6,7 @@
 
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
+import 'package:dionniebee/services/product_service.dart';
 import 'package:stacked_services/src/bottom_sheet/bottom_sheet_service.dart';
 import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/router_service.dart';
@@ -15,7 +16,6 @@ import '../services/auth_service.dart';
 import '../services/authentication_service.firebase.dart';
 import '../services/cart_service.dart';
 import '../services/location_service.dart';
-import '../services/product_service.dart';
 import 'app.router.dart';
 
 final locator = StackedLocator.instance;

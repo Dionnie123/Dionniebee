@@ -20,7 +20,7 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProductDto {
-  int? get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $ProductDtoCopyWith<$Res> {
       _$ProductDtoCopyWithImpl<$Res, ProductDto>;
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       String? imageUrl,
       String? name,
       String? description,
@@ -78,7 +78,7 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -120,7 +120,7 @@ abstract class _$$_ProductDtoCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       String? imageUrl,
       String? name,
       String? description,
@@ -154,7 +154,7 @@ class __$$_ProductDtoCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -205,7 +205,7 @@ class _$_ProductDto implements _ProductDto {
       _$$_ProductDtoFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
   final String? imageUrl;
   @override
@@ -267,7 +267,7 @@ class _$_ProductDto implements _ProductDto {
 
 abstract class _ProductDto implements ProductDto {
   factory _ProductDto(
-      {final int? id,
+      {final String? id,
       final String? imageUrl,
       final String? name,
       final String? description,
@@ -280,7 +280,7 @@ abstract class _ProductDto implements ProductDto {
       _$_ProductDto.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
   String? get imageUrl;
   @override

@@ -10,7 +10,7 @@ class ProductDto with _$ProductDto {
     fieldRename: FieldRename.snake,
   )
   factory ProductDto({
-    int? id,
+    String? id,
     String? imageUrl,
     String? name,
     String? description,

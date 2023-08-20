@@ -10,16 +10,13 @@ class FirebaseAuthService with Initialisable implements AuthService {
 
   @override
   Future<void> initialise() async {
-    print('initialize');
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
     //await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
     _firebaseAuth = FirebaseAuth.instance;
 
     _firebaseAuth.authStateChanges().listen((firebaseUser.User? user) {
-      if (user != null) {
-        print(user.uid);
-      }
+      if (user != null) {}
     });
   }
 

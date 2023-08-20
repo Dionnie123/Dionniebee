@@ -87,6 +87,7 @@ class _ProductItemState extends State<ProductItem> {
                         ),
                         Expanded(
                           child: Container(
+                            width: double.infinity,
                             color: Theme.of(context).primaryColor,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),

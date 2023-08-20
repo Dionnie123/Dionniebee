@@ -61,7 +61,7 @@ class MainApp extends StatelessWidget {
             // colorScheme: darkColorScheme,
             ),
         routerDelegate:
-            stackedRouter.delegate(initialRoutes: [const AuthViewRoute()]),
+            stackedRouter.delegate(initialRoutes: [const HomeViewRoute()]),
         routeInformationParser: stackedRouter.defaultRouteParser(),
       ),
     );

@@ -42,10 +42,10 @@ class HomeView extends StackedView<HomeViewModel> {
           return CartItem(
             viewModel.cart[index],
             onAdd: () {
-              viewModel.addCartItemQuantity(viewModel.cart[index].id ?? -1);
+              viewModel.addCartItemQuantity(viewModel.cart[index].id ?? "");
             },
             onMinus: () {
-              viewModel.minusCartItemQuantity(viewModel.cart[index].id ?? -1);
+              viewModel.minusCartItemQuantity(viewModel.cart[index].id ?? "");
             },
             size: const Size(double.infinity, 150),
           );
@@ -99,7 +99,7 @@ class HomeView extends StackedView<HomeViewModel> {
               ),
             ]),
           ),
-          if (viewModel.products.isNotEmpty)
+          if (viewModel.posts.isNotEmpty)
             const SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -130,10 +130,10 @@ class HomeView extends StackedView<HomeViewModel> {
                 ),
               ),
             ),
-          if (viewModel.products.isNotEmpty)
+          if (viewModel.posts.isNotEmpty)
             ProductMenuListView(
               size: const Size(double.infinity, 108.0),
-              products: viewModel.products,
+              products: viewModel.posts,
               itemBuilder: (context, i) {
                 return Padding(
                   padding: const EdgeInsets.only(right: 4.0),
@@ -141,16 +141,16 @@ class HomeView extends StackedView<HomeViewModel> {
                     onTap: () {
                       viewModel.navService.navigateToFooView();
                     },
-                    viewModel.products[i],
+                    viewModel.posts[i],
                     size: const Size(120, 108.0),
                     onAdd: () async {
-                      await viewModel.addToCart(viewModel.products[i]);
+                      await viewModel.addToCart(viewModel.posts[i]);
                     },
                   ),
                 );
               },
             ),
-          if (viewModel.products.isNotEmpty)
+          if (viewModel.posts.isNotEmpty)
             const SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -169,22 +169,22 @@ class HomeView extends StackedView<HomeViewModel> {
                 ),
               ),
             ),
-          if (viewModel.products.isNotEmpty)
+          if (viewModel.posts.isNotEmpty)
             FeaturedProductsListview(
               size: const Size(double.infinity, 238.0),
-              products: viewModel.products,
+              products: viewModel.posts,
               itemBuilder: (context, i) {
                 return ProductItem(
                   onTap: () {},
-                  viewModel.products[i],
+                  viewModel.posts[i],
                   size: const Size(double.infinity, 238.0),
                   onAdd: () async {
-                    await viewModel.addToCart(viewModel.products[i]);
+                    await viewModel.addToCart(viewModel.posts[i]);
                   },
                 );
               },
             ),
-          if (viewModel.products.isNotEmpty)
+          if (viewModel.posts.isNotEmpty)
             SliverToBoxAdapter(
               child: Padding(
                 padding:

@@ -17,8 +17,21 @@ class HomeViewModel extends ReactiveViewModel {
   final _cartService = locator<CartService>();
   final _dialogService = locator<DialogService>();
   @override
-  List<ListenableServiceMixin> get listenableServices =>
-      [_productService, _cartService];
+  List<ListenableServiceMixin> get listenableServices => [_cartService];
+
+  List<ProductDto> _posts = [];
+  List<ProductDto> get posts => _posts;
+  void listenToPosts() {
+    setBusy(true);
+    _productService.listenToPostsRealTime().listen((postsData) {
+      List<ProductDto> updatedPosts = postsData;
+      if (updatedPosts.isNotEmpty) {
+        _posts = updatedPosts;
+        notifyListeners();
+      }
+      setBusy(false);
+    });
+  }
 
   @override
   void onFutureError(error, Object? key) {
@@ -33,18 +46,18 @@ class HomeViewModel extends ReactiveViewModel {
   }
 
   Future start(bool showLoading) async {
-    await runBusyFuture(_productService.fetchAll(), throwException: true);
+    listenToPosts();
   }
 
   addToCart(ProductDto product) {
     _cartService.addToCart(product);
   }
 
-  addCartItemQuantity(int id) {
+  addCartItemQuantity(String id) {
     _cartService.addCartItemQuantity(id);
   }
 
-  minusCartItemQuantity(int id) {
+  minusCartItemQuantity(String id) {
     _cartService.minusCartItemQuantity(id);
   }
 
@@ -57,6 +70,5 @@ class HomeViewModel extends ReactiveViewModel {
 
   num get cartTotal => _cartService.cartTotal;
 
-  List<ProductDto> get products => _productService.items;
   List<ProductDto> get cart => _cartService.cart;
 }

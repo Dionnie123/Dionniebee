@@ -6,26 +6,6 @@ import 'package:location/location.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LocationService {
-  LatLng? _currentLocation;
-
-  var location = Location();
-
-  Stream<int> epochUpdatesNumbers() async* {
-    int counter = 0;
-    while (true) {
-      await Future.delayed(const Duration(seconds: 1));
-      yield counter += 1;
-    }
-  }
-
-  Stream<int> loc() async* {
-    int counter = 0;
-    while (true) {
-      await Future.delayed(const Duration(seconds: 1));
-      yield counter += 1;
-    }
-  }
-
   LocationService() {
     location.requestPermission().then((granted) {
       if (granted == PermissionStatus.granted) {
@@ -41,24 +21,22 @@ class LocationService {
       }
     });
   }
+  LatLng? _liveLocation;
+  var location = Location();
   final StreamController<LatLng> _locationController = BehaviorSubject();
-
-  closeController() {
-    _locationController.close();
-  }
 
   Stream<LatLng> get locationStream => _locationController.stream;
 
   Future<LatLng?> getLocation() async {
     try {
       LocationData userLocation = await location.getLocation();
-      _currentLocation = LatLng(
+      _liveLocation = LatLng(
         userLocation.latitude ?? 0.0,
         userLocation.longitude ?? 0.0,
       );
     } on Exception catch (e) {
       debugPrint('Could not get location: ${e.toString()}');
     }
-    return _currentLocation;
+    return _liveLocation;
   }
 }
