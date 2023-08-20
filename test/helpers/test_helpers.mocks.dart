@@ -784,6 +784,16 @@ class MockProductService extends _i1.Mock implements _i10.ProductService {
         returnValueForMissingStub: _i7.Stream<List<_i11.ProductDto>>.empty(),
       ) as _i7.Stream<List<_i11.ProductDto>>);
   @override
+  _i7.Stream<_i11.ProductDto> getProductStream(String? productId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getProductStream,
+          [productId],
+        ),
+        returnValue: _i7.Stream<_i11.ProductDto>.empty(),
+        returnValueForMissingStub: _i7.Stream<_i11.ProductDto>.empty(),
+      ) as _i7.Stream<_i11.ProductDto>);
+  @override
   _i7.Future<void> updateProduct(_i11.ProductDto? product) =>
       (super.noSuchMethod(
         Invocation.method(

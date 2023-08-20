@@ -139,7 +139,8 @@ class HomeView extends StackedView<HomeViewModel> {
                   padding: const EdgeInsets.only(right: 4.0),
                   child: FoodMenuItem(
                     onTap: () {
-                      viewModel.navService.navigateToFooView();
+                      viewModel.navService.navigateToProductView(
+                          id: viewModel.posts[i].id.toString());
                     },
                     viewModel.posts[i],
                     size: const Size(120, 108.0),

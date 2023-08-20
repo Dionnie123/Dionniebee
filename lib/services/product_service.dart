@@ -38,8 +38,16 @@ class ProductService {
   Stream<List<ProductDto>> getProductsStream() {
     return productsCollection.snapshots().map((snapshot) {
       return snapshot.docs
-          .map((doc) => ProductDto.fromJson(doc.data() as Map<String, dynamic>))
+          .map((doc) => ProductDto.fromJson(doc.data() as Map<String, dynamic>)
+              .copyWith(id: doc.id))
           .toList();
+    });
+  }
+
+  Stream<ProductDto> getProductStream(String productId) {
+    return productsCollection.doc(productId).snapshots().map((snapshot) {
+      return ProductDto.fromJson(snapshot.data() as Map<String, dynamic>)
+          .copyWith(id: snapshot.id);
     });
   }
 
