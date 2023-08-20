@@ -54,7 +54,14 @@ class AuthViewModel extends BaseViewModel {
             _authService.signInWithEmail(email: email, password: password),
             throwException: true)
         .then((value) {
-      _navService.replaceWithHomeView();
+      if (value != null) {
+        _dialogService.showDialog(
+            title: "Notice",
+            description: value.toString(),
+            dialogPlatform: DialogPlatform.Custom);
+      } else {
+        _navService.replaceWithHomeView();
+      }
     });
   }
 
@@ -68,6 +75,8 @@ class AuthViewModel extends BaseViewModel {
             title: "Notice",
             description: value.toString(),
             dialogPlatform: DialogPlatform.Custom);
+      } else {
+        _navService.replaceWithHomeView();
       }
     });
   }
