@@ -9,14 +9,14 @@ import 'package:flutter/material.dart' as _i12;
 import 'package:stacked/stacked.dart' as _i11;
 import 'package:stacked_services/stacked_services.dart' as _i10;
 
-import '../ui/views/auth/auth_view.dart' as _i1;
-import '../ui/views/cart/cart_view.dart' as _i2;
+import '../ui/views/auth/auth_view.dart' as _i2;
+import '../ui/views/cart/cart_view.dart' as _i3;
 import '../ui/views/foo/foo_view.dart' as _i5;
-import '../ui/views/home/home_view.dart' as _i3;
+import '../ui/views/home/home_view.dart' as _i4;
 import '../ui/views/orders/orders_view.dart' as _i6;
 import '../ui/views/product/product_view.dart' as _i9;
 import '../ui/views/promo/promo_view.dart' as _i8;
-import '../ui/views/startup/startup_view.dart' as _i4;
+import '../ui/views/startup/startup_view.dart' as _i1;
 import '../ui/views/stores/stores_view.dart' as _i7;
 
 final stackedRouter =
@@ -28,31 +28,31 @@ class StackedRouterWeb extends _i11.RootStackRouter {
 
   @override
   final Map<String, _i11.PageFactory> pagesMap = {
-    AuthViewRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i1.AuthView(),
-      );
-    },
-    CartViewRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i2.CartView(),
-      );
-    },
-    HomeViewRoute.name: (routeData) {
+    StartupViewRoute.name: (routeData) {
       return _i11.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i3.HomeView(),
+        child: const _i1.StartupView(),
         transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
     },
-    StartupViewRoute.name: (routeData) {
+    AuthViewRoute.name: (routeData) {
+      return _i11.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i2.AuthView(),
+      );
+    },
+    CartViewRoute.name: (routeData) {
+      return _i11.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i3.CartView(),
+      );
+    },
+    HomeViewRoute.name: (routeData) {
       return _i11.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i4.StartupView(),
+        child: const _i4.HomeView(),
         transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
@@ -109,6 +109,10 @@ class StackedRouterWeb extends _i11.RootStackRouter {
   @override
   List<_i11.RouteConfig> get routes => [
         _i11.RouteConfig(
+          StartupViewRoute.name,
+          path: '/',
+        ),
+        _i11.RouteConfig(
           AuthViewRoute.name,
           path: '/',
         ),
@@ -118,10 +122,6 @@ class StackedRouterWeb extends _i11.RootStackRouter {
         ),
         _i11.RouteConfig(
           HomeViewRoute.name,
-          path: '/',
-        ),
-        _i11.RouteConfig(
-          StartupViewRoute.name,
           path: '/',
         ),
         _i11.RouteConfig(
@@ -148,7 +148,19 @@ class StackedRouterWeb extends _i11.RootStackRouter {
 }
 
 /// generated route for
-/// [_i1.AuthView]
+/// [_i1.StartupView]
+class StartupViewRoute extends _i11.PageRouteInfo<void> {
+  const StartupViewRoute()
+      : super(
+          StartupViewRoute.name,
+          path: '/',
+        );
+
+  static const String name = 'StartupView';
+}
+
+/// generated route for
+/// [_i2.AuthView]
 class AuthViewRoute extends _i11.PageRouteInfo<void> {
   const AuthViewRoute()
       : super(
@@ -160,7 +172,7 @@ class AuthViewRoute extends _i11.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.CartView]
+/// [_i3.CartView]
 class CartViewRoute extends _i11.PageRouteInfo<void> {
   const CartViewRoute()
       : super(
@@ -172,7 +184,7 @@ class CartViewRoute extends _i11.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.HomeView]
+/// [_i4.HomeView]
 class HomeViewRoute extends _i11.PageRouteInfo<void> {
   const HomeViewRoute()
       : super(
@@ -181,18 +193,6 @@ class HomeViewRoute extends _i11.PageRouteInfo<void> {
         );
 
   static const String name = 'HomeView';
-}
-
-/// generated route for
-/// [_i4.StartupView]
-class StartupViewRoute extends _i11.PageRouteInfo<void> {
-  const StartupViewRoute()
-      : super(
-          StartupViewRoute.name,
-          path: '/',
-        );
-
-  static const String name = 'StartupView';
 }
 
 /// generated route for
@@ -278,6 +278,14 @@ class ProductViewArgs {
 }
 
 extension RouterStateExtension on _i10.RouterService {
+  Future<dynamic> navigateToStartupView(
+      {void Function(_i11.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const StartupViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> navigateToAuthView(
       {void Function(_i11.NavigationFailure)? onFailure}) async {
     return navigateTo(
@@ -298,14 +306,6 @@ extension RouterStateExtension on _i10.RouterService {
       {void Function(_i11.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const HomeViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> navigateToStartupView(
-      {void Function(_i11.NavigationFailure)? onFailure}) async {
-    return navigateTo(
-      const StartupViewRoute(),
       onFailure: onFailure,
     );
   }
@@ -356,6 +356,14 @@ extension RouterStateExtension on _i10.RouterService {
     );
   }
 
+  Future<dynamic> replaceWithStartupView(
+      {void Function(_i11.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const StartupViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> replaceWithAuthView(
       {void Function(_i11.NavigationFailure)? onFailure}) async {
     return replaceWith(
@@ -376,14 +384,6 @@ extension RouterStateExtension on _i10.RouterService {
       {void Function(_i11.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const HomeViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> replaceWithStartupView(
-      {void Function(_i11.NavigationFailure)? onFailure}) async {
-    return replaceWith(
-      const StartupViewRoute(),
       onFailure: onFailure,
     );
   }

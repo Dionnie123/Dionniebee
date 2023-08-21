@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:stacked/stacked.dart';
 
 import 'startup_viewmodel.dart';
@@ -12,12 +13,10 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-      ),
-    );
+    return const Scaffold(
+        body: Center(
+      child: CircularProgressIndicator(),
+    ));
   }
 
   @override
@@ -25,4 +24,15 @@ class StartupView extends StackedView<StartupViewModel> {
     BuildContext context,
   ) =>
       StartupViewModel();
+
+  @override
+  void onViewModelReady(StartupViewModel viewModel) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      viewModel.redirect();
+
+      FlutterNativeSplash.remove();
+    });
+
+    super.onViewModelReady(viewModel);
+  }
 }

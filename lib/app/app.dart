@@ -22,6 +22,11 @@ import 'package:dionniebee/ui/views/product/product_view.dart';
 @StackedApp(
   logger: StackedLogger(),
   routes: [
+    CustomRoute(
+      path: '/',
+      page: StartupView,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+    ),
     MaterialRoute(
       page: AuthView,
       path: '/',
@@ -36,11 +41,7 @@ import 'package:dionniebee/ui/views/product/product_view.dart';
       path: '/',
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
-    CustomRoute(
-      path: '/',
-      page: StartupView,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
-    ),
+
     CustomRoute(
       path: '/',
       page: FooView,

@@ -14,14 +14,9 @@ class AnimatedMap extends StatefulWidget {
   final LatLngBounds? boundary;
   final List<Marker> markers;
   final LatLng? currentPoint;
-  final Function() onPop;
 
   const AnimatedMap(
-      {super.key,
-      required this.onPop,
-      required this.markers,
-      this.boundary,
-      this.currentPoint});
+      {super.key, required this.markers, this.boundary, this.currentPoint});
 
   @override
   State<AnimatedMap> createState() => _AnimatedMapState();
@@ -56,13 +51,6 @@ class _AnimatedMapState extends State<AnimatedMap>
     }
 
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    () => widget.onPop();
-    _animatedMapController?.dispose();
-    super.dispose();
   }
 
   Widget mapTemplate() {

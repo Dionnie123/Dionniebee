@@ -35,9 +35,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      FlutterNativeSplash.remove();
-    });
     // final authService = locator<AuthService>();
 
     return LifeCycleManager(
@@ -60,9 +57,9 @@ class MainApp extends StatelessWidget {
         ).copyWith(
             // colorScheme: darkColorScheme,
             ),
-        routerDelegate:
-            stackedRouter.delegate(initialRoutes: [const HomeViewRoute()]),
-        routeInformationParser: stackedRouter.defaultRouteParser(),
+        routerDelegate: stackedRouter.delegate(),
+        routeInformationParser:
+            stackedRouter.defaultRouteParser(includePrefixMatches: true),
       ),
     );
   }
