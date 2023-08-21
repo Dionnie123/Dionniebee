@@ -34,8 +34,10 @@ class _AnimatedMapState extends State<MapAnimated>
   MapStatus mapStatus = MapStatus.loading;
   var location = Location();
   updatePointOnDrag() {
-    setState(() {
-      dragPoint = _animatedMapController?.mapController.center;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        dragPoint = _animatedMapController?.mapController.center;
+      });
     });
   }
 
@@ -86,7 +88,7 @@ class _AnimatedMapState extends State<MapAnimated>
           return const Icon(
             Icons.location_pin,
             size: 35,
-            color: Colors.pink,
+            color: Colors.orange,
           );
         });
   }
@@ -98,7 +100,7 @@ class _AnimatedMapState extends State<MapAnimated>
           return const Icon(
             Icons.location_pin,
             size: 35,
-            color: Colors.pink,
+            color: Colors.orangeAccent,
           );
         });
   }
@@ -108,7 +110,7 @@ class _AnimatedMapState extends State<MapAnimated>
       CircleMarker(
         borderColor: Colors.red,
         borderStrokeWidth: 2,
-        color: Colors.orange.withOpacity(0.1),
+        color: Colors.red.withOpacity(0.1),
         point: widget.currentPoint,
         radius: 15000,
         useRadiusInMeter: true,
@@ -122,89 +124,87 @@ class _AnimatedMapState extends State<MapAnimated>
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : LayoutBuilder(builder: (context, size) {
-            return Stack(
-              children: [
-                FlutterMap(
-                  mapController: _animatedMapController?.mapController,
-                  options: MapOptions(
-                    //  maxZoom: 12.0,
-                    minZoom: 12.0,
-                    onMapReady: () {
-                      updatePointOnDrag();
-                    },
-                    onMapEvent: (event) {
-                      updatePointOnDrag();
-                    },
-                    interactiveFlags: InteractiveFlag.drag |
-                        InteractiveFlag.flingAnimation |
-                        InteractiveFlag.pinchMove |
-                        InteractiveFlag.pinchZoom |
-                        InteractiveFlag.doubleTapZoom,
-                    boundsOptions: const FitBoundsOptions(
-                      forceIntegerZoomLevel: true,
-                      inside: true,
-                    ),
-                    maxBounds: widget.boundary,
-                    center: widget.currentPoint,
-                    rotationThreshold: 0.0,
-                    zoom: 12.0,
+        : Stack(
+            children: [
+              FlutterMap(
+                mapController: _animatedMapController?.mapController,
+                options: MapOptions(
+                  //  maxZoom: 12.0,
+                  minZoom: 12.0,
+                  onMapReady: () {
+                    updatePointOnDrag();
+                  },
+                  onMapEvent: (event) {
+                    updatePointOnDrag();
+                  },
+                  interactiveFlags: InteractiveFlag.drag |
+                      InteractiveFlag.flingAnimation |
+                      InteractiveFlag.pinchMove |
+                      InteractiveFlag.pinchZoom |
+                      InteractiveFlag.doubleTapZoom,
+                  boundsOptions: const FitBoundsOptions(
+                    forceIntegerZoomLevel: true,
+                    inside: true,
                   ),
-                  nonRotatedChildren: [attributeLayer()],
-                  children: [
-                    mapTemplate(),
-                    circle(),
-                    MarkerClusterLayerWidget(
-                      options: MarkerClusterLayerOptions(
-                        anchorPos: AnchorPos.align(AnchorAlign.center),
-                        maxClusterRadius: 100,
-                        size: const Size(40, 40),
-                        fitBoundsOptions: const FitBoundsOptions(
-                          //Pag-tap pakita agad ng branch
-                          forceIntegerZoomLevel: false,
-                          padding: EdgeInsets.all(50),
-                        ),
-                        markers: [
-                          ...widget.markers,
-                        ],
-                        builder: (context, markers) {
-                          return clusteredMapWidget();
-                        },
+                  maxBounds: widget.boundary,
+                  center: widget.currentPoint,
+                  rotationThreshold: 0.0,
+                  zoom: 12.0,
+                ),
+                nonRotatedChildren: [attributeLayer()],
+                children: [
+                  mapTemplate(),
+                  circle(),
+                  MarkerClusterLayerWidget(
+                    options: MarkerClusterLayerOptions(
+                      anchorPos: AnchorPos.align(AnchorAlign.center),
+                      maxClusterRadius: 100,
+                      size: const Size(40, 40),
+                      fitBoundsOptions: const FitBoundsOptions(
+                        //Pag-tap pakita agad ng branch
+                        forceIntegerZoomLevel: false,
+                        padding: EdgeInsets.all(50),
                       ),
-                    ),
-                    MarkerLayer(
                       markers: [
-                        dragPointMarker(),
-                        currentPointMarker(),
+                        ...widget.markers,
                       ],
+                      builder: (context, markers) {
+                        return clusteredMapWidget();
+                      },
                     ),
+                  ),
+                  MarkerLayer(
+                    markers: [
+                      dragPointMarker(),
+                      currentPointMarker(),
+                    ],
+                  ),
+                ],
+              ),
+              Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: MapFloatActionButtons(
+                          controller: _animatedMapController,
+                          centerPoint: widget.currentPoint))),
+              Align(
+                child: Column(
+                  children: [
+                    Text(widget.currentPoint.toString()),
+                    Text(dragPoint.toString()),
                   ],
                 ),
-                Align(
-                    alignment: Alignment.bottomRight,
-                    child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: MapFloatActionButtons(
-                            controller: _animatedMapController,
-                            centerPoint: widget.currentPoint))),
-                Align(
-                  child: Column(
-                    children: [
-                      Text(widget.currentPoint.toString()),
-                      Text(dragPoint.toString()),
-                    ],
-                  ),
+              ),
+              Align(
+                child: Column(
+                  children: [
+                    Text(widget.currentPoint.toString()),
+                    Text(dragPoint.toString()),
+                  ],
                 ),
-                Align(
-                  child: Column(
-                    children: [
-                      Text(widget.currentPoint.toString()),
-                      Text(dragPoint.toString()),
-                    ],
-                  ),
-                )
-              ],
-            );
-          });
+              )
+            ],
+          );
   }
 }
