@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
 
-import 'separated_column.dart';
-
 class MapFloatActionButtons extends StatelessWidget {
   final LatLng centerPoint;
   final AnimatedMapController? controller;
@@ -12,7 +10,7 @@ class MapFloatActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SeparatedColumn(
+    return _SeparatedColumn(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.end,
       separator: const SizedBox(height: 8),
@@ -40,5 +38,37 @@ class MapFloatActionButtons extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _SeparatedColumn extends StatelessWidget {
+  const _SeparatedColumn({
+    required this.separator,
+    this.children = const [],
+    this.mainAxisSize = MainAxisSize.max,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
+  });
+
+  final Widget separator;
+  final List<Widget> children;
+  final MainAxisSize mainAxisSize;
+  final CrossAxisAlignment crossAxisAlignment;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: mainAxisSize,
+      crossAxisAlignment: crossAxisAlignment,
+      children: [
+        ..._buildChildren(),
+      ],
+    );
+  }
+
+  Iterable<Widget> _buildChildren() sync* {
+    for (var i = 0; i < children.length; i++) {
+      yield children[i];
+      if (i < children.length - 1) yield separator;
+    }
   }
 }

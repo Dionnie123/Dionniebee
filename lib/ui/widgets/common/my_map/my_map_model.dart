@@ -19,7 +19,6 @@ class MyMapModel extends StreamViewModel<LatLng?> {
     10,
     (index) {
       double randomLatitude = 14.55 + Random().nextDouble() * (14.65 - 14.55);
-      // Longitude range for the Philippines: approximately 117.0 to 127.0
       double randomLongitude =
           121.03 + Random().nextDouble() * (121.09 - 121.03);
       return LatLng(randomLatitude, randomLongitude);
