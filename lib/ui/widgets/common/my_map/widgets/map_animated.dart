@@ -128,6 +128,8 @@ class _AnimatedMapState extends State<MapAnimated>
                 FlutterMap(
                   mapController: _animatedMapController?.mapController,
                   options: MapOptions(
+                    //  maxZoom: 12.0,
+                    minZoom: 12.0,
                     onMapReady: () {
                       updatePointOnDrag();
                     },
