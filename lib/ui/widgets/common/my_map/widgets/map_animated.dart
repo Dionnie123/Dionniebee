@@ -10,22 +10,22 @@ import 'package:location/location.dart';
 
 enum MapStatus { ready, loading, error }
 
-class AnimatedMap extends StatefulWidget {
+class MapAnimated extends StatefulWidget {
   final LatLngBounds boundary;
   final List<Marker> markers;
   final LatLng currentPoint;
 
-  const AnimatedMap(
+  const MapAnimated(
       {super.key,
       required this.markers,
       required this.boundary,
       required this.currentPoint});
 
   @override
-  State<AnimatedMap> createState() => _AnimatedMapState();
+  State<MapAnimated> createState() => _AnimatedMapState();
 }
 
-class _AnimatedMapState extends State<AnimatedMap>
+class _AnimatedMapState extends State<MapAnimated>
     with TickerProviderStateMixin {
   LatLng? dragPoint;
 

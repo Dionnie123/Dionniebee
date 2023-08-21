@@ -1,11 +1,11 @@
-import 'package:dionniebee/ui/widgets/common/my_map/widgets/animated_map.dart';
+import 'package:dionniebee/ui/widgets/common/my_map/widgets/map_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:stacked/stacked.dart';
 
 import 'my_map_model.dart';
-import 'widgets/marker_widget.dart';
+import 'widgets/map_marker.dart';
 
 class MyMap extends StackedView<MyMapModel> {
   const MyMap({super.key});
@@ -20,7 +20,7 @@ class MyMap extends StackedView<MyMapModel> {
         appBar: AppBar(),
         body: viewModel.currentCoordinates == null
             ? const Center(child: CircularProgressIndicator())
-            : AnimatedMap(
+            : MapAnimated(
                 boundary: LatLngBounds.fromPoints([
                   const LatLng(4.382696, 112.1661),
                   const LatLng(21.53021, 127.0742)
