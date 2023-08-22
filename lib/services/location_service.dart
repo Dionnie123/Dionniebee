@@ -6,6 +6,7 @@ import 'package:location/location.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LocationService {
+  Location location = Location();
   LocationService() {
     location.requestPermission().then((granted) {
       if (granted == PermissionStatus.granted) {
@@ -24,7 +25,7 @@ class LocationService {
     });
   }
   LatLng? _liveLocation;
-  Location location = Location();
+
   final StreamController<LatLng?> _locationController = BehaviorSubject();
 
   Stream<LatLng?> get locationStream => _locationController.stream;

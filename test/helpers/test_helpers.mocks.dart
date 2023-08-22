@@ -737,6 +737,15 @@ class MockAuthService extends _i1.Mock implements _i9.AuthService {
         returnValue: _i7.Future<dynamic>.value(),
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
+  @override
+  _i7.Future<dynamic> signInAnonymously() => (super.noSuchMethod(
+        Invocation.method(
+          #signInAnonymously,
+          [],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
 }
 
 /// A class which mocks [ProductService].
@@ -839,11 +848,11 @@ class MockLocationService extends _i1.Mock implements _i12.LocationService {
         returnValueForMissingStub: null,
       );
   @override
-  _i7.Stream<_i13.LatLng> get locationStream => (super.noSuchMethod(
+  _i7.Stream<_i13.LatLng?> get locationStream => (super.noSuchMethod(
         Invocation.getter(#locationStream),
-        returnValue: _i7.Stream<_i13.LatLng>.empty(),
-        returnValueForMissingStub: _i7.Stream<_i13.LatLng>.empty(),
-      ) as _i7.Stream<_i13.LatLng>);
+        returnValue: _i7.Stream<_i13.LatLng?>.empty(),
+        returnValueForMissingStub: _i7.Stream<_i13.LatLng?>.empty(),
+      ) as _i7.Stream<_i13.LatLng?>);
   @override
   _i7.Future<_i13.LatLng?> getLocation() => (super.noSuchMethod(
         Invocation.method(
