@@ -11,5 +11,7 @@ abstract class AuthService {
 
   Future signOut() async {}
 
+  Future signInAnonymously() async {}
+
   dynamic get user;
 }

@@ -77,4 +77,18 @@ class FirebaseAuthService with Initialisable implements AuthService {
 
   @override
   get user => _firebaseAuth.currentUser;
+
+  @override
+  Future signInAnonymously() async {
+    try {
+      await _firebaseAuth.signInAnonymously();
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "operation-not-allowed":
+          return await Future.error(e.toString());
+        default:
+          return await Future.error(e.toString());
+      }
+    }
+  }
 }
