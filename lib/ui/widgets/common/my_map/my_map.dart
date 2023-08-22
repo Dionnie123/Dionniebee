@@ -106,4 +106,9 @@ class MyMap extends StackedView<MyMapModel> {
     await viewModel.start();
     super.onViewModelReady(viewModel);
   }
+
+  @override
+  bool get fireOnViewModelReadyOnce {
+    return false;
+  }
 }

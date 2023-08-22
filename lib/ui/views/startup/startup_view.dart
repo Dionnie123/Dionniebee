@@ -14,9 +14,12 @@ class StartupView extends StackedView<StartupViewModel> {
     Widget? child,
   ) {
     return const Scaffold(
+        backgroundColor: Colors.red,
         body: Center(
-      child: CircularProgressIndicator(),
-    ));
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        ));
   }
 
   @override
@@ -28,9 +31,10 @@ class StartupView extends StackedView<StartupViewModel> {
   @override
   void onViewModelReady(StartupViewModel viewModel) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      viewModel.redirect();
-
-      FlutterNativeSplash.remove();
+      await viewModel.signInAnonymously();
+      Future.delayed(const Duration(milliseconds: 200), () {
+        FlutterNativeSplash.remove();
+      });
     });
 
     super.onViewModelReady(viewModel);

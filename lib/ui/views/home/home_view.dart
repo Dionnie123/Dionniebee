@@ -213,7 +213,7 @@ class HomeView extends StackedView<HomeViewModel> {
 
   @override
   Future<void> onViewModelReady(HomeViewModel viewModel) async {
-    await viewModel.start(true);
+    viewModel.start(false);
     super.onViewModelReady(viewModel);
   }
 

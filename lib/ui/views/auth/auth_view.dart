@@ -31,7 +31,6 @@ class AuthView extends StackedView<AuthViewModel> {
   @override
   Future<void> onViewModelReady(AuthViewModel viewModel) async {
     viewModel.initialiseForms();
-    await viewModel.signInAnonymously();
 
     super.onViewModelReady(viewModel);
   }
