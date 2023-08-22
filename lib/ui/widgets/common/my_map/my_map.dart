@@ -70,7 +70,7 @@ class MyMap extends StackedView<MyMapModel> {
                   ),
                 ),
               )
-            : viewModel.currentCoordinates == null
+            : viewModel.streamReady == false
                 ? const Center(
                     child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

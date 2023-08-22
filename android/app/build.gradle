@@ -21,12 +21,7 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-buildscript {
-    repositories {
-        mavenCentral()
-        google()
-    }
-}
+
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'

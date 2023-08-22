@@ -9,9 +9,9 @@ class LocationService {
   Location location = Location();
   LocationService() {
     location.requestPermission().then((granted) {
-      if (granted == PermissionStatus.granted) {
+      if (granted == PermissionStatus.granted ||
+          granted == PermissionStatus.grantedLimited) {
         // If granted listen to the onLocationChanged stream and emit over our controller
-        _locationController.sink.add(null);
 
         location.onLocationChanged.listen((locationData) {
           if (locationData.latitude != null && locationData.longitude != null) {

@@ -14,7 +14,10 @@ class MyMapModel extends StreamViewModel<LatLng?> {
   }
 
   @override
-  Stream<LatLng?> get stream => locationService.locationStream;
+  Stream<LatLng?> get stream {
+    print(locationService.locationStream);
+    return locationService.locationStream;
+  }
 
   List<LatLng> _markers = [];
   List<LatLng> get markers => _markers;
@@ -25,10 +28,18 @@ class MyMapModel extends StreamViewModel<LatLng?> {
     await Location().requestPermission().then((granted) {
       _permit = (granted == PermissionStatus.granted) ||
           (granted == PermissionStatus.grantedLimited);
+      print("----------------------");
+      print(_permit);
     });
   }
 
+  bool _streamReady = false;
+  bool get streamReady => _streamReady;
   Future start() async {
+    setBusy(true);
+    _streamReady = !(await stream.isEmpty);
+
+    print("Stream ready? $_streamReady");
     _markers = List.generate(
       10,
       (index) {
@@ -38,6 +49,9 @@ class MyMapModel extends StreamViewModel<LatLng?> {
         return LatLng(randomLatitude, randomLongitude);
       },
     );
-    await runBusyFuture(Future.wait([request()]));
+
+    await request();
+
+    setBusy(false);
   }
 }
