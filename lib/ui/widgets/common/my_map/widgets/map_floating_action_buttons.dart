@@ -16,6 +16,7 @@ class MapFloatActionButtons extends StatelessWidget {
       separator: const SizedBox(height: 8),
       children: [
         FloatingActionButton(
+          backgroundColor: Colors.black.withOpacity(0.6),
           onPressed: () {
             controller?.animateTo(
               zoom: 12.0,
@@ -26,16 +27,18 @@ class MapFloatActionButtons extends StatelessWidget {
           tooltip: 'Clear modifications',
           child: const Icon(Icons.center_focus_strong),
         ),
-        FloatingActionButton(
+        /*   FloatingActionButton(
+          backgroundColor: Colors.black.withOpacity(0.6),
           onPressed: () => controller?.animatedZoomIn(),
           tooltip: 'Zoom in',
           child: const Icon(Icons.zoom_in),
         ),
         FloatingActionButton(
+          backgroundColor: Colors.black.withOpacity(0.6),
           onPressed: () => controller?.animatedZoomOut(),
           tooltip: 'Zoom out',
           child: const Icon(Icons.zoom_out),
-        ),
+        ), */
       ],
     );
   }

@@ -1,10 +1,12 @@
 import 'package:app_settings/app_settings.dart';
+import 'package:collection/collection.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/map_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:stacked/stacked.dart';
 
 import 'my_map_model.dart';
@@ -86,29 +88,43 @@ class MyMap extends StackedView<MyMapModel> {
 
     return Scaffold(
         appBar: AppBar(),
-        body: viewModel.permit == MapAccess.unknown
-            ? const Center(child: CircularProgressIndicator())
-            : viewModel.permit == MapAccess.allowed &&
-                    viewModel.currentCoordinates == null
-                ? fetchLoading()
+        body: SlidingUpPanel(
+          minHeight: 150.0,
+          panel: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children:
+                  viewModel.markers.map((e) => Text(e.toString())).toList(),
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.only(bottom: 244.0),
+            child: viewModel.permit == MapAccess.unknown
+                ? const Center(child: CircularProgressIndicator())
                 : viewModel.permit == MapAccess.allowed &&
-                        viewModel.currentCoordinates != null
-                    ? MapAnimated(
-                        boundary: LatLngBounds.fromPoints([
-                          const LatLng(4.382696, 112.1661),
-                          const LatLng(21.53021, 127.0742)
-                        ]),
-                        markers: viewModel.markers
-                            .map((e) => markerWidget(e))
-                            .toList(),
-                        currentPoint:
-                            viewModel.currentCoordinates ?? const LatLng(0, 0),
-                      )
-                    : viewModel.permit == MapAccess.disallowed
-                        ? openSettings()
-                        : const Center(
-                            child: Text("ERROR!"),
-                          ));
+                        viewModel.currentCoordinates == null
+                    ? fetchLoading()
+                    : viewModel.permit == MapAccess.allowed &&
+                            viewModel.currentCoordinates != null
+                        ? MapAnimated(
+                            boundary: LatLngBounds.fromPoints([
+                              const LatLng(4.382696, 112.1661),
+                              const LatLng(21.53021, 127.0742)
+                            ]),
+                            markers: viewModel.markers
+                                .mapIndexed((i, e) => markerWidget(i, e))
+                                .toList(),
+                            currentPoint: viewModel.currentCoordinates ??
+                                const LatLng(0, 0),
+                          )
+                        : viewModel.permit == MapAccess.disallowed
+                            ? openSettings()
+                            : const Center(
+                                child: Text("ERROR!"),
+                              ),
+          ),
+        ));
   }
 
   @override

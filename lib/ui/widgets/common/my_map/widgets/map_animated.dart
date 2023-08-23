@@ -129,7 +129,6 @@ class _AnimatedMapState extends State<MapAnimated>
               FlutterMap(
                 mapController: _animatedMapController?.mapController,
                 options: MapOptions(
-                  //  maxZoom: 12.0,
                   minZoom: 12.0,
                   onMapReady: () {
                     updatePointOnDrag();
@@ -175,8 +174,8 @@ class _AnimatedMapState extends State<MapAnimated>
                   ),
                   MarkerLayer(
                     markers: [
-                      dragPointMarker(),
                       currentPointMarker(),
+                      dragPointMarker(),
                     ],
                   ),
                 ],
@@ -184,7 +183,7 @@ class _AnimatedMapState extends State<MapAnimated>
               Align(
                   alignment: Alignment.bottomRight,
                   child: Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 15, 50),
                       child: MapFloatActionButtons(
                           controller: _animatedMapController,
                           centerPoint: widget.currentPoint))),
