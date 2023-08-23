@@ -7,7 +7,7 @@ import 'package:rxdart/rxdart.dart';
 
 class LocationService {
   Location location = Location();
-  LocationService() {
+/*   LocationService() {
     location.requestPermission().then((granted) {
       if (granted == PermissionStatus.granted ||
           granted == PermissionStatus.grantedLimited) {
@@ -23,7 +23,19 @@ class LocationService {
         });
       }
     });
+  } */
+
+  void listen() {
+    location.onLocationChanged.listen((locationData) {
+      if (locationData.latitude != null && locationData.longitude != null) {
+        _locationController.add(LatLng(
+          locationData.latitude ?? 0,
+          locationData.longitude ?? 0,
+        ));
+      }
+    });
   }
+
   LatLng? _liveLocation;
 
   final StreamController<LatLng?> _locationController = BehaviorSubject();

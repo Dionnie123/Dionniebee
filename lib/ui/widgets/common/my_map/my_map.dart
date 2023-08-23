@@ -19,80 +19,96 @@ class MyMap extends StackedView<MyMapModel> {
     MyMapModel viewModel,
     Widget? child,
   ) {
+    Widget openSettings() {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Location is everything! Enable it on Settings",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              vSpaceSmall,
+              const Text(
+                "Hi there! To provide you with the best experience, we need to access your location. This will help us tailor our services to your area.",
+                textAlign: TextAlign.center,
+              ),
+              vSpaceSmall,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                      style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.grey)),
+                      onPressed: () {},
+                      child: const Text("Return")),
+                  hSpaceSmall,
+                  ElevatedButton(
+                      onPressed: () async {
+                        if (await Permission.location.isPermanentlyDenied ||
+                            await Permission.location.isDenied) {
+                          // The user opted to never again see the permission request dialog for this
+                          // app. The only way to change the permission's status now is to let the
+                          // user manually enable it in the system settings.
+
+                          await AppSettings.openAppSettings();
+                          print("fdsfsf");
+                        }
+                      },
+                      child: const Text("Settings"))
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+    }
+
+    Widget fetchLoading() {
+      return const Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(),
+          vSpaceSmall,
+          Text(
+            "Fetching location...please wait",
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ));
+    }
+
     return Scaffold(
         appBar: AppBar(),
-        body: viewModel.permit == false
-            ? Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Location is everything! Enable it on Settings",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      vSpaceSmall,
-                      const Text(
-                        "Hi there! To provide you with the best experience, we need to access your location. This will help us tailor our services to your area.",
-                        textAlign: TextAlign.center,
-                      ),
-                      vSpaceSmall,
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                              style: const ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStatePropertyAll(Colors.grey)),
-                              onPressed: () {},
-                              child: const Text("Return")),
-                          hSpaceSmall,
-                          ElevatedButton(
-                              onPressed: () async {
-                                if (await Permission
-                                        .location.isPermanentlyDenied ||
-                                    await Permission.location.isDenied) {
-                                  // The user opted to never again see the permission request dialog for this
-                                  // app. The only way to change the permission's status now is to let the
-                                  // user manually enable it in the system settings.
-
-                                  await AppSettings.openAppSettings();
-                                  print("fdsfsf");
-                                }
-                              },
-                              child: const Text("Settings"))
-                        ],
+        body: viewModel.permit == MapAccess.unknown
+            ? const Center(child: CircularProgressIndicator())
+            : viewModel.permit == MapAccess.allowed &&
+                    viewModel.currentCoordinates == null
+                ? fetchLoading()
+                : viewModel.permit == MapAccess.allowed &&
+                        viewModel.currentCoordinates != null
+                    ? MapAnimated(
+                        boundary: LatLngBounds.fromPoints([
+                          const LatLng(4.382696, 112.1661),
+                          const LatLng(21.53021, 127.0742)
+                        ]),
+                        markers: viewModel.markers
+                            .map((e) => markerWidget(e))
+                            .toList(),
+                        currentPoint:
+                            viewModel.currentCoordinates ?? const LatLng(0, 0),
                       )
-                    ],
-                  ),
-                ),
-              )
-            : viewModel.streamReady == false
-                ? const Center(
-                    child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(),
-                      vSpaceSmall,
-                      Text(
-                        "Fetching location...please wait",
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ))
-                : MapAnimated(
-                    boundary: LatLngBounds.fromPoints([
-                      const LatLng(4.382696, 112.1661),
-                      const LatLng(21.53021, 127.0742)
-                    ]),
-                    markers:
-                        viewModel.markers.map((e) => markerWidget(e)).toList(),
-                    currentPoint:
-                        viewModel.currentCoordinates ?? const LatLng(0, 0),
-                  ));
+                    : viewModel.permit == MapAccess.disallowed
+                        ? openSettings()
+                        : const Center(
+                            child: Text("ERROR!"),
+                          ));
   }
 
   @override
@@ -103,7 +119,7 @@ class MyMap extends StackedView<MyMapModel> {
 
   @override
   Future<void> onViewModelReady(MyMapModel viewModel) async {
-    await viewModel.start();
+    await viewModel.request();
     super.onViewModelReady(viewModel);
   }
 
