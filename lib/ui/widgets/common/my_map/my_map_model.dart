@@ -6,27 +6,17 @@ import 'package:stacked/stacked.dart';
 
 enum MapAccess { unknown, allowed, disallowed }
 
-class MyMapModel extends StreamViewModel<LatLng?> {
+const String _LiveLocationStreamKey = 'livelocation-stream';
+const String _NearestLocationStreamKey = 'nearestlocation-stream';
+
+class MyMapModel extends MultipleStreamViewModel {
   final locationService = locator<LocationService>();
 
-  LatLng? get currentCoordinates {
-    return data;
-  }
-
   @override
-  Stream<LatLng?> get stream {
-    return locationService.locationStream;
-  }
-
-  /*  final List<LatLng> _markers = List.generate(
-    10,
-    (index) {
-      double randomLatitude = 14.55 + Random().nextDouble() * (14.65 - 14.55);
-      double randomLongitude =
-          121.03 + Random().nextDouble() * (121.09 - 121.03);
-      return LatLng(randomLatitude, randomLongitude);
-    },
-  ); */
+  Map<String, StreamData> get streamsMap => {
+        _LiveLocationStreamKey:
+            StreamData<LatLng?>(locationService.locationStream),
+      };
 
   final List<LatLng> _markers = [
     const LatLng(14.558098, 121.082855),

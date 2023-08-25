@@ -14,10 +14,8 @@ class ProductViewModel extends BaseViewModel {
   }
 
   void listenToPost(String id) {
-    setBusy(true);
     _productService.getProductStream(id).listen((val) {
       _product = val;
-      setBusy(false);
     });
   }
 }
