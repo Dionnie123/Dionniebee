@@ -96,7 +96,7 @@ class MyMap extends StackedView<MyMapModel> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children:
-                  viewModel.markers.map((e) => Text(e.toString())).toList(),
+                  viewModel.nearby.map((e) => Text(e.toString())).toList(),
             ),
           ),
           body: Padding(
@@ -109,6 +109,12 @@ class MyMap extends StackedView<MyMapModel> {
                     : viewModel.permit == MapAccess.allowed &&
                             viewModel.currentCoordinates != null
                         ? MapAnimated(
+                            onMapReady: (lat, long, d) {
+                              viewModel.mapInfo = MapInfo(
+                                  refLatitude: lat,
+                                  refLongitude: long,
+                                  maxDistance: d);
+                            },
                             onChanged: (lat, long, distance) {
                               viewModel.mapInfo = MapInfo(
                                   refLatitude: lat,

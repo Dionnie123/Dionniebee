@@ -14,8 +14,8 @@ class MyMapModel extends MultipleStreamViewModel {
 
   LatLng? _currentCoordinates;
   LatLng? get currentCoordinates => _currentCoordinates;
-  List<LatLng?> _nearby = [];
-  List<LatLng?> get nearby => _nearby;
+  List<String> _nearby = [];
+  List<String> get nearby => _nearby;
 
   @override
   void onData(String key, data) {

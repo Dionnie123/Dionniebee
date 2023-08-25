@@ -14,6 +14,7 @@ class MapAnimated extends StatefulWidget {
   final LatLngBounds boundary;
   final List<Marker> markers;
   final LatLng currentPoint;
+  final Function(double lat, double long, double distance) onMapReady;
   final Function(double lat, double long, double distance) onChanged;
 
   const MapAnimated(
@@ -21,7 +22,8 @@ class MapAnimated extends StatefulWidget {
       required this.markers,
       required this.boundary,
       required this.currentPoint,
-      required this.onChanged});
+      required this.onChanged,
+      required this.onMapReady});
 
   @override
   State<MapAnimated> createState() => _AnimatedMapState();
@@ -134,10 +136,15 @@ class _AnimatedMapState extends State<MapAnimated>
                   minZoom: 12.0,
                   onMapReady: () {
                     updatePointOnDrag();
+                    final event = _animatedMapController?.mapController.center;
+                    print(event);
+                    if (event?.latitude != null && event?.longitude != null) {
+                      widget.onMapReady(event!.latitude, event.longitude, 10);
+                    }
                   },
                   onMapEvent: (event) {
                     widget.onChanged(
-                        event.center.latitude, event.center.longitude, 1000);
+                        event.center.latitude, event.center.longitude, 10);
                     updatePointOnDrag();
                   },
                   interactiveFlags: InteractiveFlag.drag |

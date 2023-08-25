@@ -66,7 +66,7 @@ class LocationService {
   /*  final StreamController<LatLng?> _nearestPointsControler = BehaviorSubject();
   Stream<LatLng?> get nearestPointsStream => _nearestPointsControler.stream; */
 
-  Stream<List<dynamic>> getNearbyLocationStream(MapInfo? mapInfo) {
+  Stream<List<String>> getNearbyLocationStream(MapInfo? mapInfo) {
     print('>>>>>>>>>>>>>>>>>>>>>>>');
     final geo = GeoFlutterFire();
     final CollectionReference collectionReference =
@@ -81,9 +81,9 @@ class LocationService {
             radius: mapInfo.maxDistance,
             field: 'point',
           )
-          .map((event) => event);
+          .map((event) => event.map((e) => e.data().toString()).toList());
     }
-    return Stream<List<dynamic>>.fromIterable([]);
+    return Stream<List<String>>.fromIterable([]);
   }
 }
 
