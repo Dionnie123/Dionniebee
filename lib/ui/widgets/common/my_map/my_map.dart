@@ -1,5 +1,6 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:collection/collection.dart';
+import 'package:dionniebee/services/location_service.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/map_animated.dart';
 import 'package:flutter/material.dart';
@@ -72,14 +73,14 @@ class MyMap extends StackedView<MyMapModel> {
     }
 
     Widget fetchLoading() {
-      return const Center(
+      return Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator(),
+          const CircularProgressIndicator(),
           vSpaceSmall,
           Text(
-            "Fetching location...please wait",
+            "Fetching location...please wait ${viewModel.currentCoordinates}",
             textAlign: TextAlign.center,
           ),
         ],
@@ -108,6 +109,12 @@ class MyMap extends StackedView<MyMapModel> {
                     : viewModel.permit == MapAccess.allowed &&
                             viewModel.currentCoordinates != null
                         ? MapAnimated(
+                            onChanged: (lat, long, distance) {
+                              viewModel.mapInfo = MapInfo(
+                                  refLatitude: lat,
+                                  refLongitude: long,
+                                  maxDistance: distance);
+                            },
                             boundary: LatLngBounds.fromPoints([
                               const LatLng(4.382696, 112.1661),
                               const LatLng(21.53021, 127.0742)

@@ -6,17 +6,42 @@ import 'package:stacked/stacked.dart';
 
 enum MapAccess { unknown, allowed, disallowed }
 
-const String _LiveLocationStreamKey = 'livelocation-stream';
-const String _NearestLocationStreamKey = 'nearestlocation-stream';
+const String _liveLocationStreamKey = 'livelocation-stream';
+const String _nearestLocationStreamKey = 'nearestlocation-stream';
 
 class MyMapModel extends MultipleStreamViewModel {
   final locationService = locator<LocationService>();
 
+  LatLng? _currentCoordinates;
+  LatLng? get currentCoordinates => _currentCoordinates;
+  List<LatLng?> _nearby = [];
+  List<LatLng?> get nearby => _nearby;
+
+  @override
+  void onData(String key, data) {
+    if (key == _liveLocationStreamKey) {
+      _currentCoordinates = data;
+    } else if (key == _nearestLocationStreamKey) {
+      _nearby = data;
+    }
+
+    notifyListeners();
+    super.onData(key, data);
+  }
+
   @override
   Map<String, StreamData> get streamsMap => {
-        _LiveLocationStreamKey:
+        _liveLocationStreamKey:
             StreamData<LatLng?>(locationService.locationStream),
+        _nearestLocationStreamKey: StreamData<List<dynamic>>(
+            locationService.getNearbyLocationStream(_mapInfo)),
       };
+
+  MapInfo? _mapInfo;
+  set mapInfo(val) {
+    _mapInfo = val;
+    notifySourceChanged();
+  }
 
   final List<LatLng> _markers = [
     const LatLng(14.558098, 121.082855),
@@ -37,7 +62,7 @@ class MyMapModel extends MultipleStreamViewModel {
       } else {
         _permit = MapAccess.disallowed;
       }
-      notifyListeners();
+      notifySourceChanged();
     }).whenComplete(() => print(permit));
   }
 }

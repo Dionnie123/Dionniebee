@@ -14,12 +14,14 @@ class MapAnimated extends StatefulWidget {
   final LatLngBounds boundary;
   final List<Marker> markers;
   final LatLng currentPoint;
+  final Function(double lat, double long, double distance) onChanged;
 
   const MapAnimated(
       {super.key,
       required this.markers,
       required this.boundary,
-      required this.currentPoint});
+      required this.currentPoint,
+      required this.onChanged});
 
   @override
   State<MapAnimated> createState() => _AnimatedMapState();
@@ -134,6 +136,8 @@ class _AnimatedMapState extends State<MapAnimated>
                     updatePointOnDrag();
                   },
                   onMapEvent: (event) {
+                    widget.onChanged(
+                        event.center.latitude, event.center.longitude, 1000);
                     updatePointOnDrag();
                   },
                   interactiveFlags: InteractiveFlag.drag |
