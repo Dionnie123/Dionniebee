@@ -14,13 +14,14 @@ class ProductView extends StackedView<ProductViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      appBar: AppBar(),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         children: [
           AspectRatio(
             aspectRatio: 4 / 3,
             child: Image.network(
-              "${viewModel.product?.imageUrl}",
+              "https://images.unsplash.com/photo-1692733470142-bfa42928dc33?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80",
               fit: BoxFit.cover,
             ),
           ),

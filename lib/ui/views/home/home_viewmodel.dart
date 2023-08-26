@@ -8,34 +8,39 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-const String fuck = 'xxx';
+const String _productsStreamKey = 'products-stream';
 
-class HomeViewModel extends ReactiveViewModel {
+class HomeViewModel extends MultipleStreamViewModel {
   final _authService = locator<AuthService>();
-  final navService = locator<RouterService>();
+  final _navService = locator<RouterService>();
   final _productService = locator<ProductService>();
   final _cartService = locator<CartService>();
   final _dialogService = locator<DialogService>();
+
+  @override
+  void onCancel(String key) {
+    print("STREAM CANCELLED");
+    super.onCancel(key);
+  }
+
+  int get cartCount => _cartService.cartCount;
+  num get cartTotal => _cartService.cartTotal;
+  List<ProductDto> get cart => _cartService.cart;
+
+  List<ProductDto> get products => dataMap![_productsStreamKey] ?? [];
+  bool get hasNumberData => dataReady(_productsStreamKey);
+
+  @override
+  Map<String, StreamData> get streamsMap => {
+        _productsStreamKey:
+            StreamData<List<ProductDto>>(_productService.getProductsStream())
+      };
+
   @override
   List<ListenableServiceMixin> get listenableServices => [_cartService];
 
-  List<ProductDto> _posts = [];
-  List<ProductDto> get posts => _posts;
-  void listenToPosts() {
-    setBusy(true);
-    _productService.listenToPostsRealTime().listen((postsData) {
-      List<ProductDto> updatedPosts = postsData;
-      if (updatedPosts.isNotEmpty) {
-        _posts = updatedPosts;
-        notifyListeners();
-      }
-      setBusy(false);
-    });
-  }
-
   @override
-  void onFutureError(error, Object? key) {
-    super.onFutureError(error, key);
+  void onError(String key, error) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _dialogService.showDialog(
           title: "Error",
@@ -43,10 +48,19 @@ class HomeViewModel extends ReactiveViewModel {
           description: error.toString(),
           dialogPlatform: DialogPlatform.Custom);
     });
+    super.onError(key, error);
   }
 
-  Future start(bool showLoading) async {
-    listenToPosts();
+  @override
+  void onFutureError(error, Object? key) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _dialogService.showDialog(
+          title: "Error",
+          barrierDismissible: true,
+          description: error.toString(),
+          dialogPlatform: DialogPlatform.Custom);
+    });
+    super.onFutureError(error, key);
   }
 
   addToCart(ProductDto product) {
@@ -61,14 +75,12 @@ class HomeViewModel extends ReactiveViewModel {
     _cartService.minusCartItemQuantity(id);
   }
 
-  signOut() async {
-    await _authService.signOut();
-    await navService.replaceWithAuthView();
+  productView(String id) {
+    _navService.navigateToProductView(id: id.toString(), key: UniqueKey());
   }
 
-  int get cartCount => _cartService.cartCount;
-
-  num get cartTotal => _cartService.cartTotal;
-
-  List<ProductDto> get cart => _cartService.cart;
+  signOut() async {
+    await _authService.signOut();
+    await _navService.replaceWithAuthView();
+  }
 }

@@ -149,11 +149,11 @@ class StackedRouterWeb extends _i12.RootStackRouter {
         ),
         _i12.RouteConfig(
           ProductViewRoute.name,
-          path: '/product-view',
+          path: '/',
         ),
         _i12.RouteConfig(
           WelcomeViewRoute.name,
-          path: '/welcome-view',
+          path: '/',
         ),
       ];
 }
@@ -262,7 +262,7 @@ class ProductViewRoute extends _i12.PageRouteInfo<ProductViewArgs> {
     _i13.Key? key,
   }) : super(
           ProductViewRoute.name,
-          path: '/product-view',
+          path: '/',
           args: ProductViewArgs(
             id: id,
             key: key,
@@ -294,7 +294,7 @@ class WelcomeViewRoute extends _i12.PageRouteInfo<void> {
   const WelcomeViewRoute()
       : super(
           WelcomeViewRoute.name,
-          path: '/welcome-view',
+          path: '/',
         );
 
   static const String name = 'WelcomeView';

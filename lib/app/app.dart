@@ -63,8 +63,14 @@ import 'package:dionniebee/ui/views/welcome/welcome_view.dart';
       page: PromoView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
-    MaterialRoute(page: ProductView),
-    MaterialRoute(page: WelcomeView),
+    MaterialRoute(
+      path: '/',
+      page: ProductView,
+    ),
+    MaterialRoute(
+      path: '/',
+      page: WelcomeView,
+    ),
 // @stacked-route
   ],
   dependencies: [

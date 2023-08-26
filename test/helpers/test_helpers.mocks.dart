@@ -854,6 +854,14 @@ class MockLocationService extends _i1.Mock implements _i12.LocationService {
         returnValueForMissingStub: _i7.Stream<_i13.LatLng?>.empty(),
       ) as _i7.Stream<_i13.LatLng?>);
   @override
+  void listen() => super.noSuchMethod(
+        Invocation.method(
+          #listen,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   _i7.Future<_i13.LatLng?> getLocation() => (super.noSuchMethod(
         Invocation.method(
           #getLocation,
@@ -862,6 +870,16 @@ class MockLocationService extends _i1.Mock implements _i12.LocationService {
         returnValue: _i7.Future<_i13.LatLng?>.value(),
         returnValueForMissingStub: _i7.Future<_i13.LatLng?>.value(),
       ) as _i7.Future<_i13.LatLng?>);
+  @override
+  _i7.Stream<List<String>> getNearbyLocationStream(_i12.MapInfo? mapInfo) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getNearbyLocationStream,
+          [mapInfo],
+        ),
+        returnValue: _i7.Stream<List<String>>.empty(),
+        returnValueForMissingStub: _i7.Stream<List<String>>.empty(),
+      ) as _i7.Stream<List<String>>);
 }
 
 /// A class which mocks [CartService].
