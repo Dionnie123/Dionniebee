@@ -12,9 +12,7 @@ class StoresView extends StackedView<StoresViewModel> {
     StoresViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: const MyMap());
+    return const MyMap();
   }
 
   @override

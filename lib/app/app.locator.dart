@@ -12,6 +12,7 @@ import 'package:stacked_services/src/navigation/router_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/auth_service.dart';
+import '../services/authentication_service.firebase.dart';
 import '../services/cart_service.dart';
 import '../services/location_service.dart';
 import '../services/product_service.dart';
@@ -29,13 +30,13 @@ Future<void> setupLocator({
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
+  final firebaseAuthService = FirebaseAuthService();
+  await firebaseAuthService.initialise();
+  locator.registerSingleton<AuthService>(firebaseAuthService);
+
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => RouterService());
-  final authService = AuthService();
-  await authService.initialise();
-  locator.registerSingleton(authService);
-
   locator.registerLazySingleton(() => ProductService());
   locator.registerLazySingleton(() => LocationService());
   locator.registerLazySingleton(() => CartService());

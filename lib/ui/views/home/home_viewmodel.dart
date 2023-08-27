@@ -8,21 +8,33 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-const String fuck = 'xxx';
+const String _productsStreamKey = 'products-stream';
 
-class HomeViewModel extends ReactiveViewModel {
+class HomeViewModel extends MultipleStreamViewModel {
   final _authService = locator<AuthService>();
-  final navService = locator<RouterService>();
+  final _navService = locator<RouterService>();
   final _productService = locator<ProductService>();
   final _cartService = locator<CartService>();
   final _dialogService = locator<DialogService>();
+
+  int get cartCount => _cartService.cartCount;
+  num get cartTotal => _cartService.cartTotal;
+  List<ProductDto> get cart => _cartService.cart;
+
+  List<ProductDto> get products => dataMap![_productsStreamKey] ?? [];
+  bool get hasNumberData => dataReady(_productsStreamKey);
+
   @override
-  List<ListenableServiceMixin> get listenableServices =>
-      [_productService, _cartService];
+  Map<String, StreamData> get streamsMap => {
+        _productsStreamKey:
+            StreamData<List<ProductDto>>(_productService.getItemsStream())
+      };
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [_cartService];
 
   @override
   void onFutureError(error, Object? key) {
-    super.onFutureError(error, key);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _dialogService.showDialog(
           title: "Error",
@@ -30,33 +42,27 @@ class HomeViewModel extends ReactiveViewModel {
           description: error.toString(),
           dialogPlatform: DialogPlatform.Custom);
     });
-  }
-
-  Future start(bool showLoading) async {
-    await runBusyFuture(_productService.fetchAll(), throwException: true);
+    super.onFutureError(error, key);
   }
 
   addToCart(ProductDto product) {
     _cartService.addToCart(product);
   }
 
-  addCartItemQuantity(int id) {
+  addCartItemQuantity(String id) {
     _cartService.addCartItemQuantity(id);
   }
 
-  minusCartItemQuantity(int id) {
+  minusCartItemQuantity(String id) {
     _cartService.minusCartItemQuantity(id);
+  }
+
+  productView(String id) {
+    _navService.navigateToProductView(id: id.toString(), key: UniqueKey());
   }
 
   signOut() async {
     await _authService.signOut();
-    await navService.replaceWithAuthView();
+    await _navService.replaceWithAuthView();
   }
-
-  int get cartCount => _cartService.cartCount;
-
-  num get cartTotal => _cartService.cartTotal;
-
-  List<ProductDto> get products => _productService.items;
-  List<ProductDto> get cart => _cartService.cart;
 }

@@ -46,7 +46,7 @@ class CartService with ListenableServiceMixin {
     }
   }
 
-  addCartItemQuantity(int id) {
+  addCartItemQuantity(String id) {
     final index = _cart.value.indexWhere((element) => element.id == id);
 
     if (index != -1) {
@@ -57,7 +57,7 @@ class CartService with ListenableServiceMixin {
     }
   }
 
-  minusCartItemQuantity(int id) {
+  minusCartItemQuantity(String id) {
     final index = _cart.value.indexWhere((element) => element.id == id);
 
     if (index != -1) {

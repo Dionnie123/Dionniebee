@@ -11,7 +11,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
@@ -36,10 +35,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final supabase = Supabase.instance.client;
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      FlutterNativeSplash.remove();
-    });
+    // final authService = locator<AuthService>();
+
     return LifeCycleManager(
       child: MaterialApp.router(
         scrollBehavior: AppScrollBehavior(),
@@ -60,12 +57,9 @@ class MainApp extends StatelessWidget {
         ).copyWith(
             // colorScheme: darkColorScheme,
             ),
-        routerDelegate: stackedRouter.delegate(initialRoutes: [
-          supabase.auth.currentUser != null
-              ? const HomeViewRoute()
-              : const AuthViewRoute()
-        ]),
-        routeInformationParser: stackedRouter.defaultRouteParser(),
+        routerDelegate: stackedRouter.delegate(),
+        routeInformationParser:
+            stackedRouter.defaultRouteParser(includePrefixMatches: true),
       ),
     );
   }

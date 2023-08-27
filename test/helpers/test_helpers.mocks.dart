@@ -6,14 +6,15 @@
 import 'dart:async' as _i7;
 import 'dart:ui' as _i8;
 
-import 'package:dionniebee/app/models/product_dto.dart' as _i2;
+import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
+import 'package:dionniebee/app/models/product_dto.dart' as _i11;
 import 'package:dionniebee/services/auth_service.dart' as _i9;
-import 'package:dionniebee/services/cart_service.dart' as _i13;
-import 'package:dionniebee/services/location_service.dart' as _i11;
+import 'package:dionniebee/services/cart_service.dart' as _i14;
+import 'package:dionniebee/services/location_service.dart' as _i12;
 import 'package:dionniebee/services/product_service.dart' as _i10;
 import 'package:faker/faker.dart' as _i4;
 import 'package:flutter/material.dart' as _i6;
-import 'package:latlong2/latlong.dart' as _i12;
+import 'package:latlong2/latlong.dart' as _i13;
 import 'package:location/location.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i5;
@@ -29,8 +30,9 @@ import 'package:stacked_services/stacked_services.dart' as _i5;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeProductDto_0 extends _i1.SmartFake implements _i2.ProductDto {
-  _FakeProductDto_0(
+class _FakeCollectionReference_0<T extends Object?> extends _i1.SmartFake
+    implements _i2.CollectionReference<T> {
+  _FakeCollectionReference_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -671,15 +673,6 @@ class MockDialogService extends _i1.Mock implements _i5.DialogService {
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthService extends _i1.Mock implements _i9.AuthService {
   @override
-  _i7.Future<void> initialise() => (super.noSuchMethod(
-        Invocation.method(
-          #initialise,
-          [],
-        ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
-  @override
   _i7.Future<dynamic> signInWithEmail({
     required String? email,
     required String? password,
@@ -744,96 +737,10 @@ class MockAuthService extends _i1.Mock implements _i9.AuthService {
         returnValue: _i7.Future<dynamic>.value(),
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
-}
-
-/// A class which mocks [ProductService].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockProductService extends _i1.Mock implements _i10.ProductService {
   @override
-  int get listenersCount => (super.noSuchMethod(
-        Invocation.getter(#listenersCount),
-        returnValue: 0,
-        returnValueForMissingStub: 0,
-      ) as int);
-  @override
-  String get table => (super.noSuchMethod(
-        Invocation.getter(#table),
-        returnValue: '',
-        returnValueForMissingStub: '',
-      ) as String);
-  @override
-  set table(String? _table) => super.noSuchMethod(
-        Invocation.setter(
-          #table,
-          _table,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  _i2.ProductDto Function(dynamic) get transformer => (super.noSuchMethod(
-        Invocation.getter(#transformer),
-        returnValue: (dynamic __p0) => _FakeProductDto_0(
-          this,
-          Invocation.getter(#transformer),
-        ),
-        returnValueForMissingStub: (dynamic __p0) => _FakeProductDto_0(
-          this,
-          Invocation.getter(#transformer),
-        ),
-      ) as _i2.ProductDto Function(dynamic));
-  @override
-  set transformer(_i2.ProductDto Function(dynamic)? _transformer) =>
-      super.noSuchMethod(
-        Invocation.setter(
-          #transformer,
-          _transformer,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  List<_i2.ProductDto> get items => (super.noSuchMethod(
-        Invocation.getter(#items),
-        returnValue: <_i2.ProductDto>[],
-        returnValueForMissingStub: <_i2.ProductDto>[],
-      ) as List<_i2.ProductDto>);
-  @override
-  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
-      super.noSuchMethod(
+  _i7.Future<dynamic> signInAnonymously() => (super.noSuchMethod(
         Invocation.method(
-          #listenToReactiveValues,
-          [reactiveValues],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  void addListener(void Function()? listener) => super.noSuchMethod(
-        Invocation.method(
-          #addListener,
-          [listener],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  void removeListener(void Function()? listener) => super.noSuchMethod(
-        Invocation.method(
-          #removeListener,
-          [listener],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  void notifyListeners() => super.noSuchMethod(
-        Invocation.method(
-          #notifyListeners,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  _i7.Future<dynamic> fetchAll() => (super.noSuchMethod(
-        Invocation.method(
-          #fetchAll,
+          #signInAnonymously,
           [],
         ),
         returnValue: _i7.Future<dynamic>.value(),
@@ -841,10 +748,85 @@ class MockProductService extends _i1.Mock implements _i10.ProductService {
       ) as _i7.Future<dynamic>);
 }
 
+/// A class which mocks [ProductService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockProductService extends _i1.Mock implements _i10.ProductService {
+  @override
+  _i2.CollectionReference<Object?> get productsCollection =>
+      (super.noSuchMethod(
+        Invocation.getter(#productsCollection),
+        returnValue: _FakeCollectionReference_0<Object?>(
+          this,
+          Invocation.getter(#productsCollection),
+        ),
+        returnValueForMissingStub: _FakeCollectionReference_0<Object?>(
+          this,
+          Invocation.getter(#productsCollection),
+        ),
+      ) as _i2.CollectionReference<Object?>);
+  @override
+  _i7.Stream<dynamic> listenToPostsRealTime() => (super.noSuchMethod(
+        Invocation.method(
+          #listenToPostsRealTime,
+          [],
+        ),
+        returnValue: _i7.Stream<dynamic>.empty(),
+        returnValueForMissingStub: _i7.Stream<dynamic>.empty(),
+      ) as _i7.Stream<dynamic>);
+  @override
+  _i7.Future<void> addProduct(_i11.ProductDto? product) => (super.noSuchMethod(
+        Invocation.method(
+          #addProduct,
+          [product],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+  @override
+  _i7.Stream<List<_i11.ProductDto>> getProductsStream() => (super.noSuchMethod(
+        Invocation.method(
+          #getProductsStream,
+          [],
+        ),
+        returnValue: _i7.Stream<List<_i11.ProductDto>>.empty(),
+        returnValueForMissingStub: _i7.Stream<List<_i11.ProductDto>>.empty(),
+      ) as _i7.Stream<List<_i11.ProductDto>>);
+  @override
+  _i7.Stream<_i11.ProductDto> getProductStream(String? productId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getProductStream,
+          [productId],
+        ),
+        returnValue: _i7.Stream<_i11.ProductDto>.empty(),
+        returnValueForMissingStub: _i7.Stream<_i11.ProductDto>.empty(),
+      ) as _i7.Stream<_i11.ProductDto>);
+  @override
+  _i7.Future<void> updateProduct(_i11.ProductDto? product) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateProduct,
+          [product],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+  @override
+  _i7.Future<void> deleteProduct(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteProduct,
+          [id],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+}
+
 /// A class which mocks [LocationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocationService extends _i1.Mock implements _i11.LocationService {
+class MockLocationService extends _i1.Mock implements _i12.LocationService {
   @override
   _i3.Location get location => (super.noSuchMethod(
         Invocation.getter(#location),
@@ -866,44 +848,44 @@ class MockLocationService extends _i1.Mock implements _i11.LocationService {
         returnValueForMissingStub: null,
       );
   @override
-  _i7.Stream<_i12.LatLng> get locationStream => (super.noSuchMethod(
+  _i7.Stream<_i13.LatLng?> get locationStream => (super.noSuchMethod(
         Invocation.getter(#locationStream),
-        returnValue: _i7.Stream<_i12.LatLng>.empty(),
-        returnValueForMissingStub: _i7.Stream<_i12.LatLng>.empty(),
-      ) as _i7.Stream<_i12.LatLng>);
+        returnValue: _i7.Stream<_i13.LatLng?>.empty(),
+        returnValueForMissingStub: _i7.Stream<_i13.LatLng?>.empty(),
+      ) as _i7.Stream<_i13.LatLng?>);
   @override
-  _i7.Stream<int> epochUpdatesNumbers() => (super.noSuchMethod(
+  void listen() => super.noSuchMethod(
         Invocation.method(
-          #epochUpdatesNumbers,
+          #listen,
           [],
         ),
-        returnValue: _i7.Stream<int>.empty(),
-        returnValueForMissingStub: _i7.Stream<int>.empty(),
-      ) as _i7.Stream<int>);
+        returnValueForMissingStub: null,
+      );
   @override
-  _i7.Stream<int> loc() => (super.noSuchMethod(
-        Invocation.method(
-          #loc,
-          [],
-        ),
-        returnValue: _i7.Stream<int>.empty(),
-        returnValueForMissingStub: _i7.Stream<int>.empty(),
-      ) as _i7.Stream<int>);
-  @override
-  _i7.Future<_i12.LatLng?> getLocation() => (super.noSuchMethod(
+  _i7.Future<_i13.LatLng?> getLocation() => (super.noSuchMethod(
         Invocation.method(
           #getLocation,
           [],
         ),
-        returnValue: _i7.Future<_i12.LatLng?>.value(),
-        returnValueForMissingStub: _i7.Future<_i12.LatLng?>.value(),
-      ) as _i7.Future<_i12.LatLng?>);
+        returnValue: _i7.Future<_i13.LatLng?>.value(),
+        returnValueForMissingStub: _i7.Future<_i13.LatLng?>.value(),
+      ) as _i7.Future<_i13.LatLng?>);
+  @override
+  _i7.Stream<List<String>> getNearbyLocationStream(_i12.MapInfo? mapInfo) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getNearbyLocationStream,
+          [mapInfo],
+        ),
+        returnValue: _i7.Stream<List<String>>.empty(),
+        returnValueForMissingStub: _i7.Stream<List<String>>.empty(),
+      ) as _i7.Stream<List<String>>);
 }
 
 /// A class which mocks [CartService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCartService extends _i1.Mock implements _i13.CartService {
+class MockCartService extends _i1.Mock implements _i14.CartService {
   @override
   _i4.Faker get faker => (super.noSuchMethod(
         Invocation.getter(#faker),
@@ -925,11 +907,11 @@ class MockCartService extends _i1.Mock implements _i13.CartService {
         returnValueForMissingStub: null,
       );
   @override
-  List<_i2.ProductDto> get cart => (super.noSuchMethod(
+  List<_i11.ProductDto> get cart => (super.noSuchMethod(
         Invocation.getter(#cart),
-        returnValue: <_i2.ProductDto>[],
-        returnValueForMissingStub: <_i2.ProductDto>[],
-      ) as List<_i2.ProductDto>);
+        returnValue: <_i11.ProductDto>[],
+        returnValueForMissingStub: <_i11.ProductDto>[],
+      ) as List<_i11.ProductDto>);
   @override
   num get cartTotal => (super.noSuchMethod(
         Invocation.getter(#cartTotal),
@@ -949,7 +931,7 @@ class MockCartService extends _i1.Mock implements _i13.CartService {
         returnValueForMissingStub: 0,
       ) as int);
   @override
-  dynamic addToCart(_i2.ProductDto? product) => super.noSuchMethod(
+  dynamic addToCart(_i11.ProductDto? product) => super.noSuchMethod(
         Invocation.method(
           #addToCart,
           [product],
@@ -957,7 +939,7 @@ class MockCartService extends _i1.Mock implements _i13.CartService {
         returnValueForMissingStub: null,
       );
   @override
-  dynamic addCartItemQuantity(int? id) => super.noSuchMethod(
+  dynamic addCartItemQuantity(String? id) => super.noSuchMethod(
         Invocation.method(
           #addCartItemQuantity,
           [id],
@@ -965,7 +947,7 @@ class MockCartService extends _i1.Mock implements _i13.CartService {
         returnValueForMissingStub: null,
       );
   @override
-  dynamic minusCartItemQuantity(int? id) => super.noSuchMethod(
+  dynamic minusCartItemQuantity(String? id) => super.noSuchMethod(
         Invocation.method(
           #minusCartItemQuantity,
           [id],

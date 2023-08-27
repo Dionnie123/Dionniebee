@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "407406091517",
+    "project_id": "dionniebee-488f2",
+    "storage_bucket": "dionniebee-488f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407406091517:android:4e6606e341e91af2f1f294",
+        "android_client_info": {
+          "package_name": "com.dionniestudios.dionniebee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407406091517-i3934jbp15tl9ajcj6o1nisesoosiqhd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZTLsj3XFDjKUQfo0g-06kDsLjNBvoc2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407406091517-i3934jbp15tl9ajcj6o1nisesoosiqhd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,46 +1,39 @@
-import 'package:dionniebee/app/helpers/error_definitions.dart';
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
-import 'package:stacked/stacked.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
-mixin SupabaseMixin<T> on ListenableServiceMixin {
-  final _supabase = Supabase.instance.client;
-  late final String table;
+class ProductService {
+  final CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection('products');
 
-  /// Converts json response into data class model. E.g:
-  /// transformer = (e) { return ProductDto.fromJson(e); };
-  late final T Function(dynamic) transformer;
-
-  final ReactiveValue<List<T>> _items = ReactiveValue<List<T>>([]);
-  List<T> get items => _items.value;
-
-  Future fetchAll() async {
-    assert(table.isNotEmpty, 'Table name must not be empty');
-    assert(transformer != () {}, 'Transformer function must be provided');
-    try {
-      final session = _supabase.auth.currentSession;
-
-      if (session != null && session.isExpired) {
-        await _supabase.auth.refreshSession();
-      }
-      final data = await _supabase.from(table).select('*');
-      if (data is List && data.isNotEmpty) {
-        _items.value = data.map((e) {
-          return transformer(e);
-        }).toList();
-      }
-    } catch (e) {
-      return Future.error(errorDefinition(e.toString()));
-    }
+  Stream<List<ProductDto>> getItemsStream() {
+    return collectionReference.snapshots().map((snapshot) {
+      return snapshot.docs
+          .map((doc) => ProductDto.fromJson(doc.data() as Map<String, dynamic>)
+              .copyWith(id: doc.id))
+          .toList();
+    });
   }
-}
 
-class ProductService with ListenableServiceMixin, SupabaseMixin<ProductDto> {
-  ProductService() {
-    table = "products";
-    transformer = (e) {
-      return ProductDto.fromJson(e);
-    };
-    listenToReactiveValues([items]);
+  Stream<ProductDto> getItemStream(String productId) {
+    return collectionReference.doc(productId).snapshots().map((snapshot) {
+      return ProductDto.fromJson(snapshot.data() as Map<String, dynamic>)
+          .copyWith(id: snapshot.id);
+    });
+  }
+
+  Future<void> updateItem(ProductDto product) async {
+    await collectionReference
+        .doc(product.id.toString())
+        .update(product.toJson());
+  }
+
+  Future<void> addItem(ProductDto product) async {
+    await collectionReference.add(product.toJson);
+  }
+
+  Future<void> deleteItem(int id) async {
+    await collectionReference.doc(id.toString()).delete();
   }
 }

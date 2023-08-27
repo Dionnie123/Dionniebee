@@ -1,78 +1,68 @@
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/services/location_service.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
 import 'package:stacked/stacked.dart';
 
-class MyMapModel extends StreamViewModel<LatLng> {
+enum MapAccess { unknown, allowed, disallowed }
+
+const String _locationStreamKey = 'location-stream';
+const String _nearbyLocationStreamKey = 'nearby-location-stream';
+
+class MyMapModel extends MultipleStreamViewModel {
   final locationService = locator<LocationService>();
 
-  LatLng? get currentCoordinates {
-    // print(data);
-    return data;
+  LatLng? _location;
+  LatLng? get location => _location;
+
+  List<String> _nearbyPlaces = [];
+  List<String> get nearbyPlaces => _nearbyPlaces;
+
+  @override
+  void onData(String key, data) {
+    if (key == _locationStreamKey) {
+      _location = data;
+    } else if (key == _nearbyLocationStreamKey) {
+      _nearbyPlaces = data;
+    }
+    notifyListeners();
+    super.onData(key, data);
   }
 
   @override
-  Stream<LatLng> get stream => locationService.locationStream;
-  final useTransformerId = 'useTransformerId';
-  final markerSize = 50.0;
+  Map<String, StreamData> get streamsMap => {
+        _locationStreamKey:
+            StreamData<LatLng?>(locationService.getLocationStream),
+        _nearbyLocationStreamKey: StreamData<List<dynamic>>(
+            locationService.getNearbyPlacesStream(_mapInfo)),
+      };
 
-  bool _useTransformer = true;
-  get useTransformer => _useTransformer;
-  set useTransformer(val) {
-    _useTransformer = val;
-    notifyListeners();
+  MapInfo? _mapInfo;
+  set mapInfo(val) {
+    _mapInfo = val;
+    notifySourceChanged();
   }
 
-  LatLng pointer = const LatLng(0, 0);
+  final List<LatLng> _markers = [
+    const LatLng(14.558098, 121.082855),
+    const LatLng(14.616546, 121.051689),
+    const LatLng(14.522642, 121.153839)
+  ];
 
-  void updatePoint(
-    BuildContext context,
-    AnimatedMapController controller,
-    MapEvent? event,
-  ) {
-    final pointX = getPointX(context);
-    final pointY = getPointY(context);
+  List<LatLng> get markers => _markers;
 
-    pointer =
-        controller.mapController.pointToLatLng(CustomPoint(pointX, pointY));
-    notifyListeners();
+  MapAccess _permit = MapAccess.unknown;
+  MapAccess get permit => _permit;
+  Future request() async {
+    await Location().requestPermission().then((granted) {
+      if ((granted == PermissionStatus.granted) ||
+          (granted == PermissionStatus.grantedLimited)) {
+        _permit = MapAccess.allowed;
+        locationService.listenToLocationStream();
+      } else {
+        _permit = MapAccess.disallowed;
+      }
+      notifyListeners();
+    });
   }
-
-  double getPointX(BuildContext context) {
-    return MediaQuery.of(context).size.width / 2;
-  }
-
-  double getPointY(BuildContext context) {
-    return MediaQuery.of(context).size.height / 2;
-  }
-
-  Marker buildPin(LatLng point) => Marker(
-      point: point,
-      builder: (ctx) => Wrap(
-            alignment: WrapAlignment.center,
-            runAlignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              Card(
-                  color: Colors.red,
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child:
-                        Image.asset('assets/logo.png', width: 30, height: 30),
-                  )),
-              const Icon(
-                Icons.location_pin,
-                size: 35,
-                color: Colors.red,
-              ),
-            ],
-          ),
-      width: 70,
-      height: 70,
-      anchorPos: AnchorPos.align(AnchorAlign.center));
-
-  List<Marker> markers = [];
 }

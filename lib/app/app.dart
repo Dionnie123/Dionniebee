@@ -1,3 +1,5 @@
+import 'package:dionniebee/services/authentication_service.firebase.dart';
+import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:dionniebee/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:stacked/stacked.dart';
@@ -7,7 +9,6 @@ import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/ui/views/auth/auth_view.dart';
 import 'package:dionniebee/ui/views/cart/cart_view.dart';
 import 'package:dionniebee/ui/views/home/home_view.dart';
-import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/ui/views/startup/startup_view.dart';
 import 'package:dionniebee/ui/views/foo/foo_view.dart';
 import 'package:dionniebee/ui/views/orders/orders_view.dart';
@@ -15,11 +16,18 @@ import 'package:dionniebee/ui/views/stores/stores_view.dart';
 import 'package:dionniebee/services/location_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/ui/views/promo/promo_view.dart';
+import 'package:dionniebee/ui/views/product/product_view.dart';
+import 'package:dionniebee/ui/views/welcome/welcome_view.dart';
 // @stacked-import
 
 @StackedApp(
   logger: StackedLogger(),
   routes: [
+    CustomRoute(
+      path: '/',
+      page: StartupView,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+    ),
     MaterialRoute(
       page: AuthView,
       path: '/',
@@ -34,11 +42,7 @@ import 'package:dionniebee/ui/views/promo/promo_view.dart';
       path: '/',
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
-    CustomRoute(
-      path: '/',
-      page: StartupView,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
-    ),
+
     CustomRoute(
       path: '/',
       page: FooView,
@@ -59,15 +63,28 @@ import 'package:dionniebee/ui/views/promo/promo_view.dart';
       page: PromoView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
+    MaterialRoute(
+      path: '/',
+      page: ProductView,
+    ),
+    MaterialRoute(
+      path: '/',
+      page: WelcomeView,
+    ),
 // @stacked-route
   ],
   dependencies: [
+    InitializableSingleton(
+      classType: FirebaseAuthService,
+      asType: AuthService,
+    ),
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: RouterService),
 
-    InitializableSingleton(classType: AuthService),
-    LazySingleton(classType: ProductService),
+    LazySingleton(
+      classType: ProductService,
+    ),
     LazySingleton(classType: LocationService),
     LazySingleton(classType: CartService),
 // @stacked-service
