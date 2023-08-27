@@ -58,10 +58,11 @@ class MyMapModel extends MultipleStreamViewModel {
       if ((granted == PermissionStatus.granted) ||
           (granted == PermissionStatus.grantedLimited)) {
         _permit = MapAccess.allowed;
+        locationService.listenToLocationStream();
       } else {
         _permit = MapAccess.disallowed;
       }
-      notifySourceChanged();
-    }).whenComplete(() => print(permit));
+      notifyListeners();
+    });
   }
 }

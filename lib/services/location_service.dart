@@ -17,18 +17,13 @@ class LocationService {
   final StreamController<LatLng?> _locationController = BehaviorSubject();
   Stream<LatLng?> get getLocationStream => _locationController.stream;
 
-  LocationService() {
-    location.requestPermission().then((granted) {
-      if (granted == PermissionStatus.granted ||
-          granted == PermissionStatus.grantedLimited) {
-        location.onLocationChanged.listen((locationData) {
-          if (locationData.latitude != null && locationData.longitude != null) {
-            _locationController.add(LatLng(
-              locationData.latitude ?? 0,
-              locationData.longitude ?? 0,
-            ));
-          }
-        });
+  void listen() {
+    location.onLocationChanged.listen((locationData) {
+      if (locationData.latitude != null && locationData.longitude != null) {
+        _locationController.add(LatLng(
+          locationData.latitude ?? 0,
+          locationData.longitude ?? 0,
+        ));
       }
     });
   }
