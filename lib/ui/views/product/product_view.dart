@@ -44,7 +44,7 @@ class ProductView extends StackedView<ProductViewModel> {
 
   @override
   void onViewModelReady(ProductViewModel viewModel) {
-    viewModel.listenToPost(id);
+    viewModel.productId = id;
     super.onViewModelReady(viewModel);
   }
 }

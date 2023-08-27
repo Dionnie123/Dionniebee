@@ -3,19 +3,17 @@ import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/services/product_service.dart';
 import 'package:stacked/stacked.dart';
 
-class ProductViewModel extends BaseViewModel {
+class ProductViewModel extends StreamViewModel<ProductDto?> {
   final _productService = locator<ProductService>();
+  ProductDto? get product => data;
 
-  ProductDto? _product;
-  ProductDto? get product => _product;
-  set product(val) {
-    _product = val;
-    notifyListeners();
+  late String _productId;
+  String get productId => _productId;
+  set productId(String val) {
+    _productId = val;
+    notifySourceChanged(clearOldData: true);
   }
 
-  void listenToPost(String id) {
-    _productService.getProductStream(id).listen((val) {
-      _product = val;
-    });
-  }
+  @override
+  Stream<ProductDto?> get stream => _productService.getItemStream(productId);
 }

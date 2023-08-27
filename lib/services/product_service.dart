@@ -4,39 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 
 class ProductService {
-  final CollectionReference productsCollection =
+  final CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('products');
 
-  // Create the controller that will broadcast the posts
-  final StreamController<List<ProductDto>> _postsController =
-      StreamController<List<ProductDto>>.broadcast();
-
-  Stream listenToPostsRealTime() {
-    // Register the handler for when the posts data changes
-    productsCollection.snapshots().listen((postsSnapshot) {
-      if (postsSnapshot.docs.isNotEmpty) {
-        var posts = postsSnapshot.docs
-            .map((snapshot) =>
-                ProductDto.fromJson(snapshot.data() as Map<String, dynamic>)
-                    .copyWith(id: snapshot.id))
-            //.where((mappedItem) => mappedItem.id != null)
-            .toList();
-        print(posts);
-        // Add the posts onto the controller
-        _postsController.add(posts);
-      }
-    });
-
-    // Return the stream underlying our _postsController.
-    return _postsController.stream;
-  }
-
-  Future<void> addProduct(ProductDto product) async {
-    await productsCollection.add(product.toJson);
-  }
-
-  Stream<List<ProductDto>> getProductsStream() {
-    return productsCollection.snapshots().map((snapshot) {
+  Stream<List<ProductDto>> getItemsStream() {
+    return collectionReference.snapshots().map((snapshot) {
       return snapshot.docs
           .map((doc) => ProductDto.fromJson(doc.data() as Map<String, dynamic>)
               .copyWith(id: doc.id))
@@ -44,20 +16,24 @@ class ProductService {
     });
   }
 
-  Stream<ProductDto> getProductStream(String productId) {
-    return productsCollection.doc(productId).snapshots().map((snapshot) {
+  Stream<ProductDto> getItemStream(String productId) {
+    return collectionReference.doc(productId).snapshots().map((snapshot) {
       return ProductDto.fromJson(snapshot.data() as Map<String, dynamic>)
           .copyWith(id: snapshot.id);
     });
   }
 
-  Future<void> updateProduct(ProductDto product) async {
-    await productsCollection
+  Future<void> updateItem(ProductDto product) async {
+    await collectionReference
         .doc(product.id.toString())
         .update(product.toJson());
   }
 
-  Future<void> deleteProduct(int id) async {
-    await productsCollection.doc(id.toString()).delete();
+  Future<void> addItem(ProductDto product) async {
+    await collectionReference.add(product.toJson);
+  }
+
+  Future<void> deleteItem(int id) async {
+    await collectionReference.doc(id.toString()).delete();
   }
 }

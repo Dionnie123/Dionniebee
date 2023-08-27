@@ -189,6 +189,18 @@ class _AnimatedMapState extends State<MapAnimated>
                       dragPointMarker(),
                     ],
                   ),
+                  /*    DragMarkers(
+                    markers: [
+                      DragMarker(
+                        size: const Size.fromWidth(35),
+                        point: dragPoint ?? const LatLng(0, 0),
+                        offset: const Offset(0.0, -8.0),
+                        builder: (ctx, latlang, b) =>
+                            const Icon(Icons.location_on, size: 50),
+                        onDragUpdate: (details, latLng) => print(latLng),
+                      ),
+                    ],
+                  ), */
                 ],
               ),
               Align(

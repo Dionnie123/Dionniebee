@@ -6,35 +6,35 @@ import 'package:stacked/stacked.dart';
 
 enum MapAccess { unknown, allowed, disallowed }
 
-const String _liveLocationStreamKey = 'livelocation-stream';
-const String _nearestLocationStreamKey = 'nearestlocation-stream';
+const String _locationStreamKey = 'location-stream';
+const String _nearbyLocationStreamKey = 'nearby-location-stream';
 
 class MyMapModel extends MultipleStreamViewModel {
   final locationService = locator<LocationService>();
 
-  LatLng? _currentCoordinates;
-  LatLng? get currentCoordinates => _currentCoordinates;
-  List<String> _nearby = [];
-  List<String> get nearby => _nearby;
+  LatLng? _location;
+  LatLng? get location => _location;
+
+  List<String> _nearbyPlaces = [];
+  List<String> get nearbyPlaces => _nearbyPlaces;
 
   @override
   void onData(String key, data) {
-    if (key == _liveLocationStreamKey) {
-      _currentCoordinates = data;
-    } else if (key == _nearestLocationStreamKey) {
-      _nearby = data;
+    if (key == _locationStreamKey) {
+      _location = data;
+    } else if (key == _nearbyLocationStreamKey) {
+      _nearbyPlaces = data;
     }
-
     notifyListeners();
     super.onData(key, data);
   }
 
   @override
   Map<String, StreamData> get streamsMap => {
-        _liveLocationStreamKey:
-            StreamData<LatLng?>(locationService.locationStream),
-        _nearestLocationStreamKey: StreamData<List<dynamic>>(
-            locationService.getNearbyLocationStream(_mapInfo)),
+        _locationStreamKey:
+            StreamData<LatLng?>(locationService.getLocationStream),
+        _nearbyLocationStreamKey: StreamData<List<dynamic>>(
+            locationService.getNearbyPlacesStream(_mapInfo)),
       };
 
   MapInfo? _mapInfo;
@@ -57,7 +57,6 @@ class MyMapModel extends MultipleStreamViewModel {
     await Location().requestPermission().then((granted) {
       if ((granted == PermissionStatus.granted) ||
           (granted == PermissionStatus.grantedLimited)) {
-        locationService.listen();
         _permit = MapAccess.allowed;
       } else {
         _permit = MapAccess.disallowed;

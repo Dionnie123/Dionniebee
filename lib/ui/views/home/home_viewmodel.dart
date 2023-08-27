@@ -17,12 +17,6 @@ class HomeViewModel extends MultipleStreamViewModel {
   final _cartService = locator<CartService>();
   final _dialogService = locator<DialogService>();
 
-  @override
-  void onCancel(String key) {
-    print("STREAM CANCELLED");
-    super.onCancel(key);
-  }
-
   int get cartCount => _cartService.cartCount;
   num get cartTotal => _cartService.cartTotal;
   List<ProductDto> get cart => _cartService.cart;
@@ -33,23 +27,11 @@ class HomeViewModel extends MultipleStreamViewModel {
   @override
   Map<String, StreamData> get streamsMap => {
         _productsStreamKey:
-            StreamData<List<ProductDto>>(_productService.getProductsStream())
+            StreamData<List<ProductDto>>(_productService.getItemsStream())
       };
 
   @override
   List<ListenableServiceMixin> get listenableServices => [_cartService];
-
-  @override
-  void onError(String key, error) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _dialogService.showDialog(
-          title: "Error",
-          barrierDismissible: true,
-          description: error.toString(),
-          dialogPlatform: DialogPlatform.Custom);
-    });
-    super.onError(key, error);
-  }
 
   @override
   void onFutureError(error, Object? key) {

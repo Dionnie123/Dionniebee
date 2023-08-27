@@ -60,7 +60,6 @@ class MyMap extends StackedView<MyMapModel> {
                           // user manually enable it in the system settings.
 
                           await AppSettings.openAppSettings();
-                          print("fdsfsf");
                         }
                       },
                       child: const Text("Settings"))
@@ -73,14 +72,14 @@ class MyMap extends StackedView<MyMapModel> {
     }
 
     Widget fetchLoading() {
-      return Center(
+      return const Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CircularProgressIndicator(),
+          CircularProgressIndicator(),
           vSpaceSmall,
           Text(
-            "Fetching location...please wait ${viewModel.currentCoordinates}",
+            "Fetching location...please wait",
             textAlign: TextAlign.center,
           ),
         ],
@@ -95,8 +94,9 @@ class MyMap extends StackedView<MyMapModel> {
             padding: const EdgeInsets.all(15.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children:
-                  viewModel.nearby.map((e) => Text(e.toString())).toList(),
+              children: viewModel.nearbyPlaces
+                  .map((e) => Text(e.toString()))
+                  .toList(),
             ),
           ),
           body: Padding(
@@ -104,16 +104,16 @@ class MyMap extends StackedView<MyMapModel> {
             child: viewModel.permit == MapAccess.unknown
                 ? const Center(child: CircularProgressIndicator())
                 : viewModel.permit == MapAccess.allowed &&
-                        viewModel.currentCoordinates == null
+                        viewModel.location == null
                     ? fetchLoading()
                     : viewModel.permit == MapAccess.allowed &&
-                            viewModel.currentCoordinates != null
+                            viewModel.location != null
                         ? MapAnimated(
-                            onMapReady: (lat, long, d) {
+                            onMapReady: (lat, long, distance) {
                               viewModel.mapInfo = MapInfo(
                                   refLatitude: lat,
                                   refLongitude: long,
-                                  maxDistance: d);
+                                  maxDistance: distance);
                             },
                             onChanged: (lat, long, distance) {
                               viewModel.mapInfo = MapInfo(
@@ -128,8 +128,8 @@ class MyMap extends StackedView<MyMapModel> {
                             markers: viewModel.markers
                                 .mapIndexed((i, e) => markerWidget(i, e))
                                 .toList(),
-                            currentPoint: viewModel.currentCoordinates ??
-                                const LatLng(0, 0),
+                            currentPoint:
+                                viewModel.location ?? const LatLng(0, 0),
                           )
                         : viewModel.permit == MapAccess.disallowed
                             ? openSettings()
@@ -154,6 +154,6 @@ class MyMap extends StackedView<MyMapModel> {
 
   @override
   bool get fireOnViewModelReadyOnce {
-    return false;
+    return true;
   }
 }
