@@ -17,7 +17,7 @@ class LocationService {
   final StreamController<LatLng?> _locationController = BehaviorSubject();
   Stream<LatLng?> get getLocationStream => _locationController.stream;
 
-  void listen() {
+  void listenToLocationStream() {
     location.onLocationChanged.listen((locationData) {
       if (locationData.latitude != null && locationData.longitude != null) {
         _locationController.add(LatLng(
