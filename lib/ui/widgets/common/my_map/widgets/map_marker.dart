@@ -6,26 +6,14 @@ Marker markerWidget(int i, LatLng point) {
   return Marker(
     point: point,
     builder: (context) {
-      return Stack(
-        fit: StackFit.expand,
+      return const Stack(
+        alignment: Alignment.center,
         children: [
-          const SizedBox(
-            width: 35,
-            height: 35,
-          ),
-          const Icon(
+          Icon(
             Icons.location_pin,
             size: 35,
             color: Colors.red,
           ),
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              i.toString(),
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          )
         ],
       );
     },

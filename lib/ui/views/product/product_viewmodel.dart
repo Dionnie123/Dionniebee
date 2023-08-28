@@ -7,13 +7,12 @@ class ProductViewModel extends StreamViewModel<ProductDto?> {
   final _productService = locator<ProductService>();
   ProductDto? get product => data;
 
-  late String _productId;
-  String get productId => _productId;
-  set productId(String val) {
+  String? _productId;
+  set productId(String? val) {
     _productId = val;
     notifySourceChanged(clearOldData: true);
   }
 
   @override
-  Stream<ProductDto?> get stream => _productService.getItemStream(productId);
+  Stream<ProductDto?> get stream => _productService.getItemStream(_productId);
 }

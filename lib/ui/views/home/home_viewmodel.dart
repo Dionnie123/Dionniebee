@@ -21,14 +21,20 @@ class HomeViewModel extends MultipleStreamViewModel {
   num get cartTotal => _cartService.cartTotal;
   List<ProductDto> get cart => _cartService.cart;
 
-  List<ProductDto> get products => dataMap![_productsStreamKey] ?? [];
-  bool get hasNumberData => dataReady(_productsStreamKey);
+  List<ProductDto> _products = [];
+  List<ProductDto> get products => _products;
 
   @override
   Map<String, StreamData> get streamsMap => {
         _productsStreamKey:
             StreamData<List<ProductDto>>(_productService.getItemsStream())
       };
+
+  @override
+  void onData(String key, data) {
+    _products = dataMap?[_productsStreamKey];
+    super.onData(key, data);
+  }
 
   @override
   List<ListenableServiceMixin> get listenableServices => [_cartService];

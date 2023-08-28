@@ -54,7 +54,7 @@ class LocationService {
           )
           .map((event) => event.map((e) => e.data().toString()).toList());
     }
-    return Stream<List<String>>.fromIterable([]);
+    return const Stream.empty();
   }
 }
 
