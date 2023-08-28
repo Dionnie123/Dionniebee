@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -18,13 +19,23 @@ class ProductView extends StackedView<ProductViewModel> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         children: [
-          AspectRatio(
-            aspectRatio: 4 / 3,
-            child: Image.network(
-              "https://images.unsplash.com/photo-1692733470142-bfa42928dc33?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80",
+          Card(
+              child: Row(children: [
+            CachedNetworkImage(
+              imageUrl:
+                  'https://images.unsplash.com/photo-1687360441372-757f8b2b6835?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
               fit: BoxFit.cover,
             ),
-          ),
+            const Expanded(
+              child: Text('Product Name'),
+            ),
+          ])),
+          AspectRatio(
+              aspectRatio: 4 / 3,
+              child: CachedNetworkImage(
+                imageUrl: "${viewModel.product?.imageUrl}",
+                fit: BoxFit.cover,
+              )),
           Text("${viewModel.product?.name}"),
           Text("${viewModel.product?.description}"),
           Container(

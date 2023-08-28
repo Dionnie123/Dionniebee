@@ -1,6 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:collection/collection.dart';
-import 'package:dionniebee/services/location_service.dart';
+import 'package:dionniebee/app/models/location_dto.dart';
+import 'package:dionniebee/app/models/point_dto.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/map_animated.dart';
 import 'package:flutter/material.dart';
@@ -110,16 +111,20 @@ class MyMap extends StackedView<MyMapModel> {
                             viewModel.location != null
                         ? MapAnimated(
                             onMapReady: (lat, long, distance) {
-                              viewModel.mapInfo = MapInfo(
-                                  refLatitude: lat,
-                                  refLongitude: long,
-                                  maxDistance: distance);
+                              viewModel.mapInfo = LocationDto(
+                                point: PointDto(
+                                    refLatitude: lat,
+                                    refLongitude: long,
+                                    maxDistance: distance),
+                              );
                             },
                             onChanged: (lat, long, distance) {
-                              viewModel.mapInfo = MapInfo(
-                                  refLatitude: lat,
-                                  refLongitude: long,
-                                  maxDistance: distance);
+                              viewModel.mapInfo = LocationDto(
+                                point: PointDto(
+                                    refLatitude: lat,
+                                    refLongitude: long,
+                                    maxDistance: distance),
+                              );
                             },
                             boundary: LatLngBounds.fromPoints([
                               const LatLng(4.382696, 112.1661),

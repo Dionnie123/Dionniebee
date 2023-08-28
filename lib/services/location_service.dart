@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dionniebee/app/models/location_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:latlong2/latlong.dart';
@@ -41,30 +42,24 @@ class LocationService {
     return null;
   }
 
-  Stream<List<String>> getNearbyPlacesStream(MapInfo? mapInfo) {
-    if (mapInfo != null) {
+  Stream<List<LocationDto>> getNearbyPlacesStream(LocationDto? locationDto) {
+    if (locationDto != null) {
       final center = geo.point(
-          latitude: mapInfo.refLatitude, longitude: mapInfo.refLongitude);
+        latitude: locationDto.point!.refLatitude ?? 0,
+        longitude: locationDto.point!.refLongitude ?? 0,
+      );
       return geo
           .collection(collectionRef: collectionReference)
           .within(
             center: center,
-            radius: mapInfo.maxDistance,
+            radius: locationDto.point?.maxDistance ?? 0,
             field: 'point',
           )
-          .map((event) => event.map((e) => e.data().toString()).toList());
+          .map((event) => event
+              .map(
+                  (e) => LocationDto.fromJson(e.data() as Map<String, dynamic>))
+              .toList());
     }
     return const Stream.empty();
   }
-}
-
-class MapInfo {
-  final double refLatitude;
-  final double refLongitude;
-  final double maxDistance;
-  MapInfo({
-    required this.refLatitude,
-    required this.refLongitude,
-    required this.maxDistance,
-  });
 }
