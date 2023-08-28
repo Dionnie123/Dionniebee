@@ -16,8 +16,8 @@ class MyMapModel extends MultipleStreamViewModel {
   LatLng? _location;
   LatLng? get location => _location;
 
-  List<LocationDto> _nearbyPlaces = [];
-  List<LocationDto> get nearbyPlaces => _nearbyPlaces;
+  List<dynamic> _nearbyPlaces = [];
+  List<dynamic> get nearbyPlaces => _nearbyPlaces;
 
   @override
   void onData(String key, data) {
@@ -25,6 +25,8 @@ class MyMapModel extends MultipleStreamViewModel {
       _location = data;
     } else if (key == _nearbyLocationStreamKey) {
       _nearbyPlaces = data;
+      print("ggggggggggggggggggggggg");
+      print(data);
     }
     notifyListeners();
     super.onData(key, data);
@@ -33,8 +35,8 @@ class MyMapModel extends MultipleStreamViewModel {
   @override
   Map<String, StreamData> get streamsMap => {
         _locationStreamKey:
-            StreamData<LatLng?>(locationService.getLocationStream),
-        _nearbyLocationStreamKey: StreamData<List<LocationDto>>(
+            StreamData<dynamic>(locationService.getLocationStream),
+        _nearbyLocationStreamKey: StreamData<List<dynamic>>(
             locationService.getNearbyPlacesStream(_locationDto)),
       };
 

@@ -42,23 +42,28 @@ class LocationService {
     return null;
   }
 
-  Stream<List<LocationDto>> getNearbyPlacesStream(LocationDto? locationDto) {
+  Stream<List<dynamic>> getNearbyPlacesStream(LocationDto? locationDto) {
     if (locationDto != null) {
-      final center = geo.point(
-        latitude: locationDto.point!.refLatitude ?? 0,
-        longitude: locationDto.point!.refLongitude ?? 0,
-      );
       return geo
           .collection(collectionRef: collectionReference)
           .within(
-            center: center,
-            radius: locationDto.point?.maxDistance ?? 0,
+            center: GeoFirePoint(
+              locationDto.point?.geopoint?.latitude ?? 0,
+              locationDto.point!.geopoint?.longitude ?? 0,
+            ),
+            radius: 100000,
             field: 'point',
           )
-          .map((event) => event
-              .map(
-                  (e) => LocationDto.fromJson(e.data() as Map<String, dynamic>))
-              .toList());
+          .map((event) {
+        final x = event.map((e) {
+          final k = e.data() as Map<dynamic, dynamic>;
+          final m = k['point']['geopoint'] as GeoPoint;
+          print('==================');
+          print(m.latitude);
+          return e.data();
+        }).toList();
+        return x;
+      });
     }
     return const Stream.empty();
   }
