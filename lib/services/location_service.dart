@@ -57,11 +57,12 @@ class LocationService {
           .map((event) {
         return event.map((e) {
           final k = e.data() as Map<String, dynamic>;
-          print(k['point']);
+          final g = k['point']['geopoint'] as GeoPoint;
+          print("G$g");
           return PointDto(
                   geohash: k['point']['geohash'],
-                  geopoint: LatLngDto(
-                      latitude: k['latitude'], longitude: k['longitude']))
+                  geopoint:
+                      LatLngDto(latitude: g.latitude, longitude: g.longitude))
               .toString();
         }).toList();
       });
