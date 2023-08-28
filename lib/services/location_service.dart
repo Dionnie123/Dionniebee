@@ -2,7 +2,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dionniebee/app/models/location_dto.dart';
+import 'package:dionniebee/app/models/point_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:latlong2/latlong.dart';
@@ -42,29 +42,41 @@ class LocationService {
     return null;
   }
 
-  Stream<List<dynamic>> getNearbyPlacesStream(LocationDto? locationDto) {
-    if (locationDto != null) {
+  Stream<List<String>> getNearbyPlacesStream(PointDto? mapInfo) {
+    if (mapInfo != null) {
+      final center = geo.point(
+          latitude: mapInfo.geopoint?.latitude ?? 0,
+          longitude: mapInfo.geopoint?.longitude ?? 0);
       return geo
           .collection(collectionRef: collectionReference)
           .within(
-            center: GeoFirePoint(
-              locationDto.point?.geopoint?.latitude ?? 0,
-              locationDto.point!.geopoint?.longitude ?? 0,
-            ),
-            radius: 100000,
+            center: center,
+            radius: mapInfo.maxDistance ?? 10,
             field: 'point',
           )
           .map((event) {
-        final x = event.map((e) {
-          final k = e.data() as Map<dynamic, dynamic>;
-          final m = k['point']['geopoint'] as GeoPoint;
-          print('==================');
-          print(m.latitude);
-          return e.data();
+        return event.map((e) {
+          final k = e.data() as Map<String, dynamic>;
+          print(k['point']);
+          return PointDto(
+                  geohash: k['point']['geohash'],
+                  geopoint: LatLngDto(
+                      latitude: k['latitude'], longitude: k['longitude']))
+              .toString();
         }).toList();
-        return x;
       });
     }
     return const Stream.empty();
   }
+}
+
+class MapInfo {
+  final double latitude;
+  final double longitude;
+  final double maxDistance;
+  MapInfo({
+    required this.latitude,
+    required this.longitude,
+    required this.maxDistance,
+  });
 }

@@ -1,5 +1,5 @@
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/app/models/location_dto.dart';
+import 'package:dionniebee/app/models/point_dto.dart';
 import 'package:dionniebee/services/location_service.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
@@ -40,8 +40,8 @@ class MyMapModel extends MultipleStreamViewModel {
             locationService.getNearbyPlacesStream(_locationDto)),
       };
 
-  LocationDto? _locationDto;
-  set mapInfo(LocationDto val) {
+  PointDto? _locationDto;
+  set mapInfo(PointDto val) {
     _locationDto = val;
     notifySourceChanged();
   }

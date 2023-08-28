@@ -7,10 +7,9 @@ import 'dart:async' as _i8;
 import 'dart:ui' as _i9;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
-import 'package:dionniebee/app/models/location_dto.dart' as _i15;
 import 'package:dionniebee/app/models/product_dto.dart' as _i12;
 import 'package:dionniebee/services/auth_service.dart' as _i10;
-import 'package:dionniebee/services/cart_service.dart' as _i16;
+import 'package:dionniebee/services/cart_service.dart' as _i15;
 import 'package:dionniebee/services/location_service.dart' as _i13;
 import 'package:dionniebee/services/product_service.dart' as _i11;
 import 'package:faker/faker.dart' as _i5;
@@ -907,22 +906,21 @@ class MockLocationService extends _i1.Mock implements _i13.LocationService {
         returnValueForMissingStub: _i8.Future<_i14.LatLng?>.value(),
       ) as _i8.Future<_i14.LatLng?>);
   @override
-  _i8.Stream<List<_i15.LocationDto>> getNearbyPlacesStream(
-          _i15.LocationDto? locationDto) =>
+  _i8.Stream<List<String>> getNearbyPlacesStream(_i13.MapInfo? mapInfo) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNearbyPlacesStream,
-          [locationDto],
+          [mapInfo],
         ),
-        returnValue: _i8.Stream<List<_i15.LocationDto>>.empty(),
-        returnValueForMissingStub: _i8.Stream<List<_i15.LocationDto>>.empty(),
-      ) as _i8.Stream<List<_i15.LocationDto>>);
+        returnValue: _i8.Stream<List<String>>.empty(),
+        returnValueForMissingStub: _i8.Stream<List<String>>.empty(),
+      ) as _i8.Stream<List<String>>);
 }
 
 /// A class which mocks [CartService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCartService extends _i1.Mock implements _i16.CartService {
+class MockCartService extends _i1.Mock implements _i15.CartService {
   @override
   _i5.Faker get faker => (super.noSuchMethod(
         Invocation.getter(#faker),
