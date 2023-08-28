@@ -25,8 +25,6 @@ class MyMapModel extends MultipleStreamViewModel {
       _location = data;
     } else if (key == _nearbyLocationStreamKey) {
       _nearbyPlaces = data;
-      print("ggggggggggggggggggggggg");
-      print(data);
     }
     notifyListeners();
     super.onData(key, data);
