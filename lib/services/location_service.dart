@@ -58,7 +58,7 @@ class LocationService {
         return event.map((e) {
           final k = e.data() as Map<String, dynamic>;
           final g = k['point']['geopoint'] as GeoPoint;
-          print("G$g");
+
           return PointDto(
                   geohash: k['point']['geohash'],
                   geopoint:
