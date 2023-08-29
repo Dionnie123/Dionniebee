@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'point_dto.dart';
+part of 'location_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,36 +14,46 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-PointDto _$PointDtoFromJson(Map<String, dynamic> json) {
-  return _PointDto.fromJson(json);
+LocationDto _$LocationDtoFromJson(Map<String, dynamic> json) {
+  return _LocationDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$PointDto {
+mixin _$LocationDto {
+  String? get name => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
   String? get geohash => throw _privateConstructorUsedError;
+  num? get distanceInKm => throw _privateConstructorUsedError;
   LatLngDto? get geopoint => throw _privateConstructorUsedError;
   double? get maxDistance => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PointDtoCopyWith<PointDto> get copyWith =>
+  $LocationDtoCopyWith<LocationDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PointDtoCopyWith<$Res> {
-  factory $PointDtoCopyWith(PointDto value, $Res Function(PointDto) then) =
-      _$PointDtoCopyWithImpl<$Res, PointDto>;
+abstract class $LocationDtoCopyWith<$Res> {
+  factory $LocationDtoCopyWith(
+          LocationDto value, $Res Function(LocationDto) then) =
+      _$LocationDtoCopyWithImpl<$Res, LocationDto>;
   @useResult
-  $Res call({String? geohash, LatLngDto? geopoint, double? maxDistance});
+  $Res call(
+      {String? name,
+      String? address,
+      String? geohash,
+      num? distanceInKm,
+      LatLngDto? geopoint,
+      double? maxDistance});
 
   $LatLngDtoCopyWith<$Res>? get geopoint;
 }
 
 /// @nodoc
-class _$PointDtoCopyWithImpl<$Res, $Val extends PointDto>
-    implements $PointDtoCopyWith<$Res> {
-  _$PointDtoCopyWithImpl(this._value, this._then);
+class _$LocationDtoCopyWithImpl<$Res, $Val extends LocationDto>
+    implements $LocationDtoCopyWith<$Res> {
+  _$LocationDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -53,15 +63,30 @@ class _$PointDtoCopyWithImpl<$Res, $Val extends PointDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = freezed,
+    Object? address = freezed,
     Object? geohash = freezed,
+    Object? distanceInKm = freezed,
     Object? geopoint = freezed,
     Object? maxDistance = freezed,
   }) {
     return _then(_value.copyWith(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
       geohash: freezed == geohash
           ? _value.geohash
           : geohash // ignore: cast_nullable_to_non_nullable
               as String?,
+      distanceInKm: freezed == distanceInKm
+          ? _value.distanceInKm
+          : distanceInKm // ignore: cast_nullable_to_non_nullable
+              as num?,
       geopoint: freezed == geopoint
           ? _value.geopoint
           : geopoint // ignore: cast_nullable_to_non_nullable
@@ -87,38 +112,60 @@ class _$PointDtoCopyWithImpl<$Res, $Val extends PointDto>
 }
 
 /// @nodoc
-abstract class _$$_PointDtoCopyWith<$Res> implements $PointDtoCopyWith<$Res> {
-  factory _$$_PointDtoCopyWith(
-          _$_PointDto value, $Res Function(_$_PointDto) then) =
-      __$$_PointDtoCopyWithImpl<$Res>;
+abstract class _$$_LocationDtoCopyWith<$Res>
+    implements $LocationDtoCopyWith<$Res> {
+  factory _$$_LocationDtoCopyWith(
+          _$_LocationDto value, $Res Function(_$_LocationDto) then) =
+      __$$_LocationDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? geohash, LatLngDto? geopoint, double? maxDistance});
+  $Res call(
+      {String? name,
+      String? address,
+      String? geohash,
+      num? distanceInKm,
+      LatLngDto? geopoint,
+      double? maxDistance});
 
   @override
   $LatLngDtoCopyWith<$Res>? get geopoint;
 }
 
 /// @nodoc
-class __$$_PointDtoCopyWithImpl<$Res>
-    extends _$PointDtoCopyWithImpl<$Res, _$_PointDto>
-    implements _$$_PointDtoCopyWith<$Res> {
-  __$$_PointDtoCopyWithImpl(
-      _$_PointDto _value, $Res Function(_$_PointDto) _then)
+class __$$_LocationDtoCopyWithImpl<$Res>
+    extends _$LocationDtoCopyWithImpl<$Res, _$_LocationDto>
+    implements _$$_LocationDtoCopyWith<$Res> {
+  __$$_LocationDtoCopyWithImpl(
+      _$_LocationDto _value, $Res Function(_$_LocationDto) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = freezed,
+    Object? address = freezed,
     Object? geohash = freezed,
+    Object? distanceInKm = freezed,
     Object? geopoint = freezed,
     Object? maxDistance = freezed,
   }) {
-    return _then(_$_PointDto(
+    return _then(_$_LocationDto(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
       geohash: freezed == geohash
           ? _value.geohash
           : geohash // ignore: cast_nullable_to_non_nullable
               as String?,
+      distanceInKm: freezed == distanceInKm
+          ? _value.distanceInKm
+          : distanceInKm // ignore: cast_nullable_to_non_nullable
+              as num?,
       geopoint: freezed == geopoint
           ? _value.geopoint
           : geopoint // ignore: cast_nullable_to_non_nullable
@@ -134,14 +181,26 @@ class __$$_PointDtoCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_PointDto implements _PointDto {
-  _$_PointDto({this.geohash, this.geopoint, this.maxDistance});
+class _$_LocationDto implements _LocationDto {
+  _$_LocationDto(
+      {this.name,
+      this.address,
+      this.geohash,
+      this.distanceInKm,
+      this.geopoint,
+      this.maxDistance});
 
-  factory _$_PointDto.fromJson(Map<String, dynamic> json) =>
-      _$$_PointDtoFromJson(json);
+  factory _$_LocationDto.fromJson(Map<String, dynamic> json) =>
+      _$$_LocationDtoFromJson(json);
 
   @override
+  final String? name;
+  @override
+  final String? address;
+  @override
   final String? geohash;
+  @override
+  final num? distanceInKm;
   @override
   final LatLngDto? geopoint;
   @override
@@ -149,15 +208,19 @@ class _$_PointDto implements _PointDto {
 
   @override
   String toString() {
-    return 'PointDto(geohash: $geohash, geopoint: $geopoint, maxDistance: $maxDistance)';
+    return 'LocationDto(name: $name, address: $address, geohash: $geohash, distanceInKm: $distanceInKm, geopoint: $geopoint, maxDistance: $maxDistance)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PointDto &&
+            other is _$_LocationDto &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.geohash, geohash) || other.geohash == geohash) &&
+            (identical(other.distanceInKm, distanceInKm) ||
+                other.distanceInKm == distanceInKm) &&
             (identical(other.geopoint, geopoint) ||
                 other.geopoint == geopoint) &&
             (identical(other.maxDistance, maxDistance) ||
@@ -166,39 +229,50 @@ class _$_PointDto implements _PointDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, geohash, geopoint, maxDistance);
+  int get hashCode => Object.hash(
+      runtimeType, name, address, geohash, distanceInKm, geopoint, maxDistance);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PointDtoCopyWith<_$_PointDto> get copyWith =>
-      __$$_PointDtoCopyWithImpl<_$_PointDto>(this, _$identity);
+  _$$_LocationDtoCopyWith<_$_LocationDto> get copyWith =>
+      __$$_LocationDtoCopyWithImpl<_$_LocationDto>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PointDtoToJson(
+    return _$$_LocationDtoToJson(
       this,
     );
   }
 }
 
-abstract class _PointDto implements PointDto {
-  factory _PointDto(
-      {final String? geohash,
+abstract class _LocationDto implements LocationDto {
+  factory _LocationDto(
+      {final String? name,
+      final String? address,
+      final String? geohash,
+      final num? distanceInKm,
       final LatLngDto? geopoint,
-      final double? maxDistance}) = _$_PointDto;
+      final double? maxDistance}) = _$_LocationDto;
 
-  factory _PointDto.fromJson(Map<String, dynamic> json) = _$_PointDto.fromJson;
+  factory _LocationDto.fromJson(Map<String, dynamic> json) =
+      _$_LocationDto.fromJson;
 
   @override
+  String? get name;
+  @override
+  String? get address;
+  @override
   String? get geohash;
+  @override
+  num? get distanceInKm;
   @override
   LatLngDto? get geopoint;
   @override
   double? get maxDistance;
   @override
   @JsonKey(ignore: true)
-  _$$_PointDtoCopyWith<_$_PointDto> get copyWith =>
+  _$$_LocationDtoCopyWith<_$_LocationDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

@@ -1,5 +1,5 @@
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/app/models/point_dto.dart';
+import 'package:dionniebee/app/models/location_dto.dart';
 import 'package:dionniebee/services/location_service.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
@@ -16,8 +16,8 @@ class MyMapModel extends MultipleStreamViewModel {
   LatLng? _location;
   LatLng? get location => _location;
 
-  List<dynamic> _nearbyPlaces = [];
-  List<dynamic> get nearbyPlaces => _nearbyPlaces;
+  List<LocationDto> _nearbyPlaces = [];
+  List<LocationDto> get nearbyPlaces => _nearbyPlaces;
 
   @override
   void onData(String key, data) {
@@ -34,12 +34,12 @@ class MyMapModel extends MultipleStreamViewModel {
   Map<String, StreamData> get streamsMap => {
         _locationStreamKey:
             StreamData<dynamic>(locationService.getLocationStream),
-        _nearbyLocationStreamKey: StreamData<List<dynamic>>(
+        _nearbyLocationStreamKey: StreamData<List<LocationDto>>(
             locationService.getNearbyPlacesStream(_locationDto)),
       };
 
-  PointDto? _locationDto;
-  set mapInfo(PointDto val) {
+  LocationDto? _locationDto;
+  set mapInfo(LocationDto val) {
     _locationDto = val;
     notifySourceChanged();
   }

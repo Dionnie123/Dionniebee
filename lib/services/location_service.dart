@@ -2,7 +2,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dionniebee/app/models/point_dto.dart';
+import 'package:dionniebee/app/models/location_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:latlong2/latlong.dart';
@@ -10,6 +10,7 @@ import 'package:location/location.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LocationService {
+  final Distance distance = const Distance();
   Location location = Location();
   GeoFlutterFire geo = GeoFlutterFire();
   final CollectionReference collectionReference =
@@ -42,7 +43,7 @@ class LocationService {
     return null;
   }
 
-  Stream<List<String>> getNearbyPlacesStream(PointDto? mapInfo) {
+  Stream<List<LocationDto>> getNearbyPlacesStream(LocationDto? mapInfo) {
     if (mapInfo != null) {
       final center = geo.point(
           latitude: mapInfo.geopoint?.latitude ?? 0,
@@ -58,26 +59,23 @@ class LocationService {
         return event.map((e) {
           final k = e.data() as Map<String, dynamic>;
           final g = k['point']['geopoint'] as GeoPoint;
-          return PointDto(
+          final num km = distance.as(
+              LengthUnit.Kilometer,
+              LatLng(mapInfo.geopoint?.latitude ?? 0,
+                  mapInfo.geopoint?.longitude ?? 0),
+              LatLng(g.latitude, g.longitude));
+          return LocationDto(
+              distanceInKm: km,
+              name: k['point']['name'],
+              address: k['point']['address'],
               geohash: k['point']['geohash'],
               geopoint: LatLngDto(
                 latitude: g.latitude,
                 longitude: g.longitude,
-              )).toString();
+              ));
         }).toList();
       });
     }
     return const Stream.empty();
   }
-}
-
-class MapInfo {
-  final double latitude;
-  final double longitude;
-  final double maxDistance;
-  MapInfo({
-    required this.latitude,
-    required this.longitude,
-    required this.maxDistance,
-  });
 }

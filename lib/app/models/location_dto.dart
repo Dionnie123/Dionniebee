@@ -1,22 +1,25 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'point_dto.freezed.dart';
-part 'point_dto.g.dart';
+part 'location_dto.freezed.dart';
+part 'location_dto.g.dart';
 
 @freezed
-class PointDto with _$PointDto {
+class LocationDto with _$LocationDto {
   // ignore: invalid_annotation_target
   @JsonSerializable(
     fieldRename: FieldRename.snake,
   )
-  factory PointDto({
+  factory LocationDto({
+    String? name,
+    String? address,
     String? geohash,
+    num? distanceInKm,
     LatLngDto? geopoint,
     double? maxDistance,
-  }) = _PointDto;
+  }) = _LocationDto;
 
-  factory PointDto.fromJson(Map<String, dynamic> json) =>
-      _$PointDtoFromJson(json);
+  factory LocationDto.fromJson(Map<String, dynamic> json) =>
+      _$LocationDtoFromJson(json);
 }
 
 @freezed
