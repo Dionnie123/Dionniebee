@@ -95,10 +95,25 @@ class MyMap extends StackedView<MyMapModel> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: viewModel.nearbyPlaces
-                  .mapIndexed((index, e) => Card(
+                  .mapIndexed((index, location) => Card(
                           child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(e.toString()),
+                        child: Row(
+                          children: [
+                            Text(
+                              location.name.toString(),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              " - ${location.distanceInKm} km",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       )))
                   .toList(),
             ),
