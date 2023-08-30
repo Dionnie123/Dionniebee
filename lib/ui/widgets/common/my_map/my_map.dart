@@ -125,36 +125,33 @@ class MyMap extends StackedView<MyMapModel> {
           ),
           body: Padding(
               padding: EdgeInsets.only(bottom: size.maxHeight * 0.38),
-              child: viewModel.permit == MapAccess.disallowed
-                  ? openSettings()
-                  : MapAnimated(
-                      onMapReady: (lat, long, distance) {
-                        viewModel.mapInfo = LocationDto(
-                            maxDistance: distance,
-                            geopoint: LatLngDto(
-                              latitude: lat,
-                              longitude: long,
-                            ));
-                      },
-                      onChanged: (lat, long, distance) {
-                        viewModel.mapInfo = LocationDto(
-                            maxDistance: distance,
-                            geopoint: LatLngDto(
-                              latitude: lat,
-                              longitude: long,
-                            ));
-                      },
-                      boundary: LatLngBounds.fromPoints([
-                        const LatLng(4.382696, 112.1661),
-                        const LatLng(21.53021, 127.0742)
-                      ]),
-                      markers: viewModel.markers
-                          .mapIndexed((i, e) => markerWidget(i, e))
-                          .toList(),
-                      currentPoint: viewModel.location ??
-                          const LatLng(
-                              14.565310, 120.998703), //Bahay Nakpil Bautista
-                    )),
+              child: MapAnimated(
+                onMapReady: (lat, long, distance) {
+                  viewModel.mapInfo = LocationDto(
+                      maxDistance: distance,
+                      geopoint: LatLngDto(
+                        latitude: lat,
+                        longitude: long,
+                      ));
+                },
+                onChanged: (lat, long, distance) {
+                  viewModel.mapInfo = LocationDto(
+                      maxDistance: distance,
+                      geopoint: LatLngDto(
+                        latitude: lat,
+                        longitude: long,
+                      ));
+                },
+                boundary: LatLngBounds.fromPoints([
+                  const LatLng(4.382696, 112.1661),
+                  const LatLng(21.53021, 127.0742)
+                ]),
+                markers: viewModel.markers
+                    .mapIndexed((i, e) => markerWidget(i, e))
+                    .toList(),
+                currentPoint: viewModel.location ??
+                    const LatLng(14.565310, 120.998703), //Bahay Nakpil Bautista
+              )),
         );
       }),
     );

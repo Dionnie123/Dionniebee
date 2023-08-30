@@ -4,6 +4,7 @@ import 'package:dionniebee/services/location_service.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 enum MapAccess { unknown, allowed, disallowed }
 
@@ -12,6 +13,7 @@ const String _nearbyLocationStreamKey = 'nearby-location-stream';
 
 class MyMapModel extends MultipleStreamViewModel {
   final locationService = locator<LocationService>();
+  final dialogService = locator<DialogService>();
 
   LatLng? _location;
   LatLng? get location => _location;
@@ -41,7 +43,7 @@ class MyMapModel extends MultipleStreamViewModel {
   LocationDto? _locationDto;
   set mapInfo(LocationDto val) {
     _locationDto = val;
-    notifySourceChanged();
+    notifySourceChanged(clearOldData: true);
   }
 
   final List<LatLng> _markers = [
@@ -62,8 +64,10 @@ class MyMapModel extends MultipleStreamViewModel {
         locationService.listenToLocationStream();
       } else {
         _permit = MapAccess.disallowed;
+        dialogService.showDialog(
+            description: "Location is Everything", barrierDismissible: false);
       }
-      notifyListeners();
+      //   notifyListeners();
     });
   }
 }
