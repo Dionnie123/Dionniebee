@@ -133,11 +133,15 @@ class _AnimatedMapState extends State<MapAnimated>
               FlutterMap(
                 mapController: _animatedMapController?.mapController,
                 options: MapOptions(
+                  maxBounds: widget.boundary,
+                  center: widget.currentPoint,
+                  rotationThreshold: 0.0,
+                  zoom: 12.0,
                   minZoom: 12.0,
                   onMapReady: () {
                     updatePointOnDrag();
                     final event = _animatedMapController?.mapController.center;
-                    print(event);
+
                     if (event?.latitude != null && event?.longitude != null) {
                       widget.onMapReady(event!.latitude, event.longitude, 10);
                     }
@@ -156,10 +160,6 @@ class _AnimatedMapState extends State<MapAnimated>
                     forceIntegerZoomLevel: true,
                     inside: true,
                   ),
-                  maxBounds: widget.boundary,
-                  center: widget.currentPoint,
-                  rotationThreshold: 0.0,
-                  zoom: 12.0,
                 ),
                 nonRotatedChildren: [attributeLayer()],
                 children: [

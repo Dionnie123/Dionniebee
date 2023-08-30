@@ -87,9 +87,14 @@ class MyMap extends StackedView<MyMapModel> {
     }
 
     return Scaffold(
-        appBar: AppBar(),
-        body: SlidingUpPanel(
-          minHeight: 150.0,
+      appBar: AppBar(),
+      body: LayoutBuilder(builder: (context, size) {
+        return SlidingUpPanel(
+          header: const Text("HEADER"),
+          footer: const Text("FOOTER"),
+          backdropEnabled: true,
+          minHeight: size.maxHeight * 0.25,
+          borderRadius: BorderRadius.circular(15),
           panel: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -119,48 +124,40 @@ class MyMap extends StackedView<MyMapModel> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.only(bottom: 244.0),
-            child: viewModel.permit == MapAccess.unknown
-                ? const Center(child: CircularProgressIndicator())
-                : viewModel.permit == MapAccess.allowed &&
-                        viewModel.location == null
-                    ? fetchLoading()
-                    : viewModel.permit == MapAccess.allowed &&
-                            viewModel.location != null
-                        ? MapAnimated(
-                            onMapReady: (lat, long, distance) {
-                              viewModel.mapInfo = LocationDto(
-                                  maxDistance: distance,
-                                  geopoint: LatLngDto(
-                                    latitude: lat,
-                                    longitude: long,
-                                  ));
-                            },
-                            onChanged: (lat, long, distance) {
-                              viewModel.mapInfo = LocationDto(
-                                  maxDistance: distance,
-                                  geopoint: LatLngDto(
-                                    latitude: lat,
-                                    longitude: long,
-                                  ));
-                            },
-                            boundary: LatLngBounds.fromPoints([
-                              const LatLng(4.382696, 112.1661),
-                              const LatLng(21.53021, 127.0742)
-                            ]),
-                            markers: viewModel.markers
-                                .mapIndexed((i, e) => markerWidget(i, e))
-                                .toList(),
-                            currentPoint:
-                                viewModel.location ?? const LatLng(0, 0),
-                          )
-                        : viewModel.permit == MapAccess.disallowed
-                            ? openSettings()
-                            : const Center(
-                                child: Text("ERROR!"),
-                              ),
-          ),
-        ));
+              padding: EdgeInsets.only(bottom: size.maxHeight * 0.38),
+              child: viewModel.permit == MapAccess.disallowed
+                  ? openSettings()
+                  : MapAnimated(
+                      onMapReady: (lat, long, distance) {
+                        viewModel.mapInfo = LocationDto(
+                            maxDistance: distance,
+                            geopoint: LatLngDto(
+                              latitude: lat,
+                              longitude: long,
+                            ));
+                      },
+                      onChanged: (lat, long, distance) {
+                        viewModel.mapInfo = LocationDto(
+                            maxDistance: distance,
+                            geopoint: LatLngDto(
+                              latitude: lat,
+                              longitude: long,
+                            ));
+                      },
+                      boundary: LatLngBounds.fromPoints([
+                        const LatLng(4.382696, 112.1661),
+                        const LatLng(21.53021, 127.0742)
+                      ]),
+                      markers: viewModel.markers
+                          .mapIndexed((i, e) => markerWidget(i, e))
+                          .toList(),
+                      currentPoint: viewModel.location ??
+                          const LatLng(
+                              14.565310, 120.998703), //Bahay Nakpil Bautista
+                    )),
+        );
+      }),
+    );
   }
 
   @override
