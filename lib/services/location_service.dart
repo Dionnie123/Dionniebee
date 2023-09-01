@@ -19,13 +19,18 @@ class LocationService {
   final StreamController<LatLng?> _locationController = BehaviorSubject();
   Stream<LatLng?> get getLocationStream => _locationController.stream;
 
-  void listenToLocationStream() {
-    location.onLocationChanged.listen((locationData) {
-      if (locationData.latitude != null && locationData.longitude != null) {
-        _locationController.add(LatLng(
-          locationData.latitude ?? 0,
-          locationData.longitude ?? 0,
-        ));
+  LocationService() {
+    Location().requestPermission().then((granted) {
+      if ((granted == PermissionStatus.granted) ||
+          (granted == PermissionStatus.grantedLimited)) {
+        location.onLocationChanged.listen((locationData) {
+          if (locationData.latitude != null && locationData.longitude != null) {
+            _locationController.add(LatLng(
+              locationData.latitude ?? 0,
+              locationData.longitude ?? 0,
+            ));
+          }
+        });
       }
     });
   }
@@ -41,6 +46,13 @@ class LocationService {
       debugPrint('Could not get location: ${e.toString()}');
     }
     return null;
+  }
+
+  Stream<int> epochUpdatesNumbers() async* {
+    while (true) {
+      await Future.delayed(const Duration(seconds: 2));
+      yield DateTime.now().millisecondsSinceEpoch;
+    }
   }
 
   Stream<List<LocationDto>> getNearbyPlacesStream(LocationDto? mapInfo) {

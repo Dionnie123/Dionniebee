@@ -912,14 +912,6 @@ class MockLocationService extends _i1.Mock implements _i14.LocationService {
         returnValueForMissingStub: _i9.Stream<_i3.LatLng?>.empty(),
       ) as _i9.Stream<_i3.LatLng?>);
   @override
-  void listenToLocationStream() => super.noSuchMethod(
-        Invocation.method(
-          #listenToLocationStream,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
   _i9.Future<_i3.LatLng?> getLocation() => (super.noSuchMethod(
         Invocation.method(
           #getLocation,
