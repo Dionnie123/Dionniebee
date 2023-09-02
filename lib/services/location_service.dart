@@ -8,6 +8,7 @@ import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:faker/faker.dart';
 
 class LocationService {
   final Distance distance = const Distance();
@@ -48,10 +49,10 @@ class LocationService {
     return null;
   }
 
-  Stream<int> epochUpdatesNumbers() async* {
+  Stream<LatLng?> epochUpdatesNumbers() async* {
     while (true) {
       await Future.delayed(const Duration(seconds: 2));
-      yield DateTime.now().millisecondsSinceEpoch;
+      yield LatLng(faker.geo.latitude(), faker.geo.longitude());
     }
   }
 

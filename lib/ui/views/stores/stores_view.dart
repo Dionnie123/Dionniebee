@@ -69,6 +69,7 @@ class StoresView extends HookWidget {
                 body: Padding(
                     padding: EdgeInsets.only(bottom: size.maxHeight * 0.25),
                     child: MapAnimated(
+                      key: UniqueKey(),
                       animatedMapController: animatedMapController,
                       onMapReady: () async {
                         print("READY!");
@@ -88,7 +89,9 @@ class StoresView extends HookWidget {
                       markers: viewModel.markers
                           .mapIndexed((i, e) => markerWidget(i, e))
                           .toList(),
-                      centerPoint: viewModel.location, //Bahay Nakpil Bautista
+                      centerPoint: viewModel.number ??
+                          const LatLng(
+                              14.565310, 120.998703), //Bahay Nakpil Bautista
                     )),
               );
             }),

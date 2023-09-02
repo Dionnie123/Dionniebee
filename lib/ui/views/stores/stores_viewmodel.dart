@@ -27,7 +27,7 @@ class StoresViewModel extends MultipleStreamViewModel {
   List<LocationDto> get nearbyPlaces =>
       dataMap?[_nearbyLocationStreamKey] ?? [];
 
-  int get number => dataMap?[_numStreamKey] ?? 0;
+  LatLng? get number => dataMap?[_numStreamKey];
 
 /*   @override
   void onCancel(String key) {
@@ -55,7 +55,8 @@ class StoresViewModel extends MultipleStreamViewModel {
 
   @override
   Map<String, StreamData> get streamsMap => {
-        _numStreamKey: StreamData<int>(locationService.epochUpdatesNumbers()),
+        _numStreamKey:
+            StreamData<LatLng?>(locationService.epochUpdatesNumbers()),
         _locationStreamKey:
             StreamData<LatLng?>(locationService.getLocationStream),
         _nearbyLocationStreamKey: StreamData<List<LocationDto>>(
