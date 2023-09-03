@@ -27,12 +27,37 @@ class OrdersView extends StackedView<OrdersViewModel> {
       drawer: const DrawerWidget(),
       bottomNavigationBar: const NavigationBarWidget(selectedIndex: 2),
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
-          padding: const EdgeInsets.only(
-            left: 25.0,
-            right: 25.0,
-          ),
-          child: const Text("Orders")),
+      body: Column(
+        children: [
+          Text(viewModel.number.toString()),
+          ElevatedButton(
+              onPressed: () {
+                viewModel.start();
+              },
+              child: const Text("START")),
+          ElevatedButton(
+              onPressed: () {
+                viewModel.orderService.pauseStream();
+              },
+              child: const Text("PAUSE")),
+          ElevatedButton(
+              onPressed: () {
+                viewModel.orderService.restartStream();
+              },
+              child: const Text("RESTART")),
+          ElevatedButton(
+              onPressed: () {
+                viewModel.orderService.stopStream();
+              },
+              child: const Text("STOP")),
+          Container(
+              padding: const EdgeInsets.only(
+                left: 25.0,
+                right: 25.0,
+              ),
+              child: const Text("Orders")),
+        ],
+      ),
     );
   }
 

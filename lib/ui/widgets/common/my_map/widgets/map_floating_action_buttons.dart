@@ -18,11 +18,7 @@ class MapFloatActionButtons extends StatelessWidget {
         FloatingActionButton(
           backgroundColor: Colors.black.withOpacity(0.6),
           onPressed: () {
-            controller?.animateTo(
-              zoom: 12.0,
-              dest: centerPoint,
-              rotation: 0,
-            );
+            controller?.mapController.move(centerPoint, 12.0);
           },
           tooltip: 'Clear modifications',
           child: const Icon(Icons.center_focus_strong),

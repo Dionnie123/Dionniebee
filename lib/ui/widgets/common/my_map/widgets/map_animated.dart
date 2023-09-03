@@ -17,7 +17,7 @@ class MapAnimated extends StatefulWidget {
   final List<Marker> markers;
   final LatLng centerPoint;
   final Function() onMapReady;
-  final Function(double lat, double long, double distance) onChanged;
+  final Function(LatLng, double distance) onChanged;
 
   const MapAnimated(
       {super.key,
@@ -37,19 +37,11 @@ class _AnimatedMapState extends State<MapAnimated> {
 
   MapStatus mapStatus = MapStatus.loading;
   var location = Location();
-  updatePointOnDrag() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        dragPoint = widget.animatedMapController?.mapController.center;
-        print(dragPoint);
-      });
-    });
-  }
 
   Widget mapTemplate() {
     return TileLayer(
-      urlTemplate: mpUrlTemplate,
-      additionalOptions: mpAdditionOption,
+      urlTemplate: mapUrlTemplate,
+      additionalOptions: mapAdditionOption,
     );
   }
 
@@ -58,8 +50,6 @@ class _AnimatedMapState extends State<MapAnimated> {
       attributions: [
         TextSourceAttribution(
           'OpenStreetMap contributors',
-          /* onTap: () =>
-              launchUrl(Uri.parse('https://openstreetmap.org/copyright')), */
         ),
       ],
     );
@@ -133,10 +123,11 @@ class _AnimatedMapState extends State<MapAnimated> {
               widget.onMapReady();
             },
             onPointerUp: (event, point) {
-              widget.onChanged(point.latitude, point.longitude, 10);
-              updatePointOnDrag();
+              if (widget.animatedMapController?.mapController.center != null) {
+                dragPoint = widget.animatedMapController?.mapController.center;
+                widget.onChanged(point, 10);
+              }
             },
-            onMapEvent: (event) {},
             interactiveFlags: InteractiveFlag.drag |
                 InteractiveFlag.flingAnimation |
                 InteractiveFlag.pinchMove |
@@ -175,20 +166,18 @@ class _AnimatedMapState extends State<MapAnimated> {
                 dragPointMarker(),
               ],
             ),
-            /*    DragMarkers(
-                    markers: [
-                      DragMarker(
-                        size: const Size.fromWidth(35),
-                        point: dragPoint ?? const LatLng(0, 0),
-                        offset: const Offset(0.0, -8.0),
-                        builder: (ctx, latlang, b) =>
-                            const Icon(Icons.location_on, size: 50),
-                        onDragUpdate: (details, latLng) => print(latLng),
-                      ),
-                    ],
-                  ), */
           ],
         ),
+        const Positioned(
+            top: 5,
+            bottom: 0,
+            left: 5,
+            right: 0,
+            child: Icon(
+              Icons.location_pin,
+              size: 35,
+              color: Colors.pink,
+            )),
         Align(
             alignment: Alignment.bottomRight,
             child: Padding(
@@ -201,7 +190,10 @@ class _AnimatedMapState extends State<MapAnimated> {
           child: Wrap(
             children: [
               Text(widget.centerPoint.toString()),
-              Text(dragPoint.toString()),
+              Text(
+                "Drag Point: ${dragPoint.toString()}",
+                style: const TextStyle(color: Colors.red),
+              ),
             ],
           ),
         ),

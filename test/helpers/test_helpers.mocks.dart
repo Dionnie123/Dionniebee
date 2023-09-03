@@ -12,6 +12,7 @@ import 'package:dionniebee/app/models/product_dto.dart' as _i13;
 import 'package:dionniebee/services/auth_service.dart' as _i11;
 import 'package:dionniebee/services/cart_service.dart' as _i16;
 import 'package:dionniebee/services/location_service.dart' as _i14;
+import 'package:dionniebee/services/order_service.dart' as _i17;
 import 'package:dionniebee/services/product_service.dart' as _i12;
 import 'package:faker/faker.dart' as _i6;
 import 'package:flutter/material.dart' as _i8;
@@ -921,6 +922,15 @@ class MockLocationService extends _i1.Mock implements _i14.LocationService {
         returnValueForMissingStub: _i9.Future<_i3.LatLng?>.value(),
       ) as _i9.Future<_i3.LatLng?>);
   @override
+  _i9.Stream<_i3.LatLng?> epochUpdatesNumbers() => (super.noSuchMethod(
+        Invocation.method(
+          #epochUpdatesNumbers,
+          [],
+        ),
+        returnValue: _i9.Stream<_i3.LatLng?>.empty(),
+        returnValueForMissingStub: _i9.Stream<_i3.LatLng?>.empty(),
+      ) as _i9.Stream<_i3.LatLng?>);
+  @override
   _i9.Stream<List<_i15.LocationDto>> getNearbyPlacesStream(
           _i15.LocationDto? mapInfo) =>
       (super.noSuchMethod(
@@ -1039,3 +1049,8 @@ class MockCartService extends _i1.Mock implements _i16.CartService {
         returnValueForMissingStub: null,
       );
 }
+
+/// A class which mocks [OrderService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockOrderService extends _i1.Mock implements _i17.OrderService {}

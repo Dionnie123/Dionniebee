@@ -1,13 +1,15 @@
 import 'package:collection/collection.dart';
-import 'package:dionniebee/app/models/location_dto.dart';
+import 'package:dionniebee/app/constants/mapbox.dart';
+import 'package:dionniebee/ui/widgets/common/my_map/widgets/cluster_map.dart';
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/map_marker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
-import 'package:stacked/stacked.dart';
-import 'package:dionniebee/ui/widgets/common/my_map/widgets/map_animated.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:stacked/stacked.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'stores_viewmodel.dart';
 
@@ -17,8 +19,9 @@ class StoresView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final tickerProvider = useSingleTickerProvider();
-    final AnimatedMapController animatedMapController =
-        AnimatedMapController(vsync: tickerProvider);
+    final AnimatedMapController animatedMapController = AnimatedMapController(
+      vsync: tickerProvider,
+    );
 
     return ViewModelBuilder<StoresViewModel>.reactive(
         viewModelBuilder: () => StoresViewModel(),
@@ -28,16 +31,13 @@ class StoresView extends HookWidget {
           Widget? child,
         ) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text(viewModel.number.toString()),
-            ),
+            appBar: AppBar(),
             body: LayoutBuilder(builder: (context, size) {
               return SlidingUpPanel(
                 header: const Text("HEADER"),
                 footer: const Text("FOOTER"),
                 backdropEnabled: true,
-                minHeight: size.maxHeight * 0.25,
-                borderRadius: BorderRadius.circular(15),
+                minHeight: 200,
                 panel: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -67,32 +67,75 @@ class StoresView extends HookWidget {
                   ),
                 ),
                 body: Padding(
-                    padding: EdgeInsets.only(bottom: size.maxHeight * 0.25),
-                    child: MapAnimated(
-                      key: UniqueKey(),
-                      animatedMapController: animatedMapController,
-                      onMapReady: () async {
-                        print("READY!");
-                      },
-                      onChanged: (lat, long, distance) {
-                        viewModel.mapInfo = LocationDto(
-                            maxDistance: distance,
-                            geopoint: LatLngDto(
-                              latitude: lat,
-                              longitude: long,
-                            ));
-                      },
-                      boundary: LatLngBounds.fromPoints([
-                        const LatLng(4.382696, 112.1661),
-                        const LatLng(21.53021, 127.0742)
-                      ]),
-                      markers: viewModel.markers
-                          .mapIndexed((i, e) => markerWidget(i, e))
-                          .toList(),
-                      centerPoint: viewModel.number ??
-                          const LatLng(
-                              14.565310, 120.998703), //Bahay Nakpil Bautista
-                    )),
+                  padding: const EdgeInsets.only(bottom: 256),
+                  child: Stack(
+                    children: [
+                      FlutterMap(
+                        mapController: animatedMapController.mapController,
+                        options: MapOptions(
+                          maxBounds: LatLngBounds.fromPoints([
+                            const LatLng(4.382696, 112.1661),
+                            const LatLng(21.53021, 127.0742)
+                          ]),
+                          center: viewModel.location,
+                          rotationThreshold: 0.0,
+                          zoom: 12.0,
+                          minZoom: 12.0,
+                          onMapReady: () {},
+                          onPointerUp: (event, point) {},
+                          interactiveFlags: InteractiveFlag.drag |
+                              InteractiveFlag.flingAnimation |
+                              InteractiveFlag.pinchMove |
+                              InteractiveFlag.pinchZoom |
+                              InteractiveFlag.doubleTapZoom,
+                          boundsOptions: const FitBoundsOptions(
+                            forceIntegerZoomLevel: true,
+                            inside: true,
+                          ),
+                        ),
+                        children: [
+                          TileLayer(
+                            urlTemplate: mapUrlTemplate,
+                            additionalOptions: mapAdditionOption,
+                          ),
+                          CurrentLocationLayer(),
+                          MarkerClusterLayerWidget(
+                            options: MarkerClusterLayerOptions(
+                              anchorPos: AnchorPos.align(AnchorAlign.center),
+                              maxClusterRadius: 100,
+                              size: const Size(40, 40),
+                              fitBoundsOptions: const FitBoundsOptions(
+                                forceIntegerZoomLevel: false,
+                                padding: EdgeInsets.all(50),
+                              ),
+                              markers: viewModel.markers
+                                  .mapIndexed((i, e) => markerWidget(i, e))
+                                  .toList(),
+                              builder: (context, markers) {
+                                return const ClusterMap(label: "C");
+                              },
+                            ),
+                          ),
+                          MarkerLayer(
+                            markers: [
+                              markerWidget(0, viewModel.location),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const Positioned(
+                          top: 5,
+                          bottom: 0,
+                          left: 5,
+                          right: 0,
+                          child: Icon(
+                            Icons.location_pin,
+                            size: 35,
+                            color: Colors.pink,
+                          )),
+                    ],
+                  ),
+                ),
               );
             }),
           );

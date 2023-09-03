@@ -9,7 +9,6 @@ import 'package:stacked_services/stacked_services.dart';
 
 enum MapAccess { unknown, allowed, disallowed }
 
-const String _numStreamKey = 'num-stream';
 const String _locationStreamKey = 'location-stream';
 const String _nearbyLocationStreamKey = 'nearby-location-stream';
 
@@ -27,7 +26,7 @@ class StoresViewModel extends MultipleStreamViewModel {
   List<LocationDto> get nearbyPlaces =>
       dataMap?[_nearbyLocationStreamKey] ?? [];
 
-  LatLng? get number => dataMap?[_numStreamKey];
+/*   LatLng? get number => dataMap?[_numStreamKey]; */
 
 /*   @override
   void onCancel(String key) {
@@ -42,21 +41,9 @@ class StoresViewModel extends MultipleStreamViewModel {
   } */
 
   @override
-  void onData(String key, data) {
-    print(1111);
-    /*    if (key == _locationStreamKey) {
-      _location = data;
-    } else if (key == _nearbyLocationStreamKey) {
-      _nearbyPlaces = data;
-    }
-    notifyListeners(); */
-    super.onData(key, data);
-  }
-
-  @override
   Map<String, StreamData> get streamsMap => {
-        _numStreamKey:
-            StreamData<LatLng?>(locationService.epochUpdatesNumbers()),
+        /*   _numStreamKey:
+            StreamData<LatLng?>(locationService.epochUpdatesNumbers()), */
         _locationStreamKey:
             StreamData<LatLng?>(locationService.getLocationStream),
         _nearbyLocationStreamKey: StreamData<List<LocationDto>>(
