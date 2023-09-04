@@ -25,13 +25,36 @@ class StoresView extends HookWidget {
 
     return ViewModelBuilder<StoresViewModel>.reactive(
         viewModelBuilder: () => StoresViewModel(),
+        fireOnViewModelReadyOnce: false,
+        onViewModelReady: (viewModel) async {
+          print("FDSF");
+          await viewModel.start();
+        },
         builder: (
           BuildContext context,
           StoresViewModel viewModel,
           Widget? child,
         ) {
           return Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(
+              bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(56.0),
+                  child: Expanded(
+                    child: Container(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(viewModel.location.toString()),
+                            const Icon(Icons.center_focus_strong_rounded)
+                          ],
+                        ),
+                      ),
+                    ),
+                  )),
+            ),
             body: LayoutBuilder(builder: (context, size) {
               return SlidingUpPanel(
                 header: const Text("HEADER"),
@@ -42,7 +65,7 @@ class StoresView extends HookWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: viewModel.nearbyPlaces
+                    children: viewModel.nearbyLocation
                         .mapIndexed((index, location) => Card(
                                 child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -71,17 +94,23 @@ class StoresView extends HookWidget {
                   child: Stack(
                     children: [
                       FlutterMap(
+                        key: UniqueKey(),
                         mapController: animatedMapController.mapController,
                         options: MapOptions(
+                          center: const LatLng(14.565310, 120.998703),
+                          zoom: 12.0,
+                          minZoom: 12.0,
+                          rotationThreshold: 0.0,
                           maxBounds: LatLngBounds.fromPoints([
                             const LatLng(4.382696, 112.1661),
                             const LatLng(21.53021, 127.0742)
                           ]),
-                          center: viewModel.location,
-                          rotationThreshold: 0.0,
-                          zoom: 12.0,
-                          minZoom: 12.0,
-                          onMapReady: () {},
+                          onMapReady: () {
+                            if (viewModel.location != null) {
+                              animatedMapController.mapController.move(
+                                  viewModel.location ?? const LatLng(0, 0), 12);
+                            }
+                          },
                           onPointerUp: (event, point) {},
                           interactiveFlags: InteractiveFlag.drag |
                               InteractiveFlag.flingAnimation |
@@ -118,7 +147,9 @@ class StoresView extends HookWidget {
                           ),
                           MarkerLayer(
                             markers: [
-                              markerWidget(0, viewModel.location),
+                              markerWidget(
+                                  0, viewModel.location ?? const LatLng(0, 0),
+                                  color: Colors.purple),
                             ],
                           ),
                         ],

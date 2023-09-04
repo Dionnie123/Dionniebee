@@ -25,51 +25,41 @@ import 'package:dionniebee/services/order_service.dart';
   logger: StackedLogger(),
   routes: [
     CustomRoute(
-      path: '/',
       page: StartupView,
+      initial: true,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     MaterialRoute(
       page: AuthView,
-      path: '/',
-      initial: true,
     ),
     MaterialRoute(
       page: CartView,
-      path: '/',
     ),
     CustomRoute(
       page: HomeView,
-      path: '/',
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
 
     CustomRoute(
-      path: '/',
       page: FooView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     CustomRoute(
-      path: '/',
       page: OrdersView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     CustomRoute(
-      path: '/',
       page: StoresView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     CustomRoute(
-      path: '/',
       page: PromoView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     MaterialRoute(
-      path: '/',
       page: ProductView,
     ),
     MaterialRoute(
-      path: '/',
       page: WelcomeView,
     ),
 // @stacked-route

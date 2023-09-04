@@ -11,7 +11,7 @@ class OrderService extends ReactiveViewModel {
   late StreamSubscription<num> _timerSubscription;
 
   OrderService() {
-    _timerSubscription = getNumStream.listen((event) {
+    _timerSubscription = emit(0).listen((event) {
       _numController.add(event);
     });
   }

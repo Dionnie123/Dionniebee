@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/location_dto.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,8 @@ import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:faker/faker.dart';
+
+enum LocationAccess { unknown, allowed, disallowed }
 
 class LocationService {
   final Distance distance = const Distance();
@@ -20,18 +20,15 @@ class LocationService {
   final StreamController<LatLng?> _locationController = BehaviorSubject();
   Stream<LatLng?> get getLocationStream => _locationController.stream;
 
-  LocationService() {
-    Location().requestPermission().then((granted) {
-      if ((granted == PermissionStatus.granted) ||
-          (granted == PermissionStatus.grantedLimited)) {
-        location.onLocationChanged.listen((locationData) {
-          if (locationData.latitude != null && locationData.longitude != null) {
-            _locationController.add(LatLng(
-              locationData.latitude ?? 0,
-              locationData.longitude ?? 0,
-            ));
-          }
-        });
+  Future<void> emitLocation() async {
+    location.onLocationChanged.listen((locationData) {
+      if (locationData.latitude != null && locationData.longitude != null) {
+        _locationController.add(
+          LatLng(
+            locationData.latitude ?? 0,
+            locationData.longitude ?? 0,
+          ),
+        );
       }
     });
   }
@@ -49,23 +46,16 @@ class LocationService {
     return null;
   }
 
-  Stream<LatLng?> epochUpdatesNumbers() async* {
-    while (true) {
-      await Future.delayed(const Duration(seconds: 2));
-      yield LatLng(faker.geo.latitude(), faker.geo.longitude());
-    }
-  }
-
-  Stream<List<LocationDto>> getNearbyPlacesStream(LocationDto? mapInfo) {
-    if (mapInfo != null) {
+  Stream<List<LocationDto>> getNearbyPlacesStream(LocationDto? point) {
+    if (point != null) {
       final center = geo.point(
-          latitude: mapInfo.geopoint?.latitude ?? 0,
-          longitude: mapInfo.geopoint?.longitude ?? 0);
+          latitude: point.geopoint?.latitude ?? 0,
+          longitude: point.geopoint?.longitude ?? 0);
       return geo
           .collection(collectionRef: collectionReference)
           .within(
             center: center,
-            radius: mapInfo.maxDistance ?? 10,
+            radius: point.maxDistance ?? 10,
             field: 'point',
           )
           .map((event) {
@@ -74,8 +64,8 @@ class LocationService {
           final g = k['point']['geopoint'] as GeoPoint;
           final num km = distance.as(
               LengthUnit.Kilometer,
-              LatLng(mapInfo.geopoint?.latitude ?? 0,
-                  mapInfo.geopoint?.longitude ?? 0),
+              LatLng(point.geopoint?.latitude ?? 0,
+                  point.geopoint?.longitude ?? 0),
               LatLng(g.latitude, g.longitude));
           return LocationDto(
               distanceInKm: km,
