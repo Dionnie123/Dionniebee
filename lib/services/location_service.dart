@@ -27,31 +27,36 @@ class LocationService {
   LocationData? get locationData => _locationData;
 
   Future<void> initialise() async {
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
+    try {
+      _serviceEnabled = await location.serviceEnabled();
       if (!_serviceEnabled) {
-        return;
+        _serviceEnabled = await location.requestService();
+        if (!_serviceEnabled) {
+          return;
+        }
       }
+      _permissionGranted = await location.hasPermission();
+      if (_permissionGranted == PermissionStatus.denied) {
+        _permissionGranted = await location.requestPermission();
+        if (_permissionGranted != PermissionStatus.granted) {
+          return;
+        }
+      }
+      location.onLocationChanged.listen((locationData) {
+        if (locationData.latitude != null && locationData.longitude != null) {
+          locationController.add(
+            LatLng(
+              locationData.latitude ?? 0,
+              locationData.longitude ?? 0,
+            ),
+          );
+        }
+      });
+
+      print("DONE");
+    } catch (e) {
+      print(e.toString());
     }
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-    location.onLocationChanged.listen((locationData) {
-      if (locationData.latitude != null && locationData.longitude != null) {
-        locationController.add(
-          LatLng(
-            locationData.latitude ?? 0,
-            locationData.longitude ?? 0,
-          ),
-        );
-      }
-    });
-    _locationData = await location.getLocation();
   }
 
   Future<LatLng?> getLocation() async {

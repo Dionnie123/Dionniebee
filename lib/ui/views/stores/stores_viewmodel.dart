@@ -40,4 +40,11 @@ class StoresViewModel extends MultipleStreamViewModel {
   ];
 
   List<LatLng> get markers => _markers;
+
+  start() async {
+    setBusy(true);
+    await locationService.initialise();
+    print("FALSE");
+    setBusy(false);
+  }
 }
