@@ -24,7 +24,6 @@ class StoresView extends HookWidget {
     );
 
     return ViewModelBuilder<StoresViewModel>.reactive(
-        key: UniqueKey(),
         viewModelBuilder: () => StoresViewModel(),
         onViewModelReady: (viewModel) async {
           await viewModel.start();
@@ -36,79 +35,80 @@ class StoresView extends HookWidget {
         ) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(viewModel.nearbyLocation.toString()),
-              bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(56.0),
-                  child: Expanded(
-                    child: Container(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(viewModel.location.toString()),
-                            IconButton(
-                                onPressed: () async {
-                                  animatedMapController.mapController.move(
-                                      viewModel.location ?? const LatLng(0, 0),
-                                      12);
-                                },
-                                icon: const Icon(
-                                    Icons.center_focus_strong_rounded))
-                          ],
+              bottom: viewModel.isBusy
+                  ? null
+                  : PreferredSize(
+                      preferredSize: const Size.fromHeight(56.0),
+                      child: Expanded(
+                        child: Container(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                    child: Text(viewModel.location.toString())),
+                                IconButton(
+                                    onPressed: () async {
+                                      animatedMapController.mapController.move(
+                                          viewModel.location ??
+                                              const LatLng(0, 0),
+                                          12);
+                                    },
+                                    icon: const Icon(
+                                        Icons.center_focus_strong_rounded))
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  )),
+                      )),
             ),
             body: LayoutBuilder(builder: (context, size) {
-              return SlidingUpPanel(
-                header: const Text("HEADER"),
-                footer: const Text("FOOTER"),
-                backdropEnabled: true,
-                minHeight: 200,
-                panel: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: viewModel.nearbyLocation
-                        .mapIndexed((index, location) => Card(
-                                child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      location.toString(),
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
+              return viewModel.isBusy
+                  ? const Center(child: CircularProgressIndicator())
+                  : SlidingUpPanel(
+                      header: const Text("HEADER"),
+                      footer: const Text("FOOTER"),
+                      backdropEnabled: true,
+                      minHeight: 200,
+                      panel: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: viewModel.nearbyLocation
+                              .mapIndexed((index, location) => Card(
+                                      child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            location.toString(),
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          " - ${location.distanceInKm} km",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      " - ${location.distanceInKm} km",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )))
-                        .toList(),
-                  ),
-                ),
-                body: Padding(
-                  padding: const EdgeInsets.only(bottom: 256),
-                  child: Stack(
-                    children: [
-                      viewModel.isBusy
-                          ? const SizedBox.shrink()
-                          : FlutterMap(
+                                  )))
+                              .toList(),
+                        ),
+                      ),
+                      body: Padding(
+                        padding: const EdgeInsets.only(bottom: 256),
+                        child: Stack(
+                          children: [
+                            FlutterMap(
                               mapController:
                                   animatedMapController.mapController,
                               options: MapOptions(
@@ -130,16 +130,16 @@ class StoresView extends HookWidget {
                                     ),
                                   );
                                 },
-                                onMapEvent: (event) {},
-                                onPointerUp: (event, point) {
+                                onMapEvent: (event) {
                                   viewModel.mapInfo = LocationDto(
                                     maxDistance: 1000,
                                     geopoint: LatLngDto(
-                                      latitude: point.latitude,
-                                      longitude: point.longitude,
+                                      latitude: event.center.latitude,
+                                      longitude: event.center.longitude,
                                     ),
                                   );
                                 },
+                                onPointerUp: (event, point) {},
                                 interactiveFlags: InteractiveFlag.drag |
                                     InteractiveFlag.flingAnimation |
                                     InteractiveFlag.pinchMove |
@@ -185,20 +185,20 @@ class StoresView extends HookWidget {
                                 ),
                               ],
                             ),
-                      const Positioned(
-                          top: 5,
-                          bottom: 0,
-                          left: 5,
-                          right: 0,
-                          child: Icon(
-                            Icons.location_pin,
-                            size: 35,
-                            color: Colors.pink,
-                          )),
-                    ],
-                  ),
-                ),
-              );
+                            const Positioned(
+                                top: 5,
+                                bottom: 0,
+                                left: 5,
+                                right: 0,
+                                child: Icon(
+                                  Icons.location_pin,
+                                  size: 35,
+                                  color: Colors.pink,
+                                )),
+                          ],
+                        ),
+                      ),
+                    );
             }),
           );
         });
