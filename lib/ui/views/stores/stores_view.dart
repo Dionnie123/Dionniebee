@@ -35,80 +35,89 @@ class StoresView extends HookWidget {
         ) {
           return Scaffold(
             appBar: AppBar(
-              bottom: viewModel.isBusy
-                  ? null
-                  : PreferredSize(
-                      preferredSize: const Size.fromHeight(56.0),
-                      child: Expanded(
-                        child: Container(
+              bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(56.0),
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        Container(
                           color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                    child: Text(viewModel.location.toString())),
-                                IconButton(
-                                    onPressed: () async {
-                                      animatedMapController.mapController.move(
-                                          viewModel.location ??
-                                              const LatLng(0, 0),
-                                          12);
-                                    },
-                                    icon: const Icon(
-                                        Icons.center_focus_strong_rounded))
-                              ],
-                            ),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                        child: Text(
+                                            "${viewModel.location ?? "Your Address"}")),
+                                    IconButton(
+                                        onPressed: () async {
+                                          await viewModel.start();
+                                        },
+                                        icon: const Icon(
+                                            Icons.center_focus_strong_rounded))
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      )),
+                        if (viewModel.isBusy)
+                          const LinearProgressIndicator(
+                            minHeight: 5,
+                          )
+                      ],
+                    ),
+                  )),
             ),
             body: LayoutBuilder(builder: (context, size) {
-              return viewModel.isBusy
-                  ? const Center(child: CircularProgressIndicator())
-                  : SlidingUpPanel(
-                      header: const Text("HEADER"),
-                      footer: const Text("FOOTER"),
-                      backdropEnabled: true,
-                      minHeight: 200,
-                      panel: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: viewModel.nearbyLocation
-                              .mapIndexed((index, location) => Card(
-                                      child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            location.toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          " - ${location.distanceInKm} km",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
+              return SlidingUpPanel(
+                header: const Text("HEADER"),
+                footer: const Text("FOOTER"),
+                backdropEnabled: true,
+                minHeight: 200,
+                panel: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: viewModel.nearbyLocation
+                        .mapIndexed((index, location) => Card(
+                                child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      location.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  )))
-                              .toList(),
-                        ),
-                      ),
-                      body: Padding(
-                        padding: const EdgeInsets.only(bottom: 256),
-                        child: Stack(
-                          children: [
-                            FlutterMap(
+                                  ),
+                                  Text(
+                                    " - ${location.distanceInKm} km",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )))
+                        .toList(),
+                  ),
+                ),
+                body: Padding(
+                  padding: const EdgeInsets.only(bottom: 256),
+                  child: Stack(
+                    children: [
+                      viewModel.isBusy
+                          ? const Center()
+                          : FlutterMap(
                               mapController:
                                   animatedMapController.mapController,
                               options: MapOptions(
@@ -185,20 +194,20 @@ class StoresView extends HookWidget {
                                 ),
                               ],
                             ),
-                            const Positioned(
-                                top: 5,
-                                bottom: 0,
-                                left: 5,
-                                right: 0,
-                                child: Icon(
-                                  Icons.location_pin,
-                                  size: 35,
-                                  color: Colors.pink,
-                                )),
-                          ],
-                        ),
-                      ),
-                    );
+                      const Positioned(
+                          top: 5,
+                          bottom: 0,
+                          left: 5,
+                          right: 0,
+                          child: Icon(
+                            Icons.location_pin,
+                            size: 35,
+                            color: Colors.pink,
+                          )),
+                    ],
+                  ),
+                ),
+              );
             }),
           );
         });
