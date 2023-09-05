@@ -1,4 +1,6 @@
 import 'package:dionniebee/app/helpers/lifecycle_manager.dart';
+import 'package:dionniebee/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,7 @@ Future<void> main() async {
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
     const ScreenBreakpoints(desktop: 1366, tablet: 768, watch: 200),
   );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setupLocator(stackedRouter: stackedRouter);
   setupDialogUi();
   setupBottomSheetUi();

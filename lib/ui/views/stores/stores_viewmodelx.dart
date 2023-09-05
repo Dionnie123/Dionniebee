@@ -3,6 +3,7 @@ import 'package:dionniebee/app/app.logger.dart';
 import 'package:dionniebee/app/models/location_dto.dart';
 import 'package:dionniebee/services/location_service.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -40,4 +41,28 @@ class StoresViewModel extends MultipleStreamViewModel {
   ];
 
   List<LatLng> get markers => _markers;
+
+  Future<LatLng?> movex() async {
+    final x = await locationService.getLocation();
+    print(x);
+    return x;
+  }
+
+  start() async {
+    await Location().requestPermission().then((value) async {
+      if (value == PermissionStatus.granted ||
+          value == PermissionStatus.grantedLimited) {
+        locationService.emitLocation();
+        mapInfo = LocationDto(
+          maxDistance: 1000,
+          geopoint: LatLngDto(
+            latitude: location?.latitude,
+            longitude: location?.longitude,
+          ),
+        );
+      } else {
+        dialogService.showDialog(title: "LOCATION IS EVERYTHING");
+      }
+    });
+  }
 }

@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:dionniebee/app/constants/mapbox.dart';
-import 'package:dionniebee/app/models/location_dto.dart';
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/cluster_map.dart';
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/map_marker.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,8 @@ class StoresView extends HookWidget {
         viewModelBuilder: () => StoresViewModel(),
         fireOnViewModelReadyOnce: false,
         onViewModelReady: (viewModel) async {
-          await viewModel.locationService.initialise();
+          await viewModel.movex();
+          await viewModel.start();
         },
         builder: (
           BuildContext context,
@@ -37,7 +37,6 @@ class StoresView extends HookWidget {
         ) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(viewModel.nearbyLocation.toString()),
               bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(56.0),
                   child: Expanded(
@@ -79,22 +78,16 @@ class StoresView extends HookWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  Expanded(
-                                    child: Text(
-                                      location.toString(),
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  Text(
+                                    location.toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Text(
-                                      " - ${location.distanceInKm} km",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  Text(
+                                    " - $location km",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
@@ -120,7 +113,7 @@ class StoresView extends HookWidget {
                             const LatLng(21.53021, 127.0742)
                           ]),
                           onMapEvent: (event) {},
-                          onPointerUp: (event, point) {
+                          /*      onPointerUp: (event, point) {
                             viewModel.mapInfo = LocationDto(
                               maxDistance: 1000,
                               geopoint: LatLngDto(
@@ -128,7 +121,7 @@ class StoresView extends HookWidget {
                                 longitude: point.longitude,
                               ),
                             );
-                          },
+                          }, */
                           interactiveFlags: InteractiveFlag.drag |
                               InteractiveFlag.flingAnimation |
                               InteractiveFlag.pinchMove |

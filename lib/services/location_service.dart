@@ -17,13 +17,33 @@ class LocationService {
   final CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('locations');
 
-  final StreamController<LatLng?> _locationController = BehaviorSubject();
-  Stream<LatLng?> get getLocationStream => _locationController.stream;
+  final StreamController<LatLng?> locationController = BehaviorSubject();
+  Stream<LatLng?> get getLocationStream => locationController.stream;
 
-  Future<void> emitLocation() async {
+  bool _serviceEnabled = false;
+  PermissionStatus? _permissionGranted;
+  PermissionStatus? get permissionGranted => _permissionGranted;
+  LocationData? _locationData;
+  LocationData? get locationData => _locationData;
+
+  Future<void> initialise() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
     location.onLocationChanged.listen((locationData) {
       if (locationData.latitude != null && locationData.longitude != null) {
-        _locationController.add(
+        locationController.add(
           LatLng(
             locationData.latitude ?? 0,
             locationData.longitude ?? 0,
@@ -31,11 +51,13 @@ class LocationService {
         );
       }
     });
+    _locationData = await location.getLocation();
   }
 
   Future<LatLng?> getLocation() async {
     try {
       LocationData locationData = await location.getLocation();
+
       return LatLng(
         locationData.latitude ?? 0.0,
         locationData.longitude ?? 0.0,
