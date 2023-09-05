@@ -27,7 +27,6 @@ class StoresView extends HookWidget {
         key: UniqueKey(),
         viewModelBuilder: () => StoresViewModel(),
         onViewModelReady: (viewModel) async {
-          print("FDSFF");
           await viewModel.start();
         },
         builder: (
@@ -108,11 +107,7 @@ class StoresView extends HookWidget {
                   child: Stack(
                     children: [
                       viewModel.isBusy
-                          ? Center(
-                              child: Container(
-                                child: const CircularProgressIndicator(),
-                              ),
-                            )
+                          ? const SizedBox.shrink()
                           : FlutterMap(
                               mapController:
                                   animatedMapController.mapController,
@@ -126,6 +121,15 @@ class StoresView extends HookWidget {
                                   const LatLng(4.382696, 112.1661),
                                   const LatLng(21.53021, 127.0742)
                                 ]),
+                                onMapReady: () {
+                                  viewModel.mapInfo = LocationDto(
+                                    maxDistance: 1000,
+                                    geopoint: LatLngDto(
+                                      latitude: viewModel.location?.latitude,
+                                      longitude: viewModel.location?.longitude,
+                                    ),
+                                  );
+                                },
                                 onMapEvent: (event) {},
                                 onPointerUp: (event, point) {
                                   viewModel.mapInfo = LocationDto(
