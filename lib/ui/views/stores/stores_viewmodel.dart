@@ -45,8 +45,8 @@ class StoresViewModel extends MultipleStreamViewModel {
     if (val.geopoint?.longitude != null && val.geopoint?.latitude != null) {
       _location =
           LatLng(val.geopoint?.latitude ?? 0, val.geopoint?.longitude ?? 0);
-      _locationDto = val;
-      notifySourceChanged(clearOldData: true);
+      // _locationDto = val;
+      // notifySourceChanged(clearOldData: true);
     }
   }
 

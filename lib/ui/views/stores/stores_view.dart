@@ -37,38 +37,27 @@ class StoresView extends HookWidget {
             appBar: AppBar(
               bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(56.0),
-                  child: Expanded(
+                  child: Container(
+                    color: Colors.white,
                     child: Column(
                       children: [
-                        Container(
-                          color: Colors.white,
-                          child: Column(
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                        child: Text(
-                                            "${viewModel.location ?? "Your Address"}")),
-                                    IconButton(
-                                        onPressed: () async {
-                                          await viewModel.start();
-                                        },
-                                        icon: const Icon(
-                                            Icons.center_focus_strong_rounded))
-                                  ],
-                                ),
-                              ),
+                              Expanded(
+                                  child: Text(
+                                      "${viewModel.location ?? "Your Address"}")),
+                              IconButton(
+                                  onPressed: () async {
+                                    await viewModel.start();
+                                  },
+                                  icon: const Icon(
+                                      Icons.center_focus_strong_rounded))
                             ],
                           ),
                         ),
-                        if (viewModel.isBusy)
-                          const LinearProgressIndicator(
-                            minHeight: 5,
-                          )
                       ],
                     ),
                   )),
@@ -116,7 +105,9 @@ class StoresView extends HookWidget {
                   child: Stack(
                     children: [
                       viewModel.isBusy
-                          ? const Center()
+                          ? Container(
+                              color: Colors.grey,
+                            )
                           : FlutterMap(
                               mapController:
                                   animatedMapController.mapController,
@@ -194,16 +185,25 @@ class StoresView extends HookWidget {
                                 ),
                               ],
                             ),
-                      const Positioned(
-                          top: 5,
-                          bottom: 0,
-                          left: 5,
-                          right: 0,
-                          child: Icon(
-                            Icons.location_pin,
-                            size: 35,
-                            color: Colors.pink,
-                          )),
+                      if (viewModel.isBusy)
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: LinearProgressIndicator(
+                              minHeight: 5,
+                              backgroundColor: Colors.red.shade100,
+                              color: Colors.red),
+                        ),
+                      if (!viewModel.isBusy)
+                        const Positioned(
+                            top: 5,
+                            bottom: 0,
+                            left: 5,
+                            right: 0,
+                            child: Icon(
+                              Icons.location_pin,
+                              size: 35,
+                              color: Colors.pink,
+                            )),
                     ],
                   ),
                 ),
