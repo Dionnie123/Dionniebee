@@ -58,20 +58,11 @@ class StoresViewModel extends MultipleStreamViewModel {
 
   List<LatLng> get markers => _markers;
 
-  start2() async {
-    await locationService.initialise();
-    _location = await locationService.getLocation();
-    notifyListeners();
-    if (locationService.permissionGranted != PermissionStatus.granted) {
-      dialogService.showDialog(description: "Location is Everthing");
-    }
-  }
-
   start() async {
-    setBusy(true);
-    await locationService.initialise();
-    _location = await locationService.getLocation();
-    setBusy(false);
+    await runBusyFuture(Future.wait([
+      locationService.initialise(),
+      locationService.getLocation().then((value) => _location = value)
+    ]));
     if (locationService.permissionGranted != PermissionStatus.granted) {
       dialogService.showDialog(description: "Location is Everthing");
     }

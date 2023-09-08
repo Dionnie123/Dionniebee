@@ -24,6 +24,7 @@ class StoresView extends HookWidget {
     );
 
     return ViewModelBuilder<StoresViewModel>.reactive(
+        fireOnViewModelReadyOnce: false,
         viewModelBuilder: () => StoresViewModel(),
         onViewModelReady: (viewModel) async {
           await viewModel.start();
