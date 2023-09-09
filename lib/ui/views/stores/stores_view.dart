@@ -115,7 +115,7 @@ class StoresView extends HookWidget {
                               mapController:
                                   animatedMapController.mapController,
                               options: MapOptions(
-                                center: viewModel.location ??
+                                center: viewModel.locationNonStream ??
                                     const LatLng(14.565310, 120.998703),
                                 zoom: 12.0,
                                 minZoom: 12.0,

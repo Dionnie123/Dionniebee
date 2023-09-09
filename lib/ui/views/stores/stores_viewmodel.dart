@@ -15,8 +15,11 @@ class StoresViewModel extends MultipleStreamViewModel {
   final locationService = locator<LocationService>();
   final dialogService = locator<DialogService>();
 
-  LatLng? _location;
-  LatLng? get location => _location;
+  LatLng? _locationStreamValue;
+  LatLng? get locationStreamValue => _locationStreamValue;
+
+  LatLng? _locationNonStreamValue;
+  LatLng? get locationNonStreamValue => _locationNonStreamValue;
 
   List<LocationDto> _nearbyLocation = [];
   List<LocationDto> get nearbyLocation => _nearbyLocation;
@@ -36,7 +39,7 @@ class StoresViewModel extends MultipleStreamViewModel {
   @override
   void onData(String key, data) {
     if (key == _locationStreamKey) {
-      _location = data;
+      _locationStreamValue = data;
     }
     if (key == _nearbyLocationStreamKey) {
       _nearbyLocation = data;
@@ -55,7 +58,7 @@ class StoresViewModel extends MultipleStreamViewModel {
   LocationDto? _locationDto;
   set mapInfo(LocationDto val) {
     if (val.geopoint?.longitude != null && val.geopoint?.latitude != null) {
-      _location =
+      _locationNonStreamValue =
           LatLng(val.geopoint?.latitude ?? 0, val.geopoint?.longitude ?? 0);
       _locationDto = val;
       notifySourceChanged(clearOldData: true);
@@ -73,7 +76,9 @@ class StoresViewModel extends MultipleStreamViewModel {
   start() async {
     await runBusyFuture(
         Future.wait([
-          locationService.determinePosition().then((value) => _location = value)
+          locationService
+              .determinePosition()
+              .then((value) => _locationNonStreamValue = value)
         ]),
         throwException: true);
   }
