@@ -76,9 +76,16 @@ class StoresViewModel extends MultipleStreamViewModel {
   start() async {
     await runBusyFuture(
         Future.wait([
-          locationService
-              .determinePosition()
-              .then((value) => _locationNonStreamValue = value)
+          locationService.determinePosition().then((value) {
+            _locationNonStreamValue = value;
+            _locationDto = LocationDto(
+                maxDistance: 1000,
+                geopoint: LatLngDto(
+                  latitude: value?.latitude,
+                  longitude: value?.longitude,
+                ));
+            notifySourceChanged(clearOldData: true);
+          })
         ]),
         throwException: true);
   }
