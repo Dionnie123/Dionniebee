@@ -98,12 +98,14 @@ class LocationService {
     // continue accessing the position of the device.
     LatLng? temp;
     try {
-      await Geolocator.getCurrentPosition(timeLimit: const Duration(seconds: 3))
+      await Geolocator.getCurrentPosition(
+              timeLimit: const Duration(seconds: 10))
           .then((value) {
         lastDeterminedPosition = LatLng(value.latitude, value.longitude);
         temp = LatLng(value.latitude, value.longitude);
       });
     } catch (e) {
+      print("44444444444444444444444");
       return lastDeterminedPosition;
     }
 
