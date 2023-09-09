@@ -2,17 +2,58 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/location_dto.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:location/location.dart';
 import 'package:rxdart/rxdart.dart';
 
 enum LocationAccess { unknown, allowed, disallowed }
 
 class LocationService {
   final Distance distance = const Distance();
-  Location location = Location();
+
+  LocationService() {
+    late LocationSettings locationSettings;
+
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      locationSettings = AndroidSettings(
+          accuracy: LocationAccuracy.high,
+          distanceFilter: 100,
+          forceLocationManager: true,
+          intervalDuration: const Duration(seconds: 10),
+          //(Optional) Set foreground notification config to keep the app alive
+          //when going to the background
+          foregroundNotificationConfig: const ForegroundNotificationConfig(
+            notificationText:
+                "Example app will continue to receive your location even when you aren't using it",
+            notificationTitle: "Running in Background",
+            enableWakeLock: true,
+          ));
+    } else if (defaultTargetPlatform == TargetPlatform.iOS ||
+        defaultTargetPlatform == TargetPlatform.macOS) {
+      locationSettings = AppleSettings(
+        accuracy: LocationAccuracy.high,
+        activityType: ActivityType.fitness,
+        distanceFilter: 100,
+        pauseLocationUpdatesAutomatically: true,
+        // Only set to true if our app will be started up in the background.
+        showBackgroundLocationIndicator: false,
+      );
+    } else {
+      locationSettings = const LocationSettings(
+          accuracy: LocationAccuracy.high,
+          distanceFilter: 100,
+          timeLimit: Duration(seconds: 5));
+    }
+
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((Position? position) {
+      locationController
+          .add(LatLng(position?.latitude ?? 0, position?.longitude ?? 0));
+    });
+  }
+
   GeoFlutterFire geo = GeoFlutterFire();
   final CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('locations');
@@ -20,91 +61,83 @@ class LocationService {
   final StreamController<LatLng?> locationController = BehaviorSubject();
   Stream<LatLng?> get getLocationStream => locationController.stream;
 
-  bool _serviceEnabled = false;
-  PermissionStatus? _permissionGranted;
-  PermissionStatus? get permissionGranted => _permissionGranted;
-  LocationData? _locationData;
-  LocationData? get locationData => _locationData;
+  Future<LatLng?> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
 
-  Future<void> initialise() async {
-    try {
-      _serviceEnabled = await location.serviceEnabled();
-      if (!_serviceEnabled) {
-        _serviceEnabled = await location.requestService();
-        if (!_serviceEnabled) {
-          return;
-        }
-      }
-      _permissionGranted = await location.hasPermission();
-      if (_permissionGranted == PermissionStatus.denied ||
-          _permissionGranted == PermissionStatus.deniedForever) {
-        _permissionGranted = await location.requestPermission();
-        if (_permissionGranted != PermissionStatus.granted) {
-          return;
-        }
-      }
-      location.onLocationChanged.listen((locationData) {
-        if (locationData.latitude != null && locationData.longitude != null) {
-          locationController.add(
-            LatLng(
-              locationData.latitude ?? 0,
-              locationData.longitude ?? 0,
-            ),
-          );
-        }
-      });
-    } catch (e) {
-      print("ERROR ${e.toString()}");
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
     }
-  }
 
-  Future<LatLng?> getLocation() async {
-    try {
-      LocationData locationData = await location.getLocation();
-
-      return LatLng(
-        locationData.latitude ?? 0.0,
-        locationData.longitude ?? 0.0,
-      );
-    } on Exception catch (e) {
-      debugPrint('Could not get location: ${e.toString()}');
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
     }
-    return null;
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    final temp = await Geolocator.getCurrentPosition(
+        timeLimit: const Duration(seconds: 5));
+    return LatLng(temp.latitude, temp.longitude);
   }
 
   Stream<List<LocationDto>> getNearbyPlacesStream(LocationDto? point) {
-    if (point != null) {
-      final center = geo.point(
-          latitude: point.geopoint?.latitude ?? 0,
-          longitude: point.geopoint?.longitude ?? 0);
-      return geo
-          .collection(collectionRef: collectionReference)
-          .within(
-            center: center,
-            radius: point.maxDistance ?? 10,
-            field: 'point',
-          )
-          .map((event) {
-        return event.map((e) {
-          final k = e.data() as Map<String, dynamic>;
-          final g = k['point']['geopoint'] as GeoPoint;
-          final num km = distance.as(
-              LengthUnit.Kilometer,
-              LatLng(point.geopoint?.latitude ?? 0,
-                  point.geopoint?.longitude ?? 0),
-              LatLng(g.latitude, g.longitude));
-          return LocationDto(
-              distanceInKm: km,
-              name: k['point']['name'],
-              address: k['point']['address'],
-              geohash: k['point']['geohash'],
-              geopoint: LatLngDto(
-                latitude: g.latitude,
-                longitude: g.longitude,
-              ));
-        }).toList();
-      });
+    try {
+      if (point != null) {
+        final center = geo.point(
+            latitude: point.geopoint?.latitude ?? 0,
+            longitude: point.geopoint?.longitude ?? 0);
+        return geo
+            .collection(collectionRef: collectionReference)
+            .within(
+              center: center,
+              radius: point.maxDistance ?? 10,
+              field: 'point',
+            )
+            .map((event) {
+          return event.map((e) {
+            final k = e.data() as Map<String, dynamic>;
+            final g = k['point']['geopoint'] as GeoPoint;
+            final num km = distance.as(
+                LengthUnit.Kilometer,
+                LatLng(point.geopoint?.latitude ?? 0,
+                    point.geopoint?.longitude ?? 0),
+                LatLng(g.latitude, g.longitude));
+            return LocationDto(
+                distanceInKm: km,
+                name: k['point']['name'],
+                address: k['point']['address'],
+                geohash: k['point']['geohash'],
+                geopoint: LatLngDto(
+                  latitude: g.latitude,
+                  longitude: g.longitude,
+                ));
+          }).toList();
+        });
+      }
+    } catch (e) {
+      return const Stream.empty();
     }
+
     return const Stream.empty();
   }
 }

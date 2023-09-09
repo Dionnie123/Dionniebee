@@ -6,7 +6,6 @@ import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
 
 import 'map_floating_action_buttons.dart';
-import 'package:location/location.dart';
 
 enum MapStatus { ready, loading, error }
 
@@ -36,7 +35,6 @@ class _AnimatedMapState extends State<MapAnimated> {
   LatLng? dragPoint;
 
   MapStatus mapStatus = MapStatus.loading;
-  var location = Location();
 
   Widget mapTemplate() {
     return TileLayer(

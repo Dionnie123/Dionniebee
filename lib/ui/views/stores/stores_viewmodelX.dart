@@ -2,15 +2,15 @@ import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.logger.dart';
 import 'package:dionniebee/app/models/location_dto.dart';
 import 'package:dionniebee/services/location_service.dart';
-import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 const String _locationStreamKey = 'location-stream';
 const String _nearbyLocationStreamKey = 'nearby-location-stream';
 
-class StoresViewModel extends MultipleStreamViewModel {
+class StoresViewModel extends ReactiveViewModel {
   final logger = getLogger('MyViewModel');
   final locationService = locator<LocationService>();
   final dialogService = locator<DialogService>();
@@ -18,39 +18,8 @@ class StoresViewModel extends MultipleStreamViewModel {
   LatLng? _location;
   LatLng? get location => _location;
 
-  List<LocationDto> _nearbyLocation = [];
+  final List<LocationDto> _nearbyLocation = [];
   List<LocationDto> get nearbyLocation => _nearbyLocation;
-
-  @override
-  void onFutureError(error, Object? key) {
-    super.onFutureError(error, key);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      dialogService.showDialog(
-          title: "Error",
-          barrierDismissible: true,
-          description: error.toString(),
-          dialogPlatform: DialogPlatform.Custom);
-    });
-  }
-
-  @override
-  void onData(String key, data) {
-    if (key == _locationStreamKey) {
-      _location = data;
-    }
-    if (key == _nearbyLocationStreamKey) {
-      _nearbyLocation = data;
-    }
-    super.onData(key, data);
-  }
-
-  @override
-  Map<String, StreamData> get streamsMap => {
-        _locationStreamKey:
-            StreamData<LatLng?>(locationService.getLocationStream),
-        _nearbyLocationStreamKey: StreamData<List<LocationDto>>(
-            locationService.getNearbyPlacesStream(_locationDto)),
-      };
 
   LocationDto? _locationDto;
   set mapInfo(LocationDto val) {
@@ -58,7 +27,6 @@ class StoresViewModel extends MultipleStreamViewModel {
       _location =
           LatLng(val.geopoint?.latitude ?? 0, val.geopoint?.longitude ?? 0);
       _locationDto = val;
-      notifySourceChanged(clearOldData: true);
     }
   }
 
@@ -71,10 +39,12 @@ class StoresViewModel extends MultipleStreamViewModel {
   List<LatLng> get markers => _markers;
 
   start() async {
-    await runBusyFuture(
-        Future.wait([
-          locationService.determinePosition().then((value) => _location = value)
-        ]),
-        throwException: true);
+    await runBusyFuture(Future.wait([
+      locationService.initialise(),
+      locationService.getLocation().then((value) => _location = value)
+    ]));
+    if (locationService.permissionGranted != PermissionStatus.granted) {
+      dialogService.showDialog(description: "Location is Everthing");
+    }
   }
 }
