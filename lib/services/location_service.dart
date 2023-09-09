@@ -95,9 +95,15 @@ class LocationService {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    final temp = await Geolocator.getCurrentPosition(
-        timeLimit: const Duration(seconds: 5));
-    return LatLng(temp.latitude, temp.longitude);
+    LatLng? temp;
+    try {
+      await Geolocator.getCurrentPosition(timeLimit: const Duration(seconds: 5))
+          .then((value) => temp = LatLng(value.latitude, value.longitude));
+    } catch (e) {
+      return null;
+    }
+
+    return temp;
   }
 
   Stream<List<LocationDto>> getNearbyPlacesStream(LocationDto? point) {

@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:dionniebee/app/constants/mapbox.dart';
+import 'package:dionniebee/app/models/location_dto.dart';
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/cluster_map.dart';
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/map_marker.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,9 @@ class StoresView extends HookWidget {
         viewModelBuilder: () => StoresViewModel(),
         initialiseSpecialViewModelsOnce: true,
         onViewModelReady: (viewModel) async {
-          await viewModel.start();
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            await viewModel.start();
+          });
         },
         builder: (
           BuildContext context,
@@ -131,13 +134,13 @@ class StoresView extends HookWidget {
                                   ); */
                                 },
                                 onMapEvent: (event) {
-                                  /*  viewModel.mapInfo = LocationDto(
+                                  viewModel.mapInfo = LocationDto(
                                     maxDistance: 1000,
                                     geopoint: LatLngDto(
                                       latitude: event.center.latitude,
                                       longitude: event.center.longitude,
                                     ),
-                                  ); */
+                                  );
                                 },
                                 onPointerUp: (event, point) {},
                                 interactiveFlags: InteractiveFlag.drag |
