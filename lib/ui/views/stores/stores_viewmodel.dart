@@ -58,8 +58,6 @@ class StoresViewModel extends MultipleStreamViewModel {
   LocationDto? _locationDto;
   set mapInfo(LocationDto val) {
     if (val.geopoint?.longitude != null && val.geopoint?.latitude != null) {
-      _locationNonStreamValue =
-          LatLng(val.geopoint?.latitude ?? 0, val.geopoint?.longitude ?? 0);
       _locationDto = val;
       notifySourceChanged(clearOldData: true);
     }

@@ -61,6 +61,7 @@ class LocationService {
   final StreamController<LatLng?> locationController = BehaviorSubject();
   Stream<LatLng?> get getLocationStream => locationController.stream;
 
+  LatLng? lastDeterminedPosition;
   Future<LatLng?> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -97,10 +98,13 @@ class LocationService {
     // continue accessing the position of the device.
     LatLng? temp;
     try {
-      await Geolocator.getCurrentPosition(timeLimit: const Duration(seconds: 5))
-          .then((value) => temp = LatLng(value.latitude, value.longitude));
+      await Geolocator.getCurrentPosition(timeLimit: const Duration(seconds: 3))
+          .then((value) {
+        lastDeterminedPosition = LatLng(value.latitude, value.longitude);
+        temp = LatLng(value.latitude, value.longitude);
+      });
     } catch (e) {
-      return null;
+      return lastDeterminedPosition;
     }
 
     return temp;

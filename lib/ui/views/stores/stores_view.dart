@@ -107,82 +107,94 @@ class StoresView extends HookWidget {
                   padding: const EdgeInsets.only(bottom: 256),
                   child: Stack(
                     children: [
-                      FlutterMap(
-                        mapController: animatedMapController.mapController,
-                        options: MapOptions(
-                          center: viewModel.locationNonStreamValue ??
-                              const LatLng(14.565310, 120.998703),
-                          zoom: 12.0,
-                          minZoom: 12.0,
-                          rotationThreshold: 0.0,
-                          maxBounds: LatLngBounds.fromPoints([
-                            const LatLng(4.382696, 112.1661),
-                            const LatLng(21.53021, 127.0742)
-                          ]),
-                          onMapReady: () async {
-                            await viewModel.start();
-                            print("MAP READDY");
-                            /*     viewModel.mapInfo = LocationDto(
+                      viewModel.isBusy
+                          ? const SizedBox.shrink()
+                          : FlutterMap(
+                              mapController:
+                                  animatedMapController.mapController,
+                              options: MapOptions(
+                                center: viewModel.locationNonStreamValue ??
+                                    const LatLng(14.565310, 120.998703),
+                                zoom: 12.0,
+                                minZoom: 12.0,
+                                rotationThreshold: 0.0,
+                                maxBounds: LatLngBounds.fromPoints([
+                                  const LatLng(4.382696, 112.1661),
+                                  const LatLng(21.53021, 127.0742)
+                                ]),
+                                onMapReady: () {
+                                  /*     viewModel.mapInfo = LocationDto(
                                     maxDistance: 1000,
                                     geopoint: LatLngDto(
                                       latitude: viewModel.location?.latitude,
                                       longitude: viewModel.location?.longitude,
                                     ),
                                   ); */
-                          },
-                          onMapEvent: (event) {
-                            viewModel.mapInfo = LocationDto(
-                              maxDistance: 1000,
-                              geopoint: LatLngDto(
-                                latitude: event.center.latitude,
-                                longitude: event.center.longitude,
+                                },
+                                onPositionChanged: (event, point) {
+                                  viewModel.mapInfo = LocationDto(
+                                    maxDistance: 1000,
+                                    geopoint: LatLngDto(
+                                      latitude: event.center?.latitude,
+                                      longitude: event.center?.longitude,
+                                    ),
+                                  );
+                                },
+                                onMapEvent: (event) {
+                                  /*   viewModel.mapInfo = LocationDto(
+                                    maxDistance: 1000,
+                                    geopoint: LatLngDto(
+                                      latitude: event.center.latitude,
+                                      longitude: event.center.longitude,
+                                    ),
+                                  ); */
+                                },
+                                onPointerUp: (event, point) {},
+                                interactiveFlags: InteractiveFlag.drag |
+                                    InteractiveFlag.flingAnimation |
+                                    InteractiveFlag.pinchMove |
+                                    InteractiveFlag.pinchZoom |
+                                    InteractiveFlag.doubleTapZoom,
+                                boundsOptions: const FitBoundsOptions(
+                                  forceIntegerZoomLevel: true,
+                                  inside: true,
+                                ),
                               ),
-                            );
-                          },
-                          onPointerUp: (event, point) {},
-                          interactiveFlags: InteractiveFlag.drag |
-                              InteractiveFlag.flingAnimation |
-                              InteractiveFlag.pinchMove |
-                              InteractiveFlag.pinchZoom |
-                              InteractiveFlag.doubleTapZoom,
-                          boundsOptions: const FitBoundsOptions(
-                            forceIntegerZoomLevel: true,
-                            inside: true,
-                          ),
-                        ),
-                        children: [
-                          TileLayer(
-                            urlTemplate: mapUrlTemplate,
-                            additionalOptions: mapAdditionOption,
-                          ),
-                          MarkerClusterLayerWidget(
-                            options: MarkerClusterLayerOptions(
-                              anchorPos: AnchorPos.align(AnchorAlign.center),
-                              maxClusterRadius: 100,
-                              size: const Size(40, 40),
-                              fitBoundsOptions: const FitBoundsOptions(
-                                forceIntegerZoomLevel: false,
-                                padding: EdgeInsets.all(50),
-                              ),
-                              markers: viewModel.markers
-                                  .mapIndexed((i, e) => markerWidget(i, e))
-                                  .toList(),
-                              builder: (context, markers) {
-                                return const ClusterMap(label: "C");
-                              },
+                              children: [
+                                TileLayer(
+                                  urlTemplate: mapUrlTemplate,
+                                  additionalOptions: mapAdditionOption,
+                                ),
+                                MarkerClusterLayerWidget(
+                                  options: MarkerClusterLayerOptions(
+                                    anchorPos:
+                                        AnchorPos.align(AnchorAlign.center),
+                                    maxClusterRadius: 100,
+                                    size: const Size(40, 40),
+                                    fitBoundsOptions: const FitBoundsOptions(
+                                      forceIntegerZoomLevel: false,
+                                      padding: EdgeInsets.all(50),
+                                    ),
+                                    markers: viewModel.markers
+                                        .mapIndexed(
+                                            (i, e) => markerWidget(i, e))
+                                        .toList(),
+                                    builder: (context, markers) {
+                                      return const ClusterMap(label: "C");
+                                    },
+                                  ),
+                                ),
+                                MarkerLayer(
+                                  markers: [
+                                    markerWidget(
+                                        0,
+                                        viewModel.locationNonStreamValue ??
+                                            const LatLng(14.565310, 120.998703),
+                                        color: Colors.purple),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ),
-                          MarkerLayer(
-                            markers: [
-                              markerWidget(
-                                  0,
-                                  viewModel.locationNonStreamValue ??
-                                      const LatLng(0, 0),
-                                  color: Colors.purple),
-                            ],
-                          ),
-                        ],
-                      ),
                       if (viewModel.isBusy)
                         Align(
                           alignment: Alignment.topCenter,

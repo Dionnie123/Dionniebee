@@ -3,6 +3,7 @@ import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
+import 'package:dionniebee/services/location_service.dart';
 import 'package:dionniebee/services/product_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -11,6 +12,7 @@ import 'package:stacked_services/stacked_services.dart';
 const String _productsStreamKey = 'products-stream';
 
 class HomeViewModel extends MultipleStreamViewModel {
+  final locationService = locator<LocationService>();
   final _authService = locator<AuthService>();
   final _navService = locator<RouterService>();
   final _productService = locator<ProductService>();
