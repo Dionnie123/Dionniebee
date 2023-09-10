@@ -93,7 +93,8 @@ class LocationService {
         temp = LatLng(value.latitude, value.longitude);
       });
     } catch (e) {
-      return Future.error(e.toString());
+      //return Future.error(e.toString());
+      return lastDeterminedPosition;
     }
 
     return temp;
