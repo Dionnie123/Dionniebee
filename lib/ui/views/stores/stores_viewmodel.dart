@@ -21,8 +21,8 @@ class StoresViewModel extends MultipleStreamViewModel {
   LatLng? _locationNonStreamValue;
   LatLng? get locationNonStreamValue => _locationNonStreamValue;
 
-  List<LocationDto> _nearbyLocation = [];
-  List<LocationDto> get nearbyLocation => _nearbyLocation;
+  List<LocationDto> _nearbyLocations = [];
+  List<LocationDto> get nearbyLocations => _nearbyLocations;
 
   @override
   void onFutureError(error, Object? key) {
@@ -42,7 +42,7 @@ class StoresViewModel extends MultipleStreamViewModel {
       _locationStreamValue = data;
     }
     if (key == _nearbyLocationStreamKey) {
-      _nearbyLocation = data;
+      _nearbyLocations = data;
     }
     super.onData(key, data);
   }
@@ -58,6 +58,8 @@ class StoresViewModel extends MultipleStreamViewModel {
   LocationDto? _locationDto;
   set mapInfo(LocationDto val) {
     if (val.geopoint?.longitude != null && val.geopoint?.latitude != null) {
+      _locationNonStreamValue =
+          LatLng(val.geopoint?.latitude ?? 0, val.geopoint?.longitude ?? 0);
       _locationDto = val;
       notifySourceChanged(clearOldData: true);
     }
@@ -73,18 +75,16 @@ class StoresViewModel extends MultipleStreamViewModel {
 
   start() async {
     await runBusyFuture(
-        Future.wait([
-          locationService.determinePosition().then((value) {
-            _locationNonStreamValue = value;
-            _locationDto = LocationDto(
-                maxDistance: 1000,
-                geopoint: LatLngDto(
-                  latitude: value?.latitude,
-                  longitude: value?.longitude,
-                ));
-            notifySourceChanged(clearOldData: true);
-          })
-        ]),
+        locationService.determinePosition().then((value) {
+          _locationNonStreamValue = value;
+          _locationDto = LocationDto(
+              maxDistance: 1000,
+              geopoint: LatLngDto(
+                latitude: value?.latitude,
+                longitude: value?.longitude,
+              ));
+          notifySourceChanged(clearOldData: true);
+        }),
         throwException: true);
   }
 }

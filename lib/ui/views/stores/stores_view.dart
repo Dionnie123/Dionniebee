@@ -67,15 +67,13 @@ class StoresView extends HookWidget {
             ),
             body: LayoutBuilder(builder: (context, size) {
               return SlidingUpPanel(
-                header: const Text("HEADER"),
-                footer: const Text("FOOTER"),
                 backdropEnabled: true,
                 minHeight: 200,
                 panel: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: viewModel.nearbyLocation
+                    children: viewModel.nearbyLocations
                         .mapIndexed((index, location) => Card(
                                 child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -83,7 +81,7 @@ class StoresView extends HookWidget {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      location.toString(),
+                                      location.name.toString(),
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -108,7 +106,7 @@ class StoresView extends HookWidget {
                   child: Stack(
                     children: [
                       viewModel.isBusy
-                          ? const SizedBox.shrink()
+                          ? Container(color: Colors.grey)
                           : FlutterMap(
                               mapController:
                                   animatedMapController.mapController,
@@ -122,15 +120,6 @@ class StoresView extends HookWidget {
                                   const LatLng(4.382696, 112.1661),
                                   const LatLng(21.53021, 127.0742)
                                 ]),
-                                onMapReady: () {
-                                  /*     viewModel.mapInfo = LocationDto(
-                                    maxDistance: 1000,
-                                    geopoint: LatLngDto(
-                                      latitude: viewModel.location?.latitude,
-                                      longitude: viewModel.location?.longitude,
-                                    ),
-                                  ); */
-                                },
                                 onPositionChanged: (event, point) {
                                   viewModel.mapInfo = LocationDto(
                                     maxDistance: 1000,
@@ -139,15 +128,6 @@ class StoresView extends HookWidget {
                                       longitude: event.center?.longitude,
                                     ),
                                   );
-                                },
-                                onMapEvent: (event) {
-                                  /*   viewModel.mapInfo = LocationDto(
-                                    maxDistance: 1000,
-                                    geopoint: LatLngDto(
-                                      latitude: event.center.latitude,
-                                      longitude: event.center.longitude,
-                                    ),
-                                  ); */
                                 },
                                 onPointerUp: (event, point) {},
                                 interactiveFlags: InteractiveFlag.drag |
