@@ -88,12 +88,13 @@ class LocationService {
     LatLng? temp;
     try {
       await Geolocator.getCurrentPosition(timeLimit: const Duration(seconds: 5))
-          .then((value) {
+          .then((value) async {
         lastDeterminedPosition = LatLng(value.latitude, value.longitude);
         temp = LatLng(value.latitude, value.longitude);
       });
     } catch (e) {
       //return Future.error(e.toString());
+
       return lastDeterminedPosition;
     }
 
