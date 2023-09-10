@@ -105,7 +105,7 @@ class StoresView extends HookWidget {
                   padding: const EdgeInsets.only(bottom: 256),
                   child: Stack(
                     children: [
-                      viewModel.isBusy
+                      viewModel.busy(mapBusy)
                           ? Container(color: Colors.grey)
                           : FlutterMap(
                               mapController:
@@ -175,7 +175,7 @@ class StoresView extends HookWidget {
                                 ),
                               ],
                             ),
-                      if (viewModel.isBusy)
+                      if (viewModel.busy(loaderBusy))
                         Align(
                           alignment: Alignment.topCenter,
                           child: LinearProgressIndicator(

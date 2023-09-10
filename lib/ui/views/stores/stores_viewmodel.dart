@@ -9,6 +9,8 @@ import 'package:stacked_services/stacked_services.dart';
 
 const String _locationStreamKey = 'location-stream';
 const String _nearbyLocationStreamKey = 'nearby-location-stream';
+const String loaderBusy = 'loaderBusy';
+const String mapBusy = 'mapBusy';
 
 class StoresViewModel extends MultipleStreamViewModel {
   final logger = getLogger('MyViewModel');
@@ -74,17 +76,22 @@ class StoresViewModel extends MultipleStreamViewModel {
   List<LatLng> get markers => _markers;
 
   start() async {
-    await runBusyFuture(
-        locationService.determinePosition().then((value) {
-          _locationNonStreamValue = value;
-          _locationDto = LocationDto(
-              maxDistance: 1000,
-              geopoint: LatLngDto(
-                latitude: value?.latitude,
-                longitude: value?.longitude,
-              ));
-          notifySourceChanged(clearOldData: true);
-        }),
-        throwException: true);
+    setBusyForObject(loaderBusy, true);
+    await locationService.determinePosition().then((value) {
+      _locationNonStreamValue = value;
+      _locationDto = LocationDto(
+          maxDistance: 1000,
+          geopoint: LatLngDto(
+            latitude: value?.latitude,
+            longitude: value?.longitude,
+          ));
+      notifySourceChanged(clearOldData: true);
+    }).onError((error, stackTrace) {
+      throw Exception(error.toString());
+    });
+    setBusyForObject(loaderBusy, false);
+    setBusyForObject(mapBusy, true);
+    await Future.delayed(const Duration(milliseconds: 500));
+    setBusyForObject(mapBusy, false);
   }
 }
