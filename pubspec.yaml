@@ -42,7 +42,7 @@ dependencies:
   scaled_app: ^2.0.0
   flutter_map: ^5.0.0
   flutter_map_dragmarker: ^5.0.0
-  
+  loader_overlay: ^2.3.2
   flutter_map_animations: ^0.4.1
   custom_map_markers: ^0.0.2+1
   flutter_map_marker_cluster: ^1.2.0

@@ -5,11 +5,12 @@ import 'package:dionniebee/ui/widgets/common/my_map/widgets/cluster_map.dart';
 import 'package:dionniebee/ui/widgets/common/my_map/widgets/map_marker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'stores_viewmodel.dart';
 
@@ -103,103 +104,140 @@ class StoresView extends HookWidget {
                 ),
                 body: Padding(
                   padding: const EdgeInsets.only(bottom: 256),
-                  child: Stack(
-                    children: [
-                      viewModel.busy(mapBusy)
-                          ? Container(color: Colors.grey)
-                          : FlutterMap(
-                              mapController:
-                                  animatedMapController.mapController,
-                              options: MapOptions(
-                                center: viewModel.locationNonStreamValue ??
-                                    const LatLng(14.565310, 120.998703),
-                                zoom: 12.0,
-                                minZoom: 12.0,
-                                rotationThreshold: 0.0,
-                                maxBounds: LatLngBounds.fromPoints([
-                                  const LatLng(4.382696, 112.1661),
-                                  const LatLng(21.53021, 127.0742)
-                                ]),
-                                onPositionChanged: (event, point) {
-                                  viewModel.mapInfo = LocationDto(
-                                    maxDistance: 1000,
-                                    geopoint: LatLngDto(
-                                      latitude: event.center?.latitude,
-                                      longitude: event.center?.longitude,
-                                    ),
-                                  );
-                                },
-                                onPointerUp: (event, point) {},
-                                interactiveFlags: InteractiveFlag.drag |
-                                    InteractiveFlag.flingAnimation |
-                                    InteractiveFlag.pinchMove |
-                                    InteractiveFlag.pinchZoom |
-                                    InteractiveFlag.doubleTapZoom,
-                                boundsOptions: const FitBoundsOptions(
-                                  forceIntegerZoomLevel: true,
-                                  inside: true,
-                                ),
-                              ),
-                              children: [
-                                TileLayer(
-                                  urlTemplate: mapUrlTemplate,
-                                  additionalOptions: mapAdditionOption,
-                                ),
-                                MarkerClusterLayerWidget(
-                                  options: MarkerClusterLayerOptions(
-                                    anchorPos:
-                                        AnchorPos.align(AnchorAlign.center),
-                                    maxClusterRadius: 100,
-                                    size: const Size(40, 40),
-                                    fitBoundsOptions: const FitBoundsOptions(
-                                      forceIntegerZoomLevel: false,
-                                      padding: EdgeInsets.all(50),
-                                    ),
-                                    markers: viewModel.markers
-                                        .mapIndexed(
-                                            (i, e) => markerWidget(i, e))
-                                        .toList(),
-                                    builder: (context, markers) {
-                                      return const ClusterMap(label: "C");
+                  child: LoaderOverlay(
+                    overlayColor: Colors.black.withOpacity(0.5),
+                    overlayOpacity: 0.5,
+                    duration: const Duration(milliseconds: 250),
+                    reverseDuration: const Duration(milliseconds: 250),
+                    child: Builder(builder: (context) {
+                      if (viewModel.busy(loaderBusy)) {
+                        context.loaderOverlay.show(widget: const _MapLoader());
+                      } else {
+                        context.loaderOverlay.hide();
+                      }
+                      return Stack(
+                        children: [
+                          viewModel.busy(mapBusy)
+                              ? Container(color: Colors.grey)
+                              : FlutterMap(
+                                  mapController:
+                                      animatedMapController.mapController,
+                                  options: MapOptions(
+                                    center: viewModel.locationNonStreamValue ??
+                                        const LatLng(14.565310, 120.998703),
+                                    zoom: 12.0,
+                                    minZoom: 12.0,
+                                    rotationThreshold: 0.0,
+                                    maxBounds: LatLngBounds.fromPoints([
+                                      const LatLng(4.382696, 112.1661),
+                                      const LatLng(21.53021, 127.0742)
+                                    ]),
+                                    onPositionChanged: (event, point) {
+                                      viewModel.mapInfo = LocationDto(
+                                        maxDistance: 1000,
+                                        geopoint: LatLngDto(
+                                          latitude: event.center?.latitude,
+                                          longitude: event.center?.longitude,
+                                        ),
+                                      );
                                     },
+                                    onPointerUp: (event, point) {},
+                                    interactiveFlags: InteractiveFlag.drag |
+                                        InteractiveFlag.flingAnimation |
+                                        InteractiveFlag.pinchMove |
+                                        InteractiveFlag.pinchZoom |
+                                        InteractiveFlag.doubleTapZoom,
+                                    boundsOptions: const FitBoundsOptions(
+                                      forceIntegerZoomLevel: true,
+                                      inside: true,
+                                    ),
                                   ),
-                                ),
-                                MarkerLayer(
-                                  markers: [
-                                    markerWidget(
-                                        0,
-                                        viewModel.locationNonStreamValue ??
-                                            const LatLng(14.565310, 120.998703),
-                                        color: Colors.purple),
+                                  children: [
+                                    TileLayer(
+                                      urlTemplate: mapUrlTemplate,
+                                      additionalOptions: mapAdditionOption,
+                                    ),
+                                    MarkerClusterLayerWidget(
+                                      options: MarkerClusterLayerOptions(
+                                        anchorPos:
+                                            AnchorPos.align(AnchorAlign.center),
+                                        maxClusterRadius: 100,
+                                        size: const Size(40, 40),
+                                        fitBoundsOptions:
+                                            const FitBoundsOptions(
+                                          forceIntegerZoomLevel: false,
+                                          padding: EdgeInsets.all(50),
+                                        ),
+                                        markers: viewModel.markers
+                                            .mapIndexed(
+                                                (i, e) => markerWidget(i, e))
+                                            .toList(),
+                                        builder: (context, markers) {
+                                          return const ClusterMap(label: "C");
+                                        },
+                                      ),
+                                    ),
+                                    MarkerLayer(
+                                      markers: [
+                                        markerWidget(
+                                            0,
+                                            viewModel.locationNonStreamValue ??
+                                                const LatLng(
+                                                    14.565310, 120.998703),
+                                            color: Colors.purple),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                              ],
+                          if (viewModel.busy(loaderBusy))
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: LinearProgressIndicator(
+                                  minHeight: 5,
+                                  backgroundColor: Colors.red.shade100,
+                                  color: Colors.red),
                             ),
-                      if (viewModel.busy(loaderBusy))
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: LinearProgressIndicator(
-                              minHeight: 5,
-                              backgroundColor: Colors.red.shade100,
-                              color: Colors.red),
-                        ),
-                      if (!viewModel.isBusy)
-                        const Positioned(
-                            top: 5,
-                            bottom: 0,
-                            left: 5,
-                            right: 0,
-                            child: Icon(
-                              Icons.location_pin,
-                              size: 35,
-                              color: Colors.pink,
-                            )),
-                    ],
+                          if (!viewModel.isBusy)
+                            const Positioned(
+                                top: 5,
+                                bottom: 0,
+                                left: 5,
+                                right: 0,
+                                child: Icon(
+                                  Icons.location_pin,
+                                  size: 35,
+                                  color: Colors.pink,
+                                )),
+                        ],
+                      );
+                    }),
                   ),
                 ),
               );
             }),
           );
         });
+  }
+}
+
+class _MapLoader extends StatelessWidget {
+  const _MapLoader();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.8),
+            borderRadius: BorderRadius.circular(10)),
+        width: 100,
+        height: 100,
+        child: const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
   }
 }
