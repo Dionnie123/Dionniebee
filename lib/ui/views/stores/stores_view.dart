@@ -189,14 +189,6 @@ class StoresView extends HookWidget {
                                     ),
                                   ],
                                 ),
-                          if (viewModel.busy(loaderBusy))
-                            Align(
-                              alignment: Alignment.topCenter,
-                              child: LinearProgressIndicator(
-                                  minHeight: 5,
-                                  backgroundColor: Colors.red.shade100,
-                                  color: Colors.red),
-                            ),
                           if (!viewModel.isBusy)
                             const Positioned(
                                 top: 5,
