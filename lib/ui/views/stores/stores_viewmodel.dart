@@ -85,6 +85,13 @@ class StoresViewModel extends MultipleStreamViewModel {
             latitude: value?.latitude,
             longitude: value?.longitude,
           ));
+      mapInfo = LocationDto(
+        maxDistance: 1000,
+        geopoint: LatLngDto(
+          latitude: _locationDto?.geopoint?.latitude,
+          longitude: _locationDto?.geopoint?.longitude,
+        ),
+      );
       notifySourceChanged(clearOldData: true);
     }).onError((error, stackTrace) {
       throw Exception(error.toString());
