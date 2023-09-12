@@ -104,12 +104,15 @@ class StoresView extends HookWidget {
                             Theme.of(context).scaffoldBackgroundColor,
                       ),
                       body: SlidingUpPanel(
+                        color: Colors.black.withOpacity(0.8),
                         backdropEnabled: true,
                         minHeight: 200,
                         panel: SlidingUpPanelList(
                             items: viewModel.nearbyLocations),
-                        body: Padding(
-                            padding: const EdgeInsets.only(bottom: 350),
+                        body: LayoutBuilder(builder: (context, size) {
+                          return Container(
+                            color: Colors.red,
+                            padding: const EdgeInsets.only(bottom: 362),
                             child: MapWidget(
                               mapController: animatedMapController,
                               isBusy: viewModel.busy(loaderBusy),
@@ -125,7 +128,9 @@ class StoresView extends HookWidget {
                                   ),
                                 );
                               },
-                            )),
+                            ),
+                          );
+                        }),
                       ),
                     ),
                     const Text("DELIVERY")
