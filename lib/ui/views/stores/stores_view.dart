@@ -39,9 +39,9 @@ class StoresView extends HookWidget {
                 headerSliverBuilder: (context, value) {
                   return [
                     SliverAppBar(
-                      forceElevated: true,
+                      //  forceElevated: true,
                       bottom: PreferredSize(
-                        preferredSize: const Size.fromHeight(60),
+                        preferredSize: const Size.fromHeight(50),
                         child: ColoredBox(
                           color: Colors.grey.shade300,
                           child: TabBar(
@@ -98,29 +98,35 @@ class StoresView extends HookWidget {
                 },
                 body: TabBarView(
                   children: [
-                    SlidingUpPanel(
-                      backdropEnabled: true,
-                      minHeight: 200,
-                      panel:
-                          SlidingUpPanelList(items: viewModel.nearbyLocations),
-                      body: Padding(
-                          padding: const EdgeInsets.only(bottom: 200),
-                          child: MapWidget(
-                            mapController: animatedMapController,
-                            isBusy: viewModel.busy(loaderBusy),
-                            isMapReloading: viewModel.busy(mapBusy),
-                            center: viewModel.locationNonStreamValue,
-                            markers: viewModel.markers,
-                            onPositionChanged: (event, point) {
-                              viewModel.mapInfo = LocationDto(
-                                maxDistance: 1000,
-                                geopoint: LatLngDto(
-                                  latitude: event.center?.latitude,
-                                  longitude: event.center?.longitude,
-                                ),
-                              );
-                            },
-                          )),
+                    Scaffold(
+                      appBar: AppBar(
+                        backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                      body: SlidingUpPanel(
+                        backdropEnabled: true,
+                        minHeight: 200,
+                        panel: SlidingUpPanelList(
+                            items: viewModel.nearbyLocations),
+                        body: Padding(
+                            padding: const EdgeInsets.only(bottom: 350),
+                            child: MapWidget(
+                              mapController: animatedMapController,
+                              isBusy: viewModel.busy(loaderBusy),
+                              isMapReloading: viewModel.busy(mapBusy),
+                              center: viewModel.locationNonStreamValue,
+                              markers: viewModel.markers,
+                              onPositionChanged: (event, point) {
+                                viewModel.mapInfo = LocationDto(
+                                  maxDistance: 1000,
+                                  geopoint: LatLngDto(
+                                    latitude: event.center?.latitude,
+                                    longitude: event.center?.longitude,
+                                  ),
+                                );
+                              },
+                            )),
+                      ),
                     ),
                     const Text("DELIVERY")
                   ],
