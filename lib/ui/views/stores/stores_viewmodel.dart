@@ -99,28 +99,28 @@ class StoresViewModel extends MultipleStreamViewModel {
   }
 
   start() async {
-    setBusyForObject(loaderBusy, true);
-    await locationService.determinePosition().then((value) {
-      _locationNonStreamValue = value;
-      textController.text = value.toString();
-      _locationDto = LocationDto(
-          maxDistance: 1000,
-          geopoint: LatLngDto(
-            latitude: value?.latitude,
-            longitude: value?.longitude,
-          ));
-      mapInfo = LocationDto(
-        maxDistance: 1000,
-        geopoint: LatLngDto(
-          latitude: _locationDto?.geopoint?.latitude,
-          longitude: _locationDto?.geopoint?.longitude,
-        ),
-      );
-      notifySourceChanged(clearOldData: true);
-    }).onError((error, stackTrace) {
-      throw Exception(error.toString());
-    });
-    setBusyForObject(loaderBusy, false);
+    await runBusyFuture(
+        locationService.determinePosition().then((value) {
+          _locationNonStreamValue = value;
+          textController.text = value.toString();
+          _locationDto = LocationDto(
+              maxDistance: 1000,
+              geopoint: LatLngDto(
+                latitude: value?.latitude,
+                longitude: value?.longitude,
+              ));
+          mapInfo = LocationDto(
+            maxDistance: 1000,
+            geopoint: LatLngDto(
+              latitude: _locationDto?.geopoint?.latitude,
+              longitude: _locationDto?.geopoint?.longitude,
+            ),
+          );
+          notifySourceChanged(clearOldData: true);
+        }),
+        busyObject: loaderBusy,
+        throwException: false);
+
     setBusyForObject(mapBusy, true);
     await Future.delayed(const Duration(milliseconds: 500));
     setBusyForObject(mapBusy, false);
