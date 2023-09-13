@@ -126,7 +126,7 @@ class StoresView extends HookWidget {
                         ),
                       ),
                       body: SlidingUpPanel(
-                        color: Colors.black.withOpacity(0.8),
+                        //  color: Colors.black.withOpacity(0.8),
                         backdropEnabled: true,
                         minHeight: 200,
                         panel: SlidingUpPanelList(

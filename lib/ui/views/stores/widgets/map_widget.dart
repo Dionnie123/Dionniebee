@@ -80,7 +80,7 @@ class MapWidget extends StatelessWidget {
                     ),
                     children: [
                       TileLayer(
-                        urlTemplate: mapUrlTemplate,
+                        urlTemplate: mapUrlTemplate2,
                         additionalOptions: mapAdditionOption,
                       ),
                       MarkerClusterLayerWidget(
