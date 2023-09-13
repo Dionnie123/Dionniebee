@@ -103,12 +103,25 @@ class StoresView extends HookWidget {
                         preferredSize: const Size.fromHeight(56),
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
-                          child: TextField(
-                            controller: viewModel.textController,
-                            decoration: const InputDecoration(
-                              filled: true,
-                              isDense: true,
-                            ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: viewModel.textController,
+                                  decoration: const InputDecoration(
+                                    filled: true,
+                                    isDense: true,
+                                  ),
+                                ),
+                              ),
+                              hSpaceSmall,
+                              IconButton(
+                                  onPressed: () async {
+                                    await viewModel.start();
+                                  },
+                                  icon: const Icon(
+                                      Icons.center_focus_weak_rounded))
+                            ],
                           ),
                         ),
                       ),
