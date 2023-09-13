@@ -135,22 +135,24 @@ class StoresView extends HookWidget {
                           return Container(
                             color: Colors.red,
                             padding: const EdgeInsets.only(bottom: 361),
-                            child: MapWidget(
-                              mapController: animatedMapController,
-                              isBusy: viewModel.busy(loaderBusy),
-                              isMapReloading: viewModel.busy(mapBusy),
-                              center: viewModel.locationNonStreamValue ??
-                                  viewModel.calculateCenterPoint(),
-                              markers: viewModel.markers,
-                              onPositionChanged: (event, point) {
-                                viewModel.mapInfo = LocationDto(
-                                  maxDistance: 1000,
-                                  geopoint: LatLngDto(
-                                    latitude: event.center?.latitude,
-                                    longitude: event.center?.longitude,
-                                  ),
-                                );
-                              },
+                            child: SizedBox(
+                              child: MapWidget(
+                                mapController: animatedMapController,
+                                isBusy: viewModel.busy(loaderBusy),
+                                isMapReloading: viewModel.busy(mapBusy),
+                                center: viewModel.locationNonStreamValue ??
+                                    viewModel.calculateCenterPoint(),
+                                markers: viewModel.markers,
+                                onPositionChanged: (event, point) {
+                                  viewModel.mapInfo = LocationDto(
+                                    maxDistance: 1000,
+                                    geopoint: LatLngDto(
+                                      latitude: event.center?.latitude,
+                                      longitude: event.center?.longitude,
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           );
                         }),
