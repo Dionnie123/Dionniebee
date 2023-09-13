@@ -99,9 +99,18 @@ class StoresView extends HookWidget {
                 body: TabBarView(
                   children: [
                     Scaffold(
-                      appBar: AppBar(
-                        backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
+                      appBar: PreferredSize(
+                        preferredSize: const Size.fromHeight(56),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
+                          child: TextField(
+                            controller: viewModel.textController,
+                            decoration: const InputDecoration(
+                              filled: true,
+                              isDense: true,
+                            ),
+                          ),
+                        ),
                       ),
                       body: SlidingUpPanel(
                         color: Colors.black.withOpacity(0.8),
@@ -112,12 +121,13 @@ class StoresView extends HookWidget {
                         body: LayoutBuilder(builder: (context, size) {
                           return Container(
                             color: Colors.red,
-                            padding: const EdgeInsets.only(bottom: 362),
+                            padding: const EdgeInsets.only(bottom: 361),
                             child: MapWidget(
                               mapController: animatedMapController,
                               isBusy: viewModel.busy(loaderBusy),
                               isMapReloading: viewModel.busy(mapBusy),
-                              center: viewModel.locationNonStreamValue,
+                              center: viewModel.locationNonStreamValue ??
+                                  viewModel.calculateCenterPoint(),
                               markers: viewModel.markers,
                               onPositionChanged: (event, point) {
                                 viewModel.mapInfo = LocationDto(

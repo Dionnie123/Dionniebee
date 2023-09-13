@@ -26,6 +26,8 @@ class StoresViewModel extends MultipleStreamViewModel {
   List<LocationDto> _nearbyLocations = [];
   List<LocationDto> get nearbyLocations => _nearbyLocations;
 
+  TextEditingController textController = TextEditingController();
+
   @override
   void onFutureError(error, Object? key) {
     super.onFutureError(error, key);
@@ -62,6 +64,7 @@ class StoresViewModel extends MultipleStreamViewModel {
     if (val.geopoint?.longitude != null && val.geopoint?.latitude != null) {
       _locationNonStreamValue =
           LatLng(val.geopoint?.latitude ?? 0, val.geopoint?.longitude ?? 0);
+      textController.text = _locationNonStreamValue.toString();
       _locationDto = val;
       notifySourceChanged(clearOldData: true);
     }
@@ -75,10 +78,31 @@ class StoresViewModel extends MultipleStreamViewModel {
 
   List<LatLng> get markers => _markers;
 
+  LatLng calculateCenterPoint() {
+    if (nearbyLocations.isEmpty) {
+      return const LatLng(
+          14.565310, 120.998703); // Default center if the list is empty
+    }
+
+    num sumLat = 0.0;
+    num sumLng = 0.0;
+
+    for (var point in nearbyLocations) {
+      sumLat += point.geopoint?.latitude ?? 0.0;
+      sumLng += point.geopoint?.longitude ?? 0.0;
+    }
+
+    double avgLat = sumLat / nearbyLocations.length;
+    double avgLng = sumLng / nearbyLocations.length;
+
+    return LatLng(avgLat, avgLng);
+  }
+
   start() async {
     setBusyForObject(loaderBusy, true);
     await locationService.determinePosition().then((value) {
       _locationNonStreamValue = value;
+      textController.text = value.toString();
       _locationDto = LocationDto(
           maxDistance: 1000,
           geopoint: LatLngDto(
