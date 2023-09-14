@@ -1,7 +1,5 @@
-import 'package:dionniebee/firebase_options.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:stacked/stacked.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
 
@@ -10,8 +8,6 @@ class FirebaseAuthService with Initialisable implements AuthService {
 
   @override
   Future<void> initialise() async {
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
     //await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
     _firebaseAuth = FirebaseAuth.instance;
 

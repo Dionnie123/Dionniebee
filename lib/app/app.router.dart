@@ -121,39 +121,39 @@ class StackedRouterWeb extends _i12.RootStackRouter {
         ),
         _i12.RouteConfig(
           AuthViewRoute.name,
-          path: '/',
+          path: '/auth-view',
         ),
         _i12.RouteConfig(
           CartViewRoute.name,
-          path: '/',
+          path: '/cart-view',
         ),
         _i12.RouteConfig(
           HomeViewRoute.name,
-          path: '/',
+          path: '/home-view',
         ),
         _i12.RouteConfig(
           FooViewRoute.name,
-          path: '/',
+          path: '/foo-view',
         ),
         _i12.RouteConfig(
           OrdersViewRoute.name,
-          path: '/',
+          path: '/orders-view',
         ),
         _i12.RouteConfig(
           StoresViewRoute.name,
-          path: '/',
+          path: '/stores-view',
         ),
         _i12.RouteConfig(
           PromoViewRoute.name,
-          path: '/',
+          path: '/promo-view',
         ),
         _i12.RouteConfig(
           ProductViewRoute.name,
-          path: '/',
+          path: '/product-view',
         ),
         _i12.RouteConfig(
           WelcomeViewRoute.name,
-          path: '/',
+          path: '/welcome-view',
         ),
       ];
 }
@@ -176,7 +176,7 @@ class AuthViewRoute extends _i12.PageRouteInfo<void> {
   const AuthViewRoute()
       : super(
           AuthViewRoute.name,
-          path: '/',
+          path: '/auth-view',
         );
 
   static const String name = 'AuthView';
@@ -188,7 +188,7 @@ class CartViewRoute extends _i12.PageRouteInfo<void> {
   const CartViewRoute()
       : super(
           CartViewRoute.name,
-          path: '/',
+          path: '/cart-view',
         );
 
   static const String name = 'CartView';
@@ -200,7 +200,7 @@ class HomeViewRoute extends _i12.PageRouteInfo<void> {
   const HomeViewRoute()
       : super(
           HomeViewRoute.name,
-          path: '/',
+          path: '/home-view',
         );
 
   static const String name = 'HomeView';
@@ -212,7 +212,7 @@ class FooViewRoute extends _i12.PageRouteInfo<void> {
   const FooViewRoute()
       : super(
           FooViewRoute.name,
-          path: '/',
+          path: '/foo-view',
         );
 
   static const String name = 'FooView';
@@ -224,7 +224,7 @@ class OrdersViewRoute extends _i12.PageRouteInfo<void> {
   const OrdersViewRoute()
       : super(
           OrdersViewRoute.name,
-          path: '/',
+          path: '/orders-view',
         );
 
   static const String name = 'OrdersView';
@@ -236,7 +236,7 @@ class StoresViewRoute extends _i12.PageRouteInfo<void> {
   const StoresViewRoute()
       : super(
           StoresViewRoute.name,
-          path: '/',
+          path: '/stores-view',
         );
 
   static const String name = 'StoresView';
@@ -248,7 +248,7 @@ class PromoViewRoute extends _i12.PageRouteInfo<void> {
   const PromoViewRoute()
       : super(
           PromoViewRoute.name,
-          path: '/',
+          path: '/promo-view',
         );
 
   static const String name = 'PromoView';
@@ -262,7 +262,7 @@ class ProductViewRoute extends _i12.PageRouteInfo<ProductViewArgs> {
     _i13.Key? key,
   }) : super(
           ProductViewRoute.name,
-          path: '/',
+          path: '/product-view',
           args: ProductViewArgs(
             id: id,
             key: key,
@@ -294,7 +294,7 @@ class WelcomeViewRoute extends _i12.PageRouteInfo<void> {
   const WelcomeViewRoute()
       : super(
           WelcomeViewRoute.name,
-          path: '/',
+          path: '/welcome-view',
         );
 
   static const String name = 'WelcomeView';

@@ -16,11 +16,14 @@ class ProductService {
     });
   }
 
-  Stream<ProductDto> getItemStream(String productId) {
-    return collectionReference.doc(productId).snapshots().map((snapshot) {
-      return ProductDto.fromJson(snapshot.data() as Map<String, dynamic>)
-          .copyWith(id: snapshot.id);
-    });
+  Stream<ProductDto?> getItemStream(String? productId) {
+    if (productId != null) {
+      return collectionReference.doc(productId).snapshots().map((snapshot) {
+        return ProductDto.fromJson(snapshot.data() as Map<String, dynamic>)
+            .copyWith(id: snapshot.id);
+      });
+    }
+    return const Stream.empty();
   }
 
   Future<void> updateItem(ProductDto product) async {

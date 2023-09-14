@@ -15,6 +15,7 @@ import '../services/auth_service.dart';
 import '../services/authentication_service.firebase.dart';
 import '../services/cart_service.dart';
 import '../services/location_service.dart';
+import '../services/order_service.dart';
 import '../services/product_service.dart';
 import 'app.router.dart';
 
@@ -40,6 +41,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => ProductService());
   locator.registerLazySingleton(() => LocationService());
   locator.registerLazySingleton(() => CartService());
+  locator.registerLazySingleton(() => OrderService());
   if (stackedRouter == null) {
     throw Exception(
         'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');

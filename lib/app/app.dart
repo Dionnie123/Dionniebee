@@ -18,57 +18,48 @@ import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/ui/views/promo/promo_view.dart';
 import 'package:dionniebee/ui/views/product/product_view.dart';
 import 'package:dionniebee/ui/views/welcome/welcome_view.dart';
+import 'package:dionniebee/services/order_service.dart';
 // @stacked-import
 
 @StackedApp(
   logger: StackedLogger(),
   routes: [
     CustomRoute(
-      path: '/',
       page: StartupView,
+      initial: true,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     MaterialRoute(
       page: AuthView,
-      path: '/',
-      initial: true,
     ),
     MaterialRoute(
       page: CartView,
-      path: '/',
     ),
     CustomRoute(
       page: HomeView,
-      path: '/',
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
 
     CustomRoute(
-      path: '/',
       page: FooView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     CustomRoute(
-      path: '/',
       page: OrdersView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     CustomRoute(
-      path: '/',
       page: StoresView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     CustomRoute(
-      path: '/',
       page: PromoView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     MaterialRoute(
-      path: '/',
       page: ProductView,
     ),
     MaterialRoute(
-      path: '/',
       page: WelcomeView,
     ),
 // @stacked-route
@@ -87,6 +78,7 @@ import 'package:dionniebee/ui/views/welcome/welcome_view.dart';
     ),
     LazySingleton(classType: LocationService),
     LazySingleton(classType: CartService),
+    LazySingleton(classType: OrderService),
 // @stacked-service
   ],
   bottomsheets: [
