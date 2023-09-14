@@ -1,17 +1,13 @@
-import 'package:collection/collection.dart';
-import 'package:dionniebee/app/constants/mapbox.dart';
 import 'package:dionniebee/app/models/location_dto.dart';
-import 'package:dionniebee/ui/widgets/common/my_map/widgets/cluster_map.dart';
-import 'package:dionniebee/ui/widgets/common/my_map/widgets/map_marker.dart';
+import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
-import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:stacked/stacked.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:stacked/stacked.dart';
 import 'stores_viewmodel.dart';
+import 'widgets/map_widget.dart';
+import 'widgets/sliding_up_panel_list.dart';
 
 class StoresView extends HookWidget {
   const StoresView({super.key});
@@ -24,10 +20,12 @@ class StoresView extends HookWidget {
     );
 
     return ViewModelBuilder<StoresViewModel>.reactive(
-        fireOnViewModelReadyOnce: false,
         viewModelBuilder: () => StoresViewModel(),
+        initialiseSpecialViewModelsOnce: true,
         onViewModelReady: (viewModel) async {
-          await viewModel.start();
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            await viewModel.start();
+          });
         },
         builder: (
           BuildContext context,
@@ -35,182 +33,146 @@ class StoresView extends HookWidget {
           Widget? child,
         ) {
           return Scaffold(
-            appBar: AppBar(
-              bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(56.0),
-                  child: Container(
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+            body: DefaultTabController(
+              length: 2,
+              child: NestedScrollView(
+                headerSliverBuilder: (context, value) {
+                  return [
+                    SliverAppBar(
+                      //  forceElevated: true,
+                      bottom: PreferredSize(
+                        preferredSize: const Size.fromHeight(50),
+                        child: ColoredBox(
+                          color: Colors.grey.shade300,
+                          child: TabBar(
+                            indicator: BoxDecoration(
+                              color: Colors.yellow.shade900,
+                            ),
+                            overlayColor:
+                                const MaterialStatePropertyAll(Colors.red),
+                            tabs: const [
+                              Tab(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.delivery_dining,
+                                      color: Colors.black,
+                                    ),
+                                    hSpaceSmall,
+                                    Text(
+                                      "Delivery",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Tab(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.delivery_dining,
+                                      color: Colors.black,
+                                    ),
+                                    hSpaceSmall,
+                                    Text(
+                                      "Pick Up",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ];
+                },
+                body: TabBarView(
+                  children: [
+                    Scaffold(
+                      appBar: PreferredSize(
+                        preferredSize: const Size.fromHeight(56),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                  child: Text(
-                                      "${viewModel.location ?? "Your Address"}")),
+                                child: TextField(
+                                  controller: viewModel.textController,
+                                  decoration: const InputDecoration(
+                                    filled: true,
+                                    isDense: true,
+                                  ),
+                                ),
+                              ),
+                              hSpaceSmall,
                               IconButton(
                                   onPressed: () async {
                                     await viewModel.start();
                                   },
                                   icon: const Icon(
-                                      Icons.center_focus_strong_rounded))
+                                      Icons.center_focus_weak_rounded))
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  )),
-            ),
-            body: LayoutBuilder(builder: (context, size) {
-              return SlidingUpPanel(
-                header: const Text("HEADER"),
-                footer: const Text("FOOTER"),
-                backdropEnabled: true,
-                minHeight: 200,
-                panel: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: viewModel.nearbyLocation
-                        .mapIndexed((index, location) => Card(
-                                child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      location.toString(),
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    " - ${location.distanceInKm} km",
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )))
-                        .toList(),
-                  ),
-                ),
-                body: Padding(
-                  padding: const EdgeInsets.only(bottom: 256),
-                  child: Stack(
-                    children: [
-                      viewModel.isBusy
-                          ? Container(
-                              color: Colors.grey,
-                            )
-                          : FlutterMap(
-                              mapController:
-                                  animatedMapController.mapController,
-                              options: MapOptions(
-                                center: viewModel.location ??
-                                    const LatLng(14.565310, 120.998703),
-                                zoom: 12.0,
-                                minZoom: 12.0,
-                                rotationThreshold: 0.0,
-                                maxBounds: LatLngBounds.fromPoints([
-                                  const LatLng(4.382696, 112.1661),
-                                  const LatLng(21.53021, 127.0742)
-                                ]),
-                                onMapReady: () {
+                      ),
+                      body: SlidingUpPanel(
+                        //  color: Colors.black.withOpacity(0.8),
+                        backdropEnabled: true,
+                        minHeight: 200,
+                        panel: SlidingUpPanelList(
+                            items: viewModel.nearbyLocations),
+                        body: LayoutBuilder(builder: (context, size) {
+                          return Container(
+                            color: Colors.red,
+                            padding: const EdgeInsets.only(bottom: 361),
+                            child: SizedBox(
+                              child: MapWidget(
+                                mapController: animatedMapController,
+                                isBusy: viewModel.busy(loaderBusy),
+                                isMapReloading: viewModel.busy(mapBusy),
+                                center: viewModel.locationNonStreamValue ??
+                                    viewModel.calculateCenterPoint(),
+                                markers: viewModel.markers,
+                                onPositionChanged: (event, point) {
                                   viewModel.mapInfo = LocationDto(
                                     maxDistance: 1000,
                                     geopoint: LatLngDto(
-                                      latitude: viewModel.location?.latitude,
-                                      longitude: viewModel.location?.longitude,
+                                      latitude: event.center?.latitude,
+                                      longitude: event.center?.longitude,
                                     ),
                                   );
                                 },
-                                onMapEvent: (event) {
-                                  viewModel.mapInfo = LocationDto(
-                                    maxDistance: 1000,
-                                    geopoint: LatLngDto(
-                                      latitude: event.center.latitude,
-                                      longitude: event.center.longitude,
-                                    ),
-                                  );
-                                },
-                                onPointerUp: (event, point) {},
-                                interactiveFlags: InteractiveFlag.drag |
-                                    InteractiveFlag.flingAnimation |
-                                    InteractiveFlag.pinchMove |
-                                    InteractiveFlag.pinchZoom |
-                                    InteractiveFlag.doubleTapZoom,
-                                boundsOptions: const FitBoundsOptions(
-                                  forceIntegerZoomLevel: true,
-                                  inside: true,
-                                ),
                               ),
-                              children: [
-                                TileLayer(
-                                  urlTemplate: mapUrlTemplate,
-                                  additionalOptions: mapAdditionOption,
-                                ),
-                                MarkerClusterLayerWidget(
-                                  options: MarkerClusterLayerOptions(
-                                    anchorPos:
-                                        AnchorPos.align(AnchorAlign.center),
-                                    maxClusterRadius: 100,
-                                    size: const Size(40, 40),
-                                    fitBoundsOptions: const FitBoundsOptions(
-                                      forceIntegerZoomLevel: false,
-                                      padding: EdgeInsets.all(50),
-                                    ),
-                                    markers: viewModel.markers
-                                        .mapIndexed(
-                                            (i, e) => markerWidget(i, e))
-                                        .toList(),
-                                    builder: (context, markers) {
-                                      return const ClusterMap(label: "C");
-                                    },
-                                  ),
-                                ),
-                                MarkerLayer(
-                                  markers: [
-                                    markerWidget(
-                                        0,
-                                        viewModel.location ??
-                                            const LatLng(0, 0),
-                                        color: Colors.purple),
-                                  ],
-                                ),
-                              ],
                             ),
-                      if (viewModel.isBusy)
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: LinearProgressIndicator(
-                              minHeight: 5,
-                              backgroundColor: Colors.red.shade100,
-                              color: Colors.red),
-                        ),
-                      if (!viewModel.isBusy)
-                        const Positioned(
-                            top: 5,
-                            bottom: 0,
-                            left: 5,
-                            right: 0,
-                            child: Icon(
-                              Icons.location_pin,
-                              size: 35,
-                              color: Colors.pink,
-                            )),
-                    ],
-                  ),
+                          );
+                        }),
+                      ),
+                    ),
+                    const Text("DELIVERY")
+                  ],
                 ),
-              );
-            }),
+              ),
+            ),
           );
         });
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
