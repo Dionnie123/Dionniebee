@@ -18,6 +18,11 @@ class StoresView extends HookWidget {
     final AnimatedMapController animatedMapController = AnimatedMapController(
       vsync: tickerProvider,
     );
+    final TabController tabController = TabController(
+      initialIndex: 0,
+      length: 2,
+      vsync: tickerProvider,
+    );
 
     return ViewModelBuilder<StoresViewModel>.reactive(
         viewModelBuilder: () => StoresViewModel(),
@@ -33,116 +38,107 @@ class StoresView extends HookWidget {
           Widget? child,
         ) {
           return Scaffold(
-            body: DefaultTabController(
-              length: 2,
-              child: NestedScrollView(
-                headerSliverBuilder: (context, value) {
-                  return [
-                    SliverAppBar(
-                      //  forceElevated: true,
-                      floating: false,
-                      pinned: true,
-                      collapsedHeight: 56,
-                      bottom: PreferredSize(
-                        preferredSize: const Size.fromHeight(56),
-                        child: ColoredBox(
-                          color: Colors.grey.shade300,
-                          child: TabBar(
-                            indicator: BoxDecoration(
-                              color: Colors.yellow.shade900,
+            appBar: AppBar(
+              elevation: 0,
+            ),
+            body: Column(
+              children: [
+                ColoredBox(
+                  color: Colors.grey.shade300,
+                  child: TabBar(
+                    controller: tabController,
+                    indicator: BoxDecoration(
+                      color: Colors.yellow.shade900,
+                    ),
+                    overlayColor: const MaterialStatePropertyAll(Colors.red),
+                    tabs: const [
+                      Tab(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.delivery_dining,
+                              color: Colors.black,
                             ),
-                            overlayColor:
-                                const MaterialStatePropertyAll(Colors.red),
-                            tabs: const [
-                              Tab(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.delivery_dining,
-                                      color: Colors.black,
-                                    ),
-                                    hSpaceSmall,
-                                    Text(
-                                      "Delivery",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Tab(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.delivery_dining,
-                                      color: Colors.black,
-                                    ),
-                                    hSpaceSmall,
-                                    Text(
-                                      "Pick Up",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                            hSpaceSmall,
+                            Text(
+                              "Delivery",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
                         ),
                       ),
-                    ),
-                  ];
-                },
-                body: TabBarView(
-                  children: [
-                    Scaffold(
-                      appBar: PreferredSize(
-                        preferredSize: const Size.fromHeight(66),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  style: const TextStyle(fontSize: 15),
-                                  controller: viewModel.textController,
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        const EdgeInsets.fromLTRB(12, 15, 8, 0),
-                                    filled: true,
-                                    suffixIcon: InkWell(
-                                        onTap: () async {
-                                          await viewModel.start();
-                                        },
-                                        child: const Icon(
-                                            Icons.center_focus_weak_rounded)),
+                      Tab(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.delivery_dining,
+                              color: Colors.black,
+                            ),
+                            hSpaceSmall,
+                            Text(
+                              "Pick Up",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: TabBarView(
+                    controller: tabController,
+                    children: [
+                      Scaffold(
+                        appBar: PreferredSize(
+                          preferredSize: const Size.fromHeight(56),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    style: const TextStyle(fontSize: 15),
+                                    controller: viewModel.textController,
+                                    decoration: InputDecoration(
+                                      contentPadding: const EdgeInsets.fromLTRB(
+                                          12, 10, 8, 0),
+                                      filled: true,
+                                      suffixIcon: InkWell(
+                                          onTap: () async {
+                                            await viewModel.start();
+                                          },
+                                          child: const Icon(
+                                              Icons.center_focus_weak_rounded)),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              hSpaceSmall,
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  child: const Text("Filters"))
-                            ],
+                                hSpaceSmall,
+                                ElevatedButton(
+                                    onPressed: () {},
+                                    child: const Text("Filters"))
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      body: SlidingUpPanel(
-                        //  color: Colors.black.withOpacity(0.8),
-                        backdropEnabled: true,
-                        minHeight: 200,
-                        panel: SlidingUpPanelList(
-                            items: viewModel.nearbyLocations),
-                        body: LayoutBuilder(builder: (context, size) {
-                          return Container(
+                        body: SlidingUpPanel(
+                          color: Colors.black.withOpacity(0.8),
+                          backdropEnabled: true,
+                          minHeight: 200,
+                          panel: SlidingUpPanelList(
+                              items: viewModel.nearbyLocations),
+                          body: Container(
                             color: Colors.red,
-                            padding: const EdgeInsets.only(bottom: 361),
+                            padding:
+                                const EdgeInsets.only(bottom: 200 + 112 + 48),
                             child: SizedBox(
                               child: MapWidget(
                                 mapController: animatedMapController,
@@ -162,14 +158,14 @@ class StoresView extends HookWidget {
                                 },
                               ),
                             ),
-                          );
-                        }),
+                          ),
+                        ),
                       ),
-                    ),
-                    const Text("DELIVERY")
-                  ],
+                      const Text("DELIVERY")
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
           );
         });
