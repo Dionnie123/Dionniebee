@@ -114,7 +114,7 @@ class StoresView extends HookWidget {
                                   controller: viewModel.textController,
                                   decoration: InputDecoration(
                                     contentPadding:
-                                        const EdgeInsets.fromLTRB(12, 15, 0, 0),
+                                        const EdgeInsets.fromLTRB(12, 15, 8, 0),
                                     filled: true,
                                     suffixIcon: InkWell(
                                         onTap: () async {
