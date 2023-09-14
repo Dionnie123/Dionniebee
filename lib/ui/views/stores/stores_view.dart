@@ -40,8 +40,11 @@ class StoresView extends HookWidget {
                   return [
                     SliverAppBar(
                       //  forceElevated: true,
+                      floating: false,
+                      pinned: true,
+                      collapsedHeight: 56,
                       bottom: PreferredSize(
-                        preferredSize: const Size.fromHeight(50),
+                        preferredSize: const Size.fromHeight(56),
                         child: ColoredBox(
                           color: Colors.grey.shade300,
                           child: TabBar(
@@ -100,7 +103,7 @@ class StoresView extends HookWidget {
                   children: [
                     Scaffold(
                       appBar: PreferredSize(
-                        preferredSize: const Size.fromHeight(76),
+                        preferredSize: const Size.fromHeight(66),
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
                           child: Row(
@@ -111,7 +114,7 @@ class StoresView extends HookWidget {
                                   controller: viewModel.textController,
                                   decoration: InputDecoration(
                                     contentPadding:
-                                        const EdgeInsets.fromLTRB(12, 16, 0, 0),
+                                        const EdgeInsets.fromLTRB(12, 15, 0, 0),
                                     filled: true,
                                     suffixIcon: InkWell(
                                         onTap: () async {
