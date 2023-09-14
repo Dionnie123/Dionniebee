@@ -100,27 +100,32 @@ class StoresView extends HookWidget {
                   children: [
                     Scaffold(
                       appBar: PreferredSize(
-                        preferredSize: const Size.fromHeight(56),
+                        preferredSize: const Size.fromHeight(76),
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
                           child: Row(
                             children: [
                               Expanded(
                                 child: TextField(
+                                  style: const TextStyle(fontSize: 15),
                                   controller: viewModel.textController,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        const EdgeInsets.fromLTRB(12, 16, 0, 0),
                                     filled: true,
-                                    isDense: true,
+                                    suffixIcon: InkWell(
+                                        onTap: () async {
+                                          await viewModel.start();
+                                        },
+                                        child: const Icon(
+                                            Icons.center_focus_weak_rounded)),
                                   ),
                                 ),
                               ),
                               hSpaceSmall,
-                              IconButton(
-                                  onPressed: () async {
-                                    await viewModel.start();
-                                  },
-                                  icon: const Icon(
-                                      Icons.center_focus_weak_rounded))
+                              ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text("Filters"))
                             ],
                           ),
                         ),
