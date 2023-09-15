@@ -14,14 +14,13 @@ class StoresView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final a = useSingleTickerProvider();
+    final b = useSingleTickerProvider();
     final AnimatedMapController animatedMapController = AnimatedMapController(
-      vsync: useSingleTickerProvider(),
+      vsync: a,
     );
-    final TabController tabController = TabController(
-      initialIndex: 0,
-      length: 2,
-      vsync: useSingleTickerProvider(),
-    );
+    final TabController tabController =
+        TabController(initialIndex: 0, length: 2, vsync: b);
 
     return ViewModelBuilder<StoresViewModel>.reactive(
         viewModelBuilder: () => StoresViewModel(),
@@ -134,17 +133,10 @@ class StoresView extends HookWidget {
                                 ],
                               ),
                             )),
-                        body: SlidingUpPanel(
-                          // color: Colors.black.withOpacity(0.8),
-                          backdropEnabled: true,
-                          minHeight: 200,
-                          panel: SlidingUpPanelList(
-                              items: viewModel.nearbyLocations),
-                          body: Container(
-                            color: Colors.red,
-                            padding:
-                                const EdgeInsets.only(bottom: 200 + 112 + 48),
-                            child: SizedBox(
+                        body: Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 200),
                               child: MapWidget(
                                 mapController: animatedMapController,
                                 isBusy: viewModel.busy(loaderBusy),
@@ -163,7 +155,14 @@ class StoresView extends HookWidget {
                                 },
                               ),
                             ),
-                          ),
+                            SlidingUpPanel(
+                              // color: Colors.black.withOpacity(0.8),
+                              backdropEnabled: true,
+                              minHeight: 200,
+                              panel: SlidingUpPanelList(
+                                  items: viewModel.nearbyLocations),
+                            ),
+                          ],
                         ),
                       ),
                       const Text("DELIVERY")

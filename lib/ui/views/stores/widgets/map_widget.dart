@@ -58,6 +58,7 @@ class MapWidget extends StatelessWidget {
                 : FlutterMap(
                     mapController: mapController.mapController,
                     options: MapOptions(
+                      keepAlive: true,
                       center: center ?? fallbackPoints,
                       zoom: 12.0,
                       minZoom: 12.0,
