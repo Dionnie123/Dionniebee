@@ -14,14 +14,13 @@ class StoresView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tickerProvider = useSingleTickerProvider();
     final AnimatedMapController animatedMapController = AnimatedMapController(
-      vsync: tickerProvider,
+      vsync: useSingleTickerProvider(),
     );
     final TabController tabController = TabController(
       initialIndex: 0,
       length: 2,
-      vsync: tickerProvider,
+      vsync: useSingleTickerProvider(),
     );
 
     return ViewModelBuilder<StoresViewModel>.reactive(
@@ -98,37 +97,43 @@ class StoresView extends HookWidget {
                     controller: tabController,
                     children: [
                       Scaffold(
-                        appBar: PreferredSize(
-                          preferredSize: const Size.fromHeight(56),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    style: const TextStyle(fontSize: 15),
-                                    controller: viewModel.textController,
-                                    decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.fromLTRB(
-                                          12, 10, 8, 0),
-                                      filled: true,
-                                      suffixIcon: InkWell(
-                                          onTap: () async {
-                                            await viewModel.start();
-                                          },
-                                          child: const Icon(
-                                              Icons.center_focus_weak_rounded)),
+                        appBar: AppBar(
+                            backgroundColor: Colors.white,
+                            automaticallyImplyLeading: false,
+                            titleSpacing: 8,
+                            title: Container(
+                              width: double.infinity,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: TextField(
+                                        controller: viewModel.textController,
+                                        decoration: InputDecoration(
+                                            filled: true,
+                                            suffixIcon: IconButton(
+                                              icon: const Icon(Icons
+                                                  .center_focus_weak_rounded),
+                                              onPressed: () async {
+                                                await viewModel.start();
+                                              },
+                                            ),
+                                            hintText: 'Search...',
+                                            border: InputBorder.none),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                hSpaceSmall,
-                                ElevatedButton(
-                                    onPressed: () {},
-                                    child: const Text("Filters"))
-                              ],
-                            ),
-                          ),
-                        ),
+                                  hSpaceSmall,
+                                  ElevatedButton(
+                                      onPressed: () {},
+                                      child: const Text("Filters")),
+                                ],
+                              ),
+                            )),
                         body: SlidingUpPanel(
                           // color: Colors.black.withOpacity(0.8),
                           backdropEnabled: true,
