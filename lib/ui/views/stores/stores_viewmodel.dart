@@ -17,11 +17,15 @@ class StoresViewModel extends MultipleStreamViewModel {
   final locationService = locator<LocationService>();
   final dialogService = locator<DialogService>();
 
-  LatLng? _locationStreamValue;
-  LatLng? get locationStreamValue => _locationStreamValue;
+  LatLng? _myLocationStreamValue;
+  LatLng? get myLocationStreamValue => _myLocationStreamValue;
 
-  LatLng? _locationNonStreamValue;
-  LatLng? get locationNonStreamValue => _locationNonStreamValue;
+  LatLng? _myLocationDeliveryNonStreamValue;
+  LatLng? get myLocationDeliveryNonStreamValue =>
+      _myLocationDeliveryNonStreamValue;
+
+  LatLng? _myLocationPickupNonStreamValue;
+  LatLng? get myLocationPickupNonStreamValue => _myLocationPickupNonStreamValue;
 
   List<LocationDto> _nearbyLocations = [];
   List<LocationDto> get nearbyLocations => _nearbyLocations;
@@ -43,7 +47,7 @@ class StoresViewModel extends MultipleStreamViewModel {
   @override
   void onData(String key, data) {
     if (key == _locationStreamKey) {
-      _locationStreamValue = data;
+      _myLocationStreamValue = data;
     }
     if (key == _nearbyLocationStreamKey) {
       _nearbyLocations = data;
@@ -62,9 +66,9 @@ class StoresViewModel extends MultipleStreamViewModel {
   LocationDto? _locationDto;
   set mapInfo(LocationDto val) {
     if (val.geopoint?.longitude != null && val.geopoint?.latitude != null) {
-      _locationNonStreamValue =
+      _myLocationDeliveryNonStreamValue =
           LatLng(val.geopoint?.latitude ?? 0, val.geopoint?.longitude ?? 0);
-      textController.text = _locationNonStreamValue.toString();
+      textController.text = _myLocationDeliveryNonStreamValue.toString();
       _locationDto = val;
       notifySourceChanged(clearOldData: true);
     }
@@ -101,7 +105,8 @@ class StoresViewModel extends MultipleStreamViewModel {
   start() async {
     await runBusyFuture(
         locationService.determinePosition().then((value) {
-          _locationNonStreamValue = value;
+          _myLocationDeliveryNonStreamValue = value;
+          _myLocationPickupNonStreamValue = value;
           textController.text = value.toString();
           _locationDto = LocationDto(
               maxDistance: 1000,

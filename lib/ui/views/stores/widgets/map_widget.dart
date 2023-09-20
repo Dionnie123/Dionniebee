@@ -11,6 +11,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'map_loader.dart';
 
 class MapWidget extends StatelessWidget {
+  final double zoom;
   final AnimatedMapController mapController;
   final bool isBusy;
   final bool isMapReloading;
@@ -24,7 +25,8 @@ class MapWidget extends StatelessWidget {
       this.center,
       this.onPositionChanged,
       this.markers = const [],
-      required this.isMapReloading});
+      required this.isMapReloading,
+      this.zoom = 12.0});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +35,10 @@ class MapWidget extends StatelessWidget {
         [const LatLng(4.382696, 112.1661), const LatLng(21.53021, 127.0742)]);
 
     Widget pointerIcon() {
-      return const Icon(
+      return Icon(
         Icons.location_pin,
         size: 35,
-        color: Colors.pink,
+        color: Colors.orange.shade600,
       );
     }
 
@@ -60,7 +62,7 @@ class MapWidget extends StatelessWidget {
                     options: MapOptions(
                       keepAlive: true,
                       center: center ?? fallbackPoints,
-                      zoom: 12.0,
+                      zoom: zoom,
                       minZoom: 12.0,
                       rotationThreshold: 0.0,
                       maxBounds: philippineBounds,
@@ -106,15 +108,15 @@ class MapWidget extends StatelessWidget {
                           markerWidget(
                             0,
                             center ?? fallbackPoints,
-                            color: Colors.purple,
+                            color: Colors.green,
                           ),
                         ],
                       ),
                     ],
                   ),
-            if (isBusy)
+            if (!isBusy)
               Positioned(
-                top: 5,
+                top: 4,
                 bottom: 0,
                 left: 5,
                 right: 0,

@@ -35,6 +35,7 @@ class HomeViewModel extends MultipleStreamViewModel {
   @override
   void onData(String key, data) {
     _products = dataMap?[_productsStreamKey];
+
     super.onData(key, data);
   }
 

@@ -912,6 +912,15 @@ class MockLocationService extends _i1.Mock implements _i13.LocationService {
         ),
       ) as _i5.StreamController<_i3.LatLng?>);
   @override
+  set lastDeterminedPosition(_i3.LatLng? _lastDeterminedPosition) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #lastDeterminedPosition,
+          _lastDeterminedPosition,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   _i5.Stream<_i3.LatLng?> get getLocationStream => (super.noSuchMethod(
         Invocation.getter(#getLocationStream),
         returnValue: _i5.Stream<_i3.LatLng?>.empty(),

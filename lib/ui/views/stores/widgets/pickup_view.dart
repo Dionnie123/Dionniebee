@@ -50,19 +50,12 @@ class _PickupViewState extends State<PickupView> with TickerProviderStateMixin {
                 ),
               ),
               child: TabBar(
-                //padding: const EdgeInsets.all(8.0),
                 controller: tabController,
-
                 indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    25.0,
-                  ),
-                  color: Colors.red,
-                ),
-
+                    borderRadius: BorderRadius.circular(25.0),
+                    color: Theme.of(context).primaryColor),
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.white,
-                // overlayColor: const MaterialStatePropertyAll(Colors.red),
                 tabs: const [
                   Tab(
                     child: Text(
@@ -129,7 +122,7 @@ class _PickupViewState extends State<PickupView> with TickerProviderStateMixin {
                           mapController: animatedMapController,
                           isBusy: viewModel.busy(loaderBusy),
                           isMapReloading: viewModel.busy(mapBusy),
-                          center: viewModel.locationNonStreamValue ??
+                          center: viewModel.myLocationPickupNonStreamValue ??
                               viewModel.calculateCenterPoint(),
                           markers: viewModel.markers,
                           onPositionChanged: (event, point) {

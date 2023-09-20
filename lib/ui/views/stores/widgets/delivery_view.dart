@@ -76,12 +76,12 @@ class _DeliveryViewState extends State<DeliveryView>
           Padding(
             padding: const EdgeInsets.only(bottom: 200),
             child: MapWidget(
+              zoom: 15.0,
               mapController: animatedMapController,
               isBusy: viewModel.busy(loaderBusy),
               isMapReloading: viewModel.busy(mapBusy),
-              center: viewModel.locationNonStreamValue ??
+              center: viewModel.myLocationDeliveryNonStreamValue ??
                   viewModel.calculateCenterPoint(),
-              markers: viewModel.markers,
               onPositionChanged: (event, point) {
                 viewModel.mapInfo = LocationDto(
                   maxDistance: 1000,
