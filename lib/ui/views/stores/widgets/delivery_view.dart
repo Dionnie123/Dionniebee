@@ -76,7 +76,7 @@ class _DeliveryViewState extends State<DeliveryView>
           Padding(
             padding: const EdgeInsets.only(bottom: 200),
             child: MapWidget(
-              zoom: 16.0,
+              zoom: 17.0,
               mapController: animatedMapController,
               isBusy: viewModel.busy(loaderBusy),
               isMapReloading: viewModel.busy(mapBusy),

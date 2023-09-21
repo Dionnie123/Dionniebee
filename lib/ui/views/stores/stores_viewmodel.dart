@@ -90,7 +90,7 @@ class StoresViewModel extends MultipleStreamViewModel {
 
   void updateNearbyPickupStream(LocationDto val) {
     if (val.geopoint?.longitude != null && val.geopoint?.latitude != null) {
-      _myLocationDeliveryNonStreamValue =
+      _myLocationPickupNonStreamValue =
           LatLng(val.geopoint?.latitude ?? 0, val.geopoint?.longitude ?? 0);
       textPickupController.text = _myLocationPickupNonStreamValue.toString();
       _locationPickupDto = val;
