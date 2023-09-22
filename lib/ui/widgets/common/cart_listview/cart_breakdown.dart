@@ -23,13 +23,13 @@ class CartBreakdown extends StatelessWidget {
                 children: [
                   Text(
                     "SUBTOTAL",
-                    style: const TextStyle(fontSize: 16).copyWith(
+                    style: const TextStyle().copyWith(
                       fontWeight: FontWeight.w900,
                     ),
                   ),
                   Text(
                     "\$${subTotal.toStringAsFixed(2)}",
-                    style: const TextStyle(fontSize: 16).copyWith(
+                    style: const TextStyle().copyWith(
                       fontWeight: FontWeight.w900,
                     ),
                   ),
@@ -41,18 +41,16 @@ class CartBreakdown extends StatelessWidget {
                 children: [
                   Text(
                     "TOTAL",
-                    style:
-                        TextStyle(fontSize: 18, color: kcPrimaryColor.darken())
-                            .copyWith(
-                      fontWeight: FontWeight.w900,
+                    style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     "\$${subTotal.toStringAsFixed(2)}",
-                    style:
-                        TextStyle(fontSize: 18, color: kcPrimaryColor.darken())
-                            .copyWith(
-                      fontWeight: FontWeight.w900,
+                    style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],

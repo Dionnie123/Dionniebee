@@ -118,7 +118,9 @@ class CartItem extends StatelessWidget {
                                     "${product.quantityInCart}",
                                     maxLines: 1,
                                     overflow: TextOverflow.fade,
-                                    style: const TextStyle(fontSize: 15),
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
