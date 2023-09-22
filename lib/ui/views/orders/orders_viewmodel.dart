@@ -49,5 +49,5 @@ class OrdersViewModel extends MultipleStreamViewModel {
     await navService.replaceWithAuthView();
   }
 
-  int get cartCount => _cartService.cartCount;
+  num get cartCount => _cartService.cartCount;
 }

@@ -25,8 +25,8 @@ mixin _$ProductDto {
   String? get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   num? get price => throw _privateConstructorUsedError;
-  int? get quantityInStock => throw _privateConstructorUsedError;
-  int? get quantityInCart => throw _privateConstructorUsedError;
+  num? get quantityInStock => throw _privateConstructorUsedError;
+  num? get quantityInCart => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,8 +47,8 @@ abstract class $ProductDtoCopyWith<$Res> {
       String? name,
       String? description,
       num? price,
-      int? quantityInStock,
-      int? quantityInCart,
+      num? quantityInStock,
+      num? quantityInCart,
       DateTime? createdAt});
 }
 
@@ -98,11 +98,11 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
       quantityInStock: freezed == quantityInStock
           ? _value.quantityInStock
           : quantityInStock // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       quantityInCart: freezed == quantityInCart
           ? _value.quantityInCart
           : quantityInCart // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -125,8 +125,8 @@ abstract class _$$_ProductDtoCopyWith<$Res>
       String? name,
       String? description,
       num? price,
-      int? quantityInStock,
-      int? quantityInCart,
+      num? quantityInStock,
+      num? quantityInCart,
       DateTime? createdAt});
 }
 
@@ -174,11 +174,11 @@ class __$$_ProductDtoCopyWithImpl<$Res>
       quantityInStock: freezed == quantityInStock
           ? _value.quantityInStock
           : quantityInStock // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       quantityInCart: freezed == quantityInCart
           ? _value.quantityInCart
           : quantityInCart // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -215,9 +215,9 @@ class _$_ProductDto implements _ProductDto {
   @override
   final num? price;
   @override
-  final int? quantityInStock;
+  final num? quantityInStock;
   @override
-  final int? quantityInCart;
+  final num? quantityInCart;
   @override
   final DateTime? createdAt;
 
@@ -272,8 +272,8 @@ abstract class _ProductDto implements ProductDto {
       final String? name,
       final String? description,
       final num? price,
-      final int? quantityInStock,
-      final int? quantityInCart,
+      final num? quantityInStock,
+      final num? quantityInCart,
       final DateTime? createdAt}) = _$_ProductDto;
 
   factory _ProductDto.fromJson(Map<String, dynamic> json) =
@@ -290,9 +290,9 @@ abstract class _ProductDto implements ProductDto {
   @override
   num? get price;
   @override
-  int? get quantityInStock;
+  num? get quantityInStock;
   @override
-  int? get quantityInCart;
+  num? get quantityInCart;
   @override
   DateTime? get createdAt;
   @override

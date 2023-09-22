@@ -13,8 +13,8 @@ _$_ProductDto _$$_ProductDtoFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       description: json['description'] as String?,
       price: json['price'] as num?,
-      quantityInStock: json['quantity_in_stock'] as int?,
-      quantityInCart: json['quantity_in_cart'] as int?,
+      quantityInStock: json['quantity_in_stock'] as num?,
+      quantityInCart: json['quantity_in_cart'] as num?,
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),

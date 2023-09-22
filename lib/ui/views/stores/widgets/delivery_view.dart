@@ -93,7 +93,6 @@ class _DeliveryViewState extends State<DeliveryView>
             ),
           ),
           SlidingUpPanel(
-            // color: Colors.black.withOpacity(0.8),
             backdropEnabled: true,
             minHeight: 200,
             panel: SlidingUpPanelList(items: viewModel.nearbyDeliveryLocations),

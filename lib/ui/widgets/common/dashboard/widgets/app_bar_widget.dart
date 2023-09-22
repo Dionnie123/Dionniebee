@@ -4,7 +4,7 @@ import 'package:badges/badges.dart' as badges;
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Function() onSignOut;
-  final int cartCount;
+  final num cartCount;
   final Function() onCartTap;
   const AppBarWidget(
       {super.key,
@@ -40,7 +40,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 child: const Icon(Icons.shopping_cart_rounded)),
             onPressed: () {
-              Scaffold.of(context).openEndDrawer();
+              onCartTap();
             },
           );
         }),

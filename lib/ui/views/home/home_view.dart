@@ -5,10 +5,7 @@ import 'package:dionniebee/ui/widgets/common/product_menu_item/food_menu_item.da
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
-import 'package:dionniebee/ui/widgets/common/cart_item/cart_item.dart';
-import 'package:dionniebee/ui/widgets/common/cart_listview/cart_breakdown.dart';
 import 'package:dionniebee/ui/widgets/common/product_item/product_item.dart';
-import 'package:dionniebee/ui/widgets/common/side_cart/side_cart.dart';
 import 'package:dionniebee/ui/widgets/common/featured_products_listview/suggested_product_listview.dart';
 import 'package:dionniebee/ui/widgets/common/product_menu_listview/product_menu_listview.dart';
 
@@ -26,29 +23,12 @@ class HomeView extends StackedView<HomeViewModel> {
       bottomNavigationBar: const NavigationBarWidget(selectedIndex: 0),
       appBar: AppBarWidget(
         onCartTap: () {
-          Scaffold.of(context).openEndDrawer();
+          viewModel.goToCartView();
         },
         onSignOut: () async {
           await viewModel.signOut();
         },
         cartCount: viewModel.cartCount,
-      ),
-      endDrawer: SideCart(
-        itemCount: viewModel.cart.length,
-        actionButtons: const [],
-        cartBreakdown: CartBreakdown(subTotal: viewModel.cartTotal),
-        itemBuilder: (context, index) {
-          return CartItem(
-            viewModel.cart[index],
-            onAdd: () {
-              viewModel.addCartItemQuantity(viewModel.cart[index].id ?? "");
-            },
-            onMinus: () {
-              viewModel.minusCartItemQuantity(viewModel.cart[index].id ?? "");
-            },
-            size: const Size(double.infinity, 150),
-          );
-        },
       ),
       body: CustomScrollView(slivers: [
         SliverToBoxAdapter(

@@ -19,7 +19,7 @@ class HomeViewModel extends MultipleStreamViewModel {
   final _cartService = locator<CartService>();
   final _dialogService = locator<DialogService>();
 
-  int get cartCount => _cartService.cartCount;
+  num get cartCount => _cartService.cartCount;
   num get cartTotal => _cartService.cartTotal;
   List<ProductDto> get cart => _cartService.cart;
 
@@ -68,6 +68,12 @@ class HomeViewModel extends MultipleStreamViewModel {
 
   productView(String id) {
     _navService.navigateToProductView(id: id.toString(), key: UniqueKey());
+  }
+
+  goToCartView() {
+    _navService.navigateTo(
+      const CartViewRoute(),
+    );
   }
 
   signOut() async {

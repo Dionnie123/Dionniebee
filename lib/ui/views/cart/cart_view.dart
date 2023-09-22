@@ -1,3 +1,6 @@
+import 'package:dionniebee/ui/widgets/common/cart/cart.dart';
+import 'package:dionniebee/ui/widgets/common/cart_item/cart_item.dart';
+import 'package:dionniebee/ui/widgets/common/cart_listview/cart_breakdown.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -12,11 +15,22 @@ class CartView extends StackedView<CartViewModel> {
     CartViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-      ),
+    return Cart(
+      items: viewModel.cart,
+      actionButtons: const [],
+      cartBreakdown: CartBreakdown(subTotal: viewModel.cartTotal),
+      itemBuilder: (context, index) {
+        return CartItem(
+          viewModel.cart[index],
+          onAdd: () {
+            viewModel.addCartItemQuantity(viewModel.cart[index].id ?? "");
+          },
+          onMinus: () {
+            viewModel.minusCartItemQuantity(viewModel.cart[index].id ?? "");
+          },
+          size: const Size(double.infinity, 150),
+        );
+      },
     );
   }
 
