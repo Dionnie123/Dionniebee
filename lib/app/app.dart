@@ -62,6 +62,7 @@ import 'package:dionniebee/services/order_service.dart';
     MaterialRoute(
       page: WelcomeView,
     ),
+
 // @stacked-route
   ],
   dependencies: [

@@ -15,8 +15,8 @@ class ProductDto with _$ProductDto {
     String? name,
     String? description,
     num? price,
-    int? quantityInStock,
-    int? quantityInCart,
+    num? quantityInStock,
+    num? quantityInCart,
     DateTime? createdAt,
   }) = _ProductDto;
 

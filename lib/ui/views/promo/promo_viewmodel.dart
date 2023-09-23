@@ -32,5 +32,5 @@ class PromoViewModel extends ReactiveViewModel {
     await navService.replaceWithAuthView();
   }
 
-  int get cartCount => _cartService.cartCount;
+  num get cartCount => _cartService.cartCount;
 }

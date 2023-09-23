@@ -8,7 +8,9 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 const String _locationStreamKey = 'location-stream';
-const String _nearbyLocationStreamKey = 'nearby-location-stream';
+const String _nearbyLocationDeliveryStreamKey =
+    '_nearbyLocationDeliveryStreamKey';
+const String _nearbyLocationPickupStreamKey = '_nearbyLocationPickupStreamKey';
 const String loaderBusy = 'loaderBusy';
 const String mapBusy = 'mapBusy';
 
@@ -27,10 +29,8 @@ class StoresViewModel extends MultipleStreamViewModel {
   LatLng? _myLocationPickupNonStreamValue;
   LatLng? get myLocationPickupNonStreamValue => _myLocationPickupNonStreamValue;
 
-  List<LocationDto> _nearbyLocations = [];
-  List<LocationDto> get nearbyLocations => _nearbyLocations;
-
-  TextEditingController textController = TextEditingController();
+  TextEditingController textDeliveryController = TextEditingController();
+  TextEditingController textPickupController = TextEditingController();
 
   @override
   void onFutureError(error, Object? key) {
@@ -44,13 +44,22 @@ class StoresViewModel extends MultipleStreamViewModel {
     });
   }
 
+  List<LocationDto> _nearbyDeliveryLocations = [];
+  List<LocationDto> get nearbyDeliveryLocations => _nearbyDeliveryLocations;
+
+  List<LocationDto> _nearbyPickupLocations = [];
+  List<LocationDto> get nearbyPickupLocations => _nearbyPickupLocations;
+
   @override
   void onData(String key, data) {
     if (key == _locationStreamKey) {
       _myLocationStreamValue = data;
     }
-    if (key == _nearbyLocationStreamKey) {
-      _nearbyLocations = data;
+    if (key == _nearbyLocationDeliveryStreamKey) {
+      _nearbyDeliveryLocations = data;
+    }
+    if (key == _nearbyLocationPickupStreamKey) {
+      _nearbyPickupLocations = data;
     }
     super.onData(key, data);
   }
@@ -59,17 +68,32 @@ class StoresViewModel extends MultipleStreamViewModel {
   Map<String, StreamData> get streamsMap => {
         _locationStreamKey:
             StreamData<LatLng?>(locationService.getLocationStream),
-        _nearbyLocationStreamKey: StreamData<List<LocationDto>>(
-            locationService.getNearbyPlacesStream(_locationDto)),
+        _nearbyLocationDeliveryStreamKey: StreamData<List<LocationDto>>(
+            locationService.getNearbyPlacesStream(_locationDeliveryDto)),
+        _nearbyLocationPickupStreamKey: StreamData<List<LocationDto>>(
+            locationService.getNearbyPlacesStream(_locationPickupDto)),
       };
 
-  LocationDto? _locationDto;
-  set mapInfo(LocationDto val) {
+  LocationDto? _locationDeliveryDto;
+  LocationDto? _locationPickupDto;
+
+  void updateNearbyDeliveryStream(LocationDto val) {
     if (val.geopoint?.longitude != null && val.geopoint?.latitude != null) {
       _myLocationDeliveryNonStreamValue =
           LatLng(val.geopoint?.latitude ?? 0, val.geopoint?.longitude ?? 0);
-      textController.text = _myLocationDeliveryNonStreamValue.toString();
-      _locationDto = val;
+      textDeliveryController.text =
+          _myLocationDeliveryNonStreamValue.toString();
+      _locationDeliveryDto = val;
+      notifySourceChanged(clearOldData: true);
+    }
+  }
+
+  void updateNearbyPickupStream(LocationDto val) {
+    if (val.geopoint?.longitude != null && val.geopoint?.latitude != null) {
+      _myLocationPickupNonStreamValue =
+          LatLng(val.geopoint?.latitude ?? 0, val.geopoint?.longitude ?? 0);
+      textPickupController.text = _myLocationPickupNonStreamValue.toString();
+      _locationPickupDto = val;
       notifySourceChanged(clearOldData: true);
     }
   }
@@ -82,7 +106,7 @@ class StoresViewModel extends MultipleStreamViewModel {
 
   List<LatLng> get markers => _markers;
 
-  LatLng calculateCenterPoint() {
+  /*  LatLng calculateCenterPoint() {
     if (nearbyLocations.isEmpty) {
       return const LatLng(
           14.565310, 120.998703); // Default center if the list is empty
@@ -100,27 +124,29 @@ class StoresViewModel extends MultipleStreamViewModel {
     double avgLng = sumLng / nearbyLocations.length;
 
     return LatLng(avgLat, avgLng);
-  }
+  } */
 
   start() async {
     await runBusyFuture(
         locationService.determinePosition().then((value) {
           _myLocationDeliveryNonStreamValue = value;
           _myLocationPickupNonStreamValue = value;
-          textController.text = value.toString();
-          _locationDto = LocationDto(
+          textDeliveryController.text = value.toString();
+          textPickupController.text = value.toString();
+
+          _locationDeliveryDto = LocationDto(
+            maxDistance: 1000,
+            geopoint: LatLngDto(
+              latitude: value?.latitude,
+              longitude: value?.longitude,
+            ),
+          );
+          _locationPickupDto = LocationDto(
               maxDistance: 1000,
               geopoint: LatLngDto(
                 latitude: value?.latitude,
                 longitude: value?.longitude,
               ));
-          mapInfo = LocationDto(
-            maxDistance: 1000,
-            geopoint: LatLngDto(
-              latitude: _locationDto?.geopoint?.latitude,
-              longitude: _locationDto?.geopoint?.longitude,
-            ),
-          );
           notifySourceChanged(clearOldData: true);
         }),
         busyObject: loaderBusy,

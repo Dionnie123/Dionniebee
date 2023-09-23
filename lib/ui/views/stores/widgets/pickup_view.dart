@@ -93,7 +93,7 @@ class _PickupViewState extends State<PickupView> with TickerProviderStateMixin {
                             Expanded(
                               child: Center(
                                 child: TextField(
-                                  controller: viewModel.textController,
+                                  controller: viewModel.textPickupController,
                                   decoration: InputDecoration(
                                       filled: true,
                                       suffixIcon: IconButton(
@@ -122,17 +122,16 @@ class _PickupViewState extends State<PickupView> with TickerProviderStateMixin {
                           mapController: animatedMapController,
                           isBusy: viewModel.busy(loaderBusy),
                           isMapReloading: viewModel.busy(mapBusy),
-                          center: viewModel.myLocationPickupNonStreamValue ??
-                              viewModel.calculateCenterPoint(),
+                          center: viewModel.myLocationPickupNonStreamValue,
                           markers: viewModel.markers,
                           onPositionChanged: (event, point) {
-                            viewModel.mapInfo = LocationDto(
+                            viewModel.updateNearbyPickupStream(LocationDto(
                               maxDistance: 1000,
                               geopoint: LatLngDto(
                                 latitude: event.center?.latitude,
                                 longitude: event.center?.longitude,
                               ),
-                            );
+                            ));
                           },
                         ),
                       ),
@@ -141,7 +140,7 @@ class _PickupViewState extends State<PickupView> with TickerProviderStateMixin {
                         backdropEnabled: true,
                         minHeight: 200,
                         panel: SlidingUpPanelList(
-                            items: viewModel.nearbyLocations),
+                            items: viewModel.nearbyPickupLocations),
                       ),
                     ],
                   ),

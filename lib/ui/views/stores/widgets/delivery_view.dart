@@ -52,7 +52,7 @@ class _DeliveryViewState extends State<DeliveryView>
                 Expanded(
                   child: Center(
                     child: TextField(
-                      controller: viewModel.textController,
+                      controller: viewModel.textDeliveryController,
                       decoration: InputDecoration(
                           filled: true,
                           suffixIcon: IconButton(
@@ -76,28 +76,26 @@ class _DeliveryViewState extends State<DeliveryView>
           Padding(
             padding: const EdgeInsets.only(bottom: 200),
             child: MapWidget(
-              zoom: 15.0,
+              zoom: 17.0,
               mapController: animatedMapController,
               isBusy: viewModel.busy(loaderBusy),
               isMapReloading: viewModel.busy(mapBusy),
-              center: viewModel.myLocationDeliveryNonStreamValue ??
-                  viewModel.calculateCenterPoint(),
+              center: viewModel.myLocationDeliveryNonStreamValue,
               onPositionChanged: (event, point) {
-                viewModel.mapInfo = LocationDto(
+                viewModel.updateNearbyDeliveryStream(LocationDto(
                   maxDistance: 1000,
                   geopoint: LatLngDto(
                     latitude: event.center?.latitude,
                     longitude: event.center?.longitude,
                   ),
-                );
+                ));
               },
             ),
           ),
           SlidingUpPanel(
-            // color: Colors.black.withOpacity(0.8),
             backdropEnabled: true,
             minHeight: 200,
-            panel: SlidingUpPanelList(items: viewModel.nearbyLocations),
+            panel: SlidingUpPanelList(items: viewModel.nearbyDeliveryLocations),
           ),
         ],
       ),
