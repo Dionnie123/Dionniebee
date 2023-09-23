@@ -17,6 +17,23 @@ class Cart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> x = [];
+    x.add(const Divider(
+      color: Colors.transparent,
+    ));
+    items.forEachIndexed((i, el) {
+      x.add(itemBuilder(context, i));
+      if (i != items.length - 1) {
+        x.add(const Divider());
+      } else {
+        x.add(const Divider(
+          color: Colors.transparent,
+        ));
+      }
+    });
+
+    x.add(cartBreakdown);
+
     return Scaffold(
         backgroundColor: Colors.yellow.shade100,
         appBar: AppBar(
@@ -25,16 +42,15 @@ class Cart extends StatelessWidget {
             hSpaceMedium,
           ],
         ),
-        bottomSheet: cartBreakdown,
-        body: Padding(
-            padding: const EdgeInsets.only(bottom: 160),
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: items
-                    .mapIndexed((index, element) => itemBuilder(context, index))
-                    .toList(),
-              ),
-            )));
+        //   bottomSheet: cartBreakdown,
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            elevation: 2,
+            child: Column(
+              children: x,
+            ),
+          ),
+        ));
   }
 }

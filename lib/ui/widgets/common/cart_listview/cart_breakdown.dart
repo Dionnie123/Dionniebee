@@ -10,55 +10,55 @@ class CartBreakdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        child: SingleChildScrollView(
-          primary: false,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "SUBTOTAL",
-                    style: const TextStyle().copyWith(
-                      fontWeight: FontWeight.w900,
-                    ),
+    return Container(
+      color: Colors.brown.shade400,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "SUBTOTAL",
+                  style: const TextStyle().copyWith(
+                    color: Colors.white,
                   ),
-                  Text(
-                    "\$${subTotal.toStringAsFixed(2)}",
-                    style: const TextStyle().copyWith(
-                      fontWeight: FontWeight.w900,
-                    ),
+                ),
+                Text(
+                  "₱ ${subTotal.toStringAsFixed(2)}",
+                  style: const TextStyle().copyWith(
+                    color: Colors.white,
                   ),
-                ],
-              ),
-              vSpaceRegular,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "TOTAL",
-                    style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+              ],
+            ),
+            vSpaceSmall,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "TOTAL",
+                  style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  Text(
-                    "\$${subTotal.toStringAsFixed(2)}",
-                    style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+                Text(
+                  "₱ ${subTotal.toStringAsFixed(2)}",
+                  style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                ],
-              ),
-              vSpaceRegular,
-              EzButton(onPressed: () {}, title: "Go to Checkout")
-            ],
-          ),
+                ),
+              ],
+            ),
+            vSpaceRegular,
+            EzButton(onPressed: () {}, title: "Go to Checkout")
+          ],
         ),
       ),
     );

@@ -31,110 +31,103 @@ class CartItem extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Card(
-              //margin: EdgeInsetsDirectional.zero,
-              clipBehavior: Clip.antiAlias,
-              //  elevation: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                        imageUrl: product.imageUrl.toString(),
-                        width: 80,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    hSpaceSmall,
-                    Expanded(
-                      child: Column(
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: CachedNetworkImage(
+                    imageUrl: product.imageUrl.toString(),
+                    width: 80,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                hSpaceSmall,
+                Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      product.name.toString(),
-                                      maxLines: 2,
-                                      style: const TextStyle(fontSize: 16)
-                                          .copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily:
-                                            GoogleFonts.nunito().fontFamily,
-                                      ),
-                                    ),
-                                    Opacity(
-                                      opacity: 0.6,
-                                      child: Text(
-                                          product.description.toString(),
-                                          style: const TextStyle(fontSize: 12)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              hSpaceSmall,
-                              Text(
-                                "₱${product.price?.imul(product.quantityInCart ?? 0)}",
-                                maxLines: 2,
-                                style: const TextStyle(fontSize: 16).copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: GoogleFonts.nunito().fontFamily,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  "₱${product.price} x ${product.quantityInCart}",
-                                  maxLines: 1,
-                                  style: const TextStyle(fontSize: 14).copyWith(
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  product.name.toString(),
+                                  maxLines: 2,
+                                  style: const TextStyle().copyWith(
+                                    height: 1,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: GoogleFonts.nunito().fontFamily,
                                   ),
                                 ),
-                              ),
-                              hSpaceSmall,
-                              CartItemButton(
-                                  icon: Icons.remove_rounded,
-                                  onUpdate: () => onMinus()),
-                              SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    "${product.quantityInCart}",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.fade,
-                                    style: const TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                Opacity(
+                                  opacity: 0.8,
+                                  child: Text(product.description.toString(),
+                                      style: const TextStyle(fontSize: 12)),
                                 ),
-                              ),
-                              CartItemButton(
-                                  icon: Icons.add_rounded,
-                                  onUpdate: () => onAdd()),
-                            ],
+                              ],
+                            ),
+                          ),
+                          hSpaceSmall,
+                          Text(
+                            "₱ ${product.price?.imul(product.quantityInCart ?? 0)}",
+                            maxLines: 2,
+                            style: const TextStyle().copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: GoogleFonts.nunito().fontFamily,
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                      vSpaceSmall,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          /*       Expanded(
+                            child: Text(
+                              "₱ ${product.price} x ${product.quantityInCart}",
+                              maxLines: 1,
+                              style: const TextStyle(fontSize: 14).copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: GoogleFonts.nunito().fontFamily,
+                              ),
+                            ),
+                          ),
+                          hSpaceSmall, */
+                          CartItemButton(
+                              icon: Icons.remove_rounded,
+                              onUpdate: () => onMinus()),
+                          SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: Center(
+                              child: Text(
+                                "${product.quantityInCart}",
+                                maxLines: 1,
+                                overflow: TextOverflow.fade,
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          CartItemButton(
+                              icon: Icons.add_rounded, onUpdate: () => onAdd()),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              )),
+              ],
+            ),
+          ),
           const Positioned(
             top: 0,
             bottom: 0,
