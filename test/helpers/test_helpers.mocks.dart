@@ -985,11 +985,11 @@ class MockCartService extends _i1.Mock implements _i15.CartService {
         returnValueForMissingStub: 0,
       ) as num);
   @override
-  int get cartCount => (super.noSuchMethod(
+  num get cartCount => (super.noSuchMethod(
         Invocation.getter(#cartCount),
         returnValue: 0,
         returnValueForMissingStub: 0,
-      ) as int);
+      ) as num);
   @override
   int get listenersCount => (super.noSuchMethod(
         Invocation.getter(#listenersCount),

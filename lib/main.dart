@@ -46,11 +46,11 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
         theme: ThemeData(
-          fontFamily: GoogleFonts.quicksand().fontFamily,
+          fontFamily: GoogleFonts.varelaRound().fontFamily,
           // useMaterial3: true,
           brightness: Brightness.light,
           textTheme:
-              GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
+              GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
           colorSchemeSeed: Colors.red,
         ),
         darkTheme: ThemeData(

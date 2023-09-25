@@ -10,7 +10,6 @@ import 'package:dionniebee/ui/views/auth/auth_view.dart';
 import 'package:dionniebee/ui/views/cart/cart_view.dart';
 import 'package:dionniebee/ui/views/home/home_view.dart';
 import 'package:dionniebee/ui/views/startup/startup_view.dart';
-import 'package:dionniebee/ui/views/foo/foo_view.dart';
 import 'package:dionniebee/ui/views/orders/orders_view.dart';
 import 'package:dionniebee/ui/views/stores/stores_view.dart';
 import 'package:dionniebee/services/location_service.dart';
@@ -24,10 +23,9 @@ import 'package:dionniebee/services/order_service.dart';
 @StackedApp(
   logger: StackedLogger(),
   routes: [
-    CustomRoute(
+    MaterialRoute(
       page: StartupView,
       initial: true,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     MaterialRoute(
       page: AuthView,
@@ -40,10 +38,6 @@ import 'package:dionniebee/services/order_service.dart';
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
 
-    CustomRoute(
-      page: FooView,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
-    ),
     CustomRoute(
       page: OrdersView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
