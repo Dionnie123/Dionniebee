@@ -12,10 +12,10 @@ class StartupViewModel extends BaseViewModel {
 
   Future signInAnonymously() async {
     await runBusyFuture(_authService.signInAnonymously(), throwException: true)
-        .then((value) {
+        .then((value) async {
       if (value == null) {
         navService.replaceWithHomeView();
-        Fluttertoast.showToast(
+        await Fluttertoast.showToast(
             msg: "Signed-in anonymously...",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,

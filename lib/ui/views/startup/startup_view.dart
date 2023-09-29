@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:stacked/stacked.dart';
 
 import 'startup_viewmodel.dart';
@@ -14,12 +13,7 @@ class StartupView extends StackedView<StartupViewModel> {
     Widget? child,
   ) {
     return const Scaffold(
-        backgroundColor: Colors.red,
-        body: Center(
-          child: CircularProgressIndicator(
-            color: Colors.white,
-          ),
-        ));
+        backgroundColor: Colors.transparent, body: SizedBox.shrink());
   }
 
   @override
@@ -32,9 +26,6 @@ class StartupView extends StackedView<StartupViewModel> {
   void onViewModelReady(StartupViewModel viewModel) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await viewModel.signInAnonymously();
-      Future.delayed(const Duration(milliseconds: 200), () {
-        FlutterNativeSplash.remove();
-      });
     });
 
     super.onViewModelReady(viewModel);

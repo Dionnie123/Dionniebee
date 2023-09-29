@@ -2,7 +2,6 @@ import 'package:dionniebee/services/authentication_service.firebase.dart';
 import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:dionniebee/ui/dialogs/info_alert/info_alert_dialog.dart';
-import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:dionniebee/services/auth_service.dart';
@@ -33,22 +32,18 @@ import 'package:dionniebee/services/order_service.dart';
     MaterialRoute(
       page: CartView,
     ),
-    CustomRoute(
+    MaterialRoute(
       page: HomeView,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
 
-    CustomRoute(
+    MaterialRoute(
       page: OrdersView,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
-    CustomRoute(
+    MaterialRoute(
       page: StoresView,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
-    CustomRoute(
+    MaterialRoute(
       page: PromoView,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     MaterialRoute(
       page: ProductView,

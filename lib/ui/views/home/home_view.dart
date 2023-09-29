@@ -3,6 +3,7 @@ import 'package:dionniebee/ui/widgets/common/dashboard/widgets/bottom_nav_widget
 import 'package:dionniebee/ui/widgets/common/dashboard/widgets/drawer_widget.dart';
 import 'package:dionniebee/ui/widgets/common/product_menu_item/food_menu_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
 import 'package:dionniebee/ui/widgets/common/product_item/product_item.dart';
