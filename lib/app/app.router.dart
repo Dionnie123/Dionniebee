@@ -47,15 +47,19 @@ class StackedRouterWeb extends _i11.RootStackRouter {
       );
     },
     HomeViewRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i11.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i4.HomeView(),
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     OrdersViewRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i11.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i5.OrdersView(),
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     StoresViewRoute.name: (routeData) {
@@ -65,9 +69,11 @@ class StackedRouterWeb extends _i11.RootStackRouter {
       );
     },
     PromoViewRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i11.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i7.PromoView(),
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     ProductViewRoute.name: (routeData) {

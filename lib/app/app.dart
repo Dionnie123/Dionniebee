@@ -32,17 +32,17 @@ import 'package:dionniebee/services/order_service.dart';
     MaterialRoute(
       page: CartView,
     ),
-    MaterialRoute(
+    CustomRoute(
       page: HomeView,
     ),
 
-    MaterialRoute(
+    CustomRoute(
       page: OrdersView,
     ),
     MaterialRoute(
       page: StoresView,
     ),
-    MaterialRoute(
+    CustomRoute(
       page: PromoView,
     ),
     MaterialRoute(
