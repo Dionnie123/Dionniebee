@@ -67,6 +67,7 @@ class CartItem extends StatelessWidget {
                                     fontFamily: GoogleFonts.nunito().fontFamily,
                                   ),
                                 ),
+                                vSpaceTiny,
                                 Opacity(
                                   opacity: 0.8,
                                   child: Text(product.description.toString(),
@@ -86,7 +87,6 @@ class CartItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      vSpaceSmall,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
