@@ -70,7 +70,8 @@ class CartItem extends StatelessWidget {
                                     fontSize: 16,
                                     height: 1,
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: GoogleFonts.nunito().fontFamily,
+                                    fontFamily:
+                                        GoogleFonts.varelaRound().fontFamily,
                                   ),
                                 ),
                                 /*   vSpaceSmall,
@@ -89,7 +90,7 @@ class CartItem extends StatelessWidget {
                             style: const TextStyle().copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              fontFamily: GoogleFonts.nunito().fontFamily,
+                              fontFamily: GoogleFonts.varelaRound().fontFamily,
                             ),
                           ),
                         ],
@@ -105,7 +106,7 @@ class CartItem extends StatelessWidget {
                               maxLines: 1,
                               style: const TextStyle(fontSize: 14).copyWith(
                                 fontWeight: FontWeight.bold,
-                                fontFamily: GoogleFonts.nunito().fontFamily,
+                                fontFamily: GoogleFonts.varelaRound().fontFamily,
                               ),
                             ),
                           ),

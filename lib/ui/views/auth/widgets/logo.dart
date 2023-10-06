@@ -21,7 +21,7 @@ class Logo extends StatelessWidget {
           "COFFEECO",
           style: const TextStyle(fontSize: 26).copyWith(
             fontWeight: FontWeight.bold,
-            fontFamily: GoogleFonts.nunito().fontFamily,
+            fontFamily: GoogleFonts.varelaRound().fontFamily,
           ),
         ),
       ],

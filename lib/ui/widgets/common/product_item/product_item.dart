@@ -141,8 +141,8 @@ class _ProductItemState extends State<ProductItem> {
                                                 color: Colors.white)
                                             .copyWith(
                                           fontWeight: FontWeight.w900,
-                                          fontFamily:
-                                              GoogleFonts.nunito().fontFamily,
+                                          fontFamily: GoogleFonts.varelaRound()
+                                              .fontFamily,
                                         ),
                                       ),
                                     ],
