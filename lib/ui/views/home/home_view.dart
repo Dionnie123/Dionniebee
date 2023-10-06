@@ -178,11 +178,11 @@ class HomeView extends StackedView<HomeViewModel> {
   }
 
   @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
+  void onViewModelReady(HomeViewModel viewModel) {
+    FlutterNativeSplash.remove();
+    super.onViewModelReady(viewModel);
+  }
 
   @override
-  bool get fireOnViewModelReadyOnce => false;
+  HomeViewModel viewModelBuilder(BuildContext context) => HomeViewModel();
 }

@@ -13,7 +13,7 @@ class CartBreakdown extends StatelessWidget {
     return Container(
       color: Colors.brown.shade400,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

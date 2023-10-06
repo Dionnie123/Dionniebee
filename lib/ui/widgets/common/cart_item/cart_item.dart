@@ -39,10 +39,15 @@ class CartItem extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: CachedNetworkImage(
-                    imageUrl: product.imageUrl.toString(),
-                    width: 80,
-                    fit: BoxFit.contain,
+                  child: Container(
+                    color: Colors.grey.shade200,
+                    child: CachedNetworkImage(
+                      imageUrl: product.imageUrl.toString(),
+                      width: 80,
+                      height: 80,
+                      alignment: Alignment.topCenter,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 hSpaceSmall,
@@ -62,17 +67,18 @@ class CartItem extends StatelessWidget {
                                   product.name.toString(),
                                   maxLines: 2,
                                   style: const TextStyle().copyWith(
+                                    fontSize: 16,
                                     height: 1,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: GoogleFonts.nunito().fontFamily,
                                   ),
                                 ),
-                                vSpaceTiny,
+                                /*   vSpaceSmall,
                                 Opacity(
                                   opacity: 0.8,
                                   child: Text(product.description.toString(),
                                       style: const TextStyle(fontSize: 12)),
-                                ),
+                                ), */
                               ],
                             ),
                           ),
@@ -81,12 +87,14 @@ class CartItem extends StatelessWidget {
                             "₱ ${product.price?.imul(product.quantityInCart ?? 0)}",
                             maxLines: 2,
                             style: const TextStyle().copyWith(
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               fontFamily: GoogleFonts.nunito().fontFamily,
                             ),
                           ),
                         ],
                       ),
+                      vSpaceSmall,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,

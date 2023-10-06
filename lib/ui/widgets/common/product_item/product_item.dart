@@ -25,21 +25,22 @@ class ProductItem extends StatefulWidget {
 class _ProductItemState extends State<ProductItem> {
   bool visible = false;
 
+  animateOverlay() {
+    widget.onAdd();
+    setState(() {
+      visible = true;
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        setState(() {
+          visible = false;
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        widget.onAdd();
-
-        setState(() {
-          visible = true;
-          Future.delayed(const Duration(milliseconds: 1000), () {
-            setState(() {
-              visible = false;
-            });
-          });
-        });
-      },
+      onTap: () => animateOverlay(),
       child: Stack(
         children: [
           Center(
@@ -69,20 +70,24 @@ class _ProductItemState extends State<ProductItem> {
                               width: double.infinity,
                               fit: BoxFit.cover,
                             ),
-                            /*   Positioned(
+                            Positioned(
                               right: 0,
                               top: 0,
-                              child: Container(
-                                  color: Colors.red,
-                                  child: const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 4.0),
-                                      child: Text(
-                                        "NEW!",
-                                        style: TextStyle(
-                                            fontSize: 14, color: Colors.white),
-                                      ))),
-                            ) */
+                              child: GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                    color: Colors.red,
+                                    child: const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 4.0),
+                                        child: Text(
+                                          "NEW!",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white),
+                                        ))),
+                              ),
+                            )
                           ],
                         ),
                         Expanded(

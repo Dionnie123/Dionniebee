@@ -35,7 +35,7 @@ class Cart extends StatelessWidget {
     x.add(cartBreakdown);
 
     return Scaffold(
-        backgroundColor: Colors.yellow.shade100,
+        //  backgroundColor: Colors.yellow.shade100,
         appBar: AppBar(
           actions: [
             ...actionButtons,
@@ -43,14 +43,19 @@ class Cart extends StatelessWidget {
           ],
         ),
         //   bottomSheet: cartBreakdown,
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            elevation: 2,
-            child: Column(
-              children: x,
+        body: LayoutBuilder(builder: (context, size) {
+          return SingleChildScrollView(
+            padding: scaffoldBodyPadding(size: size, hPadding: 8, vPadding: 8),
+            child: Card(
+              clipBehavior: Clip.hardEdge,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              child: Column(
+                children: x,
+              ),
             ),
-          ),
-        ));
+          );
+        }));
   }
 }

@@ -4,16 +4,18 @@ class EzButton extends StatelessWidget {
   final String title;
   final bool disabled;
   final bool busy;
+
   final void Function() onPressed;
   final void Function()? onLongPress;
 
-  const EzButton(
-      {super.key,
-      required this.title,
-      this.disabled = false,
-      this.busy = false,
-      required this.onPressed,
-      this.onLongPress});
+  const EzButton({
+    super.key,
+    required this.title,
+    this.disabled = false,
+    this.busy = false,
+    required this.onPressed,
+    this.onLongPress,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class EzButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 48,
-      child: ElevatedButton(
+      child: FilledButton(
         onPressed: disabled
             ? null
             : busy
