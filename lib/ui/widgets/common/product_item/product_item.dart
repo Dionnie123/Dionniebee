@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 class ProductItem extends StatefulWidget {
   final Function() onTap;
   final Function() onAdd;
+  final Function() onFavorite;
   final ProductDto product;
   final Size size;
   const ProductItem(
@@ -16,6 +17,7 @@ class ProductItem extends StatefulWidget {
     required this.size,
     required this.onAdd,
     required this.onTap,
+    required this.onFavorite,
   });
 
   @override
@@ -23,15 +25,28 @@ class ProductItem extends StatefulWidget {
 }
 
 class _ProductItemState extends State<ProductItem> {
-  bool visible = false;
+  bool addedToCartOverlayVisible = false;
+  bool addedToFavoritesOverlayVisible = false;
 
-  animateOverlay() {
+  toggleAddedToCartOverlay() {
     widget.onAdd();
     setState(() {
-      visible = true;
+      addedToCartOverlayVisible = true;
       Future.delayed(const Duration(milliseconds: 1000), () {
         setState(() {
-          visible = false;
+          addedToCartOverlayVisible = false;
+        });
+      });
+    });
+  }
+
+  toggleAddedToFavoritesOverlay() {
+    widget.onFavorite();
+    setState(() {
+      addedToFavoritesOverlayVisible = true;
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        setState(() {
+          addedToFavoritesOverlayVisible = false;
         });
       });
     });
@@ -40,7 +55,7 @@ class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => animateOverlay(),
+      onTap: () => toggleAddedToCartOverlay(),
       child: Stack(
         children: [
           Center(
@@ -134,16 +149,21 @@ class _ProductItemState extends State<ProductItem> {
                                       const SizedBox(
                                         height: 8.0,
                                       ),
-                                      Text(
-                                        "\$${widget.product.price}",
-                                        style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white)
-                                            .copyWith(
-                                          fontWeight: FontWeight.w900,
-                                          fontFamily: GoogleFonts.varelaRound()
-                                              .fontFamily,
-                                        ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "\$${widget.product.price}",
+                                            style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.white)
+                                                .copyWith(
+                                              fontWeight: FontWeight.w900,
+                                              fontFamily:
+                                                  GoogleFonts.varelaRound()
+                                                      .fontFamily,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -160,9 +180,7 @@ class _ProductItemState extends State<ProductItem> {
             ),
           ),
           AnimatedOpacity(
-            // If the widget is visible, animate to 0.0 (invisible).
-            // If the widget is hidden, animate to 1.0 (fully visible).
-            opacity: visible ? 1.0 : 0.0,
+            opacity: addedToCartOverlayVisible ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 300),
             curve: Curves.decelerate,
             child: SizedBox(
@@ -181,13 +199,52 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                       vSpaceSmall,
                       Text(
-                        "Added!",
+                        "Added to Cart!",
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       )
                     ],
                   )),
             ),
-          )
+          ),
+          AnimatedOpacity(
+            opacity: addedToFavoritesOverlayVisible ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.decelerate,
+            child: SizedBox(
+              width: widget.size.width,
+              height: widget.size.height,
+              child: Card(
+                  color: Colors.black.withOpacity(0.5),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.favorite_rounded,
+                        size: 50,
+                        color: Colors.white,
+                      ),
+                      vSpaceSmall,
+                      Text(
+                        "Added to Favorites!",
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      )
+                    ],
+                  )),
+            ),
+          ),
+          Positioned(
+            bottom: 5,
+            right: 5,
+            child: IconButton(
+                onPressed: () {
+                  toggleAddedToFavoritesOverlay();
+                },
+                icon: const Icon(
+                  Icons.favorite_outline_rounded,
+                  color: Colors.white,
+                )),
+          ),
         ],
       ),
     );

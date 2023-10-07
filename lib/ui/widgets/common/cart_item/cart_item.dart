@@ -67,7 +67,6 @@ class CartItem extends StatelessWidget {
                                   product.name.toString(),
                                   maxLines: 2,
                                   style: const TextStyle().copyWith(
-                                    fontSize: 16,
                                     height: 1,
                                     fontWeight: FontWeight.bold,
                                     fontFamily:
@@ -88,7 +87,6 @@ class CartItem extends StatelessWidget {
                             "₱ ${product.price?.imul(product.quantityInCart ?? 0)}",
                             maxLines: 2,
                             style: const TextStyle().copyWith(
-                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               fontFamily: GoogleFonts.varelaRound().fontFamily,
                             ),

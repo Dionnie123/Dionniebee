@@ -48,7 +48,7 @@ class Cart extends StatelessWidget {
             padding: scaffoldBodyPadding(size: size, hPadding: 8, vPadding: 8),
             child: Card(
               clipBehavior: Clip.hardEdge,
-              elevation: 5,
+              elevation: 4,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               child: Column(

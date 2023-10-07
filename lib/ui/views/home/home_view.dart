@@ -156,6 +156,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 onAdd: () async {
                   await viewModel.addToCart(viewModel.products[i]);
                 },
+                onFavorite: () {},
               );
             },
           ),
