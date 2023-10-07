@@ -27,6 +27,7 @@ class ProductItem extends StatefulWidget {
 class _ProductItemState extends State<ProductItem> {
   bool addedToCartOverlayVisible = false;
   bool addedToFavoritesOverlayVisible = false;
+  bool isFavorite = false;
 
   toggleAddedToCartOverlay() {
     widget.onAdd();
@@ -44,6 +45,7 @@ class _ProductItemState extends State<ProductItem> {
     widget.onFavorite();
     setState(() {
       addedToFavoritesOverlayVisible = true;
+      isFavorite = true;
       Future.delayed(const Duration(milliseconds: 1000), () {
         setState(() {
           addedToFavoritesOverlayVisible = false;
@@ -240,8 +242,10 @@ class _ProductItemState extends State<ProductItem> {
                 onPressed: () {
                   toggleAddedToFavoritesOverlay();
                 },
-                icon: const Icon(
-                  Icons.favorite_outline_rounded,
+                icon: Icon(
+                  isFavorite
+                      ? Icons.favorite_rounded
+                      : Icons.favorite_outline_rounded,
                   color: Colors.white,
                 )),
           ),
