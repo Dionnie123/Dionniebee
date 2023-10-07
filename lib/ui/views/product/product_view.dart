@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -17,28 +18,38 @@ class ProductView extends StackedView<ProductViewModel> {
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        children: [
-          AspectRatio(
-              aspectRatio: 4 / 3,
-              child: CachedNetworkImage(
-                imageUrl: "${viewModel.product?.imageUrl}",
-                fit: BoxFit.contain,
-                placeholder: (context, url) {
-                  return const SizedBox.shrink();
-                },
-                errorWidget: (context, s, d) {
-                  return const SizedBox.shrink();
-                },
-              )),
-          Text("${viewModel.product?.name}"),
-          Text("${viewModel.product?.description}"),
-          Container(
-            padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-            child: Text(viewModel.product.toString()),
+      body: LayoutBuilder(builder: (context, size) {
+        return SingleChildScrollView(
+          padding: scaffoldBodyPadding(
+              size: size, targetWidth: 400, vPadding: 15, hPadding: 15),
+          child: Column(
+            children: [
+              AspectRatio(
+                  aspectRatio: 4 / 3,
+                  child: CachedNetworkImage(
+                    imageUrl: "${viewModel.product?.imageUrl}",
+                    fit: BoxFit.contain,
+                    placeholder: (context, url) {
+                      return const SizedBox.shrink();
+                    },
+                    errorWidget: (context, s, d) {
+                      return const SizedBox.shrink();
+                    },
+                  )),
+              vSpaceRegular,
+              Text(
+                "${viewModel.product?.name}",
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              vSpaceSmall,
+              Text("${viewModel.product?.description}"),
+            ],
           ),
-        ],
-      ),
+        );
+      }),
     );
   }
 
