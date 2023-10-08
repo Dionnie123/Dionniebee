@@ -18,23 +18,15 @@ class Cart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> x = [];
-    x.add(const Divider(
-      color: Colors.transparent,
-    ));
+
     items.forEachIndexed((i, el) {
       x.add(itemBuilder(context, i));
       if (i != items.length - 1) {
         x.add(Divider(
           color: Colors.grey.shade300,
         ));
-      } else {
-        x.add(const Divider(
-          color: Colors.transparent,
-        ));
-      }
+      } else {}
     });
-
-    x.add(cartBreakdown);
 
     return Scaffold(
         //  backgroundColor: Colors.yellow.shade100,
@@ -58,7 +50,7 @@ class Cart extends StatelessWidget {
             padding: scaffoldBodyPadding(size: size, hPadding: 8, vPadding: 8),
             child: Column(
               children: [
-                Card(
+                /*    Card(
                   clipBehavior: Clip.hardEdge,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
@@ -85,14 +77,22 @@ class Cart extends StatelessWidget {
                     ),
                   ),
                 ),
-                vSpaceTiny,
+                vSpaceTiny, */
                 Card(
                   clipBehavior: Clip.hardEdge,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
                   child: Column(
-                    children: x,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Column(
+                          children: x,
+                        ),
+                      ),
+                      cartBreakdown,
+                    ],
                   ),
                 ),
               ],

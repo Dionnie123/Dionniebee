@@ -1,3 +1,4 @@
+import 'package:dionniebee/ui/common/colors.dart';
 import 'package:flutter/material.dart';
 
 /// A round button with an icon that can be tapped or held
@@ -44,9 +45,10 @@ class _CartItemButtonState extends State<CartItemButton> {
   @override
   Widget build(BuildContext context) {
     return Card(
+        margin: const EdgeInsets.all(0),
         shape: const CircleBorder(),
         clipBehavior: Clip.antiAlias,
-        color: Colors.brown.shade400,
+        color: kcDark,
         child: InkWell(
           onTap: () => _stopHolding(),
           onTapDown: (_) => _startHolding(),

@@ -1,6 +1,6 @@
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dionniebee/ui/common/app_colors.dart';
+import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
