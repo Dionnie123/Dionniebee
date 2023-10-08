@@ -34,7 +34,7 @@ class EzButton extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: 48,
+      //height: 48,
       child: FilledButton(
         onPressed: disabled
             ? null

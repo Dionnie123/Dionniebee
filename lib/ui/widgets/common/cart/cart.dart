@@ -45,6 +45,13 @@ class Cart extends StatelessWidget {
             hSpaceMedium,
           ],
         ),
+        bottomSheet: Container(
+          padding: const EdgeInsets.all(8),
+          child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                  onPressed: () {}, child: const Text("Checkout"))),
+        ),
         //   bottomSheet: cartBreakdown,
         body: LayoutBuilder(builder: (context, size) {
           return SingleChildScrollView(

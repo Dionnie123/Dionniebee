@@ -1,7 +1,6 @@
 import 'package:dionniebee/app/extensions/color_extension.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
-import 'package:dionniebee/ui/special/ez_button.dart';
 import 'package:flutter/material.dart';
 
 class CartBreakdown extends StatelessWidget {
@@ -48,15 +47,12 @@ class CartBreakdown extends StatelessWidget {
                 Text(
                   "₱ ${subTotal.toStringAsFixed(2)}",
                   style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
-                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
               ],
             ),
-            vSpaceRegular,
-            EzButton(onPressed: () {}, title: "CHECKOUT")
           ],
         ),
       ),
