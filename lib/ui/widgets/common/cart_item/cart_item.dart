@@ -1,5 +1,6 @@
 import 'package:dionniebee/app/extensions/null_operators.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
+import 'package:dionniebee/ui/common/app_colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,8 @@ class CartItem extends StatelessWidget {
                       height: 80,
                       alignment: Alignment.topCenter,
                       fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => Container(
+                          color: kcLightGrey, child: const Icon(Icons.error)),
                     ),
                   ),
                 ),

@@ -83,19 +83,18 @@ class LocationService {
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
-    // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
     LatLng? temp;
     try {
-      await Geolocator.getCurrentPosition(timeLimit: const Duration(seconds: 5))
+      await Geolocator.getCurrentPosition(
+              desiredAccuracy: LocationAccuracy.bestForNavigation,
+              timeLimit: const Duration(seconds: 5))
           .then((value) async {
         lastDeterminedPosition = LatLng(value.latitude, value.longitude);
         temp = LatLng(value.latitude, value.longitude);
       });
     } catch (e) {
-      //return Future.error(e.toString());
-
-      return lastDeterminedPosition;
+      return Future.error(e.toString());
+      //  return lastDeterminedPosition;
     }
 
     return temp;

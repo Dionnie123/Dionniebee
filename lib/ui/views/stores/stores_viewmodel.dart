@@ -131,8 +131,8 @@ class StoresViewModel extends MultipleStreamViewModel {
         locationService.determinePosition().then((value) {
           _myLocationDeliveryNonStreamValue = value;
           _myLocationPickupNonStreamValue = value;
-          textDeliveryController.text = value.toString();
-          textPickupController.text = value.toString();
+          textDeliveryController.text = value != null ? value.toString() : "";
+          textPickupController.text = value != null ? value.toString() : "";
 
           _locationDeliveryDto = LocationDto(
             maxDistance: 1000,

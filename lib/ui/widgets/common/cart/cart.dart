@@ -24,7 +24,9 @@ class Cart extends StatelessWidget {
     items.forEachIndexed((i, el) {
       x.add(itemBuilder(context, i));
       if (i != items.length - 1) {
-        x.add(const Divider());
+        x.add(Divider(
+          color: Colors.grey.shade300,
+        ));
       } else {
         x.add(const Divider(
           color: Colors.transparent,
@@ -48,7 +50,7 @@ class Cart extends StatelessWidget {
             padding: scaffoldBodyPadding(size: size, hPadding: 8, vPadding: 8),
             child: Card(
               clipBehavior: Clip.hardEdge,
-              elevation: 4,
+              elevation: 2,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               child: Column(

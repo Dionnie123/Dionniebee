@@ -41,7 +41,6 @@ class CartBreakdown extends StatelessWidget {
                 Text(
                   "TOTAL",
                   style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
-                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -57,7 +56,7 @@ class CartBreakdown extends StatelessWidget {
               ],
             ),
             vSpaceRegular,
-            EzButton(onPressed: () {}, title: "Go to Checkout")
+            EzButton(onPressed: () {}, title: "CHECKOUT")
           ],
         ),
       ),
