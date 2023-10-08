@@ -64,6 +64,9 @@ class CartView extends StackedView<CartViewModel> {
                   viewModel
                       .minusCartItemQuantity(viewModel.cart[index].id ?? "");
                 },
+                onDelete: () {
+                  viewModel.deleteFromCart(viewModel.cart[index].id ?? "");
+                },
                 size: const Size(double.infinity, 150),
               );
             },

@@ -46,6 +46,12 @@ class CartService with ListenableServiceMixin {
     }
   }
 
+  deleteFromCart(String id) {
+    _cart.value.removeWhere((element) => element.id == id);
+
+    notifyListeners();
+  }
+
   addCartItemQuantity(String id) {
     final index = _cart.value.indexWhere((element) => element.id == id);
 

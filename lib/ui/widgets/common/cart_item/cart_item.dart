@@ -12,6 +12,7 @@ class CartItem extends StatelessWidget {
   final ProductDto product;
   final Function() onAdd;
   final Function() onMinus;
+  final Function() onDelete;
   final Size size;
 
   const CartItem(
@@ -20,6 +21,7 @@ class CartItem extends StatelessWidget {
     required this.onAdd,
     required this.onMinus,
     required this.size,
+    required this.onDelete,
   });
 
   @override
@@ -98,7 +100,7 @@ class CartItem extends StatelessWidget {
                       ),
                       vSpaceSmall,
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           /*       Expanded(
@@ -112,6 +114,21 @@ class CartItem extends StatelessWidget {
                             ),
                           ),
                           hSpaceSmall, */
+                          Expanded(
+                              child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextButton(
+                                  onPressed: () {
+                                    onDelete();
+                                  },
+                                  child: const Text(
+                                    "Delete",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ))
+                            ],
+                          )),
                           CartItemButton(
                               icon: Icons.remove_rounded,
                               onUpdate: () => onMinus()),

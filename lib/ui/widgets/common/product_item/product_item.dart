@@ -202,7 +202,7 @@ class _ProductItemState extends State<ProductItem> {
                       vSpaceSmall,
                       Text(
                         "Added to Cart!",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(color: Colors.white),
                       )
                     ],
                   )),
@@ -228,8 +228,8 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                       vSpaceSmall,
                       Text(
-                        "Added to Favorites!",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        "Added to \nFavorites!",
+                        style: TextStyle(color: Colors.white),
                       )
                     ],
                   )),
