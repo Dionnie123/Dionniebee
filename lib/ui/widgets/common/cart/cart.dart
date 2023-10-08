@@ -31,6 +31,11 @@ class Cart extends StatelessWidget {
     return Scaffold(
         //  backgroundColor: Colors.yellow.shade100,
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Icons.close_rounded)),
           title: const Text("CART"),
           actions: [
             ...actionButtons,

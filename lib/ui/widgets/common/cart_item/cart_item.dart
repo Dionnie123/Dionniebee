@@ -49,7 +49,7 @@ class CartItem extends StatelessWidget {
               ),
             ),
           ),
-          hSpaceSmall,
+          hSpaceRegular,
           Expanded(
             child: Column(
               children: [
@@ -111,19 +111,17 @@ class CartItem extends StatelessWidget {
                         child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextButton(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              minimumSize: const Size(50, 30),
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            ),
-                            onPressed: () {
-                              onDelete();
-                            },
-                            child: const Text(
-                              "Delete",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ))
+                        GestureDetector(
+                          onTap: () {
+                            onDelete();
+                          },
+                          child: const Text(
+                            "Delete",
+                            style: TextStyle(
+                                color: kcPrimaryColor,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        )
                       ],
                     )),
                     CartItemButton(

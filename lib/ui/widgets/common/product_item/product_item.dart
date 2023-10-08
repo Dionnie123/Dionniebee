@@ -236,8 +236,8 @@ class _ProductItemState extends State<ProductItem> {
             ),
           ),
           Positioned(
-            bottom: 5,
-            right: 5,
+            bottom: 0,
+            right: 0,
             child: IconButton(
                 onPressed: () {
                   toggleAddedToFavoritesOverlay();

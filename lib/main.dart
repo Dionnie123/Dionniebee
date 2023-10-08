@@ -1,5 +1,6 @@
 import 'package:dionniebee/app/helpers/lifecycle_manager.dart';
 import 'package:dionniebee/firebase_options.dart';
+import 'package:dionniebee/ui/common/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -46,15 +47,19 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
         theme: ThemeData(
-          fontFamily: GoogleFonts.varelaRound().fontFamily,
-          // useMaterial3: true,
-          brightness: Brightness.light,
-          textTheme:
-              GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
-          colorSchemeSeed: Colors.red,
-        ),
+            fontFamily: GoogleFonts.varelaRound().fontFamily,
+            // useMaterial3: true,
+            appBarTheme: AppBarTheme(
+                titleTextStyle: TextStyle(
+                    fontFamily: GoogleFonts.varelaRound().fontFamily,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18)),
+            brightness: Brightness.light,
+            textTheme:
+                GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
+            colorSchemeSeed: kcPrimaryColor),
         darkTheme: ThemeData(
-          fontFamily: GoogleFonts.openSans().fontFamily,
+          fontFamily: GoogleFonts.varelaRound().fontFamily,
           useMaterial3: true,
           brightness: Brightness.dark,
         ).copyWith(
