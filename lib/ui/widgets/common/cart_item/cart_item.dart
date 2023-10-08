@@ -44,8 +44,8 @@ class CartItem extends StatelessWidget {
                     color: Colors.grey.shade200,
                     child: CachedNetworkImage(
                       imageUrl: product.imageUrl.toString(),
-                      width: 80,
-                      height: 80,
+                      width: 70,
+                      height: 70,
                       alignment: Alignment.topCenter,
                       fit: BoxFit.cover,
                       errorWidget: (context, url, error) => Container(

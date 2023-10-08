@@ -39,6 +39,7 @@ class Cart extends StatelessWidget {
     return Scaffold(
         //  backgroundColor: Colors.yellow.shade100,
         appBar: AppBar(
+          title: const Text("CART"),
           actions: [
             ...actionButtons,
             hSpaceMedium,
@@ -48,14 +49,46 @@ class Cart extends StatelessWidget {
         body: LayoutBuilder(builder: (context, size) {
           return SingleChildScrollView(
             padding: scaffoldBodyPadding(size: size, hPadding: 8, vPadding: 8),
-            child: Card(
-              clipBehavior: Clip.hardEdge,
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Column(
-                children: x,
-              ),
+            child: Column(
+              children: [
+                Card(
+                  clipBehavior: Clip.hardEdge,
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Delivering To",
+                            style: const TextStyle()
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          vSpaceSmall,
+                          const Text(
+                            "#433 Fifteen Blessings Ville, Nagpayong, Pinagbuhatan Pasig City",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                vSpaceTiny,
+                Card(
+                  clipBehavior: Clip.hardEdge,
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Column(
+                    children: x,
+                  ),
+                ),
+              ],
             ),
           );
         }));
