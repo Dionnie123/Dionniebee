@@ -12,7 +12,14 @@ class HorizontalCouponExample1 extends StatelessWidget {
 
     return CouponCard(
       height: 150,
-      backgroundColor: primaryColor,
+      // backgroundColor: primaryColor,
+      decoration: const BoxDecoration(
+        color: primaryColor,
+/*         image: DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage(
+                "https://1.bp.blogspot.com/-d0Ysw1WgKWE/XLJFeEEgD7I/AAAAAAAAFSc/zuQgW3wuPs8MFh2TBqa6ndeHGjBn-G12wCKgBGAs/w0/v-bts-boy-with-luv-uhdpaper.com-4K-107.jpg")), */
+      ),
       curveAxis: Axis.vertical,
       firstChild: Container(
         decoration: const BoxDecoration(
