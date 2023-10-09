@@ -1,3 +1,4 @@
+import 'package:dionniebee/app/extensions/color_extension.dart';
 import 'package:dionniebee/app/extensions/null_operators.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/ui/common/colors.dart';
@@ -53,6 +54,7 @@ class CartItem extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
+                vSpaceTiny,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,14 +113,14 @@ class CartItem extends StatelessWidget {
                         child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             onDelete();
                           },
-                          child: const Text(
+                          child: Text(
                             "Delete",
                             style: TextStyle(
-                                color: kcPrimaryColor,
+                                color: kcPrimaryColor.darken(),
                                 fontWeight: FontWeight.w600),
                           ),
                         )

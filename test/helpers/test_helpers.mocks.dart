@@ -1005,6 +1005,14 @@ class MockCartService extends _i1.Mock implements _i15.CartService {
         returnValueForMissingStub: null,
       );
   @override
+  dynamic deleteFromCart(String? id) => super.noSuchMethod(
+        Invocation.method(
+          #deleteFromCart,
+          [id],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   dynamic addCartItemQuantity(String? id) => super.noSuchMethod(
         Invocation.method(
           #addCartItemQuantity,

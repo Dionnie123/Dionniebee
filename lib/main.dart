@@ -51,9 +51,10 @@ class MainApp extends StatelessWidget {
             // useMaterial3: true,
             appBarTheme: AppBarTheme(
                 titleTextStyle: TextStyle(
+                    color: Colors.white,
                     fontFamily: GoogleFonts.varelaRound().fontFamily,
                     fontWeight: FontWeight.bold,
-                    fontSize: 18)),
+                    fontSize: 20)),
             brightness: Brightness.light,
             textTheme:
                 GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),

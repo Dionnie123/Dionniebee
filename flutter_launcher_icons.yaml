@@ -11,8 +11,8 @@ flutter_launcher_icons:
   web:
     generate: true
     image_path: "assets/bee.png"
-    background_color: "#FB0400"
-    theme_color: "#FB0400"
+    background_color: "#E0163D"
+    theme_color: "#E0163D"
   windows:
     generate: false
     image_path: "assets/bee.png"

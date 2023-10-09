@@ -22,33 +22,37 @@ class CartView extends StackedView<CartViewModel> {
             appBar: AppBar(
               title: const Text("Cart"),
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                // mainAxisSize: MainAxisSize.max,
-                children: [
-                  const Icon(
-                    Icons.shopping_bag_rounded,
-                    size: 60,
-                  ),
-                  vSpaceSmall,
-                  const Text(
-                    "It's Empty Here",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  vSpaceSmall,
-                  const Text(
-                    "You haven't added anything to you cart yet! Go back to the menu to start ordering.",
-                    textAlign: TextAlign.center,
-                  ),
-                  vSpaceMedium,
-                  EzButton(title: "Go back to menu", onPressed: () {})
-                ],
-              ),
-            ),
+            body: LayoutBuilder(builder: (context, size) {
+              return Padding(
+                padding:
+                    scaffoldBodyPadding(size: size, vPadding: 15, hPadding: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const Icon(
+                      Icons.shopping_bag_rounded,
+                      size: 60,
+                    ),
+                    vSpaceSmall,
+                    const Text(
+                      "It's Empty Here",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    vSpaceSmall,
+                    const Text(
+                      "You haven't added anything to you cart yet! Go back to the menu to start ordering.",
+                      textAlign: TextAlign.center,
+                    ),
+                    vSpaceMedium,
+                    EzButton(title: "Go back to menu", onPressed: () {})
+                  ],
+                ),
+              );
+            }),
           )
         : Cart(
             items: viewModel.cart,

@@ -3,10 +3,11 @@ import 'package:dionniebee/ui/widgets/common/dashboard/widgets/bottom_nav_widget
 import 'package:dionniebee/ui/widgets/common/dashboard/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
 import 'orders_viewmodel.dart';
 
 class OrdersView extends StackedView<OrdersViewModel> {
-  const OrdersView({super.key});
+  const OrdersView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
@@ -24,40 +25,15 @@ class OrdersView extends StackedView<OrdersViewModel> {
         },
         cartCount: viewModel.cartCount,
       ),
-      drawer: const DrawerWidget(),
+      drawer: const DrawerWidget(selectedIndex: 2),
       bottomNavigationBar: const NavigationBarWidget(selectedIndex: 2),
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        children: [
-          Text(viewModel.number.toString()),
-          ElevatedButton(
-              onPressed: () {
-                viewModel.start();
-              },
-              child: const Text("START")),
-          ElevatedButton(
-              onPressed: () {
-                viewModel.orderService.pauseStream();
-              },
-              child: const Text("PAUSE")),
-          ElevatedButton(
-              onPressed: () {
-                viewModel.orderService.restartStream();
-              },
-              child: const Text("RESTART")),
-          ElevatedButton(
-              onPressed: () {
-                viewModel.orderService.stopStream();
-              },
-              child: const Text("STOP")),
-          Container(
-              padding: const EdgeInsets.only(
-                left: 25.0,
-                right: 25.0,
-              ),
-              child: const Text("Orders")),
-        ],
-      ),
+      body: Container(
+          padding: const EdgeInsets.only(
+            left: 25.0,
+            right: 25.0,
+          ),
+          child: const Text("Orders")),
     );
   }
 
