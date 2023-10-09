@@ -1,36 +1,39 @@
 import 'package:coupon_uikit/coupon_uikit.dart';
-import 'package:dionniebee/ui/common/colors.dart';
 import 'package:flutter/material.dart';
 
-class HorizontalCouponExample1 extends StatelessWidget {
-  const HorizontalCouponExample1({Key? key}) : super(key: key);
+class HorizontalCouponExample2 extends StatelessWidget {
+  const HorizontalCouponExample2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const Color primaryColor = kcPrimaryColorLight;
-    const Color secondaryColor = kcPrimaryColorDark;
+    const Color primaryColor = Color(0xfff1e3d3);
+    const Color secondaryColor = Color(0xffd88c9a);
 
     return CouponCard(
-      height: 150,
+      height: 200,
       backgroundColor: primaryColor,
+      clockwise: true,
+      curvePosition: 135,
+      curveRadius: 30,
       curveAxis: Axis.vertical,
+      borderRadius: 10,
       firstChild: Container(
         decoration: const BoxDecoration(
           color: secondaryColor,
         ),
-        child: const Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
+                  children: const [
                     Text(
                       '23%',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -46,8 +49,8 @@ class HorizontalCouponExample1 extends StatelessWidget {
                 ),
               ),
             ),
-            Divider(color: Colors.white54, height: 0),
-            Expanded(
+            const Divider(color: Colors.white54, height: 0),
+            const Expanded(
               child: Center(
                 child: Text(
                   'WINTER IS\nHERE',
@@ -66,10 +69,10 @@ class HorizontalCouponExample1 extends StatelessWidget {
       secondChild: Container(
         width: double.maxFinite,
         padding: const EdgeInsets.all(18),
-        child: const Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             Text(
               'Coupon Code',
               textAlign: TextAlign.center,
@@ -84,7 +87,7 @@ class HorizontalCouponExample1 extends StatelessWidget {
               'FREESALES',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 24,
                 color: secondaryColor,
                 fontWeight: FontWeight.bold,
               ),

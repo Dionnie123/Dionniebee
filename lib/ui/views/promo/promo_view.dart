@@ -32,7 +32,8 @@ class PromoView extends StackedView<PromoViewModel> {
         backgroundColor: Theme.of(context).colorScheme.background,
         body: LayoutBuilder(builder: (context, size) {
           return SingleChildScrollView(
-            padding: scaffoldBodyPadding(size: size),
+            padding:
+                scaffoldBodyPadding(size: size, hPadding: 15, vPadding: 15),
             child: const Column(
               children: [
                 HorizontalCouponExample1(),
