@@ -117,24 +117,22 @@ class _ProductItemState extends State<ProductItem> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    widget.product.name.toString(),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                            fontSize: 16, color: Colors.white)
-                                        .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily:
-                                          GoogleFonts.quicksand().fontFamily,
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  Wrap(
+                                    spacing: 10,
+                                    runSpacing: 8.0,
                                     children: [
-                                      const SizedBox(
-                                        height: 4.0,
+                                      Text(
+                                        widget.product.name.toString(),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white)
+                                            .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: GoogleFonts.quicksand()
+                                              .fontFamily,
+                                        ),
                                       ),
                                       Opacity(
                                         opacity: 0.6,
@@ -147,6 +145,12 @@ class _ProductItemState extends State<ProductItem> {
                                                 fontSize: 12,
                                                 color: Colors.white)),
                                       ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
                                       const SizedBox(
                                         height: 8.0,
                                       ),
