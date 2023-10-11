@@ -18,7 +18,9 @@ class CartService with ListenableServiceMixin {
   num get cartTotal {
     num temp = 0.0;
     for (var element in _cart.value) {
-      temp += ((element.price ?? 0) * (element.quantityInCart ?? 0));
+      if (element.isSelected) {
+        temp += ((element.price ?? 0) * (element.quantityInCart ?? 0));
+      }
     }
     return temp;
   }
@@ -50,6 +52,16 @@ class CartService with ListenableServiceMixin {
     _cart.value.removeWhere((element) => element.id == id);
 
     notifyListeners();
+  }
+
+  toggleSelectCartItem(String id) {
+    final index = _cart.value.indexWhere((element) => element.id == id);
+    if (index != -1) {
+      var temp = _cart.value[index];
+      _cart.value[index] =
+          temp.copyWith(isSelected: !(_cart.value[index].isSelected));
+      notifyListeners();
+    }
   }
 
   addCartItemQuantity(String id) {

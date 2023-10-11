@@ -21,6 +21,7 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ProductDto {
   String? get id => throw _privateConstructorUsedError;
+  bool get isSelected => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -43,6 +44,7 @@ abstract class $ProductDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
+      bool isSelected,
       String? imageUrl,
       String? name,
       String? description,
@@ -66,6 +68,7 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
   @override
   $Res call({
     Object? id = freezed,
+    Object? isSelected = null,
     Object? imageUrl = freezed,
     Object? name = freezed,
     Object? description = freezed,
@@ -79,6 +82,10 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      isSelected: null == isSelected
+          ? _value.isSelected
+          : isSelected // ignore: cast_nullable_to_non_nullable
+              as bool,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -121,6 +128,7 @@ abstract class _$$_ProductDtoCopyWith<$Res>
   @useResult
   $Res call(
       {String? id,
+      bool isSelected,
       String? imageUrl,
       String? name,
       String? description,
@@ -142,6 +150,7 @@ class __$$_ProductDtoCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? isSelected = null,
     Object? imageUrl = freezed,
     Object? name = freezed,
     Object? description = freezed,
@@ -155,6 +164,10 @@ class __$$_ProductDtoCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      isSelected: null == isSelected
+          ? _value.isSelected
+          : isSelected // ignore: cast_nullable_to_non_nullable
+              as bool,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -193,6 +206,7 @@ class __$$_ProductDtoCopyWithImpl<$Res>
 class _$_ProductDto implements _ProductDto {
   _$_ProductDto(
       {this.id,
+      this.isSelected = false,
       this.imageUrl,
       this.name,
       this.description,
@@ -206,6 +220,9 @@ class _$_ProductDto implements _ProductDto {
 
   @override
   final String? id;
+  @override
+  @JsonKey()
+  final bool isSelected;
   @override
   final String? imageUrl;
   @override
@@ -223,7 +240,7 @@ class _$_ProductDto implements _ProductDto {
 
   @override
   String toString() {
-    return 'ProductDto(id: $id, imageUrl: $imageUrl, name: $name, description: $description, price: $price, quantityInStock: $quantityInStock, quantityInCart: $quantityInCart, createdAt: $createdAt)';
+    return 'ProductDto(id: $id, isSelected: $isSelected, imageUrl: $imageUrl, name: $name, description: $description, price: $price, quantityInStock: $quantityInStock, quantityInCart: $quantityInCart, createdAt: $createdAt)';
   }
 
   @override
@@ -232,6 +249,8 @@ class _$_ProductDto implements _ProductDto {
         (other.runtimeType == runtimeType &&
             other is _$_ProductDto &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.isSelected, isSelected) ||
+                other.isSelected == isSelected) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.name, name) || other.name == name) &&
@@ -248,8 +267,8 @@ class _$_ProductDto implements _ProductDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, imageUrl, name, description,
-      price, quantityInStock, quantityInCart, createdAt);
+  int get hashCode => Object.hash(runtimeType, id, isSelected, imageUrl, name,
+      description, price, quantityInStock, quantityInCart, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -268,6 +287,7 @@ class _$_ProductDto implements _ProductDto {
 abstract class _ProductDto implements ProductDto {
   factory _ProductDto(
       {final String? id,
+      final bool isSelected,
       final String? imageUrl,
       final String? name,
       final String? description,
@@ -281,6 +301,8 @@ abstract class _ProductDto implements ProductDto {
 
   @override
   String? get id;
+  @override
+  bool get isSelected;
   @override
   String? get imageUrl;
   @override

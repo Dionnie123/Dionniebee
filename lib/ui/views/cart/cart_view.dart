@@ -61,6 +61,9 @@ class CartView extends StackedView<CartViewModel> {
             itemBuilder: (context, index) {
               return CartItem(
                 viewModel.cart[index],
+                onSelect: () {
+                  viewModel.toggleSelect(viewModel.cart[index].id ?? "");
+                },
                 onAdd: () {
                   viewModel.addCartItemQuantity(viewModel.cart[index].id ?? "");
                 },

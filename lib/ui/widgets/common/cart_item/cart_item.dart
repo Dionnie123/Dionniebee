@@ -1,4 +1,3 @@
-import 'package:dionniebee/app/extensions/color_extension.dart';
 import 'package:dionniebee/app/extensions/null_operators.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/ui/common/colors.dart';
@@ -6,11 +5,13 @@ import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import 'cart_item.button.dart';
 
 class CartItem extends StatelessWidget {
   final ProductDto product;
+  final Function() onSelect;
   final Function() onAdd;
   final Function() onMinus;
   final Function() onDelete;
@@ -23,6 +24,7 @@ class CartItem extends StatelessWidget {
     required this.onMinus,
     required this.size,
     required this.onDelete,
+    required this.onSelect,
   });
 
   @override
@@ -35,6 +37,14 @@ class CartItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Checkbox(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4)),
+              value: product.isSelected,
+              onChanged: (d) {
+                onSelect();
+              }),
+          hSpaceRegular,
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Container(
@@ -54,7 +64,6 @@ class CartItem extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
-                vSpaceTiny,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,25 +77,31 @@ class CartItem extends StatelessWidget {
                             product.name.toString(),
                             maxLines: 2,
                             style: const TextStyle().copyWith(
-                              height: 1,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               fontFamily: GoogleFonts.varelaRound().fontFamily,
                             ),
                           ),
-                          /*   vSpaceSmall,
+                          vSpaceSmall,
                           Opacity(
                             opacity: 0.8,
-                            child: Text(product.description.toString(),
-                                style: const TextStyle(fontSize: 12)),
-                          ), */
+                            child: Text(
+                                NumberFormat.simpleCurrency(locale: 'fil_PH')
+                                    .format(product.price),
+                                style: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       ),
                     ),
                     hSpaceSmall,
                     Text(
-                      "₱ ${product.price?.imul(product.quantityInCart ?? 0)}",
+                      NumberFormat.simpleCurrency(locale: 'fil_PH').format(
+                        product.price?.imul(product.quantityInCart ?? 0) ?? 0,
+                      ),
                       maxLines: 2,
                       style: const TextStyle().copyWith(
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                         fontFamily: GoogleFonts.varelaRound().fontFamily,
                       ),
@@ -109,21 +124,17 @@ class CartItem extends StatelessWidget {
                       ),
                     ),
                     hSpaceSmall, */
-                    Expanded(
+                    const Expanded(
                         child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            onDelete();
-                          },
-                          child: Text(
-                            "Delete",
-                            style: TextStyle(
-                                color: kcPrimaryColor.darken(),
-                                fontWeight: FontWeight.w600),
-                          ),
-                        )
+                        /*  InkWell(
+                            onTap: () {
+                              onDelete();
+                            },
+                            child: const Icon(
+                              Icons.delete_rounded,
+                            )) */
                       ],
                     )),
                     CartItemButton(

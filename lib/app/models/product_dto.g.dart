@@ -9,6 +9,7 @@ part of 'product_dto.dart';
 _$_ProductDto _$$_ProductDtoFromJson(Map<String, dynamic> json) =>
     _$_ProductDto(
       id: json['id'] as String?,
+      isSelected: json['is_selected'] as bool? ?? false,
       imageUrl: json['image_url'] as String?,
       name: json['name'] as String?,
       description: json['description'] as String?,
@@ -23,6 +24,7 @@ _$_ProductDto _$$_ProductDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_ProductDtoToJson(_$_ProductDto instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'is_selected': instance.isSelected,
       'image_url': instance.imageUrl,
       'name': instance.name,
       'description': instance.description,

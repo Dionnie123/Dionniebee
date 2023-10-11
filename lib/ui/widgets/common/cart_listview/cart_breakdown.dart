@@ -2,6 +2,7 @@ import 'package:dionniebee/app/extensions/color_extension.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CartBreakdown extends StatelessWidget {
   final num subTotal;
@@ -26,7 +27,7 @@ class CartBreakdown extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "₱ ${subTotal.toStringAsFixed(2)}",
+                  " ${NumberFormat.simpleCurrency(locale: 'fil_PH').format(subTotal)} ",
                   style: const TextStyle().copyWith(
                     color: Colors.white,
                   ),
@@ -40,13 +41,15 @@ class CartBreakdown extends StatelessWidget {
                 Text(
                   "TOTAL",
                   style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
                 Text(
-                  "₱ ${subTotal.toStringAsFixed(2)}",
+                  " ${NumberFormat.simpleCurrency(locale: 'fil_PH').format(subTotal)} ",
                   style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),

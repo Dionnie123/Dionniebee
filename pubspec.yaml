@@ -62,6 +62,7 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   geoflutterfire2: ^2.3.15
   flutter_hooks: ^0.20.1
+  money2: ^4.0.0
 
   
 dev_dependencies:
@@ -84,6 +85,7 @@ flutter:
     - assets/
     - assets/sliders/
     - assets/jollibot/
+    - assets/carousel/
     - assets/icons/
     - google_fonts/
   uses-material-design: true

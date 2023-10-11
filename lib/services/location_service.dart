@@ -93,7 +93,8 @@ class LocationService {
         temp = LatLng(value.latitude, value.longitude);
       });
     } catch (e) {
-      return Future.error(e.toString());
+      return Future.error(
+          "${e.toString()}\nThis is a Geolocator bug that causes fetching location take forever, \nso we added 5 seconds time limit to prevent this.");
       //  return lastDeterminedPosition;
     }
 

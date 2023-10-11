@@ -19,6 +19,11 @@ class CartViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  toggleSelect(String id) {
+    _cartService.toggleSelectCartItem(id);
+    notifyListeners();
+  }
+
   deleteFromCart(String id) {
     _cartService.deleteFromCart(id);
     notifyListeners();

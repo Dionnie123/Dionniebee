@@ -11,6 +11,7 @@ class ProductDto with _$ProductDto {
   )
   factory ProductDto({
     String? id,
+    @Default(false) bool isSelected,
     String? imageUrl,
     String? name,
     String? description,

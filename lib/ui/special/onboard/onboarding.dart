@@ -33,14 +33,14 @@ class _OnboardingState extends State<Onboarding> {
         testimonial:
             "The convenience of ordering my favorite cappuccino and having it ready when I arrive is a game-changer. This app is a lifesaver!",
         color: Colors.orange,
-        image: 'assets/login_bg.jpg',
+        image: 'assets/carousel/bg1.jpg',
         personName: "John Smith",
         personTitle: "CEO"),
     OnboaringItem(
       testimonial:
           "The CoffeeCo app has revolutionized my coffee routine! As a barista myself, I appreciate how easy it is to explore their diverse coffee menu and place orders.",
       color: Colors.red,
-      image: 'assets/register_bg.jpg',
+      image: 'assets/carousel/bg2.jpg',
       personName: "Emily Johnson",
       personTitle: "Barista",
     ),
@@ -48,7 +48,7 @@ class _OnboardingState extends State<Onboarding> {
       testimonial:
           "I've tried many coffee apps, but CoffeeCo stands out with its user-friendly interface and lightning-fast order processing.",
       color: Colors.green,
-      image: 'assets/login_bg.jpg',
+      image: 'assets/carousel/bg3.jpg',
       personName: "Mark Dionnie",
       personTitle: "App Developer",
     )
@@ -158,11 +158,11 @@ class _OnboardingState extends State<Onboarding> {
             );
           },
         ),
-        Align(
+        const Align(
           alignment: Alignment.topLeft,
-          child: Container(
-            padding: const EdgeInsets.all(40.0),
-            child: const Logo(),
+          child: Padding(
+            padding: EdgeInsets.all(40.0),
+            child: Logo(),
           ),
         ),
         Align(
