@@ -38,6 +38,7 @@ class CartItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Checkbox(
+              activeColor: kcPrimaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4)),
               value: product.isSelected,
