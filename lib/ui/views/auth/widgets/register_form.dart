@@ -100,13 +100,12 @@ class RegisterForm extends StatelessWidget {
               Transform.scale(
                 scale: 1,
                 child: ReactiveCheckbox(
-                    onChanged: (control) {},
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
-                    formControl: formModel.acceptLicenseControl,
-                    fillColor: const MaterialStatePropertyAll(
-                      kcPrimaryColor,
-                    )),
+                  onChanged: (control) {},
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
+                  formControl: formModel.acceptLicenseControl,
+                  activeColor: kcPrimaryColor,
+                ),
               ),
               const SizedBox(width: 8),
               const Expanded(
