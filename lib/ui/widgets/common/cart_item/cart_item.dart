@@ -32,7 +32,7 @@ class CartItem extends StatelessWidget {
     BuildContext context,
   ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.only(right: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +45,6 @@ class CartItem extends StatelessWidget {
               onChanged: (d) {
                 onSelect();
               }),
-          hSpaceRegular,
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Container(
