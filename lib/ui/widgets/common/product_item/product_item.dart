@@ -118,6 +118,7 @@ class _ProductItemState extends State<ProductItem> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Wrap(
+                                    direction: Axis.vertical,
                                     spacing: 10,
                                     runSpacing: 8.0,
                                     children: [
