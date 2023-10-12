@@ -6,7 +6,6 @@ import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/location_service.dart';
 import 'package:dionniebee/services/product_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
