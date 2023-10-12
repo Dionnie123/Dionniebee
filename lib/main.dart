@@ -1,5 +1,5 @@
-import 'package:dionniebee/app/helpers/lifecycle_manager.dart';
-import 'package:dionniebee/firebase_options.dart';
+import 'package:dionniebee/app/helpers/lifecycle_manager/lifecycle_manager.dart';
+import 'package:dionniebee/app/constants/firebase_options.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
