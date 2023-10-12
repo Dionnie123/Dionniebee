@@ -1,3 +1,4 @@
+import 'package:dionniebee/ui/special/ez_button.dart';
 import 'package:dionniebee/ui/widgets/common/cart/cart_list.dart';
 import 'package:dionniebee/ui/widgets/common/cart/cart_item.dart';
 import 'package:dionniebee/ui/widgets/common/cart/cart_list.breakdown.dart';
@@ -18,6 +19,14 @@ class CartView extends StackedView<CartViewModel> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Cart"),
+        ),
+        bottomSheet: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: EzButton(
+              title: "Checkout",
+              onPressed: () async {
+                await viewModel.checkout();
+              }),
         ),
         body: CartList(
           items: viewModel.cart,

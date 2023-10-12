@@ -11,7 +11,7 @@ class CartBreakdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: kcDark,
+      color: kcPrimaryColorDark,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(

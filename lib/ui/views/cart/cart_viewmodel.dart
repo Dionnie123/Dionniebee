@@ -14,6 +14,10 @@ class CartViewModel extends BaseViewModel {
   num get cartTotal => _cartService.cartTotal;
   List<ProductDto> get cart => _cartService.cart;
 
+  checkout() async {
+    await _cartService.addOrder();
+  }
+
   addCartItemQuantity(String id) {
     _cartService.addCartItemQuantity(id);
     notifyListeners();

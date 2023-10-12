@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:stacked/stacked.dart';
 import 'package:faker/faker.dart';
 
 class CartService with ListenableServiceMixin {
+  final CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection('orders');
   var faker = Faker();
 
   CartService() {
@@ -33,8 +36,13 @@ class CartService with ListenableServiceMixin {
     return temp;
   }
 
+  Future<void> addOrder() async {
+    await collectionReference.add({
+      'items': ['A', 'B', 'C']
+    });
+  }
+
   addToCart(ProductDto product) {
-    print('add');
     final index = _cart.value.indexWhere((element) => element.id == product.id);
     if (index == -1) {
       _cart.value.add(product.copyWith(quantityInCart: 1));

@@ -19,6 +19,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<ProductService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<LocationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<CartService>(onMissingStub: OnMissingStub.returnDefault),
+
   MockSpec<OrderService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
