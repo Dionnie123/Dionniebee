@@ -41,7 +41,7 @@ class CartItem extends StatelessWidget {
             height: 20,
             width: 20,
             child: Transform.scale(
-              scale: 1.2,
+              scale: 1.1,
               child: Checkbox(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   activeColor: kcPrimaryColor,
@@ -60,8 +60,8 @@ class CartItem extends StatelessWidget {
               color: Colors.grey.shade200,
               child: CachedNetworkImage(
                 imageUrl: product.imageUrl.toString(),
-                width: 70,
-                height: 70,
+                width: 65,
+                height: 65,
                 alignment: Alignment.topCenter,
                 fit: BoxFit.cover,
                 errorWidget: (context, url, error) => Container(
@@ -102,7 +102,7 @@ class CartItem extends StatelessWidget {
                         ],
                       ),
                     ),
-                    hSpaceSmall,
+                    hSpaceRegular,
                     Text(
                       NumberFormat.simpleCurrency(locale: 'fil_PH').format(
                         product.price?.imul(product.quantityInCart ?? 0) ?? 0,
