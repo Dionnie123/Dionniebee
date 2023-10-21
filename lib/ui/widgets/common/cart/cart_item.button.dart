@@ -57,7 +57,7 @@ class _CartItemButtonState extends State<CartItemButton> {
             padding: const EdgeInsets.all(4.0),
             child: Icon(
               widget.icon,
-              size: 20,
+              size: 16,
               color: Colors.white,
             ),
           ),

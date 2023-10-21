@@ -24,6 +24,7 @@ class CartList extends StatelessWidget {
       x.add(itemBuilder(context, i));
       if (i != items.length - 1) {
         x.add(Divider(
+          height: 0.0,
           color: Colors.grey.shade300,
         ));
       } else {}
@@ -69,16 +70,12 @@ class CartList extends StatelessWidget {
                 children: [
                   Card(
                     clipBehavior: Clip.hardEdge,
-                    elevation: 2,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(8.0)),
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Column(
-                            children: x,
-                          ),
+                        Column(
+                          children: x,
                         ),
                         cartBreakdown,
                       ],

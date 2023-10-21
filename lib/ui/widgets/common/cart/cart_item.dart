@@ -32,19 +32,28 @@ class CartItem extends StatelessWidget {
     BuildContext context,
   ) {
     return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
+      padding: const EdgeInsets.all(12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Checkbox(
-              activeColor: kcPrimaryColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4)),
-              value: product.isSelected,
-              onChanged: (d) {
-                onSelect();
-              }),
+          SizedBox(
+            height: 20,
+            width: 20,
+            child: Transform.scale(
+              scale: 1.2,
+              child: Checkbox(
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  activeColor: kcPrimaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
+                  value: product.isSelected,
+                  onChanged: (d) {
+                    onSelect();
+                  }),
+            ),
+          ),
+          hSpaceRegular,
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Container(
@@ -77,7 +86,6 @@ class CartItem extends StatelessWidget {
                             product.name.toString(),
                             maxLines: 2,
                             style: const TextStyle().copyWith(
-                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               fontFamily: GoogleFonts.varelaRound().fontFamily,
                             ),
@@ -101,60 +109,55 @@ class CartItem extends StatelessWidget {
                       ),
                       maxLines: 2,
                       style: const TextStyle().copyWith(
-                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                         fontFamily: GoogleFonts.varelaRound().fontFamily,
                       ),
                     ),
                   ],
                 ),
-                vSpaceSmall,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    /*       Expanded(
-                      child: Text(
-                        "₱ ${product.price} x ${product.quantityInCart}",
-                        maxLines: 1,
-                        style: const TextStyle(fontSize: 14).copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: GoogleFonts.varelaRound().fontFamily,
-                        ),
-                      ),
-                    ),
-                    hSpaceSmall, */
-                    const Expanded(
-                        child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        /*  InkWell(
-                            onTap: () {
-                              onDelete();
-                            },
-                            child: const Icon(
-                              Icons.delete_rounded,
-                            )) */
-                      ],
-                    )),
-                    CartItemButton(
-                        icon: Icons.remove_rounded, onUpdate: () => onMinus()),
-                    SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: Center(
+                Container(
+                  color: Colors.transparent,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      /*       Expanded(
                         child: Text(
-                          "${product.quantityInCart}",
+                          "₱ ${product.price} x ${product.quantityInCart}",
                           maxLines: 1,
-                          overflow: TextOverflow.fade,
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 14).copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: GoogleFonts.varelaRound().fontFamily,
+                          ),
                         ),
                       ),
-                    ),
-                    CartItemButton(
-                        icon: Icons.add_rounded, onUpdate: () => onAdd()),
-                  ],
+                      hSpaceSmall, */
+                      const SizedBox.shrink(),
+                      Wrap(
+                        children: [
+                          CartItemButton(
+                              icon: Icons.remove_rounded,
+                              onUpdate: () => onMinus()),
+                          Container(
+                            color: Colors.transparent,
+                            width: 40,
+                            height: 25,
+                            child: Center(
+                              child: Text(
+                                "${product.quantityInCart}",
+                                maxLines: 1,
+                                overflow: TextOverflow.fade,
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          CartItemButton(
+                              icon: Icons.add_rounded, onUpdate: () => onAdd()),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

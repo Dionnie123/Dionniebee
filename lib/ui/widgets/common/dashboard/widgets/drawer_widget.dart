@@ -44,80 +44,82 @@ class DrawerWidget extends StatelessWidget {
 
     return Drawer(
       child: SafeArea(
-        child: Column(
-          children: [
-            ListTile(
-              leading: Icon(Icons.account_circle_rounded,
-                  size: 30, color: Theme.of(context).primaryColor),
-              trailing: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Login/Register",
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w900),
-                  )),
-            ),
-            Column(children: [
-              DrawerMenu(
-                selected: selectedIndex == 0,
-                title: "Tutorial",
-                onTap: () async {
-                  await navService.replaceWithHomeView();
-                },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ListTile(
+                leading: Icon(Icons.account_circle_rounded,
+                    size: 30, color: Theme.of(context).primaryColor),
+                trailing: TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Login/Register",
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w900),
+                    )),
               ),
-              DrawerMenu(
-                selected: selectedIndex == 1,
-                title: "About Use",
-                onTap: () async {
-                  await navService.replaceWithHomeView();
-                },
-              ),
-              DrawerMenu(
-                selected: selectedIndex == 2,
-                title: "Feedback",
-                onTap: () async {
-                  await navService.replaceWithHomeView();
-                },
-              ),
-              DrawerMenu(
-                selected: selectedIndex == 3,
-                title: "Contact Us",
-                onTap: () async {
-                  await navService.replaceWithHomeView();
-                },
-              ),
-              DrawerMenu(
-                selected: selectedIndex == 4,
-                title: "Book a Virtual Party",
-                onTap: () async {
-                  await navService.replaceWithHomeView();
-                },
-              ),
-              DrawerMenu(
-                selected: selectedIndex == 5,
-                title: "FAQs",
-                onTap: () async {
-                  await navService.replaceWithHomeView();
-                },
-              ),
-              DrawerMenu(
-                selected: selectedIndex == 6,
-                title: "Terms & Conditions",
-                onTap: () async {
-                  await navService.replaceWithHomeView();
-                },
-              ),
-              DrawerMenu(
-                selected: selectedIndex == 7,
-                title: "Privacy Policy",
-                onTap: () async {
-                  await navService.replaceWithHomeView();
-                },
-              ),
-            ]),
-          ],
+              Column(children: [
+                DrawerMenu(
+                  selected: selectedIndex == 0,
+                  title: "Tutorial",
+                  onTap: () async {
+                    await navService.replaceWithHomeView();
+                  },
+                ),
+                DrawerMenu(
+                  selected: selectedIndex == 1,
+                  title: "About Use",
+                  onTap: () async {
+                    await navService.replaceWithHomeView();
+                  },
+                ),
+                DrawerMenu(
+                  selected: selectedIndex == 2,
+                  title: "Feedback",
+                  onTap: () async {
+                    await navService.replaceWithHomeView();
+                  },
+                ),
+                DrawerMenu(
+                  selected: selectedIndex == 3,
+                  title: "Contact Us",
+                  onTap: () async {
+                    await navService.replaceWithHomeView();
+                  },
+                ),
+                DrawerMenu(
+                  selected: selectedIndex == 4,
+                  title: "Book a Virtual Party",
+                  onTap: () async {
+                    await navService.replaceWithHomeView();
+                  },
+                ),
+                DrawerMenu(
+                  selected: selectedIndex == 5,
+                  title: "FAQs",
+                  onTap: () async {
+                    await navService.replaceWithHomeView();
+                  },
+                ),
+                DrawerMenu(
+                  selected: selectedIndex == 6,
+                  title: "Terms & Conditions",
+                  onTap: () async {
+                    await navService.replaceWithHomeView();
+                  },
+                ),
+                DrawerMenu(
+                  selected: selectedIndex == 7,
+                  title: "Privacy Policy",
+                  onTap: () async {
+                    await navService.replaceWithHomeView();
+                  },
+                ),
+              ]),
+            ],
+          ),
         ),
       ),
     );
