@@ -75,7 +75,7 @@ class AuthService with Initialisable {
     try {
       await _supabase.auth.resetPasswordForEmail(
         email,
-        //The URL to redirect the user to when clicking on the link on the confirmation link after signing up
+        //The URL to redirect the user to when clicking on the link on the confirmation email after signing up
         redirectTo: "https://boxtout.com/",
       );
     } catch (e) {
