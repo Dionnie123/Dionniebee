@@ -1,3 +1,4 @@
+import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:dionniebee/ui/views/stores/widgets/delivery_view.dart';
@@ -31,7 +32,8 @@ class _StoresViewState extends State<StoresView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StoresViewModel>.reactive(
-        viewModelBuilder: () => StoresViewModel(),
+        disposeViewModel: false,
+        viewModelBuilder: () => locator<StoresViewModel>(),
         initialiseSpecialViewModelsOnce: true,
         onViewModelReady: (viewModel) async {
           WidgetsBinding.instance.addPostFrameCallback((_) async {

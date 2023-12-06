@@ -1,3 +1,4 @@
+import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +35,11 @@ class PromoView extends StackedView<PromoViewModel> {
   }
 
   @override
+  bool get disposeViewModel => false;
+
+  @override
   PromoViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      PromoViewModel();
+      locator<PromoViewModel>();
 }

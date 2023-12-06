@@ -1,3 +1,4 @@
+import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -24,8 +25,11 @@ class OrdersView extends StackedView<OrdersViewModel> {
   }
 
   @override
+  bool get disposeViewModel => false;
+
+  @override
   OrdersViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      OrdersViewModel();
+      locator<OrdersViewModel>();
 }

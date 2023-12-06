@@ -52,3 +52,32 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(56.0);
 }
+
+
+/*
+ actions: [
+        IconButton(
+          icon: const Icon(Icons.account_circle_rounded),
+          onPressed: () async {
+            onSignOut();
+          },
+        ),
+        Builder(builder: (context) {
+          return IconButton(
+            icon: badges.Badge(
+                position: badges.BadgePosition.custom(top: -15, end: -10),
+                showBadge: cartCount > 0,
+                badgeAnimation: const badges.BadgeAnimation.scale(),
+                badgeContent: Text(
+                  cartCount.toString(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                child: const Icon(Icons.shopping_cart_rounded)),
+            onPressed: () {
+              onCartTap();
+            },
+          );
+        }),
+        hSpaceRegular,
+      ],
+*/

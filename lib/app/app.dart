@@ -4,6 +4,9 @@ import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:dionniebee/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:dionniebee/ui/views/home/home_viewmodel.dart';
+import 'package:dionniebee/ui/views/orders/orders_viewmodel.dart';
+import 'package:dionniebee/ui/views/promo/promo_viewmodel.dart';
+import 'package:dionniebee/ui/views/stores/stores_viewmodel.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:dionniebee/services/auth_service.dart';
@@ -78,6 +81,10 @@ import 'package:dionniebee/ui/views/dashboard/dashboard_view.dart';
     LazySingleton(classType: OrderService),
 
     Singleton(classType: HomeViewModel),
+    Singleton(classType: PromoViewModel),
+    Singleton(classType: OrdersViewModel),
+    Singleton(classType: StoresViewModel),
+
 // @stacked-service
   ],
   bottomsheets: [
