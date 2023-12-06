@@ -22,7 +22,6 @@ Future<void> main() async {
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
     const ScreenBreakpoints(desktop: 1366, tablet: 768, watch: 200),
   );
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setupLocator(stackedRouter: stackedRouter);
   setupDialogUi();
   setupBottomSheetUi();

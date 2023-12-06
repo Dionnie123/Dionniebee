@@ -1,6 +1,10 @@
+import 'dart:async';
+
+import 'package:dionniebee/app/app.logger.dart';
 import 'package:dionniebee/app/helpers/error_definitions.dart';
-import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'auth_service.dart';
 
 enum SupabaseAuthEvent {
   signedIn,
@@ -10,28 +14,34 @@ enum SupabaseAuthEvent {
   passwordRecovery
 }
 
-class AuthService with Initialisable {
+class SupabaseService with InitializableDependency implements AuthService {
   late SupabaseClient _supabase;
-
+  late StreamSubscription<AuthState> streamSubscription;
+  final _log = getLogger('SupabaseService');
   @override
-  Future<void> initialise() async {
-    await Supabase.initialize(
-      url: "https://zxjwzmhlvkxtqvynuhzc.supabase.co",
-      anonKey:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4and6bWhsdmt4dHF2eW51aHpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTAzODA2MDEsImV4cCI6MjAwNTk1NjYwMX0.20rPk4V8N4NLJ1o2QpsDonVUXinynPlNWHi7kOL5vLg",
-    );
-
-    _supabase = Supabase.instance.client;
+  init() async {
+    try {
+      await Supabase.initialize(
+        url: "https://zxjwzmhlvkxtqvynuhzc.supabase.co",
+        anonKey:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4and6bWhsdmt4dHF2eW51aHpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTAzODA2MDEsImV4cCI6MjAwNTk1NjYwMX0.20rPk4V8N4NLJ1o2QpsDonVUXinynPlNWHi7kOL5vLg",
+      );
+      _supabase = Supabase.instance.client;
+      _authStateChanges();
+    } catch (e) {
+      _log.e('Initialized Failed');
+    }
   }
 
-/*   AuthService() {
-    _supabase.auth.onAuthStateChange.listen((state) async {
+  void _authStateChanges() {
+    streamSubscription = _supabase.auth.onAuthStateChange.listen((state) async {
       if (state.event.name == SupabaseAuthEvent.passwordRecovery.name) {
         //Go to Password Reset Route
       }
     });
-  } */
+  }
 
+  @override
   Future signInWithEmail(
       {required String email, required String password}) async {
     try {
@@ -41,6 +51,7 @@ class AuthService with Initialisable {
     }
   }
 
+  @override
   Future signUpWithEmail(
       {required String email, required String password}) async {
     try {
@@ -63,6 +74,7 @@ class AuthService with Initialisable {
     }
   }
 
+  @override
   Future resetPassword({required String password}) async {
     try {
       await _supabase.auth.updateUser(UserAttributes(password: password));
@@ -71,6 +83,7 @@ class AuthService with Initialisable {
     }
   }
 
+  @override
   Future resetPasswordRequest({required String email}) async {
     try {
       await _supabase.auth.resetPasswordForEmail(
@@ -83,6 +96,7 @@ class AuthService with Initialisable {
     }
   }
 
+  @override
   Future signOut() async {
     try {
       await _supabase.auth.signOut();
@@ -91,5 +105,18 @@ class AuthService with Initialisable {
     }
   }
 
+  @override
   get user => _supabase.auth.currentUser;
+
+  @override
+  Future signInAnonymously() {
+    // TODO: implement signInAnonymously
+    throw UnimplementedError();
+  }
+
+  @override
+  void dispose() {
+    streamSubscription.cancel();
+    _supabase.dispose();
+  }
 }

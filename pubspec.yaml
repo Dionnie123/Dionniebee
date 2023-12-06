@@ -63,6 +63,7 @@ dependencies:
   geoflutterfire2: ^2.3.15
   flutter_hooks: ^0.20.1
   money2: ^4.0.0
+  shared_preferences: ^2.2.2
 
   
 dev_dependencies:

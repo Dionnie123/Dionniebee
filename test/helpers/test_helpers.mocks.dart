@@ -770,6 +770,14 @@ class MockAuthService extends _i1.Mock implements _i10.AuthService {
         returnValue: _i5.Future<dynamic>.value(),
         returnValueForMissingStub: _i5.Future<dynamic>.value(),
       ) as _i5.Future<dynamic>);
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [ProductService].
@@ -941,6 +949,19 @@ class MockLocationService extends _i1.Mock implements _i13.LocationService {
 /// See the documentation for Mockito's code generation for more information.
 class MockCartService extends _i1.Mock implements _i15.CartService {
   @override
+  _i2.CollectionReference<Object?> get collectionReference =>
+      (super.noSuchMethod(
+        Invocation.getter(#collectionReference),
+        returnValue: _FakeCollectionReference_0<Object?>(
+          this,
+          Invocation.getter(#collectionReference),
+        ),
+        returnValueForMissingStub: _FakeCollectionReference_0<Object?>(
+          this,
+          Invocation.getter(#collectionReference),
+        ),
+      ) as _i2.CollectionReference<Object?>);
+  @override
   _i6.Faker get faker => (super.noSuchMethod(
         Invocation.getter(#faker),
         returnValue: _FakeFaker_4(
@@ -984,6 +1005,15 @@ class MockCartService extends _i1.Mock implements _i15.CartService {
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int);
+  @override
+  _i5.Future<void> addOrder() => (super.noSuchMethod(
+        Invocation.method(
+          #addOrder,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
   dynamic addToCart(_i12.ProductDto? product) => super.noSuchMethod(
         Invocation.method(
@@ -1062,4 +1092,57 @@ class MockCartService extends _i1.Mock implements _i15.CartService {
 /// A class which mocks [OrderService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockOrderService extends _i1.Mock implements _i16.OrderService {}
+class MockOrderService extends _i1.Mock implements _i16.OrderService {
+  @override
+  _i2.CollectionReference<Object?> get collectionReference =>
+      (super.noSuchMethod(
+        Invocation.getter(#collectionReference),
+        returnValue: _FakeCollectionReference_0<Object?>(
+          this,
+          Invocation.getter(#collectionReference),
+        ),
+        returnValueForMissingStub: _FakeCollectionReference_0<Object?>(
+          this,
+          Invocation.getter(#collectionReference),
+        ),
+      ) as _i2.CollectionReference<Object?>);
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}

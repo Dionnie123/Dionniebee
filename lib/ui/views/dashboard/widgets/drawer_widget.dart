@@ -1,7 +1,7 @@
-import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/app/app.router.dart';
+import 'package:dionniebee/ui/common/colors.dart';
+import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked/stacked.dart';
 
 class DrawerMenu extends StatelessWidget {
   final bool selected;
@@ -19,7 +19,7 @@ class DrawerMenu extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: ListTile(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        tileColor: selected ? Colors.red : null,
+        tileColor: selected ? kcPrimaryColor : null,
         splashColor: Colors.transparent,
         onTap: () {
           Navigator.pop(context);
@@ -28,94 +28,82 @@ class DrawerMenu extends StatelessWidget {
         },
         title: Text(title,
             style: TextStyle(
-                fontSize: 14, color: selected ? Colors.white : Colors.black)),
+                fontSize: 14, color: selected ? Colors.white : Colors.white)),
       ),
     );
   }
 }
 
 class DrawerWidget extends StatelessWidget {
-  final int? selectedIndex;
-  const DrawerWidget({super.key, this.selectedIndex});
+  const DrawerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final navService = locator<RouterService>();
+    final viewModel = getParentViewModel<DashboardViewModel>(context);
+    int currentIndex = viewModel.currentIndex;
 
     return Drawer(
+      backgroundColor: kcPrimaryColorDark,
       child: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               ListTile(
-                leading: Icon(Icons.account_circle_rounded,
-                    size: 30, color: Theme.of(context).primaryColor),
+                leading: const Icon(
+                  Icons.account_circle_rounded,
+                  size: 30,
+                  color: Colors.white,
+                ),
                 trailing: TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Login/Register",
                       style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w900),
                     )),
               ),
               Column(children: [
                 DrawerMenu(
-                  selected: selectedIndex == 0,
+                  selected: currentIndex == 0,
                   title: "Tutorial",
-                  onTap: () async {
-                    await navService.replaceWithHomeView();
-                  },
+                  onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: selectedIndex == 1,
+                  selected: currentIndex == 1,
                   title: "About Use",
-                  onTap: () async {
-                    await navService.replaceWithHomeView();
-                  },
+                  onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: selectedIndex == 2,
+                  selected: currentIndex == 2,
                   title: "Feedback",
-                  onTap: () async {
-                    await navService.replaceWithHomeView();
-                  },
+                  onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: selectedIndex == 3,
+                  selected: currentIndex == 3,
                   title: "Contact Us",
-                  onTap: () async {
-                    await navService.replaceWithHomeView();
-                  },
+                  onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: selectedIndex == 4,
+                  selected: currentIndex == 4,
                   title: "Book a Virtual Party",
-                  onTap: () async {
-                    await navService.replaceWithHomeView();
-                  },
+                  onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: selectedIndex == 5,
+                  selected: currentIndex == 5,
                   title: "FAQs",
-                  onTap: () async {
-                    await navService.replaceWithHomeView();
-                  },
+                  onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: selectedIndex == 6,
+                  selected: currentIndex == 6,
                   title: "Terms & Conditions",
-                  onTap: () async {
-                    await navService.replaceWithHomeView();
-                  },
+                  onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: selectedIndex == 7,
+                  selected: currentIndex == 7,
                   title: "Privacy Policy",
-                  onTap: () async {
-                    await navService.replaceWithHomeView();
-                  },
+                  onTap: () async {},
                 ),
               ]),
             ],

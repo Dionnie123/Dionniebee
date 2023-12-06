@@ -1,7 +1,9 @@
 import 'package:dionniebee/services/authentication_service.firebase.dart';
+import 'package:dionniebee/services/local_storage_service.dart';
 import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:dionniebee/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:dionniebee/ui/views/home/home_viewmodel.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:dionniebee/services/auth_service.dart';
@@ -17,6 +19,7 @@ import 'package:dionniebee/ui/views/promo/promo_view.dart';
 import 'package:dionniebee/ui/views/product/product_view.dart';
 import 'package:dionniebee/ui/views/welcome/welcome_view.dart';
 import 'package:dionniebee/services/order_service.dart';
+import 'package:dionniebee/ui/views/dashboard/dashboard_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -52,9 +55,13 @@ import 'package:dionniebee/services/order_service.dart';
       page: WelcomeView,
     ),
 
+    MaterialRoute(page: DashboardView),
 // @stacked-route
   ],
   dependencies: [
+    InitializableSingleton(
+      classType: SharedPreferencesService,
+    ),
     InitializableSingleton(
       classType: FirebaseAuthService,
       asType: AuthService,
@@ -69,6 +76,8 @@ import 'package:dionniebee/services/order_service.dart';
     LazySingleton(classType: LocationService),
     LazySingleton(classType: CartService),
     LazySingleton(classType: OrderService),
+
+    Singleton(classType: HomeViewModel),
 // @stacked-service
   ],
   bottomsheets: [
