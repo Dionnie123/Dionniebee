@@ -1,7 +1,10 @@
+import 'package:dionniebee/app/app.locator.dart';
+import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class DrawerMenu extends StatelessWidget {
   final bool selected;
@@ -22,8 +25,8 @@ class DrawerMenu extends StatelessWidget {
         tileColor: selected ? kcPrimaryColor : null,
         splashColor: Colors.transparent,
         onTap: () {
-          Navigator.pop(context);
-          Future.delayed(const Duration(milliseconds: 200));
+          //    Navigator.pop(context);
+          //   Future.delayed(const Duration(milliseconds: 200));
           onTap();
         },
         title: Text(title,
@@ -55,7 +58,9 @@ class DrawerWidget extends StatelessWidget {
                   color: Colors.white,
                 ),
                 trailing: TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await locator<RouterService>().navigateToAuthView();
+                    },
                     child: const Text(
                       "Login/Register",
                       style: TextStyle(

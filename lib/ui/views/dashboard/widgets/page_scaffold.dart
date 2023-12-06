@@ -25,6 +25,7 @@ class PageScaffold extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         // 3. add a non-null leading argument if we have a drawer
+        automaticallyImplyLeading: hasDrawer,
         leading: hasDrawer
             ? IconButton(
                 icon: const Icon(Icons.menu),
