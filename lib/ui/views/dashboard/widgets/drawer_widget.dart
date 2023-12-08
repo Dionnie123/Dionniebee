@@ -72,41 +72,69 @@ class DrawerWidget extends StatelessWidget {
               Column(children: [
                 DrawerMenu(
                   selected: currentIndex == 0,
+                  title: "Home",
+                  onTap: () async {
+                    viewModel.setIndex(0);
+                  },
+                ),
+                DrawerMenu(
+                  selected: currentIndex == 1,
+                  title: "Promos",
+                  onTap: () async {
+                    viewModel.setIndex(1);
+                  },
+                ),
+                DrawerMenu(
+                  selected: currentIndex == 2,
+                  title: "Orders",
+                  onTap: () async {
+                    viewModel.setIndex(2);
+                  },
+                ),
+                DrawerMenu(
+                  selected: currentIndex == 3,
+                  title: "Stores",
+                  onTap: () async {
+                    viewModel.setIndex(3);
+                  },
+                ),
+                DrawerMenu(
+                  selected: currentIndex == 4,
                   title: "Tutorial",
                   onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: currentIndex == 1,
+                  selected: currentIndex == 5,
                   title: "About Use",
                   onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: currentIndex == 2,
+                  selected: currentIndex == 6,
                   title: "Feedback",
                   onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: currentIndex == 3,
+                  selected: currentIndex == 7,
                   title: "Contact Us",
                   onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: currentIndex == 4,
+                  selected: currentIndex == 8,
                   title: "Book a Virtual Party",
                   onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: currentIndex == 5,
+                  selected: currentIndex == 9,
                   title: "FAQs",
                   onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: currentIndex == 6,
+                  selected: currentIndex == 10,
                   title: "Terms & Conditions",
                   onTap: () async {},
                 ),
                 DrawerMenu(
-                  selected: currentIndex == 7,
+                  selected: currentIndex == 11,
                   title: "Privacy Policy",
                   onTap: () async {},
                 ),

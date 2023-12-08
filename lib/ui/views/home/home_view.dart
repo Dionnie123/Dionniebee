@@ -1,16 +1,22 @@
 import 'package:dionniebee/app/app.locator.dart';
+import 'package:dionniebee/app/app.router.dart';
+import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:dionniebee/ui/widgets/common/product_menu_item/food_menu_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
 import 'package:dionniebee/ui/widgets/common/product_item/product_item.dart';
 import 'package:dionniebee/ui/widgets/common/featured_products_listview/suggested_product_listview.dart';
 import 'package:dionniebee/ui/widgets/common/product_menu_listview/product_menu_listview.dart';
+import 'package:badges/badges.dart' as badges;
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({super.key});
+
+  @override
+  bool get initialiseSpecialViewModelsOnce => true;
 
   @override
   bool get disposeViewModel => false;
@@ -21,8 +27,36 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
+    final parentViewModel =
+        getParentViewModel<DashboardViewModel>(context, listen: false);
+
     return PageScaffold(
-        title: 'HOME',
+        title: "Home ",
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.account_circle_rounded),
+            onPressed: () async {
+              await parentViewModel.authService.signOut();
+            },
+          ),
+          Builder(builder: (context) {
+            return IconButton(
+              icon: badges.Badge(
+                  position: badges.BadgePosition.custom(top: -15, end: -10),
+                  showBadge: true,
+                  badgeAnimation: const badges.BadgeAnimation.scale(),
+                  badgeContent: Text(
+                    parentViewModel.cartService.cartCount.toString(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  child: const Icon(Icons.shopping_cart_rounded)),
+              onPressed: () async {
+                await parentViewModel.navigationService.navigateToCartView();
+              },
+            );
+          }),
+          hSpaceRegular,
+        ],
         body: CustomScrollView(slivers: [
           SliverToBoxAdapter(
             child: Stack(children: [
@@ -33,7 +67,7 @@ class HomeView extends StackedView<HomeViewModel> {
                     BoxDecoration(color: Theme.of(context).primaryColor),
               ),
               Positioned(
-                  right: 5,
+                  right: 20,
                   bottom: -20,
                   child: Image.asset(
                     "assets/jollibot/chickenjoy.png",
@@ -44,9 +78,9 @@ class HomeView extends StackedView<HomeViewModel> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Start a delivery or \npickup order",
-                      style: TextStyle(
+                    Text(
+                      "${parentViewModel.authService.user.email != null ? 'Hey ${parentViewModel.authService.user.email}\n' : ''}Start a delivery or \npickup order",
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.w900),
@@ -168,7 +202,7 @@ class HomeView extends StackedView<HomeViewModel> {
                   ],
                 ),
               ),
-            )
+            ),
         ]));
   }
 

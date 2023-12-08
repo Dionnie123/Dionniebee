@@ -3,6 +3,7 @@ import 'package:dionniebee/services/local_storage_service.dart';
 import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:dionniebee/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:dionniebee/ui/views/home/home_viewmodel.dart';
 import 'package:dionniebee/ui/views/orders/orders_viewmodel.dart';
 import 'package:dionniebee/ui/views/promo/promo_viewmodel.dart';
@@ -80,6 +81,7 @@ import 'package:dionniebee/ui/views/dashboard/dashboard_view.dart';
     LazySingleton(classType: CartService),
     LazySingleton(classType: OrderService),
 
+    Singleton(classType: DashboardViewModel),
     Singleton(classType: HomeViewModel),
     Singleton(classType: PromoViewModel),
     Singleton(classType: OrdersViewModel),

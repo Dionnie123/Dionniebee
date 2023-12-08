@@ -11,19 +11,22 @@ class StartupViewModel extends BaseViewModel implements Initialisable {
   final navService = locator<RouterService>();
 
   Future signInAnonymously() async {
-    await runBusyFuture(_authService.signInAnonymously(), throwException: true)
-        .then((value) async {
-      if (value == null) {
-        navService.replaceWithDashboardView();
-        await Fluttertoast.showToast(
-            msg: "Signed-in anonymously...",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            textColor: Colors.white,
-            fontSize: 16.0);
-      }
-    });
+    if (_authService.user == null) {
+      await runBusyFuture(_authService.signInAnonymously(),
+              throwException: true)
+          .then((value) async {
+        if (value == null) {
+          navService.replaceWithDashboardView();
+          await Fluttertoast.showToast(
+              msg: "Signed-in anonymously...",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        }
+      });
+    }
   }
 
   @override

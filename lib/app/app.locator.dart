@@ -18,6 +18,7 @@ import '../services/local_storage_service.dart';
 import '../services/location_service.dart';
 import '../services/order_service.dart';
 import '../services/product_service.dart';
+import '../ui/views/dashboard/dashboard_viewmodel.dart';
 import '../ui/views/home/home_viewmodel.dart';
 import '../ui/views/orders/orders_viewmodel.dart';
 import '../ui/views/promo/promo_viewmodel.dart';
@@ -51,6 +52,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => LocationService());
   locator.registerLazySingleton(() => CartService());
   locator.registerLazySingleton(() => OrderService());
+  locator.registerSingleton(DashboardViewModel());
   locator.registerSingleton(HomeViewModel());
   locator.registerSingleton(PromoViewModel());
   locator.registerSingleton(OrdersViewModel());

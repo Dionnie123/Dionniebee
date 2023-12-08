@@ -2,6 +2,7 @@ import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/login_dto.dart';
 import 'package:dionniebee/app/models/register_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stacked/stacked.dart';
@@ -39,7 +40,11 @@ class AuthViewModel extends BaseViewModel {
   }
 
   initialiseForms() {
-    loginFormModel = LoginDtoForm(LoginDtoForm.formElements(LoginDto()), null);
+    loginFormModel = LoginDtoForm(
+        LoginDtoForm.formElements(LoginDto(
+            email: kDebugMode ? 'bulingitamarkdionnie@gmail.com' : '',
+            password: kDebugMode ? 'abc123' : '')),
+        null);
     if (loginFormModel.form.disabled) {
       loginFormModel.form.markAsDisabled();
     }
@@ -52,9 +57,9 @@ class AuthViewModel extends BaseViewModel {
 
   Future signInAnonymously() async {
     await runBusyFuture(_authService.signInAnonymously(), throwException: true)
-        .then((value) {
+        .then((value) async {
       if (value == null) {
-        Fluttertoast.showToast(
+        await Fluttertoast.showToast(
             msg: "Signed-in anonymously...",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
@@ -69,14 +74,14 @@ class AuthViewModel extends BaseViewModel {
     await runBusyFuture(
             _authService.signInWithEmail(email: email, password: password),
             throwException: true)
-        .then((value) {
+        .then((value) async {
       if (value != null) {
-        _dialogService.showDialog(
+        await _dialogService.showDialog(
             title: "Notice",
             description: value.toString(),
             dialogPlatform: DialogPlatform.Custom);
       } else {
-        _navService.replaceWithDashboardView();
+        await _navService.replaceWithDashboardView();
       }
     });
   }
@@ -85,14 +90,14 @@ class AuthViewModel extends BaseViewModel {
     await runBusyFuture(
             _authService.signUpWithEmail(email: email, password: password),
             throwException: true)
-        .then((value) {
+        .then((value) async {
       if (value != null) {
-        _dialogService.showDialog(
+        await _dialogService.showDialog(
             title: "Notice",
             description: value.toString(),
             dialogPlatform: DialogPlatform.Custom);
       } else {
-        _navService.replaceWithDashboardView();
+        await _navService.replaceWithDashboardView();
       }
     });
   }

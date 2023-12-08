@@ -95,7 +95,16 @@ class _DeliveryViewState extends State<DeliveryView>
           SlidingUpPanel(
             backdropEnabled: true,
             minHeight: 200,
-            panel: SlidingUpPanelList(items: viewModel.nearbyDeliveryLocations),
+            panel: viewModel.nearbyDeliveryLocations.isEmpty
+                ? Container(
+                    color: Colors.grey,
+                    width: double.infinity,
+                    height: 200,
+                    child: const Center(
+                      child: Text("No Store Found"),
+                    ),
+                  )
+                : SlidingUpPanelList(items: viewModel.nearbyDeliveryLocations),
           ),
         ],
       ),
