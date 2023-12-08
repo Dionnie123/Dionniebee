@@ -19,9 +19,11 @@ class DashboardView extends StackedView<DashboardViewModel> {
   void onDispose(DashboardViewModel viewModel) {
     locator<HomeViewModel>().setOnModelReadyCalled(false);
     locator<HomeViewModel>().setInitialised(false);
+
     locator<PromoViewModel>().setOnModelReadyCalled(false);
     locator<OrdersViewModel>().setOnModelReadyCalled(false);
     locator<StoresViewModel>().setOnModelReadyCalled(false);
+    locator<StoresViewModel>().setInitialised(false);
     super.onDispose(viewModel);
   }
 

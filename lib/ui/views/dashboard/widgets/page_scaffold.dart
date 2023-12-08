@@ -1,3 +1,4 @@
+import 'package:dionniebee/ui/common/colors.dart';
 import 'package:flutter/material.dart';
 
 class PageScaffold extends StatelessWidget {
