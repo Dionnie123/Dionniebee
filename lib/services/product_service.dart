@@ -2,10 +2,29 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
+import 'package:stacked/stacked.dart';
 
-class ProductService {
+class ProductService with ListenableServiceMixin {
   final CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('products');
+
+  ProductService() {
+    listenToReactiveValues([
+      _items,
+    ]);
+  }
+
+  final ReactiveValue<List<ProductDto>> _items =
+      ReactiveValue<List<ProductDto>>([]);
+  List<ProductDto> get items => _items.value;
+
+  Future getAll() async {
+    var querySnapshot = await collectionReference.get();
+
+    _items.value = querySnapshot.docs
+        .map((e) => ProductDto.fromJson(e.data() as Map<String, dynamic>))
+        .toList();
+  }
 
   Stream<List<ProductDto>> getItemsStream() {
     return collectionReference.snapshots().map((snapshot) {

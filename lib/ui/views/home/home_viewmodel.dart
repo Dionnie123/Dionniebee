@@ -11,7 +11,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 const String _productsStreamKey = 'products-stream';
 
-class HomeViewModel extends MultipleStreamViewModel {
+class HomeViewModel extends ReactiveViewModel {
   final locationService = locator<LocationService>();
   final _authService = locator<AuthService>();
   final _navService = locator<RouterService>();
@@ -23,24 +23,15 @@ class HomeViewModel extends MultipleStreamViewModel {
   num get cartTotal => _cartService.cartTotal;
   List<ProductDto> get cart => _cartService.cart;
 
-  List<ProductDto> _products = [];
-  List<ProductDto> get products => _products;
+  List<ProductDto> get products => _productService.items;
 
-  @override
-  Map<String, StreamData> get streamsMap => {
-        _productsStreamKey:
-            StreamData<List<ProductDto>>(_productService.getItemsStream())
-      };
-
-  @override
-  void onData(String key, data) {
-    _products = dataMap?[_productsStreamKey];
-
-    super.onData(key, data);
+  Future init() async {
+    await _productService.getAll();
   }
 
   @override
-  List<ListenableServiceMixin> get listenableServices => [_cartService];
+  List<ListenableServiceMixin> get listenableServices =>
+      [_cartService, _productService];
 
   @override
   void onFutureError(error, Object? key) {

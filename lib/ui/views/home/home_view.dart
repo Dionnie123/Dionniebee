@@ -22,6 +22,12 @@ class HomeView extends StackedView<HomeViewModel> {
   bool get disposeViewModel => false;
 
   @override
+  Future<void> onViewModelReady(HomeViewModel viewModel) async {
+    await viewModel.init();
+    super.onViewModelReady(viewModel);
+  }
+
+  @override
   Widget builder(
     BuildContext context,
     HomeViewModel viewModel,
