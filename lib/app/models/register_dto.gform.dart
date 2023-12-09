@@ -195,16 +195,26 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
   final String? path;
 
   String fullNameControlPath() => pathBuilder(fullNameControlName);
+
   String emailControlPath() => pathBuilder(emailControlName);
+
   String passwordControlPath() => pathBuilder(passwordControlName);
+
   String passwordConfirmationControlPath() =>
       pathBuilder(passwordConfirmationControlName);
+
   String acceptLicenseControlPath() => pathBuilder(acceptLicenseControlName);
+
   String? get _fullNameValue => fullNameControl?.value;
+
   String? get _emailValue => emailControl?.value;
+
   String? get _passwordValue => passwordControl?.value;
+
   String? get _passwordConfirmationValue => passwordConfirmationControl?.value;
+
   bool? get _acceptLicenseValue => acceptLicenseControl?.value;
+
   bool get containsFullName {
     try {
       form.control(fullNameControlPath());
@@ -251,16 +261,26 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
   }
 
   Object? get fullNameErrors => fullNameControl?.errors;
+
   Object? get emailErrors => emailControl?.errors;
+
   Object? get passwordErrors => passwordControl?.errors;
+
   Object? get passwordConfirmationErrors => passwordConfirmationControl?.errors;
+
   Object? get acceptLicenseErrors => acceptLicenseControl?.errors;
+
   void get fullNameFocus => form.focus(fullNameControlPath());
+
   void get emailFocus => form.focus(emailControlPath());
+
   void get passwordFocus => form.focus(passwordControlPath());
+
   void get passwordConfirmationFocus =>
       form.focus(passwordConfirmationControlPath());
+
   void get acceptLicenseFocus => form.focus(acceptLicenseControlPath());
+
   void fullNameRemove({
     bool updateParent = true,
     bool emitEvent = true,
@@ -490,6 +510,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
   }) =>
       fullNameControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
+
   void emailValueReset(
     String? value, {
     bool updateParent = true,
@@ -499,6 +520,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
   }) =>
       emailControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
+
   void passwordValueReset(
     String? value, {
     bool updateParent = true,
@@ -508,6 +530,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
   }) =>
       passwordControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
+
   void passwordConfirmationValueReset(
     String? value, {
     bool updateParent = true,
@@ -517,6 +540,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
   }) =>
       passwordConfirmationControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
+
   void acceptLicenseValueReset(
     bool? value, {
     bool updateParent = true,
@@ -526,23 +550,29 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
   }) =>
       acceptLicenseControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
+
   FormControl<String>? get fullNameControl => containsFullName
       ? form.control(fullNameControlPath()) as FormControl<String>?
       : null;
+
   FormControl<String>? get emailControl => containsEmail
       ? form.control(emailControlPath()) as FormControl<String>?
       : null;
+
   FormControl<String>? get passwordControl => containsPassword
       ? form.control(passwordControlPath()) as FormControl<String>?
       : null;
+
   FormControl<String>? get passwordConfirmationControl =>
       containsPasswordConfirmation
           ? form.control(passwordConfirmationControlPath())
               as FormControl<String>?
           : null;
+
   FormControl<bool>? get acceptLicenseControl => containsAcceptLicense
       ? form.control(acceptLicenseControlPath()) as FormControl<bool>?
       : null;
+
   void fullNameSetDisabled(
     bool disabled, {
     bool updateParent = true,
@@ -635,8 +665,6 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
 
   @override
   RegisterDto get model {
-    final currentForm = path == null ? form : form.control(path!);
-
     if (!currentForm.valid) {
       debugPrint(
           '[${path ?? 'RegisterDtoForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
@@ -649,16 +677,21 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
         acceptLicense: _acceptLicenseValue);
   }
 
+  @override
   void submit({
     required void Function(RegisterDto model) onValid,
     void Function()? onNotValid,
   }) {
-    form.markAllAsTouched();
-    if (form.valid) {
+    currentForm.markAllAsTouched();
+    if (currentForm.valid) {
       onValid(model);
     } else {
       onNotValid?.call();
     }
+  }
+
+  AbstractControl<dynamic> get currentForm {
+    return path == null ? form : form.control(path!);
   }
 
   @override
@@ -669,6 +702,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
   }) =>
       form.updateValue(RegisterDtoForm.formElements(value).rawValue,
           updateParent: updateParent, emitEvent: emitEvent);
+
   @override
   void reset({
     RegisterDto? value,
@@ -679,8 +713,10 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
           value: value != null ? formElements(value).rawValue : null,
           updateParent: updateParent,
           emitEvent: emitEvent);
+
   String pathBuilder(String? pathItem) =>
       [path, pathItem].whereType<String>().join(".");
+
   static FormGroup formElements(RegisterDto? registerDto) => FormGroup({
         fullNameControlName: FormControl<String>(
             value: registerDto?.fullName,
@@ -787,7 +823,7 @@ class ReactiveRegisterDtoFormArrayBuilder<T> extends StatelessWidget {
   }
 }
 
-class ReactiveRegisterDtoFormFormGroupArrayBuilder<V> extends StatelessWidget {
+class ReactiveRegisterDtoFormFormGroupArrayBuilder<T> extends StatelessWidget {
   const ReactiveRegisterDtoFormFormGroupArrayBuilder({
     Key? key,
     this.extended,
@@ -798,16 +834,16 @@ class ReactiveRegisterDtoFormFormGroupArrayBuilder<V> extends StatelessWidget {
             "You have to specify `control` or `formControl`!"),
         super(key: key);
 
-  final ExtendedControl<List<Map<String, Object?>?>, List<V>>? extended;
+  final ExtendedControl<List<Map<String, Object?>?>, List<T>>? extended;
 
-  final ExtendedControl<List<Map<String, Object?>?>, List<V>> Function(
+  final ExtendedControl<List<Map<String, Object?>?>, List<T>> Function(
       RegisterDtoForm formModel)? getExtended;
 
   final Widget Function(BuildContext context, List<Widget> itemList,
       RegisterDtoForm formModel)? builder;
 
   final Widget Function(
-          BuildContext context, int i, V? item, RegisterDtoForm formModel)
+          BuildContext context, int i, T? item, RegisterDtoForm formModel)
       itemBuilder;
 
   @override
@@ -823,7 +859,7 @@ class ReactiveRegisterDtoFormFormGroupArrayBuilder<V> extends StatelessWidget {
     return StreamBuilder<List<Map<String, Object?>?>?>(
       stream: value.control.valueChanges,
       builder: (context, snapshot) {
-        final itemList = (value.value() ?? <V>[])
+        final itemList = (value.value() ?? <T>[])
             .asMap()
             .map((i, item) => MapEntry(
                   i,

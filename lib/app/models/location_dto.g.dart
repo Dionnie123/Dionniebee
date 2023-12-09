@@ -6,8 +6,8 @@ part of 'location_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_LocationDto _$$_LocationDtoFromJson(Map<String, dynamic> json) =>
-    _$_LocationDto(
+_$LocationDtoImpl _$$LocationDtoImplFromJson(Map<String, dynamic> json) =>
+    _$LocationDtoImpl(
       name: json['name'] as String?,
       address: json['address'] as String?,
       geohash: json['geohash'] as String?,
@@ -18,7 +18,7 @@ _$_LocationDto _$$_LocationDtoFromJson(Map<String, dynamic> json) =>
       maxDistance: (json['max_distance'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$_LocationDtoToJson(_$_LocationDto instance) =>
+Map<String, dynamic> _$$LocationDtoImplToJson(_$LocationDtoImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'address': instance.address,
@@ -28,12 +28,13 @@ Map<String, dynamic> _$$_LocationDtoToJson(_$_LocationDto instance) =>
       'max_distance': instance.maxDistance,
     };
 
-_$_LatLngDto _$$_LatLngDtoFromJson(Map<String, dynamic> json) => _$_LatLngDto(
+_$LatLngDtoImpl _$$LatLngDtoImplFromJson(Map<String, dynamic> json) =>
+    _$LatLngDtoImpl(
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$_LatLngDtoToJson(_$_LatLngDto instance) =>
+Map<String, dynamic> _$$LatLngDtoImplToJson(_$LatLngDtoImpl instance) =>
     <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,

@@ -119,11 +119,11 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
 }
 
 /// @nodoc
-abstract class _$$_ProductDtoCopyWith<$Res>
+abstract class _$$ProductDtoImplCopyWith<$Res>
     implements $ProductDtoCopyWith<$Res> {
-  factory _$$_ProductDtoCopyWith(
-          _$_ProductDto value, $Res Function(_$_ProductDto) then) =
-      __$$_ProductDtoCopyWithImpl<$Res>;
+  factory _$$ProductDtoImplCopyWith(
+          _$ProductDtoImpl value, $Res Function(_$ProductDtoImpl) then) =
+      __$$ProductDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -139,11 +139,11 @@ abstract class _$$_ProductDtoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ProductDtoCopyWithImpl<$Res>
-    extends _$ProductDtoCopyWithImpl<$Res, _$_ProductDto>
-    implements _$$_ProductDtoCopyWith<$Res> {
-  __$$_ProductDtoCopyWithImpl(
-      _$_ProductDto _value, $Res Function(_$_ProductDto) _then)
+class __$$ProductDtoImplCopyWithImpl<$Res>
+    extends _$ProductDtoCopyWithImpl<$Res, _$ProductDtoImpl>
+    implements _$$ProductDtoImplCopyWith<$Res> {
+  __$$ProductDtoImplCopyWithImpl(
+      _$ProductDtoImpl _value, $Res Function(_$ProductDtoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -159,7 +159,7 @@ class __$$_ProductDtoCopyWithImpl<$Res>
     Object? quantityInCart = freezed,
     Object? createdAt = freezed,
   }) {
-    return _then(_$_ProductDto(
+    return _then(_$ProductDtoImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -203,8 +203,8 @@ class __$$_ProductDtoCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_ProductDto implements _ProductDto {
-  _$_ProductDto(
+class _$ProductDtoImpl implements _ProductDto {
+  _$ProductDtoImpl(
       {this.id,
       this.isSelected = false,
       this.imageUrl,
@@ -215,8 +215,8 @@ class _$_ProductDto implements _ProductDto {
       this.quantityInCart,
       this.createdAt});
 
-  factory _$_ProductDto.fromJson(Map<String, dynamic> json) =>
-      _$$_ProductDtoFromJson(json);
+  factory _$ProductDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProductDtoImplFromJson(json);
 
   @override
   final String? id;
@@ -247,7 +247,7 @@ class _$_ProductDto implements _ProductDto {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ProductDto &&
+            other is _$ProductDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.isSelected, isSelected) ||
                 other.isSelected == isSelected) &&
@@ -273,12 +273,12 @@ class _$_ProductDto implements _ProductDto {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ProductDtoCopyWith<_$_ProductDto> get copyWith =>
-      __$$_ProductDtoCopyWithImpl<_$_ProductDto>(this, _$identity);
+  _$$ProductDtoImplCopyWith<_$ProductDtoImpl> get copyWith =>
+      __$$ProductDtoImplCopyWithImpl<_$ProductDtoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ProductDtoToJson(
+    return _$$ProductDtoImplToJson(
       this,
     );
   }
@@ -294,10 +294,10 @@ abstract class _ProductDto implements ProductDto {
       final num? price,
       final num? quantityInStock,
       final num? quantityInCart,
-      final DateTime? createdAt}) = _$_ProductDto;
+      final DateTime? createdAt}) = _$ProductDtoImpl;
 
   factory _ProductDto.fromJson(Map<String, dynamic> json) =
-      _$_ProductDto.fromJson;
+      _$ProductDtoImpl.fromJson;
 
   @override
   String? get id;
@@ -319,6 +319,6 @@ abstract class _ProductDto implements ProductDto {
   DateTime? get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$$_ProductDtoCopyWith<_$_ProductDto> get copyWith =>
+  _$$ProductDtoImplCopyWith<_$ProductDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

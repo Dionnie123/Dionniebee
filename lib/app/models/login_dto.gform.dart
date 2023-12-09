@@ -185,9 +185,13 @@ class LoginDtoForm implements FormModel<LoginDto> {
   final String? path;
 
   String emailControlPath() => pathBuilder(emailControlName);
+
   String passwordControlPath() => pathBuilder(passwordControlName);
+
   String? get _emailValue => emailControl?.value;
+
   String? get _passwordValue => passwordControl?.value;
+
   bool get containsEmail {
     try {
       form.control(emailControlPath());
@@ -207,9 +211,13 @@ class LoginDtoForm implements FormModel<LoginDto> {
   }
 
   Object? get emailErrors => emailControl?.errors;
+
   Object? get passwordErrors => passwordControl?.errors;
+
   void get emailFocus => form.focus(emailControlPath());
+
   void get passwordFocus => form.focus(passwordControlPath());
+
   void emailRemove({
     bool updateParent = true,
     bool emitEvent = true,
@@ -307,6 +315,7 @@ class LoginDtoForm implements FormModel<LoginDto> {
   }) =>
       emailControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
+
   void passwordValueReset(
     String? value, {
     bool updateParent = true,
@@ -316,12 +325,15 @@ class LoginDtoForm implements FormModel<LoginDto> {
   }) =>
       passwordControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
+
   FormControl<String>? get emailControl => containsEmail
       ? form.control(emailControlPath()) as FormControl<String>?
       : null;
+
   FormControl<String>? get passwordControl => containsPassword
       ? form.control(passwordControlPath()) as FormControl<String>?
       : null;
+
   void emailSetDisabled(
     bool disabled, {
     bool updateParent = true,
@@ -360,8 +372,6 @@ class LoginDtoForm implements FormModel<LoginDto> {
 
   @override
   LoginDto get model {
-    final currentForm = path == null ? form : form.control(path!);
-
     if (!currentForm.valid) {
       debugPrint(
           '[${path ?? 'LoginDtoForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
@@ -369,16 +379,21 @@ class LoginDtoForm implements FormModel<LoginDto> {
     return LoginDto(email: _emailValue, password: _passwordValue);
   }
 
+  @override
   void submit({
     required void Function(LoginDto model) onValid,
     void Function()? onNotValid,
   }) {
-    form.markAllAsTouched();
-    if (form.valid) {
+    currentForm.markAllAsTouched();
+    if (currentForm.valid) {
       onValid(model);
     } else {
       onNotValid?.call();
     }
+  }
+
+  AbstractControl<dynamic> get currentForm {
+    return path == null ? form : form.control(path!);
   }
 
   @override
@@ -389,6 +404,7 @@ class LoginDtoForm implements FormModel<LoginDto> {
   }) =>
       form.updateValue(LoginDtoForm.formElements(value).rawValue,
           updateParent: updateParent, emitEvent: emitEvent);
+
   @override
   void reset({
     LoginDto? value,
@@ -399,8 +415,10 @@ class LoginDtoForm implements FormModel<LoginDto> {
           value: value != null ? formElements(value).rawValue : null,
           updateParent: updateParent,
           emitEvent: emitEvent);
+
   String pathBuilder(String? pathItem) =>
       [path, pathItem].whereType<String>().join(".");
+
   static FormGroup formElements(LoginDto? loginDto) => FormGroup({
         emailControlName: FormControl<String>(
             value: loginDto?.email,
@@ -483,7 +501,7 @@ class ReactiveLoginDtoFormArrayBuilder<T> extends StatelessWidget {
   }
 }
 
-class ReactiveLoginDtoFormFormGroupArrayBuilder<V> extends StatelessWidget {
+class ReactiveLoginDtoFormFormGroupArrayBuilder<T> extends StatelessWidget {
   const ReactiveLoginDtoFormFormGroupArrayBuilder({
     Key? key,
     this.extended,
@@ -494,9 +512,9 @@ class ReactiveLoginDtoFormFormGroupArrayBuilder<V> extends StatelessWidget {
             "You have to specify `control` or `formControl`!"),
         super(key: key);
 
-  final ExtendedControl<List<Map<String, Object?>?>, List<V>>? extended;
+  final ExtendedControl<List<Map<String, Object?>?>, List<T>>? extended;
 
-  final ExtendedControl<List<Map<String, Object?>?>, List<V>> Function(
+  final ExtendedControl<List<Map<String, Object?>?>, List<T>> Function(
       LoginDtoForm formModel)? getExtended;
 
   final Widget Function(
@@ -504,7 +522,7 @@ class ReactiveLoginDtoFormFormGroupArrayBuilder<V> extends StatelessWidget {
       builder;
 
   final Widget Function(
-      BuildContext context, int i, V? item, LoginDtoForm formModel) itemBuilder;
+      BuildContext context, int i, T? item, LoginDtoForm formModel) itemBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -519,7 +537,7 @@ class ReactiveLoginDtoFormFormGroupArrayBuilder<V> extends StatelessWidget {
     return StreamBuilder<List<Map<String, Object?>?>?>(
       stream: value.control.valueChanges,
       builder: (context, snapshot) {
-        final itemList = (value.value() ?? <V>[])
+        final itemList = (value.value() ?? <T>[])
             .asMap()
             .map((i, item) => MapEntry(
                   i,
