@@ -104,11 +104,11 @@ class _$RegisterDtoCopyWithImpl<$Res, $Val extends RegisterDto>
 }
 
 /// @nodoc
-abstract class _$$_RegisterDtoCopyWith<$Res>
+abstract class _$$RegisterDtoImplCopyWith<$Res>
     implements $RegisterDtoCopyWith<$Res> {
-  factory _$$_RegisterDtoCopyWith(
-          _$_RegisterDto value, $Res Function(_$_RegisterDto) then) =
-      __$$_RegisterDtoCopyWithImpl<$Res>;
+  factory _$$RegisterDtoImplCopyWith(
+          _$RegisterDtoImpl value, $Res Function(_$RegisterDtoImpl) then) =
+      __$$RegisterDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -125,11 +125,11 @@ abstract class _$$_RegisterDtoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RegisterDtoCopyWithImpl<$Res>
-    extends _$RegisterDtoCopyWithImpl<$Res, _$_RegisterDto>
-    implements _$$_RegisterDtoCopyWith<$Res> {
-  __$$_RegisterDtoCopyWithImpl(
-      _$_RegisterDto _value, $Res Function(_$_RegisterDto) _then)
+class __$$RegisterDtoImplCopyWithImpl<$Res>
+    extends _$RegisterDtoCopyWithImpl<$Res, _$RegisterDtoImpl>
+    implements _$$RegisterDtoImplCopyWith<$Res> {
+  __$$RegisterDtoImplCopyWithImpl(
+      _$RegisterDtoImpl _value, $Res Function(_$RegisterDtoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -141,7 +141,7 @@ class __$$_RegisterDtoCopyWithImpl<$Res>
     Object? passwordConfirmation = freezed,
     Object? acceptLicense = freezed,
   }) {
-    return _then(_$_RegisterDto(
+    return _then(_$RegisterDtoImpl(
       fullName: freezed == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
@@ -169,8 +169,8 @@ class __$$_RegisterDtoCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_RegisterDto implements _RegisterDto {
-  _$_RegisterDto(
+class _$RegisterDtoImpl implements _RegisterDto {
+  _$RegisterDtoImpl(
       {@RfControl(validators: [RequiredValidator()]) this.fullName,
       @RfControl(validators: [RequiredValidator(), EmailValidator()])
       this.email,
@@ -182,8 +182,8 @@ class _$_RegisterDto implements _RegisterDto {
       this.passwordConfirmation,
       @RfControl(validators: [RequiredTrueValidator()]) this.acceptLicense});
 
-  factory _$_RegisterDto.fromJson(Map<String, dynamic> json) =>
-      _$$_RegisterDtoFromJson(json);
+  factory _$RegisterDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RegisterDtoImplFromJson(json);
 
   @override
   @RfControl(validators: [RequiredValidator()])
@@ -213,7 +213,7 @@ class _$_RegisterDto implements _RegisterDto {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RegisterDto &&
+            other is _$RegisterDtoImpl &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.email, email) || other.email == email) &&
@@ -233,12 +233,12 @@ class _$_RegisterDto implements _RegisterDto {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RegisterDtoCopyWith<_$_RegisterDto> get copyWith =>
-      __$$_RegisterDtoCopyWithImpl<_$_RegisterDto>(this, _$identity);
+  _$$RegisterDtoImplCopyWith<_$RegisterDtoImpl> get copyWith =>
+      __$$RegisterDtoImplCopyWithImpl<_$RegisterDtoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RegisterDtoToJson(
+    return _$$RegisterDtoImplToJson(
       this,
     );
   }
@@ -256,10 +256,10 @@ abstract class _RegisterDto implements RegisterDto {
       ])
       final String? passwordConfirmation,
       @RfControl(validators: [RequiredTrueValidator()])
-      final bool? acceptLicense}) = _$_RegisterDto;
+      final bool? acceptLicense}) = _$RegisterDtoImpl;
 
   factory _RegisterDto.fromJson(Map<String, dynamic> json) =
-      _$_RegisterDto.fromJson;
+      _$RegisterDtoImpl.fromJson;
 
   @override
   @RfControl(validators: [RequiredValidator()])
@@ -281,6 +281,6 @@ abstract class _RegisterDto implements RegisterDto {
   bool? get acceptLicense;
   @override
   @JsonKey(ignore: true)
-  _$$_RegisterDtoCopyWith<_$_RegisterDto> get copyWith =>
+  _$$RegisterDtoImplCopyWith<_$RegisterDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -44,12 +44,11 @@ class MapWidget extends StatelessWidget {
 
     return LoaderOverlay(
       overlayColor: Colors.black.withOpacity(0.5),
-      overlayOpacity: 0.5,
       duration: const Duration(milliseconds: 250),
       reverseDuration: const Duration(milliseconds: 250),
       child: Builder(builder: (context) {
         if (isBusy) {
-          context.loaderOverlay.show(widget: const MapLoader());
+          context.loaderOverlay.show(widgetBuilder: (v) => const MapLoader());
         } else {
           context.loaderOverlay.hide();
         }

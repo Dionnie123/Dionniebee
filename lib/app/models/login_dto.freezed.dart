@@ -72,10 +72,11 @@ class _$LoginDtoCopyWithImpl<$Res, $Val extends LoginDto>
 }
 
 /// @nodoc
-abstract class _$$_LoginDtoCopyWith<$Res> implements $LoginDtoCopyWith<$Res> {
-  factory _$$_LoginDtoCopyWith(
-          _$_LoginDto value, $Res Function(_$_LoginDto) then) =
-      __$$_LoginDtoCopyWithImpl<$Res>;
+abstract class _$$LoginDtoImplCopyWith<$Res>
+    implements $LoginDtoCopyWith<$Res> {
+  factory _$$LoginDtoImplCopyWith(
+          _$LoginDtoImpl value, $Res Function(_$LoginDtoImpl) then) =
+      __$$LoginDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -85,11 +86,11 @@ abstract class _$$_LoginDtoCopyWith<$Res> implements $LoginDtoCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LoginDtoCopyWithImpl<$Res>
-    extends _$LoginDtoCopyWithImpl<$Res, _$_LoginDto>
-    implements _$$_LoginDtoCopyWith<$Res> {
-  __$$_LoginDtoCopyWithImpl(
-      _$_LoginDto _value, $Res Function(_$_LoginDto) _then)
+class __$$LoginDtoImplCopyWithImpl<$Res>
+    extends _$LoginDtoCopyWithImpl<$Res, _$LoginDtoImpl>
+    implements _$$LoginDtoImplCopyWith<$Res> {
+  __$$LoginDtoImplCopyWithImpl(
+      _$LoginDtoImpl _value, $Res Function(_$LoginDtoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -98,7 +99,7 @@ class __$$_LoginDtoCopyWithImpl<$Res>
     Object? email = freezed,
     Object? password = freezed,
   }) {
-    return _then(_$_LoginDto(
+    return _then(_$LoginDtoImpl(
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -114,14 +115,14 @@ class __$$_LoginDtoCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_LoginDto implements _LoginDto {
-  _$_LoginDto(
+class _$LoginDtoImpl implements _LoginDto {
+  _$LoginDtoImpl(
       {@RfControl(validators: [RequiredValidator(), EmailValidator()])
       this.email,
       @RfControl(validators: [RequiredValidator()]) this.password});
 
-  factory _$_LoginDto.fromJson(Map<String, dynamic> json) =>
-      _$$_LoginDtoFromJson(json);
+  factory _$LoginDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LoginDtoImplFromJson(json);
 
   @override
   @RfControl(validators: [RequiredValidator(), EmailValidator()])
@@ -139,7 +140,7 @@ class _$_LoginDto implements _LoginDto {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoginDto &&
+            other is _$LoginDtoImpl &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password));
@@ -152,12 +153,12 @@ class _$_LoginDto implements _LoginDto {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoginDtoCopyWith<_$_LoginDto> get copyWith =>
-      __$$_LoginDtoCopyWithImpl<_$_LoginDto>(this, _$identity);
+  _$$LoginDtoImplCopyWith<_$LoginDtoImpl> get copyWith =>
+      __$$LoginDtoImplCopyWithImpl<_$LoginDtoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LoginDtoToJson(
+    return _$$LoginDtoImplToJson(
       this,
     );
   }
@@ -168,9 +169,10 @@ abstract class _LoginDto implements LoginDto {
       {@RfControl(validators: [RequiredValidator(), EmailValidator()])
       final String? email,
       @RfControl(validators: [RequiredValidator()])
-      final String? password}) = _$_LoginDto;
+      final String? password}) = _$LoginDtoImpl;
 
-  factory _LoginDto.fromJson(Map<String, dynamic> json) = _$_LoginDto.fromJson;
+  factory _LoginDto.fromJson(Map<String, dynamic> json) =
+      _$LoginDtoImpl.fromJson;
 
   @override
   @RfControl(validators: [RequiredValidator(), EmailValidator()])
@@ -180,6 +182,6 @@ abstract class _LoginDto implements LoginDto {
   String? get password;
   @override
   @JsonKey(ignore: true)
-  _$$_LoginDtoCopyWith<_$_LoginDto> get copyWith =>
+  _$$LoginDtoImplCopyWith<_$LoginDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

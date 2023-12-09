@@ -92,11 +92,26 @@ class _DeliveryViewState extends State<DeliveryView>
               },
             ),
           ),
-          SlidingUpPanel(
-            backdropEnabled: true,
-            minHeight: 200,
-            panel: SlidingUpPanelList(items: viewModel.nearbyDeliveryLocations),
-          ),
+          viewModel.nearbyDeliveryLocations.isEmpty
+              ? const Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: Center(
+                      child: Text(
+                        "No Store(s) Found",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                )
+              : SlidingUpPanel(
+                  backdropEnabled: true,
+                  minHeight: 200,
+                  panel: SlidingUpPanelList(
+                      items: viewModel.nearbyDeliveryLocations),
+                ),
         ],
       ),
     );

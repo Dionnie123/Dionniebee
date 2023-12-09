@@ -70,8 +70,8 @@ class HomeViewModel extends MultipleStreamViewModel {
     _navService.navigateToProductView(id: id.toString(), key: UniqueKey());
   }
 
-  goToCartView() {
-    _navService.navigateTo(
+  goToCartView() async {
+    await _navService.navigateTo(
       const CartViewRoute(),
     );
   }

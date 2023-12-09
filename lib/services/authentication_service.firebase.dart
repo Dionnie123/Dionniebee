@@ -1,17 +1,32 @@
+import 'dart:async';
+import 'package:dionniebee/app/app.logger.dart';
+import 'package:dionniebee/app/constants/firebase_options.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:stacked/stacked.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_user;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:stacked/stacked_annotations.dart';
 
-class FirebaseAuthService with Initialisable implements AuthService {
+class FirebaseAuthService with InitializableDependency implements AuthService {
   late FirebaseAuth _firebaseAuth;
-
+  late StreamSubscription<firebase_user.User?> streamSubscription;
+  final _log = getLogger('FirebaseAuthService');
   @override
-  Future<void> initialise() async {
-    //await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-    _firebaseAuth = FirebaseAuth.instance;
+  init() async {
+    try {
+      await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform);
+      _firebaseAuth = FirebaseAuth.instance;
+      _authStateChanges();
+      _log.d('Initialized');
+    } catch (e) {
+      _log.e('Initialized Failed');
+    }
+  }
 
-    _firebaseAuth.authStateChanges().listen((firebaseUser.User? user) {
+  void _authStateChanges() {
+    streamSubscription =
+        _firebaseAuth.authStateChanges().listen((firebase_user.User? user) {
       if (user != null) {}
     });
   }
@@ -86,5 +101,11 @@ class FirebaseAuthService with Initialisable implements AuthService {
           return await Future.error(e.toString());
       }
     }
+  }
+
+  @override
+  void dispose() {
+    streamSubscription.cancel();
+    _firebaseAuth.app.delete();
   }
 }

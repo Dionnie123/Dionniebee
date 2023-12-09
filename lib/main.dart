@@ -1,7 +1,5 @@
 import 'package:dionniebee/app/helpers/lifecycle_manager/lifecycle_manager.dart';
-import 'package:dionniebee/app/constants/firebase_options.dart';
 import 'package:dionniebee/ui/common/colors.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +20,10 @@ Future<void> main() async {
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
     const ScreenBreakpoints(desktop: 1366, tablet: 768, watch: 200),
   );
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setupLocator(stackedRouter: stackedRouter);
   setupDialogUi();
   setupBottomSheetUi();
-  setPathUrlStrategy();
+  // setPathUrlStrategy();
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
@@ -48,8 +45,10 @@ class MainApp extends StatelessWidget {
         themeMode: ThemeMode.light,
         theme: ThemeData(
             fontFamily: GoogleFonts.varelaRound().fontFamily,
-            // useMaterial3: true,
+            useMaterial3: false,
             appBarTheme: AppBarTheme(
+                backgroundColor: kcPrimaryColor,
+                foregroundColor: Colors.white,
                 titleTextStyle: TextStyle(
                     color: Colors.white,
                     fontFamily: GoogleFonts.varelaRound().fontFamily,

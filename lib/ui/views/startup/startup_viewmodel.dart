@@ -6,23 +6,31 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class StartupViewModel extends BaseViewModel {
+class StartupViewModel extends BaseViewModel implements Initialisable {
   final _authService = locator<AuthService>();
   final navService = locator<RouterService>();
 
   Future signInAnonymously() async {
-    await runBusyFuture(_authService.signInAnonymously(), throwException: true)
-        .then((value) async {
-      if (value == null) {
-        navService.replaceWithHomeView();
-        await Fluttertoast.showToast(
-            msg: "Signed-in anonymously...",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            textColor: Colors.white,
-            fontSize: 16.0);
-      }
-    });
+    if (_authService.user == null) {
+      await runBusyFuture(_authService.signInAnonymously(),
+              throwException: true)
+          .then((value) async {
+        if (value == null) {
+          navService.replaceWithDashboardView();
+          await Fluttertoast.showToast(
+              msg: "Signed-in anonymously...",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        }
+      });
+    }
+  }
+
+  @override
+  void initialise() {
+    // TODO: implement initialise
   }
 }
