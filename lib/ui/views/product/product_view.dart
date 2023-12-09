@@ -60,6 +60,9 @@ class ProductView extends StackedView<ProductViewModel> {
       ProductViewModel();
 
   @override
+  bool get initialiseSpecialViewModelsOnce => true;
+
+  @override
   void onViewModelReady(ProductViewModel viewModel) {
     viewModel.productId = id;
     super.onViewModelReady(viewModel);
