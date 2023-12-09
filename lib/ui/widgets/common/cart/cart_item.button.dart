@@ -22,15 +22,14 @@ class CartItemButton extends StatefulWidget {
   final IconData icon;
 
   const CartItemButton(
-      {Key? key,
+      {super.key,
       required this.onUpdate,
       this.minDelay = 80,
       this.initialDelay = 300,
       this.delaySteps = 5,
       required this.icon})
       : assert(minDelay <= initialDelay,
-            "The minimum delay cannot be larger than the initial delay"),
-        super(key: key);
+            "The minimum delay cannot be larger than the initial delay");
 
   @override
   State<CartItemButton> createState() => _CartItemButtonState();

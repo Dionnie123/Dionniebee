@@ -7,12 +7,11 @@ class EzAvatar extends StatelessWidget {
   final double radius;
   final Widget? badge;
   const EzAvatar(
-      {Key? key,
+      {super.key,
       this.imgUrl = "",
       this.name = "",
       this.radius = 50,
-      this.badge})
-      : super(key: key);
+      this.badge});
 
   @override
   Widget build(BuildContext context) {

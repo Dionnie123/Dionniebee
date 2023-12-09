@@ -7,7 +7,7 @@ import 'horizontal_coupon_example_1.dart';
 import 'promo_viewmodel.dart';
 
 class PromoView extends StackedView<PromoViewModel> {
-  const PromoView({Key? key}) : super(key: key);
+  const PromoView({super.key});
 
   @override
   Widget builder(

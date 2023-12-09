@@ -7,12 +7,11 @@ class EZDrawerHeader extends StatelessWidget {
   final String userEmail;
   final Color? bgColor;
   const EZDrawerHeader(
-      {Key? key,
+      {super.key,
       this.currentAccountPicture,
       this.userName = "N/A",
       this.userEmail = "N/A",
-      this.bgColor})
-      : super(key: key);
+      this.bgColor});
 
   @override
   Widget build(BuildContext context) {

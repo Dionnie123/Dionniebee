@@ -2,7 +2,7 @@ import 'package:coupon_uikit/coupon_uikit.dart';
 import 'package:flutter/material.dart';
 
 class VerticalCouponExample extends StatelessWidget {
-  const VerticalCouponExample({Key? key}) : super(key: key);
+  const VerticalCouponExample({super.key});
 
   @override
   Widget build(BuildContext context) {

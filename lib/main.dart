@@ -10,9 +10,7 @@ import 'package:dionniebee/app/app.router.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

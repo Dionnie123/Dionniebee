@@ -7,7 +7,7 @@ import 'product_viewmodel.dart';
 
 class ProductView extends StackedView<ProductViewModel> {
   final String id;
-  const ProductView(this.id, {Key? key}) : super(key: key);
+  const ProductView(this.id, {super.key});
 
   @override
   Widget builder(

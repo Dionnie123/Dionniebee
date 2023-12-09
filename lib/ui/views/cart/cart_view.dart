@@ -8,7 +8,7 @@ import 'package:stacked/stacked.dart';
 import 'cart_viewmodel.dart';
 
 class CartView extends StackedView<CartViewModel> {
-  const CartView({Key? key}) : super(key: key);
+  const CartView({super.key});
 
   @override
   Widget builder(

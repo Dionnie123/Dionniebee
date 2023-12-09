@@ -5,7 +5,7 @@ import 'package:stacked/stacked.dart';
 import 'orders_viewmodel.dart';
 
 class OrdersView extends StackedView<OrdersViewModel> {
-  const OrdersView({Key? key}) : super(key: key);
+  const OrdersView({super.key});
 
   @override
   Widget builder(

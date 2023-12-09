@@ -64,6 +64,7 @@ dependencies:
   flutter_hooks: ^0.20.1
   money2: ^4.0.0
   shared_preferences: ^2.2.2
+  animations: ^2.0.10
 
   
 dev_dependencies:

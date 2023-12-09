@@ -110,7 +110,6 @@ class SupabaseService with InitializableDependency implements AuthService {
 
   @override
   Future signInAnonymously() {
-    // TODO: implement signInAnonymously
     throw UnimplementedError();
   }
 

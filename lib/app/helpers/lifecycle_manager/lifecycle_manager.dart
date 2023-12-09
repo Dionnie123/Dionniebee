@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 class LifeCycleManager extends StatefulWidget {
   final Widget child;
-  const LifeCycleManager({Key? key, required this.child}) : super(key: key);
+  const LifeCycleManager({super.key, required this.child});
 
   @override
   State<LifeCycleManager> createState() => _LifeCycleManagerState();

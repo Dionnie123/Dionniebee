@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'welcome_viewmodel.dart';
 
 class WelcomeView extends StackedView<WelcomeViewModel> {
-  const WelcomeView({Key? key}) : super(key: key);
+  const WelcomeView({super.key});
 
   @override
   Widget builder(

@@ -1,4 +1,6 @@
+import 'package:animations/animations.dart';
 import 'package:dionniebee/app/app.locator.dart';
+import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/split_view.dart';
 import 'package:dionniebee/ui/views/home/home_view.dart';
 import 'package:dionniebee/ui/views/home/home_viewmodel.dart';
@@ -13,7 +15,7 @@ import 'package:stacked/stacked.dart';
 import 'dashboard_viewmodel.dart';
 
 class DashboardView extends StackedView<DashboardViewModel> {
-  const DashboardView({Key? key}) : super(key: key);
+  const DashboardView({super.key});
 
   @override
   void onDispose(DashboardViewModel viewModel) {
@@ -65,7 +67,9 @@ class DashboardView extends StackedView<DashboardViewModel> {
           return await Future.value(false);
         },
         child: SplitView(
-            key: UniqueKey(), child: getViewForIndex(viewModel.currentIndex)));
+            child: PageTransition(
+                reverse: viewModel.reverse,
+                child: getViewForIndex(viewModel.currentIndex))));
   }
 
   @override
@@ -73,4 +77,37 @@ class DashboardView extends StackedView<DashboardViewModel> {
     BuildContext context,
   ) =>
       locator<DashboardViewModel>();
+}
+
+class PageTransition extends StatelessWidget {
+  const PageTransition({
+    super.key,
+    required this.child,
+    required this.reverse,
+  });
+
+  final bool reverse;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return PageTransitionSwitcher(
+      reverse: reverse,
+      duration: const Duration(milliseconds: 300),
+      transitionBuilder: (
+        Widget child,
+        Animation<double> primaryAnimation,
+        Animation<double> secondaryAnimation,
+      ) {
+        return SharedAxisTransition(
+          animation: primaryAnimation,
+          secondaryAnimation: secondaryAnimation,
+          transitionType: SharedAxisTransitionType.horizontal,
+          fillColor: kcPrimaryColor,
+          child: child,
+        );
+      },
+      child: child,
+    );
+  }
 }

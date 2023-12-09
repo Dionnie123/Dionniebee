@@ -14,7 +14,7 @@ class ScaffoldBodyWrapper extends StatelessWidget {
   final bool disableScrollView;
   final EdgeInsets padding;
   const ScaffoldBodyWrapper({
-    Key? key,
+    super.key,
     this.onRefresh,
     this.isBusy = false,
     this.busyIndicatorWidget = const Center(
@@ -28,7 +28,7 @@ class ScaffoldBodyWrapper extends StatelessWidget {
     this.neverScroll = false,
     this.disableScrollView = false,
     this.padding = const EdgeInsets.all(15),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@ import 'package:coupon_uikit/coupon_uikit.dart';
 import 'package:flutter/material.dart';
 
 class VerticalCouponExample extends StatelessWidget {
-  const VerticalCouponExample({Key? key}) : super(key: key);
+  const VerticalCouponExample({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class VerticalCouponExample extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
       ),
-      firstChild: Column(
+      firstChild: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Text(
             'CHIRISTMAS SALES',
             style: TextStyle(

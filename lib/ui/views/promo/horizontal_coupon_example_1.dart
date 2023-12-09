@@ -3,7 +3,7 @@ import 'package:dionniebee/ui/common/colors.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalCouponExample1 extends StatelessWidget {
-  const HorizontalCouponExample1({Key? key}) : super(key: key);
+  const HorizontalCouponExample1({super.key});
 
   @override
   Widget build(BuildContext context) {

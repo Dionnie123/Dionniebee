@@ -12,7 +12,7 @@ class ScaffoldListWrapper extends StatelessWidget {
   final bool fit;
   final List<Widget> topWidgets;
   const ScaffoldListWrapper({
-    Key? key,
+    super.key,
     required this.onRefresh,
     this.isBusy = false,
     this.busyIndicatorWidget = const Center(
@@ -23,7 +23,7 @@ class ScaffoldListWrapper extends StatelessWidget {
     required this.builder,
     this.fit = true,
     this.topWidgets = const [Text("fdsfsf")],
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
