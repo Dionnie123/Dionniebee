@@ -2,6 +2,7 @@ import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/services/cart_service.dart';
+import 'package:dionniebee/ui/views/product/product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -38,7 +39,10 @@ class CartViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  productView(String id) {
-    _navService.navigateToProductView(id: id.toString(), key: UniqueKey());
+  productView(String id) async {
+    await _navService.navigateWithTransition(ProductView(
+      id: id,
+      key: UniqueKey(),
+    ));
   }
 }

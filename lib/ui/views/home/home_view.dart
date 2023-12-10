@@ -60,7 +60,7 @@ class HomeView extends StackedView<HomeViewModel> {
                   ),
                   child: const Icon(Icons.shopping_cart_rounded)),
               onPressed: () async {
-                await parentViewModel.navigationService.navigateToCartView();
+                await viewModel.goToCartView();
               },
             );
           }),

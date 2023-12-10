@@ -5,6 +5,8 @@ import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/location_service.dart';
 import 'package:dionniebee/services/product_service.dart';
+import 'package:dionniebee/ui/views/cart/cart_view.dart';
+import 'package:dionniebee/ui/views/product/product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -59,14 +61,15 @@ class HomeViewModel extends ReactiveViewModel {
     _cartService.minusCartItemQuantity(id);
   }
 
-  productView(String id) {
-    _navService.navigateToProductView(id: id.toString(), key: UniqueKey());
+  productView(String id) async {
+    await _navService.navigateWithTransition(ProductView(
+      id: id,
+      key: UniqueKey(),
+    ));
   }
 
   goToCartView() async {
-    await _navService.navigateTo(
-      const CartViewRoute(),
-    );
+    await _navService.navigateWithTransition(const CartView());
   }
 
   signOut() async {

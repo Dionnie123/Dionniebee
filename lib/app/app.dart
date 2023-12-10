@@ -12,15 +12,9 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/ui/views/auth/auth_view.dart';
-import 'package:dionniebee/ui/views/cart/cart_view.dart';
-import 'package:dionniebee/ui/views/home/home_view.dart';
 import 'package:dionniebee/ui/views/startup/startup_view.dart';
-import 'package:dionniebee/ui/views/orders/orders_view.dart';
-import 'package:dionniebee/ui/views/stores/stores_view.dart';
 import 'package:dionniebee/services/location_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
-import 'package:dionniebee/ui/views/promo/promo_view.dart';
-import 'package:dionniebee/ui/views/product/product_view.dart';
 import 'package:dionniebee/ui/views/welcome/welcome_view.dart';
 import 'package:dionniebee/services/order_service.dart';
 import 'package:dionniebee/ui/views/dashboard/dashboard_view.dart';
@@ -29,36 +23,9 @@ import 'package:dionniebee/ui/views/dashboard/dashboard_view.dart';
 @StackedApp(
   logger: StackedLogger(),
   routes: [
-    MaterialRoute(
-      page: StartupView,
-      initial: true,
-    ),
-    MaterialRoute(
-      page: AuthView,
-    ),
-    MaterialRoute(
-      page: CartView,
-    ),
-    CustomRoute(
-      page: HomeView,
-    ),
-
-    CustomRoute(
-      page: OrdersView,
-    ),
-    MaterialRoute(
-      page: StoresView,
-    ),
-    CustomRoute(
-      page: PromoView,
-    ),
-    MaterialRoute(
-      page: ProductView,
-    ),
-    MaterialRoute(
-      page: WelcomeView,
-    ),
-
+    MaterialRoute(page: StartupView, initial: true),
+    MaterialRoute(page: AuthView),
+    MaterialRoute(page: WelcomeView),
     MaterialRoute(page: DashboardView),
 // @stacked-route
   ],
