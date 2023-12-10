@@ -25,7 +25,7 @@ class ProductDto with _$ProductDto {
   factory ProductDto.fromJson(Map<String, dynamic> json) =>
       _$ProductDtoFromJson(json);
 
-  factory ProductDto.fromFirstore(
+  factory ProductDto.fromFirestore(
           DocumentSnapshot snapshot, SnapshotOptions? options) =>
       ProductDto.fromJson(snapshot.data() as Map<String, dynamic>);
 

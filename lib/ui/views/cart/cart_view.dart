@@ -20,14 +20,16 @@ class CartView extends StackedView<CartViewModel> {
         appBar: AppBar(
           title: const Text("Cart"),
         ),
-        bottomSheet: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: EzButton(
-              title: "Checkout",
-              onPressed: () async {
-                await viewModel.checkout();
-              }),
-        ),
+        bottomSheet: viewModel.cart.isEmpty
+            ? null
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: EzButton(
+                    title: "Checkout",
+                    onPressed: () async {
+                      await viewModel.checkout();
+                    }),
+              ),
         body: CartList(
           items: viewModel.cart,
           actionButtons: const [],

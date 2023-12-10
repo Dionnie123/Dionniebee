@@ -26,7 +26,9 @@ class HomeViewModel extends ReactiveViewModel {
   List<ProductDto> get products => _productService.items;
 
   Future init() async {
-    await _productService.getAll();
+    await runBusyFuture(Future.wait([
+      _productService.getAll(),
+    ]));
   }
 
   @override

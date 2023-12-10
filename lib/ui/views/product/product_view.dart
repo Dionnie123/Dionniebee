@@ -6,8 +6,11 @@ import 'package:stacked/stacked.dart';
 import 'product_viewmodel.dart';
 
 class ProductView extends StackedView<ProductViewModel> {
-  final String id;
-  const ProductView(this.id, {super.key});
+  final String? id;
+  const ProductView({
+    super.key,
+    this.id,
+  });
 
   @override
   Widget builder(
@@ -60,11 +63,11 @@ class ProductView extends StackedView<ProductViewModel> {
       ProductViewModel();
 
   @override
-  bool get initialiseSpecialViewModelsOnce => true;
-
-  @override
   void onViewModelReady(ProductViewModel viewModel) {
-    viewModel.productId = id;
+    viewModel.init();
     super.onViewModelReady(viewModel);
   }
+
+  @override
+  bool get initialiseSpecialViewModelsOnce => true;
 }

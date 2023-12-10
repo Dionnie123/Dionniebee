@@ -28,6 +28,9 @@ class HomeView extends StackedView<HomeViewModel> {
   }
 
   @override
+  bool get fireOnViewModelReadyOnce => true;
+
+  @override
   Widget builder(
     BuildContext context,
     HomeViewModel viewModel,
@@ -148,19 +151,21 @@ class HomeView extends StackedView<HomeViewModel> {
                 products: viewModel.products,
                 itemBuilder: (context, i) {
                   return Padding(
-                    padding: const EdgeInsets.only(right: 4.0),
-                    child: FoodMenuItem(
-                      onTap: () {
-                        viewModel
-                            .productView(viewModel.products[i].id.toString());
-                      },
-                      viewModel.products[i],
-                      size: const Size(120, 108.0),
-                      onAdd: () async {
-                        await viewModel.addToCart(viewModel.products[i]);
-                      },
-                    ),
-                  );
+                      padding: const EdgeInsets.only(right: 4.0),
+                      child: SkeletonLoader(
+                        loading: viewModel.isBusy,
+                        child: FoodMenuItem(
+                          onTap: () {
+                            viewModel.productView(
+                                viewModel.products[i].id.toString());
+                          },
+                          viewModel.products[i],
+                          size: const Size(120, 108.0),
+                          onAdd: () async {
+                            await viewModel.addToCart(viewModel.products[i]);
+                          },
+                        ),
+                      ));
                 },
               ),
             if (viewModel.products.isNotEmpty)
@@ -187,14 +192,17 @@ class HomeView extends StackedView<HomeViewModel> {
                 size: const Size(double.infinity, 238.0),
                 products: viewModel.products,
                 itemBuilder: (context, i) {
-                  return ProductItem(
-                    onTap: () {},
-                    viewModel.products[i],
-                    size: const Size(double.infinity, 238.0),
-                    onAdd: () async {
-                      await viewModel.addToCart(viewModel.products[i]);
-                    },
-                    onFavorite: () {},
+                  return SkeletonLoader(
+                    loading: viewModel.isBusy,
+                    child: ProductItem(
+                      onTap: () {},
+                      viewModel.products[i],
+                      size: const Size(double.infinity, 238.0),
+                      onAdd: () async {
+                        await viewModel.addToCart(viewModel.products[i]);
+                      },
+                      onFavorite: () {},
+                    ),
                   );
                 },
               ),

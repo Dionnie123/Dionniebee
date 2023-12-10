@@ -2,6 +2,7 @@ import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -27,6 +28,8 @@ class StartupViewModel extends BaseViewModel implements Initialisable {
         }
       });
     }
+
+    FlutterNativeSplash.remove();
   }
 
   @override

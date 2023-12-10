@@ -21,7 +21,6 @@ Future<void> main() async {
   await setupLocator(stackedRouter: stackedRouter);
   setupDialogUi();
   setupBottomSheetUi();
-  // setPathUrlStrategy();
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
@@ -34,8 +33,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final authService = locator<AuthService>();
-
     return LifeCycleManager(
       child: MaterialApp.router(
         scrollBehavior: AppScrollBehavior(),

@@ -78,12 +78,13 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       );
     },
     ProductViewRoute.name: (routeData) {
-      final args = routeData.argsAs<ProductViewArgs>();
+      final args = routeData.argsAs<ProductViewArgs>(
+          orElse: () => const ProductViewArgs());
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i8.ProductView(
-          args.id,
           key: args.key,
+          id: args.id,
         ),
       );
     },
@@ -234,14 +235,14 @@ class PromoViewRoute extends _i12.PageRouteInfo<void> {
 /// [_i8.ProductView]
 class ProductViewRoute extends _i12.PageRouteInfo<ProductViewArgs> {
   ProductViewRoute({
-    required String id,
     _i13.Key? key,
+    String? id,
   }) : super(
           ProductViewRoute.name,
           path: '/product-view',
           args: ProductViewArgs(
-            id: id,
             key: key,
+            id: id,
           ),
         );
 
@@ -250,17 +251,17 @@ class ProductViewRoute extends _i12.PageRouteInfo<ProductViewArgs> {
 
 class ProductViewArgs {
   const ProductViewArgs({
-    required this.id,
     this.key,
+    this.id,
   });
-
-  final String id;
 
   final _i13.Key? key;
 
+  final String? id;
+
   @override
   String toString() {
-    return 'ProductViewArgs{id: $id, key: $key}';
+    return 'ProductViewArgs{key: $key, id: $id}';
   }
 }
 
@@ -346,14 +347,14 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToProductView({
-    required String id,
     _i13.Key? key,
+    String? id,
     void Function(_i12.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       ProductViewRoute(
-        id: id,
         key: key,
+        id: id,
       ),
       onFailure: onFailure,
     );
@@ -432,14 +433,14 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithProductView({
-    required String id,
     _i13.Key? key,
+    String? id,
     void Function(_i12.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       ProductViewRoute(
-        id: id,
         key: key,
+        id: id,
       ),
       onFailure: onFailure,
     );

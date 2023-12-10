@@ -7,15 +7,16 @@ import 'dart:async' as _i5;
 import 'dart:ui' as _i10;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
-import 'package:dionniebee/app/models/location_dto.dart' as _i15;
+import 'package:dionniebee/app/models/location_dto.dart' as _i16;
 import 'package:dionniebee/app/models/product_dto.dart' as _i13;
 import 'package:dionniebee/services/auth_service.dart' as _i11;
-import 'package:dionniebee/services/cart_service.dart' as _i16;
-import 'package:dionniebee/services/location_service.dart' as _i14;
-import 'package:dionniebee/services/order_service.dart' as _i17;
+import 'package:dionniebee/services/cart_service.dart' as _i17;
+import 'package:dionniebee/services/location_service.dart' as _i15;
+import 'package:dionniebee/services/order_service.dart' as _i18;
 import 'package:dionniebee/services/product_service.dart' as _i12;
 import 'package:faker/faker.dart' as _i6;
 import 'package:flutter/material.dart' as _i9;
+import 'package:fpdart/fpdart.dart' as _i14;
 import 'package:geoflutterfire2/geoflutterfire2.dart' as _i4;
 import 'package:latlong2/latlong.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -830,44 +831,81 @@ class MockAuthService extends _i1.Mock implements _i11.AuthService {
 /// See the documentation for Mockito's code generation for more information.
 class MockProductService extends _i1.Mock implements _i12.ProductService {
   @override
-  _i2.CollectionReference<Object?> get collectionReference =>
+  _i2.CollectionReference<_i13.ProductDto> get collectionReference =>
       (super.noSuchMethod(
         Invocation.getter(#collectionReference),
-        returnValue: _FakeCollectionReference_0<Object?>(
+        returnValue: _FakeCollectionReference_0<_i13.ProductDto>(
           this,
           Invocation.getter(#collectionReference),
         ),
-        returnValueForMissingStub: _FakeCollectionReference_0<Object?>(
+        returnValueForMissingStub: _FakeCollectionReference_0<_i13.ProductDto>(
           this,
           Invocation.getter(#collectionReference),
         ),
-      ) as _i2.CollectionReference<Object?>);
+      ) as _i2.CollectionReference<_i13.ProductDto>);
 
   @override
-  _i5.Stream<List<_i13.ProductDto>> getItemsStream() => (super.noSuchMethod(
+  List<_i13.ProductDto> get items => (super.noSuchMethod(
+        Invocation.getter(#items),
+        returnValue: <_i13.ProductDto>[],
+        returnValueForMissingStub: <_i13.ProductDto>[],
+      ) as List<_i13.ProductDto>);
+
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  _i5.Future<dynamic> getAll() => (super.noSuchMethod(
         Invocation.method(
-          #getItemsStream,
+          #getAll,
           [],
         ),
-        returnValue: _i5.Stream<List<_i13.ProductDto>>.empty(),
-        returnValueForMissingStub: _i5.Stream<List<_i13.ProductDto>>.empty(),
-      ) as _i5.Stream<List<_i13.ProductDto>>);
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
 
   @override
-  _i5.Stream<_i13.ProductDto?> getItemStream(String? productId) =>
+  _i5.Future<_i13.ProductDto?> find(String? id) => (super.noSuchMethod(
+        Invocation.method(
+          #find,
+          [id],
+        ),
+        returnValue: _i5.Future<_i13.ProductDto?>.value(),
+        returnValueForMissingStub: _i5.Future<_i13.ProductDto?>.value(),
+      ) as _i5.Future<_i13.ProductDto?>);
+
+  @override
+  _i14.TaskEither<String, _i13.ProductDto?> findx(String? id) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getItemStream,
-          [productId],
+          #findx,
+          [id],
         ),
-        returnValue: _i5.Stream<_i13.ProductDto?>.empty(),
-        returnValueForMissingStub: _i5.Stream<_i13.ProductDto?>.empty(),
-      ) as _i5.Stream<_i13.ProductDto?>);
+        returnValue: _i8.dummyValue<_i14.TaskEither<String, _i13.ProductDto?>>(
+          this,
+          Invocation.method(
+            #findx,
+            [id],
+          ),
+        ),
+        returnValueForMissingStub:
+            _i8.dummyValue<_i14.TaskEither<String, _i13.ProductDto?>>(
+          this,
+          Invocation.method(
+            #findx,
+            [id],
+          ),
+        ),
+      ) as _i14.TaskEither<String, _i13.ProductDto?>);
 
   @override
-  _i5.Future<void> updateItem(_i13.ProductDto? product) => (super.noSuchMethod(
+  _i5.Future<void> addItem(_i13.ProductDto? product) => (super.noSuchMethod(
         Invocation.method(
-          #updateItem,
+          #addItem,
           [product],
         ),
         returnValue: _i5.Future<void>.value(),
@@ -875,9 +913,9 @@ class MockProductService extends _i1.Mock implements _i12.ProductService {
       ) as _i5.Future<void>);
 
   @override
-  _i5.Future<void> addItem(_i13.ProductDto? product) => (super.noSuchMethod(
+  _i5.Future<void> updateItem(_i13.ProductDto? product) => (super.noSuchMethod(
         Invocation.method(
-          #addItem,
+          #updateItem,
           [product],
         ),
         returnValue: _i5.Future<void>.value(),
@@ -893,12 +931,49 @@ class MockProductService extends _i1.Mock implements _i12.ProductService {
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [LocationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocationService extends _i1.Mock implements _i14.LocationService {
+class MockLocationService extends _i1.Mock implements _i15.LocationService {
   @override
   _i3.Distance get distance => (super.noSuchMethod(
         Invocation.getter(#distance),
@@ -990,22 +1065,22 @@ class MockLocationService extends _i1.Mock implements _i14.LocationService {
       ) as _i5.Future<_i3.LatLng?>);
 
   @override
-  _i5.Stream<List<_i15.LocationDto>> getNearbyPlacesStream(
-          _i15.LocationDto? point) =>
+  _i5.Stream<List<_i16.LocationDto>> getNearbyPlacesStream(
+          _i16.LocationDto? point) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNearbyPlacesStream,
           [point],
         ),
-        returnValue: _i5.Stream<List<_i15.LocationDto>>.empty(),
-        returnValueForMissingStub: _i5.Stream<List<_i15.LocationDto>>.empty(),
-      ) as _i5.Stream<List<_i15.LocationDto>>);
+        returnValue: _i5.Stream<List<_i16.LocationDto>>.empty(),
+        returnValueForMissingStub: _i5.Stream<List<_i16.LocationDto>>.empty(),
+      ) as _i5.Stream<List<_i16.LocationDto>>);
 }
 
 /// A class which mocks [CartService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCartService extends _i1.Mock implements _i16.CartService {
+class MockCartService extends _i1.Mock implements _i17.CartService {
   @override
   _i2.CollectionReference<Object?> get collectionReference =>
       (super.noSuchMethod(
@@ -1166,7 +1241,7 @@ class MockCartService extends _i1.Mock implements _i16.CartService {
 /// A class which mocks [OrderService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockOrderService extends _i1.Mock implements _i17.OrderService {
+class MockOrderService extends _i1.Mock implements _i18.OrderService {
   @override
   _i2.CollectionReference<Object?> get collectionReference =>
       (super.noSuchMethod(
