@@ -38,7 +38,7 @@ class _StoresViewState extends State<StoresView> with TickerProviderStateMixin {
         fireOnViewModelReadyOnce: true,
         onViewModelReady: (viewModel) async {
           WidgetsBinding.instance.addPostFrameCallback((_) async {
-            await viewModel.start();
+            //  await viewModel.start();
           });
         },
         builder: (

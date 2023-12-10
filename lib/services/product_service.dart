@@ -22,7 +22,8 @@ class ProductService with ListenableServiceMixin {
 
   Future getAll() async {
     await collectionReference.get().then((value) {
-      _items.value = value.docs.map((e) => e.data()).toList();
+      _items.value =
+          value.docs.map((e) => e.data().copyWith(id: e.id)).toList();
     }).onError((error, stackTrace) {
       return Future.error(error.toString());
     });

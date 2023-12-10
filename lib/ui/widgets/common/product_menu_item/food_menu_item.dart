@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stacked/stacked.dart';
 
 class FoodMenuItem extends StatelessWidget {
   final Function() onTap;
@@ -25,12 +26,13 @@ class FoodMenuItem extends StatelessWidget {
         child: SizedBox(
           width: size.width,
           height: size.height,
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Card(
-                clipBehavior: Clip.antiAlias,
-                child: Column(
+          child: Card(
+            margin: EdgeInsets.zero,
+            clipBehavior: Clip.antiAlias,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Stack(
@@ -43,7 +45,7 @@ class FoodMenuItem extends StatelessWidget {
                           errorWidget: (context, url, error) => Container(
                               color: kcLightGrey,
                               child: const Icon(Icons.error)),
-                          height: 100,
+                          height: 108,
                           width: double.infinity,
                           fit: BoxFit.cover,
                         ),
@@ -51,10 +53,7 @@ class FoodMenuItem extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              Positioned.fill(
-                child: Container(
-                  padding: const EdgeInsets.all(4.0),
+                Positioned.fill(
                   child: Opacity(
                     opacity: 0.15,
                     child: Container(
@@ -64,34 +63,34 @@ class FoodMenuItem extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    product.name.toString(),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ).copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: GoogleFonts.quicksand().fontFamily,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.8),
-                          offset: const Offset(1, 1),
-                          blurRadius: 5,
-                        ),
-                      ],
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      product.name.toString(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ).copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: GoogleFonts.quicksand().fontFamily,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withOpacity(0.8),
+                            offset: const Offset(1, 1),
+                            blurRadius: 5,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

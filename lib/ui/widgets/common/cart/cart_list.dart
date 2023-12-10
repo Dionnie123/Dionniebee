@@ -69,7 +69,7 @@ class CartList extends StatelessWidget {
               child: Column(
                 children: [
                   Card(
-                    clipBehavior: Clip.hardEdge,
+                    clipBehavior: Clip.antiAlias,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0)),
                     child: Column(

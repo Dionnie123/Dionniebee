@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class CartViewModel extends BaseViewModel {
+class CartViewModel extends ReactiveViewModel {
   final _cartService = locator<CartService>();
   final _navService = locator<RouterService>();
 
@@ -15,12 +15,16 @@ class CartViewModel extends BaseViewModel {
   num get cartTotal => _cartService.cartTotal;
   List<ProductDto> get cart => _cartService.cart;
 
+  @override
+  List<ListenableServiceMixin> get listenableServices => [_cartService];
+
   checkout() async {
     await _cartService.addOrder();
   }
 
   addCartItemQuantity(String id) {
     _cartService.addCartItemQuantity(id);
+
     notifyListeners();
   }
 

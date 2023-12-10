@@ -7,33 +7,32 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class StartupViewModel extends BaseViewModel implements Initialisable {
+class StartupViewModel extends BaseViewModel {
   final _authService = locator<AuthService>();
   final navService = locator<RouterService>();
 
   Future signInAnonymously() async {
     if (_authService.user == null) {
+      FlutterNativeSplash.remove();
       await runBusyFuture(_authService.signInAnonymously(),
               throwException: true)
           .then((value) async {
         if (value == null) {
-          navService.replaceWithDashboardView();
+          await navService.replaceWithDashboardView();
           await Fluttertoast.showToast(
-              msg: "Signed-in anonymously...",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              textColor: Colors.white,
-              fontSize: 16.0);
+                  msg: "Signed-in anonymously...",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  textColor: Colors.white,
+                  fontSize: 16.0)
+              .then((value) => FlutterNativeSplash.remove());
         }
       });
+    } else {
+      await navService
+          .replaceWithDashboardView()
+          .then((value) => FlutterNativeSplash.remove());
     }
-
-    FlutterNativeSplash.remove();
-  }
-
-  @override
-  void initialise() {
-    // TODO: implement initialise
   }
 }

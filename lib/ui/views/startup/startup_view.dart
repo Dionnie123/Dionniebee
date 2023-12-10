@@ -13,7 +13,11 @@ class StartupView extends StackedView<StartupViewModel> {
     Widget? child,
   ) {
     return const Scaffold(
-        backgroundColor: Colors.transparent, body: SizedBox.shrink());
+      backgroundColor: Colors.transparent,
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 
   @override
@@ -23,10 +27,8 @@ class StartupView extends StackedView<StartupViewModel> {
       StartupViewModel();
 
   @override
-  void onViewModelReady(StartupViewModel viewModel) {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await viewModel.signInAnonymously();
-    });
+  Future<void> onViewModelReady(StartupViewModel viewModel) async {
+    await viewModel.signInAnonymously();
 
     super.onViewModelReady(viewModel);
   }

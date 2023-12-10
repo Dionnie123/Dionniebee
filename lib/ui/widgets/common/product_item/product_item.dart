@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stacked/stacked.dart';
 
 class ProductItem extends StatefulWidget {
   final Function() onTap;
@@ -67,6 +68,7 @@ class _ProductItemState extends State<ProductItem> {
                 clipBehavior: Clip.none,
                 children: [
                   Card(
+                    margin: const EdgeInsets.all(0),
                     clipBehavior: Clip.antiAlias,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

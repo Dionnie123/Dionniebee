@@ -1,3 +1,4 @@
+import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
 import 'package:dionniebee/ui/widgets/common/cart/cart_list.dart';
 import 'package:dionniebee/ui/widgets/common/cart/cart_item.dart';
@@ -56,8 +57,11 @@ class CartView extends StackedView<CartViewModel> {
   }
 
   @override
+  bool get disposeViewModel => false;
+
+  @override
   CartViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      CartViewModel();
+      locator<CartViewModel>();
 }
