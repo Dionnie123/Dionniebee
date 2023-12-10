@@ -5,13 +5,14 @@ import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:stacked/stacked.dart';
 
 class ProductService with ListenableServiceMixin {
-  final CollectionReference collectionReference =
-      FirebaseFirestore.instance.collection('products');
+  final collectionReference =
+      FirebaseFirestore.instance.collection('products').withConverter(
+            fromFirestore: ProductDto.fromFirstore,
+            toFirestore: ProductDto.toFirestore,
+          );
 
   ProductService() {
-    listenToReactiveValues([
-      _items,
-    ]);
+    listenToReactiveValues([_items]);
   }
 
   final ReactiveValue<List<ProductDto>> _items =
@@ -19,11 +20,11 @@ class ProductService with ListenableServiceMixin {
   List<ProductDto> get items => _items.value;
 
   Future getAll() async {
-    var querySnapshot = await collectionReference.get();
-
-    _items.value = querySnapshot.docs
-        .map((e) => ProductDto.fromJson(e.data() as Map<String, dynamic>))
-        .toList();
+    await collectionReference.get().then((value) {
+      _items.value = value.docs.map((e) => e.data()).toList();
+    }).onError((error, stackTrace) {
+      return Future.error(error.toString());
+    });
   }
 
   Stream<List<ProductDto>> getItemsStream() {
@@ -45,14 +46,14 @@ class ProductService with ListenableServiceMixin {
     return const Stream.empty();
   }
 
+  Future<void> addItem(ProductDto product) async {
+    await collectionReference.add(product);
+  }
+
   Future<void> updateItem(ProductDto product) async {
     await collectionReference
         .doc(product.id.toString())
         .update(product.toJson());
-  }
-
-  Future<void> addItem(ProductDto product) async {
-    await collectionReference.add(product.toJson);
   }
 
   Future<void> deleteItem(int id) async {
