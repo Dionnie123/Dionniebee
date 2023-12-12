@@ -19,7 +19,6 @@ class HomeViewModel extends ReactiveViewModel {
   final _navService = locator<RouterService>();
   final _productService = locator<ProductService>();
   final _cartService = locator<CartService>();
-  final _dialogService = locator<DialogService>();
 
   num get cartCount => _cartService.cartCount;
   num get cartTotal => _cartService.cartTotal;
@@ -36,18 +35,6 @@ class HomeViewModel extends ReactiveViewModel {
   @override
   List<ListenableServiceMixin> get listenableServices =>
       [_cartService, _productService];
-
-  @override
-  void onFutureError(error, Object? key) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _dialogService.showDialog(
-          title: "Error",
-          barrierDismissible: true,
-          description: error.toString(),
-          dialogPlatform: DialogPlatform.Custom);
-    });
-    super.onFutureError(error, key);
-  }
 
   addToCart(ProductDto product) {
     _cartService.addToCart(product);
@@ -69,7 +56,24 @@ class HomeViewModel extends ReactiveViewModel {
   }
 
   goToCartView() async {
-    await _navService.navigateWithTransition(const CartView());
+    await _navService.navigateWithTransition(
+      const CartView(),
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
   }
 
   signOut() async {

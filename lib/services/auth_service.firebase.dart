@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.logger.dart';
 import 'package:dionniebee/app/constants/firebase_options.dart';
 import 'package:dionniebee/services/auth_service.dart';
@@ -6,11 +7,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_user;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class FirebaseAuthService with InitializableDependency implements AuthService {
   late FirebaseAuth _firebaseAuth;
   late StreamSubscription<firebase_user.User?> streamSubscription;
   final _log = getLogger('FirebaseAuthService');
+  final _dialogService = locator<DialogService>();
   @override
   init() async {
     try {
@@ -32,19 +35,23 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   }
 
   @override
-  Future signInWithEmail(
+  Future<void> signInWithEmail(
       {required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        return Future.value(e.toString());
-      } else if (e.code == 'wrong-password') {
-        return Future.value(e.toString());
-      }
+      _log.e(e.toString());
+      await _dialogService.showDialog(
+          title: "Sign-in Error",
+          description: e.toString(),
+          dialogPlatform: DialogPlatform.Custom);
     } catch (e) {
-      return await Future.error(e.toString());
+      _log.e(e.toString());
+      await _dialogService.showDialog(
+          title: "Sign-in Error",
+          description: e.toString(),
+          dialogPlatform: DialogPlatform.Custom);
     }
   }
 
@@ -55,13 +62,17 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        return Future.value(e.toString());
-      } else if (e.code == 'email-already-in-use') {
-        return Future.value(e.toString());
-      }
+      _log.e(e.toString());
+      await _dialogService.showDialog(
+        title: "Sign-up Error",
+        description: e.toString(),
+      );
     } catch (e) {
-      return await Future.error(e.toString());
+      _log.e(e.toString());
+      await _dialogService.showDialog(
+        title: "Sign-up Error",
+        description: e.toString(),
+      );
     }
   }
 
@@ -73,7 +84,11 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
     } catch (e) {
-      return await Future.error(e.toString());
+      _log.e(e.toString());
+      await _dialogService.showDialog(
+        title: "Reset Password Error",
+        description: e.toString(),
+      );
     }
   }
 
@@ -82,7 +97,11 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
     try {
       await _firebaseAuth.signOut();
     } catch (e) {
-      return await Future.error(e.toString());
+      _log.e(e.toString());
+      await _dialogService.showDialog(
+        title: "Sign-out Error",
+        description: e.toString(),
+      );
     }
   }
 
@@ -94,12 +113,11 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
     try {
       await _firebaseAuth.signInAnonymously();
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case "operation-not-allowed":
-          return await Future.error(e.toString());
-        default:
-          return await Future.error(e.toString());
-      }
+      _log.e(e.toString());
+      await _dialogService.showDialog(
+        title: "Anonymous Sign-in Error",
+        description: e.toString(),
+      );
     }
   }
 

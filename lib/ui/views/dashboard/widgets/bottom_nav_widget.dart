@@ -11,8 +11,9 @@ class BottomNavigationBarWidget extends StatelessWidget {
 
     int currentIndex = viewModel.currentIndex;
     return NavigationBar(
-      onDestinationSelected: (i) =>
-          i == viewModel.currentIndex ? null : viewModel.setIndex(i),
+      onDestinationSelected: (i) {
+        i == viewModel.currentIndex ? null : viewModel.setIndex(i);
+      },
       selectedIndex: currentIndex,
       destinations: <Widget>[
         NavigationDestination(

@@ -43,10 +43,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
         return const OrdersView(
           key: ValueKey('OrdersView'),
         );
-      case 3:
-        return const StoresView(
-          key: ValueKey('StoresView'),
-        );
+
       default:
         return const HomeView(
           key: ValueKey('HomeView'),

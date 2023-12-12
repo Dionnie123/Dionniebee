@@ -72,9 +72,8 @@ class AuthViewModel extends BaseViewModel {
 
   Future signIn({required email, required password}) async {
     await runBusyFuture(
-            _authService.signInWithEmail(email: email, password: password),
-            throwException: true)
-        .then((value) async {
+      _authService.signInWithEmail(email: email, password: password),
+    ).then((value) async {
       if (value != null) {
         await _dialogService.showDialog(
             title: "Notice",
