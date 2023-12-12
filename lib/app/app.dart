@@ -25,10 +25,10 @@ import 'package:dionniebee/ui/views/validation_example/validation_example_view.d
 @StackedApp(
   logger: StackedLogger(),
   routes: [
-    MaterialRoute(page: StartupView, initial: true),
-    MaterialRoute(page: AuthView),
-    MaterialRoute(page: WelcomeView),
-    MaterialRoute(page: DashboardView),
+    MaterialRoute(path: '/', page: StartupView, initial: true),
+    MaterialRoute(path: '/', page: AuthView),
+    MaterialRoute(path: '/', page: WelcomeView),
+    MaterialRoute(path: '/', page: DashboardView),
 
     MaterialRoute(page: ValidationExampleView),
 // @stacked-route

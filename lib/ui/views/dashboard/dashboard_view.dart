@@ -1,6 +1,5 @@
 import 'package:animations/animations.dart';
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/split_view.dart';
 import 'package:dionniebee/ui/views/home/home_view.dart';
 import 'package:dionniebee/ui/views/home/home_viewmodel.dart';
@@ -8,7 +7,6 @@ import 'package:dionniebee/ui/views/orders/orders_view.dart';
 import 'package:dionniebee/ui/views/orders/orders_viewmodel.dart';
 import 'package:dionniebee/ui/views/promo/promo_view.dart';
 import 'package:dionniebee/ui/views/promo/promo_viewmodel.dart';
-import 'package:dionniebee/ui/views/stores/stores_view.dart';
 import 'package:dionniebee/ui/views/stores/stores_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -30,25 +28,22 @@ class DashboardView extends StackedView<DashboardViewModel> {
   }
 
   Widget getViewForIndex(int index) {
-    switch (index) {
-      case 0:
-        return const HomeView(
-          key: ValueKey('HomeView'),
-        );
-      case 1:
-        return const PromoView(
-          key: ValueKey('PromoView'),
-        );
-      case 2:
-        return const OrdersView(
-          key: ValueKey('OrdersView'),
-        );
+    final pages = [
+      const HomeView(
+        key: ValueKey(0),
+      ),
+      const PromoView(
+        key: ValueKey(1),
+      ),
+      const OrdersView(
+        key: ValueKey(2),
+      ),
+      const HomeView(
+        key: ValueKey(3),
+      )
+    ];
 
-      default:
-        return const HomeView(
-          key: ValueKey('HomeView'),
-        );
-    }
+    return pages.elementAt(index);
   }
 
   @override
@@ -58,15 +53,23 @@ class DashboardView extends StackedView<DashboardViewModel> {
     Widget? child,
   ) {
     return WillPopScope(
-        onWillPop: () async {
-          viewModel.setIndex(0);
+            onWillPop: () async {
+              viewModel.setIndex(0);
 
-          return await Future.value(false);
-        },
-        child: SplitView(
-            child: PageTransition(
+              return await Future.value(false);
+            },
+            child: SplitView(child: getViewForIndex(viewModel.currentIndex)))
+
+        /*    AnimatedSwitcher(
+                  key: ValueKey<int>(viewModel.currentIndex),
+                duration: const Duration(milliseconds: 300),
+                child: getViewForIndex(viewModel.currentIndex)) */
+
+        /*  PageTransition(
+                index: viewModel.currentIndex,
                 reverse: viewModel.reverse,
-                child: getViewForIndex(viewModel.currentIndex))));
+                child: getViewForIndex(viewModel.currentIndex)) */
+        ;
   }
 
   @override
@@ -81,9 +84,11 @@ class PageTransition extends StatelessWidget {
     super.key,
     required this.child,
     required this.reverse,
+    required this.index,
   });
 
   final bool reverse;
+  final int index;
   final Widget child;
 
   @override
@@ -100,7 +105,7 @@ class PageTransition extends StatelessWidget {
           animation: primaryAnimation,
           secondaryAnimation: secondaryAnimation,
           transitionType: SharedAxisTransitionType.horizontal,
-          fillColor: kcPrimaryColor,
+          fillColor: Colors.red,
           child: child,
         );
       },

@@ -64,15 +64,15 @@ class StackedRouterWeb extends _i7.RootStackRouter {
         ),
         _i7.RouteConfig(
           AuthViewRoute.name,
-          path: '/auth-view',
+          path: '/',
         ),
         _i7.RouteConfig(
           WelcomeViewRoute.name,
-          path: '/welcome-view',
+          path: '/',
         ),
         _i7.RouteConfig(
           DashboardViewRoute.name,
-          path: '/dashboard-view',
+          path: '/',
         ),
         _i7.RouteConfig(
           ValidationExampleViewRoute.name,
@@ -99,7 +99,7 @@ class AuthViewRoute extends _i7.PageRouteInfo<void> {
   const AuthViewRoute()
       : super(
           AuthViewRoute.name,
-          path: '/auth-view',
+          path: '/',
         );
 
   static const String name = 'AuthView';
@@ -111,7 +111,7 @@ class WelcomeViewRoute extends _i7.PageRouteInfo<void> {
   const WelcomeViewRoute()
       : super(
           WelcomeViewRoute.name,
-          path: '/welcome-view',
+          path: '/',
         );
 
   static const String name = 'WelcomeView';
@@ -123,7 +123,7 @@ class DashboardViewRoute extends _i7.PageRouteInfo<void> {
   const DashboardViewRoute()
       : super(
           DashboardViewRoute.name,
-          path: '/dashboard-view',
+          path: '/',
         );
 
   static const String name = 'DashboardView';

@@ -19,7 +19,7 @@ class DrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: ListTile(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         tileColor: selected ? kcPrimaryColor : null,
@@ -69,6 +69,7 @@ class DrawerWidget extends StatelessWidget {
                           fontWeight: FontWeight.w900),
                     )),
               ),
+              const SizedBox(height: 15),
               Column(children: [
                 DrawerMenu(
                   selected: currentIndex == 0,
