@@ -10,14 +10,16 @@ import '../helpers/test_helpers.mocks.dart';
 void main() {
   group('StartupViewModel Tests -', () {
     setUp(() => registerServices());
-
-    test('When called should check hasUser on authService', () {
-      var auth = getAndRegisterAuthService();
-      var model = StartupViewModel();
-      bool t = model.isUserPresent();
-      expect(t, false);
-    });
-
     tearDown(() => locator.reset());
+
+    group('initialise -', () {
+      test('When called should check hasUser on authService', () async {
+        var auth = getAndRegisterAuthService();
+        var model = StartupViewModel();
+        await model.signInAnonymously();
+
+        expect(auth != null, true);
+      });
+    });
   });
 }

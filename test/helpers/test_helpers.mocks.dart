@@ -1091,6 +1091,15 @@ class MockAuthService extends _i1.Mock implements _i13.AuthService {
       ) as _i7.Future<dynamic>);
 
   @override
+  void updateUser(dynamic user) => super.noSuchMethod(
+        Invocation.method(
+          #updateUser,
+          [user],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   void dispose() => super.noSuchMethod(
         Invocation.method(
           #dispose,

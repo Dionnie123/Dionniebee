@@ -14,6 +14,7 @@ abstract class AuthService {
   Future signInAnonymously() async {}
 
   dynamic get user;
+  void updateUser(dynamic user);
 
   void dispose();
 }

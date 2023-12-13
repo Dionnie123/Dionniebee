@@ -96,6 +96,7 @@ MockDialogService getAndRegisterDialogService() {
 MockAuthService getAndRegisterAuthService() {
   _removeRegistrationIfExists<AuthService>();
   final service = MockAuthService();
+  // when(service.user != null).thenReturn(service.user != null);
   locator.registerSingleton<AuthService>(service);
   return service;
 }

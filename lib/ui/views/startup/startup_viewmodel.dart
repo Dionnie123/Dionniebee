@@ -12,7 +12,7 @@ class StartupViewModel extends BaseViewModel {
   final navService = locator<RouterService>();
   final _authService = locator<AuthService>();
 
-  isUserPresent() => _authService.user != null;
+  currentUser() => _authService.user;
 
   Future signInAnonymously() async {
     try {

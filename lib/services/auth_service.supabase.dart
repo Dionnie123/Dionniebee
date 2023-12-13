@@ -118,4 +118,9 @@ class SupabaseService with InitializableDependency implements AuthService {
     streamSubscription.cancel();
     _supabase.dispose();
   }
+
+  @override
+  void updateUser(user) {
+    // TODO: implement updateUser
+  }
 }

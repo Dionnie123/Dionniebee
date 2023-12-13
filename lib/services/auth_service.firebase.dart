@@ -14,6 +14,9 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   late StreamSubscription<firebase_user.User?> streamSubscription;
   final _log = getLogger('FirebaseAuthService');
   final _dialogService = locator<DialogService>();
+
+  firebase_user.User? _user;
+
   @override
   init() async {
     try {
@@ -106,12 +109,13 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   }
 
   @override
-  get user => _firebaseAuth.currentUser;
+  get user => _user;
 
   @override
   Future signInAnonymously() async {
     try {
-      await _firebaseAuth.signInAnonymously();
+      _user = (await _firebaseAuth.signInAnonymously()).user;
+      updateUser(user);
     } on FirebaseAuthException catch (e) {
       _log.e(e.toString());
       await _dialogService.showDialog(
@@ -125,5 +129,10 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   void dispose() {
     streamSubscription.cancel();
     _firebaseAuth.app.delete();
+  }
+
+  @override
+  void updateUser(user) {
+    _user = user;
   }
 }
