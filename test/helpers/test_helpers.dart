@@ -13,18 +13,19 @@ import 'test_helpers.mocks.dart';
 
 @GenerateMocks([], customMocks: [
   MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<RouterService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<AuthService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ProductService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<LocationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<CartService>(onMissingStub: OnMissingStub.returnDefault),
-
   MockSpec<OrderService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
   getAndRegisterNavigationService();
+  getAndRegisterRouterService();
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterAuthService();
@@ -33,6 +34,13 @@ void registerServices() {
   getAndRegisterCartService();
   getAndRegisterOrderService();
 // @stacked-mock-register
+}
+
+MockRouterService getAndRegisterRouterService() {
+  _removeRegistrationIfExists<RouterService>();
+  final service = MockRouterService();
+  locator.registerSingleton<RouterService>(service);
+  return service;
 }
 
 MockNavigationService getAndRegisterNavigationService() {

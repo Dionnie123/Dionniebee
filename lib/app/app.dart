@@ -29,17 +29,19 @@ import 'package:dionniebee/ui/views/validation_example/validation_example_view.d
     MaterialRoute(path: '/', page: AuthView),
     MaterialRoute(path: '/', page: WelcomeView),
     MaterialRoute(path: '/', page: DashboardView),
-
     MaterialRoute(page: ValidationExampleView),
 // @stacked-route
   ],
   dependencies: [
+    LazySingleton(
+      classType: RouterService,
+    ),
     InitializableSingleton(
       classType: SharedPreferencesService,
     ),
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
-    LazySingleton(classType: RouterService),
+
     InitializableSingleton(
       classType: FirebaseAuthService,
       asType: AuthService,

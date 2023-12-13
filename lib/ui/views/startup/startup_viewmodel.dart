@@ -9,8 +9,10 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class StartupViewModel extends BaseViewModel {
-  final _authService = locator<AuthService>();
   final navService = locator<RouterService>();
+  final _authService = locator<AuthService>();
+
+  isUserPresent() => _authService.user != null;
 
   Future signInAnonymously() async {
     try {

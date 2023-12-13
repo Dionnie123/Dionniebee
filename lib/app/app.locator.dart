@@ -38,13 +38,13 @@ Future<void> setupLocator({
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
+  locator.registerLazySingleton(() => RouterService());
   final sharedPreferencesService = SharedPreferencesService();
   await sharedPreferencesService.init();
   locator.registerSingleton(sharedPreferencesService);
 
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => DialogService());
-  locator.registerLazySingleton(() => RouterService());
   final firebaseAuthService = FirebaseAuthService();
   await firebaseAuthService.init();
   locator.registerSingleton<AuthService>(firebaseAuthService);
