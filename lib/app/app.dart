@@ -1,5 +1,6 @@
-import 'package:dionniebee/services/auth_service.firebase.dart';
+import 'package:dionniebee/services/firebase_auth_service.dart';
 import 'package:dionniebee/services/local_storage_service.dart';
+import 'package:dionniebee/services/sharedpreferences_local_storage_service.dart';
 import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:dionniebee/ui/dialogs/info_alert/info_alert_dialog.dart';
@@ -20,6 +21,8 @@ import 'package:dionniebee/ui/views/welcome/welcome_view.dart';
 import 'package:dionniebee/services/order_service.dart';
 import 'package:dionniebee/ui/views/dashboard/dashboard_view.dart';
 import 'package:dionniebee/ui/views/validation_example/validation_example_view.dart';
+import 'package:dionniebee/services/foo_service.dart';
+import 'package:dionniebee/services/supabase_auth_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -36,9 +39,12 @@ import 'package:dionniebee/ui/views/validation_example/validation_example_view.d
     LazySingleton(
       classType: RouterService,
     ),
+
     InitializableSingleton(
-      classType: SharedPreferencesService,
+      classType: SharedPreferencesLocalStorageService,
+      asType: LocalStorageService,
     ),
+
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
 
@@ -59,6 +65,9 @@ import 'package:dionniebee/ui/views/validation_example/validation_example_view.d
     Singleton(classType: StoresViewModel),
     Singleton(classType: CartViewModel),
 
+    LazySingleton(classType: FooService),
+    LazySingleton(classType: FirebaseAuthService),
+    LazySingleton(classType: SupabaseAuthService),
 // @stacked-service
   ],
   bottomsheets: [

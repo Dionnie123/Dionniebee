@@ -11,6 +11,7 @@ import 'package:dionniebee/app/models/location_dto.dart' as _i18;
 import 'package:dionniebee/app/models/product_dto.dart' as _i15;
 import 'package:dionniebee/services/auth_service.dart' as _i13;
 import 'package:dionniebee/services/cart_service.dart' as _i19;
+import 'package:dionniebee/services/foo_service.dart' as _i21;
 import 'package:dionniebee/services/location_service.dart' as _i17;
 import 'package:dionniebee/services/order_service.dart' as _i20;
 import 'package:dionniebee/services/product_service.dart' as _i14;
@@ -1011,6 +1012,15 @@ class MockDialogService extends _i1.Mock implements _i9.DialogService {
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthService extends _i1.Mock implements _i13.AuthService {
   @override
+  set user(dynamic user) => super.noSuchMethod(
+        Invocation.setter(
+          #user,
+          user,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i7.Future<dynamic> signInWithEmail({
     required String? email,
     required String? password,
@@ -1091,15 +1101,6 @@ class MockAuthService extends _i1.Mock implements _i13.AuthService {
       ) as _i7.Future<dynamic>);
 
   @override
-  void updateUser(dynamic user) => super.noSuchMethod(
-        Invocation.method(
-          #updateUser,
-          [user],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   void dispose() => super.noSuchMethod(
         Invocation.method(
           #dispose,
@@ -1107,6 +1108,16 @@ class MockAuthService extends _i1.Mock implements _i13.AuthService {
         ),
         returnValueForMissingStub: null,
       );
+
+  @override
+  _i7.Future<void> init() => (super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 }
 
 /// A class which mocks [ProductService].
@@ -1561,6 +1572,64 @@ class MockOrderService extends _i1.Mock implements _i20.OrderService {
           Invocation.getter(#collectionReference),
         ),
       ) as _i3.CollectionReference<Object?>);
+
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [FooService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFooService extends _i1.Mock implements _i21.FooService {
+  @override
+  set whoAmI(String? val) => super.noSuchMethod(
+        Invocation.setter(
+          #whoAmI,
+          val,
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   int get listenersCount => (super.noSuchMethod(

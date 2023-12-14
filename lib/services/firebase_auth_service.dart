@@ -9,6 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+@LazySingleton()
 class FirebaseAuthService with InitializableDependency implements AuthService {
   late FirebaseAuth _firebaseAuth;
   late StreamSubscription<firebase_user.User?> streamSubscription;
@@ -18,13 +19,13 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   firebase_user.User? _user;
 
   @override
-  init() async {
+  Future<void> init() async {
     try {
       await Firebase.initializeApp(
           options: DefaultFirebaseOptions.currentPlatform);
       _firebaseAuth = FirebaseAuth.instance;
       _authStateChanges();
-      _log.d('Initialized');
+      _log.i('Initialized');
     } catch (e) {
       _log.e('Initialized Failed');
     }
@@ -114,8 +115,7 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   @override
   Future signInAnonymously() async {
     try {
-      _user = (await _firebaseAuth.signInAnonymously()).user;
-      updateUser(user);
+      user = (await _firebaseAuth.signInAnonymously()).user;
     } on FirebaseAuthException catch (e) {
       _log.e(e.toString());
       await _dialogService.showDialog(
@@ -132,7 +132,7 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   }
 
   @override
-  void updateUser(user) {
+  set user(user) {
     _user = user;
   }
 }

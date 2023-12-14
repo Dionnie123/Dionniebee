@@ -1,3 +1,4 @@
+import 'package:dionniebee/services/local_storage_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:dionniebee/app/app.locator.dart';
@@ -7,9 +8,12 @@ import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/services/location_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/order_service.dart';
+import 'package:dionniebee/services/foo_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
+
+class MockLocalStorageService extends Mock implements LocalStorageService {}
 
 @GenerateMocks([], customMocks: [
   MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
@@ -21,6 +25,8 @@ import 'test_helpers.mocks.dart';
   MockSpec<LocationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<CartService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<OrderService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<FooService>(onMissingStub: OnMissingStub.returnDefault),
+
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -33,6 +39,8 @@ void registerServices() {
   getAndRegisterLocationService();
   getAndRegisterCartService();
   getAndRegisterOrderService();
+  getAndRegisterFooService();
+  locator.allowReassignment = true;
 // @stacked-mock-register
 }
 
@@ -93,18 +101,19 @@ MockDialogService getAndRegisterDialogService() {
   return service;
 }
 
-MockAuthService getAndRegisterAuthService() {
-  _removeRegistrationIfExists<AuthService>();
-  final service = MockAuthService();
-  // when(service.user != null).thenReturn(service.user != null);
-  locator.registerSingleton<AuthService>(service);
-  return service;
-}
-
 MockProductService getAndRegisterProductService() {
   _removeRegistrationIfExists<ProductService>();
   final service = MockProductService();
+
   locator.registerSingleton<ProductService>(service);
+  return service;
+}
+
+MockAuthService getAndRegisterAuthService() {
+  _removeRegistrationIfExists<AuthService>();
+  final service = MockAuthService();
+
+  locator.registerSingleton<AuthService>(service);
   return service;
 }
 
@@ -128,6 +137,14 @@ MockOrderService getAndRegisterOrderService() {
   locator.registerSingleton<OrderService>(service);
   return service;
 }
+
+MockFooService getAndRegisterFooService() {
+  _removeRegistrationIfExists<FooService>();
+  final service = MockFooService();
+  locator.registerSingleton<FooService>(service);
+  return service;
+}
+
 // @stacked-mock-create
 
 void _removeRegistrationIfExists<T extends Object>() {

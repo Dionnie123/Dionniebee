@@ -1,6 +1,7 @@
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/services/auth_service.dart';
+import 'package:dionniebee/services/foo_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -11,8 +12,14 @@ import 'package:stacked_services/stacked_services.dart';
 class StartupViewModel extends BaseViewModel {
   final navService = locator<RouterService>();
   final _authService = locator<AuthService>();
+  final _fooService = locator<FooService>();
 
   currentUser() => _authService.user;
+
+  whoAmI(String val) {
+    _fooService.whoAmI = val;
+    notifyListeners();
+  }
 
   Future signInAnonymously() async {
     try {

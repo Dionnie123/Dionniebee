@@ -1,4 +1,7 @@
-abstract class AuthService {
+import 'package:stacked/stacked_annotations.dart';
+
+@LazySingleton()
+abstract class AuthService with InitializableDependency {
   Future signInWithEmail(
       {required String email, required String password}) async {}
 
@@ -14,7 +17,7 @@ abstract class AuthService {
   Future signInAnonymously() async {}
 
   dynamic get user;
-  void updateUser(dynamic user);
+  set user(dynamic user);
 
   void dispose();
 }

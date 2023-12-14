@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
+@LazySingleton()
 class ProductService with ListenableServiceMixin {
   final collectionReference =
       FirebaseFirestore.instance.collection('products').withConverter(

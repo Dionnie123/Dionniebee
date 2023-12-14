@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:stacked/stacked.dart';
 import 'package:faker/faker.dart';
+import 'package:stacked/stacked_annotations.dart';
 
+@LazySingleton()
 class CartService with ListenableServiceMixin {
   final CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('orders');

@@ -12,12 +12,15 @@ import 'package:stacked_services/src/navigation/router_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/auth_service.dart';
-import '../services/auth_service.firebase.dart';
 import '../services/cart_service.dart';
+import '../services/firebase_auth_service.dart';
+import '../services/foo_service.dart';
 import '../services/local_storage_service.dart';
 import '../services/location_service.dart';
 import '../services/order_service.dart';
 import '../services/product_service.dart';
+import '../services/sharedpreferences_local_storage_service.dart';
+import '../services/supabase_auth_service.dart';
 import '../ui/views/cart/cart_viewmodel.dart';
 import '../ui/views/dashboard/dashboard_viewmodel.dart';
 import '../ui/views/home/home_viewmodel.dart';
@@ -39,9 +42,11 @@ Future<void> setupLocator({
 
 // Register dependencies
   locator.registerLazySingleton(() => RouterService());
-  final sharedPreferencesService = SharedPreferencesService();
-  await sharedPreferencesService.init();
-  locator.registerSingleton(sharedPreferencesService);
+  final sharedPreferencesLocalStorageService =
+      SharedPreferencesLocalStorageService();
+  await sharedPreferencesLocalStorageService.init();
+  locator.registerSingleton<LocalStorageService>(
+      sharedPreferencesLocalStorageService);
 
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => DialogService());
@@ -59,6 +64,9 @@ Future<void> setupLocator({
   locator.registerSingleton(OrdersViewModel());
   locator.registerSingleton(StoresViewModel());
   locator.registerSingleton(CartViewModel());
+  locator.registerLazySingleton(() => FooService());
+  locator.registerLazySingleton(() => FirebaseAuthService());
+  locator.registerLazySingleton(() => SupabaseAuthService());
   if (stackedRouter == null) {
     throw Exception(
         'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');

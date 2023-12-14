@@ -14,7 +14,8 @@ enum SupabaseAuthEvent {
   passwordRecovery
 }
 
-class SupabaseService with InitializableDependency implements AuthService {
+@LazySingleton()
+class SupabaseAuthService with InitializableDependency implements AuthService {
   late SupabaseClient _supabase;
   late StreamSubscription<AuthState> streamSubscription;
   final _log = getLogger('SupabaseService');
@@ -120,7 +121,5 @@ class SupabaseService with InitializableDependency implements AuthService {
   }
 
   @override
-  void updateUser(user) {
-    // TODO: implement updateUser
-  }
+  set user(user) {}
 }

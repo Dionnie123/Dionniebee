@@ -6,9 +6,11 @@ import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:stacked/stacked_annotations.dart';
 
 enum LocationAccess { unknown, allowed, disallowed }
 
+@LazySingleton()
 class LocationStreamService {
   final Distance distance = const Distance();
   late LocationSettings locationSettings;

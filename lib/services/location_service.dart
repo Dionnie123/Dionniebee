@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/location_dto.dart';
-import 'package:flutter/foundation.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:stacked/stacked_annotations.dart';
 
 enum LocationAccess { unknown, allowed, disallowed }
 
+@LazySingleton()
 class LocationService {
   final Distance distance = const Distance();
   late LocationSettings locationSettings;
