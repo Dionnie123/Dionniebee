@@ -11,12 +11,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'url_strategy_native.dart'
     if (dart.library.html) 'url_strategy_web.dart';
 
 Future<void> main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   //if (!kIsWeb) FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -41,34 +42,41 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LifeCycleManager(
-      child: MaterialApp.router(
-        scrollBehavior: AppScrollBehavior(),
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.light,
-        theme: ThemeData(
+      child: OKToast(
+        child: MaterialApp.router(
+          builder: (context, widget) {
+            return OKToast(
+              child: widget!,
+            );
+          },
+          scrollBehavior: AppScrollBehavior(),
+          debugShowCheckedModeBanner: false,
+          themeMode: ThemeMode.light,
+          theme: ThemeData(
+              fontFamily: GoogleFonts.varelaRound().fontFamily,
+              useMaterial3: false,
+              appBarTheme: AppBarTheme(
+                  backgroundColor: kcPrimaryColor,
+                  foregroundColor: Colors.white,
+                  titleTextStyle: TextStyle(
+                      color: Colors.white,
+                      fontFamily: GoogleFonts.varelaRound().fontFamily,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              brightness: Brightness.light,
+              textTheme:
+                  GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
+              colorSchemeSeed: kcPrimaryColor),
+          darkTheme: ThemeData(
             fontFamily: GoogleFonts.varelaRound().fontFamily,
-            useMaterial3: false,
-            appBarTheme: AppBarTheme(
-                backgroundColor: kcPrimaryColor,
-                foregroundColor: Colors.white,
-                titleTextStyle: TextStyle(
-                    color: Colors.white,
-                    fontFamily: GoogleFonts.varelaRound().fontFamily,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20)),
-            brightness: Brightness.light,
-            textTheme:
-                GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
-            colorSchemeSeed: kcPrimaryColor),
-        darkTheme: ThemeData(
-          fontFamily: GoogleFonts.varelaRound().fontFamily,
-          useMaterial3: true,
-          brightness: Brightness.dark,
-        ).copyWith(
-            // colorScheme: darkColorScheme,
-            ),
-        routerDelegate: stackedRouter.delegate(),
-        routeInformationParser: stackedRouter.defaultRouteParser(),
+            useMaterial3: true,
+            brightness: Brightness.dark,
+          ).copyWith(
+              // colorScheme: darkColorScheme,
+              ),
+          routerDelegate: stackedRouter.delegate(),
+          routeInformationParser: stackedRouter.defaultRouteParser(),
+        ),
       ),
     );
   }

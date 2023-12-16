@@ -91,9 +91,9 @@ class HomeView extends StackedView<HomeViewModel> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "${parentViewModel.authService.user.email != null ? 'Hey ${parentViewModel.authService.user.email}\n' : ''}Start a delivery or \npickup order",
-                        style: const TextStyle(
+                      const Text(
+                        "Start a delivery or \npickup order",
+                        style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
                             fontWeight: FontWeight.w900),

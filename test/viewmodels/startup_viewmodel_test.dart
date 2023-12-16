@@ -1,34 +1,25 @@
-import 'package:dionniebee/services/foo_service.dart';
-import 'package:dionniebee/services/local_storage_service.dart';
+import 'package:dionniebee/services/user_service.dart';
+import 'package:dionniebee/ui/views/startup/startup_viewmodel.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:mockito/mockito.dart';
 import '../helpers/test_helpers.dart';
-import '../helpers/test_helpers.mocks.dart';
-
-class Fuck extends Mock implements LocalStorageService {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   group('StartupViewModel Tests -', () {
     setUp(() {
       registerServices();
       locator.allowReassignment = true;
     });
-
     tearDown(() => locator.reset());
-    group('initialise -', () {
-      test('testing', () async {
-        var storageService = Fuck();
 
-        var authService = MockAuthService();
-        var mockFooService = FooService(
-          authService: authService,
-          storageService: storageService,
-        );
-        await mockFooService.sendHttp("Jesus");
-        verify(await authService.signInAnonymously());
-        verify(storageService.saveToDisk('whoAmI', "Jesus")).called(1);
-      });
+    test('When called should check if we have a logged in user on UserService',
+        () async {
+      var userService = locator<UserService>();
+      var viewModel = StartupViewModel();
+      await viewModel.runStartUpLogic();
+      verify(userService.hasLoggedInUser);
     });
   });
 }

@@ -2,25 +2,28 @@ import 'dart:async';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.logger.dart';
 import 'package:dionniebee/app/constants/firebase_options.dart';
+import 'package:dionniebee/app/models/user_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
+import 'package:dionniebee/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_user;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 @LazySingleton()
 class FirebaseAuthService with InitializableDependency implements AuthService {
-  late FirebaseAuth _firebaseAuth;
   final _log = getLogger('FirebaseAuthService');
   final _dialogService = locator<DialogService>();
-  firebase_user.User? _user;
+  final _userService = locator<UserService>();
+
+  late FirebaseAuth _firebaseAuth;
 
   @override
   Future<void> init() async {
     try {
       await Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform);
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
       _firebaseAuth = FirebaseAuth.instance;
       _log.i('Initialized');
     } catch (e) {
@@ -29,8 +32,10 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   }
 
   @override
-  Future<void> signInWithEmail(
-      {required String email, required String password}) async {
+  Future<void> signInWithEmail({
+    required String email,
+    required String password,
+  }) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -100,12 +105,10 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   }
 
   @override
-  get user => _user;
-
-  @override
   Future signInAnonymously() async {
     try {
-      user = (await _firebaseAuth.signInAnonymously()).user;
+      final user = (await _firebaseAuth.signInAnonymously()).user;
+      _userService.currentUser = UserDto(id: user!.uid, email: user.email);
     } on FirebaseAuthException catch (e) {
       _log.e(e.toString());
       await _dialogService.showDialog(
@@ -118,10 +121,5 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   @override
   void dispose() {
     _firebaseAuth.app.delete();
-  }
-
-  @override
-  set user(user) {
-    _user = user;
   }
 }

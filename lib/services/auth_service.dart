@@ -16,8 +16,5 @@ abstract class AuthService with InitializableDependency {
 
   Future signInAnonymously() async {}
 
-  dynamic get user;
-  set user(dynamic user);
-
   void dispose();
 }

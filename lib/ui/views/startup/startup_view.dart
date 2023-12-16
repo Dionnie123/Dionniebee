@@ -1,5 +1,7 @@
+import 'package:dionniebee/app/app.locator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:stacked/stacked.dart';
 
@@ -14,6 +16,7 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
+    viewModel.runsAfterBuild();
     return const Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
@@ -26,13 +29,13 @@ class StartupView extends StackedView<StartupViewModel> {
   StartupViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      StartupViewModel();
+      locator<StartupViewModel>();
 
   @override
   Future<void> onViewModelReady(StartupViewModel viewModel) async {
-    await viewModel.signInAnonymously();
-    if (!kIsWeb) FlutterNativeSplash.remove();
-
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await viewModel.runStartUpLogic();
+    });
     super.onViewModelReady(viewModel);
   }
 }

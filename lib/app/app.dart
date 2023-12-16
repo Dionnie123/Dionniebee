@@ -23,6 +23,7 @@ import 'package:dionniebee/ui/views/dashboard/dashboard_view.dart';
 import 'package:dionniebee/ui/views/validation_example/validation_example_view.dart';
 import 'package:dionniebee/services/foo_service.dart';
 import 'package:dionniebee/services/supabase_auth_service.dart';
+import 'package:dionniebee/services/user_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -68,6 +69,7 @@ import 'package:dionniebee/services/supabase_auth_service.dart';
     LazySingleton(classType: FooService),
     LazySingleton(classType: FirebaseAuthService),
     LazySingleton(classType: SupabaseAuthService),
+    LazySingleton(classType: UserService),
 // @stacked-service
   ],
   bottomsheets: [

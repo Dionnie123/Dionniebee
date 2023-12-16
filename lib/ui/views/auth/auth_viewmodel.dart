@@ -4,7 +4,6 @@ import 'package:dionniebee/app/models/register_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -56,18 +55,7 @@ class AuthViewModel extends BaseViewModel {
   }
 
   Future signInAnonymously() async {
-    await runBusyFuture(_authService.signInAnonymously(), throwException: true)
-        .then((value) async {
-      if (value == null) {
-        await Fluttertoast.showToast(
-            msg: "Signed-in anonymously...",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            textColor: Colors.white,
-            fontSize: 16.0);
-      }
-    });
+    await runBusyFuture(_authService.signInAnonymously(), throwException: true);
   }
 
   Future signIn({required email, required password}) async {
