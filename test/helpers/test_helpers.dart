@@ -13,8 +13,6 @@ import 'package:dionniebee/services/foo_service.dart';
 
 import 'test_helpers.mocks.dart';
 
-class MockLocalStorageService extends Mock implements LocalStorageService {}
-
 @GenerateMocks([], customMocks: [
   MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<RouterService>(onMissingStub: OnMissingStub.returnDefault),
@@ -26,10 +24,12 @@ class MockLocalStorageService extends Mock implements LocalStorageService {}
   MockSpec<CartService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<OrderService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<FooService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<LocalStorageService>(onMissingStub: OnMissingStub.returnDefault),
 
 // @stacked-mock-spec
 ])
 void registerServices() {
+  getAndRegisterLocalStorageService();
   getAndRegisterNavigationService();
   getAndRegisterRouterService();
   getAndRegisterBottomSheetService();
@@ -40,8 +40,16 @@ void registerServices() {
   getAndRegisterCartService();
   getAndRegisterOrderService();
   getAndRegisterFooService();
+
   locator.allowReassignment = true;
 // @stacked-mock-register
+}
+
+MockLocalStorageService getAndRegisterLocalStorageService() {
+  _removeRegistrationIfExists<LocalStorageService>();
+  final service = MockLocalStorageService();
+  locator.registerSingleton<LocalStorageService>(service);
+  return service;
 }
 
 MockRouterService getAndRegisterRouterService() {

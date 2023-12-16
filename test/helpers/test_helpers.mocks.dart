@@ -12,6 +12,7 @@ import 'package:dionniebee/app/models/product_dto.dart' as _i15;
 import 'package:dionniebee/services/auth_service.dart' as _i13;
 import 'package:dionniebee/services/cart_service.dart' as _i19;
 import 'package:dionniebee/services/foo_service.dart' as _i21;
+import 'package:dionniebee/services/local_storage_service.dart' as _i22;
 import 'package:dionniebee/services/location_service.dart' as _i17;
 import 'package:dionniebee/services/order_service.dart' as _i20;
 import 'package:dionniebee/services/product_service.dart' as _i14;
@@ -1639,6 +1640,16 @@ class MockFooService extends _i1.Mock implements _i21.FooService {
       ) as int);
 
   @override
+  _i7.Future<dynamic> sendHttp(String? val) => (super.noSuchMethod(
+        Invocation.method(
+          #sendHttp,
+          [val],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
   void listenToReactiveValues(List<dynamic>? reactiveValues) =>
       super.noSuchMethod(
         Invocation.method(
@@ -1674,4 +1685,71 @@ class MockFooService extends _i1.Mock implements _i21.FooService {
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [LocalStorageService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLocalStorageService extends _i1.Mock
+    implements _i22.LocalStorageService {
+  @override
+  bool get enableLogs => (super.noSuchMethod(
+        Invocation.getter(#enableLogs),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  Set<String> getKeys() => (super.noSuchMethod(
+        Invocation.method(
+          #getKeys,
+          [],
+        ),
+        returnValue: <String>{},
+        returnValueForMissingStub: <String>{},
+      ) as Set<String>);
+
+  @override
+  Object? getFromDisk(String? key) => (super.noSuchMethod(
+        Invocation.method(
+          #getFromDisk,
+          [key],
+        ),
+        returnValueForMissingStub: null,
+      ) as Object?);
+
+  @override
+  void saveToDisk(
+    String? key,
+    dynamic content,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #saveToDisk,
+          [
+            key,
+            content,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.Future<void> init() => (super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 }

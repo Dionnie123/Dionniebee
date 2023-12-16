@@ -87,7 +87,6 @@ class CartService with ListenableServiceMixin {
 
   minusCartItemQuantity(String id) {
     final index = _cart.value.indexWhere((element) => element.id == id);
-
     if (index != -1) {
       var temp = _cart.value[index];
       _cart.value[index] = temp.copyWith(

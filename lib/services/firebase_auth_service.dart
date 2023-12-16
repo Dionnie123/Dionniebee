@@ -12,10 +12,8 @@ import 'package:stacked_services/stacked_services.dart';
 @LazySingleton()
 class FirebaseAuthService with InitializableDependency implements AuthService {
   late FirebaseAuth _firebaseAuth;
-  late StreamSubscription<firebase_user.User?> streamSubscription;
   final _log = getLogger('FirebaseAuthService');
   final _dialogService = locator<DialogService>();
-
   firebase_user.User? _user;
 
   @override
@@ -24,18 +22,10 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
       await Firebase.initializeApp(
           options: DefaultFirebaseOptions.currentPlatform);
       _firebaseAuth = FirebaseAuth.instance;
-      _authStateChanges();
       _log.i('Initialized');
     } catch (e) {
       _log.e('Initialized Failed');
     }
-  }
-
-  void _authStateChanges() {
-    streamSubscription =
-        _firebaseAuth.authStateChanges().listen((firebase_user.User? user) {
-      if (user != null) {}
-    });
   }
 
   @override
@@ -127,7 +117,6 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
 
   @override
   void dispose() {
-    streamSubscription.cancel();
     _firebaseAuth.app.delete();
   }
 
