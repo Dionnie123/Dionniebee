@@ -21,6 +21,7 @@ import '../services/order_service.dart';
 import '../services/product_service.dart';
 import '../services/sharedpreferences_local_storage_service.dart';
 import '../services/supabase_auth_service.dart';
+import '../services/toast_service.dart';
 import '../services/user_service.dart';
 import '../ui/views/cart/cart_viewmodel.dart';
 import '../ui/views/dashboard/dashboard_viewmodel.dart';
@@ -69,6 +70,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => FirebaseAuthService());
   locator.registerLazySingleton(() => SupabaseAuthService());
   locator.registerLazySingleton(() => UserService());
+  locator.registerLazySingleton(() => ToastService());
   if (stackedRouter == null) {
     throw Exception(
         'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');

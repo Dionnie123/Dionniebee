@@ -17,6 +17,7 @@ import 'package:dionniebee/services/local_storage_service.dart' as _i23;
 import 'package:dionniebee/services/location_service.dart' as _i18;
 import 'package:dionniebee/services/order_service.dart' as _i21;
 import 'package:dionniebee/services/product_service.dart' as _i15;
+import 'package:dionniebee/services/toast_service.dart' as _i25;
 import 'package:dionniebee/services/user_service.dart' as _i24;
 import 'package:faker/faker.dart' as _i8;
 import 'package:flutter/material.dart' as _i12;
@@ -1789,4 +1790,38 @@ class MockUserService extends _i1.Mock implements _i24.UserService {
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+}
+
+/// A class which mocks [ToastService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockToastService extends _i1.Mock implements _i25.ToastService {
+  @override
+  void registerDialogListener(Function? showDialogListener) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #registerDialogListener,
+          [showDialogListener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.Future<dynamic> showDialog() => (super.noSuchMethod(
+        Invocation.method(
+          #showDialog,
+          [],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  void dialogComplete() => super.noSuchMethod(
+        Invocation.method(
+          #dialogComplete,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

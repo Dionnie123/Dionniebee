@@ -19,6 +19,7 @@ void main() {
       var userService = locator<UserService>();
       var viewModel = StartupViewModel();
       await viewModel.runStartUpLogic();
+
       verify(userService.hasLoggedInUser);
     });
   });
