@@ -10,10 +10,18 @@ class ToastService {
   }
 
   /// Calls the dialog listener and returns a Future that will wait for dialogComplete.
-  Future showDialog() {
+  Future showDialog({Duration duration = const Duration(seconds: 5)}) {
     _dialogCompleter = Completer();
     _showDialogListener();
-    return _dialogCompleter!.future;
+
+    // Completing the dialogCompleter after a certain duration
+    Future.delayed(duration, () {
+      dialogComplete();
+    });
+
+    return _dialogCompleter != null
+        ? _dialogCompleter!.future
+        : Future.value(null);
   }
 
   /// Completes the _dialogCompleter to resume the Future's execution call

@@ -24,9 +24,9 @@ void main() {
       await viewModel.runStartUpLogic();
       expect(userService.hasLoggedInUser, false);
       verify(userService.hasLoggedInUser);
-      verify(authService.signInAnonymously());
-      verify(toastService.showDialog());
-      verify(navigationService.replaceWithDashboardView());
+      verify(authService.signInAnonymously()).called(1);
+      verify(toastService.showDialog()).called(1);
+      verify(navigationService.replaceWithDashboardView()).called(1);
     });
 
     test(
@@ -39,7 +39,7 @@ void main() {
       await viewModel.runStartUpLogic();
       expect(userService.hasLoggedInUser, true);
       verifyNever(authService.signInAnonymously());
-      verify(navigationService.replaceWithDashboardView());
+      verify(navigationService.replaceWithDashboardView()).called(1);
     });
   });
 }
