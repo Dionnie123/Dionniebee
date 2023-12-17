@@ -103,7 +103,9 @@ class HomeView extends StackedView<HomeViewModel> {
                         style: const ButtonStyle(
                             backgroundColor:
                                 MaterialStatePropertyAll(Colors.orange)),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await viewModel.showDiag();
+                        },
                         child: const Text(
                           "Order Now",
                           style: TextStyle(fontSize: 16),

@@ -1,5 +1,6 @@
 import 'package:dionniebee/app/helpers/lifecycle_manager/lifecycle_manager.dart';
 import 'package:dionniebee/ui/common/colors.dart';
+import 'package:dionniebee/ui/widgets/toast_manager/toast_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,15 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return LifeCycleManager(
       child: MaterialApp.router(
-        builder: FToastBuilder(),
+        builder: (context, child) => Overlay(
+          initialEntries: [
+            if (child != null) ...[
+              OverlayEntry(
+                builder: (context) => ToastManager(child: child),
+              ),
+            ],
+          ],
+        ),
         scrollBehavior: AppScrollBehavior(),
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,

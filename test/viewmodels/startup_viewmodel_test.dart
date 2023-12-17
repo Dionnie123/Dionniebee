@@ -13,13 +13,11 @@ void main() {
       locator.allowReassignment = true;
     });
     tearDown(() => locator.reset());
-
     test('When called should check if we have a logged in user on UserService',
         () async {
       var userService = locator<UserService>();
       var viewModel = StartupViewModel();
       await viewModel.runStartUpLogic();
-
       verify(userService.hasLoggedInUser);
     });
   });

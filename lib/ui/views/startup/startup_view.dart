@@ -16,7 +16,6 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    viewModel.runsAfterBuild();
     return const Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(

@@ -5,6 +5,7 @@ import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/location_service.dart';
 import 'package:dionniebee/services/product_service.dart';
+import 'package:dionniebee/services/toast_service.dart';
 import 'package:dionniebee/ui/views/cart/cart_view.dart';
 import 'package:dionniebee/ui/views/product/product_view.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,11 @@ class HomeViewModel extends ReactiveViewModel {
   final _navService = locator<RouterService>();
   final _productService = locator<ProductService>();
   final _cartService = locator<CartService>();
+  final _toastService = locator<ToastService>();
+
+  Future showDiag() async {
+    await _toastService.showDialog();
+  }
 
   num get cartCount => _cartService.cartCount;
   num get cartTotal => _cartService.cartTotal;

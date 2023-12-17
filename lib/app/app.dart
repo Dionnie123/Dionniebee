@@ -9,6 +9,7 @@ import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:dionniebee/ui/views/home/home_viewmodel.dart';
 import 'package:dionniebee/ui/views/orders/orders_viewmodel.dart';
 import 'package:dionniebee/ui/views/promo/promo_viewmodel.dart';
+import 'package:dionniebee/ui/views/startup/startup_viewmodel.dart';
 import 'package:dionniebee/ui/views/stores/stores_viewmodel.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -38,18 +39,17 @@ import 'package:dionniebee/services/toast_service.dart';
 // @stacked-route
   ],
   dependencies: [
-    LazySingleton(
-      classType: RouterService,
-    ),
-
+    LazySingleton(classType: ToastService),
+    LazySingleton(classType: RouterService),
+    LazySingleton(classType: BottomSheetService),
     InitializableSingleton(
       classType: SharedPreferencesLocalStorageService,
       asType: LocalStorageService,
     ),
 
-    LazySingleton(classType: BottomSheetService),
+    LazySingleton(classType: FooService),
     LazySingleton(classType: DialogService),
-
+    LazySingleton(classType: UserService),
     InitializableSingleton(
       classType: FirebaseAuthService,
       asType: AuthService,
@@ -60,6 +60,7 @@ import 'package:dionniebee/services/toast_service.dart';
     LazySingleton(classType: CartService),
     LazySingleton(classType: OrderService),
 
+    Singleton(classType: StartupViewModel),
     Singleton(classType: DashboardViewModel),
     Singleton(classType: HomeViewModel),
     Singleton(classType: PromoViewModel),
@@ -67,11 +68,6 @@ import 'package:dionniebee/services/toast_service.dart';
     Singleton(classType: StoresViewModel),
     Singleton(classType: CartViewModel),
 
-    LazySingleton(classType: FooService),
-    LazySingleton(classType: FirebaseAuthService),
-    LazySingleton(classType: SupabaseAuthService),
-    LazySingleton(classType: UserService),
-    LazySingleton(classType: ToastService),
 // @stacked-service
   ],
   bottomsheets: [
