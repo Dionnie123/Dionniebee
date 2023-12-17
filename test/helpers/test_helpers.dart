@@ -43,8 +43,9 @@ void registerServices() {
   getAndRegisterCartService();
   getAndRegisterOrderService();
   getAndRegisterFooService();
-  getAndRegisterUserService();
+  getAndRegisterUserService(hasLoggedInUser: false);
   getAndRegisterToastService();
+
 // @stacked-mock-register
 }
 
@@ -156,9 +157,12 @@ MockFooService getAndRegisterFooService() {
   return service;
 }
 
-MockUserService getAndRegisterUserService() {
+MockUserService getAndRegisterUserService({
+  bool hasLoggedInUser = false,
+}) {
   _removeRegistrationIfExists<UserService>();
   final service = MockUserService();
+  when(service.hasLoggedInUser).thenReturn(hasLoggedInUser);
   locator.registerSingleton<UserService>(service);
   return service;
 }

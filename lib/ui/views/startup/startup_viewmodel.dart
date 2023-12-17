@@ -23,9 +23,8 @@ class StartupViewModel extends BaseViewModel {
   }
 
   Future showToastMessage() async {
-    if (!kIsWeb) {
-      await _toastService.showDialog();
-    }
+    await _toastService.showDialog();
+
     if (!kIsWeb) FlutterNativeSplash.remove();
   }
 
