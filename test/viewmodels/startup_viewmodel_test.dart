@@ -1,4 +1,6 @@
 import 'package:dionniebee/app/app.router.dart';
+import 'package:dionniebee/services/auth_service.dart';
+import 'package:dionniebee/services/user_service.dart';
 import 'package:dionniebee/ui/views/startup/startup_viewmodel.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dionniebee/app/app.locator.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 class ToastService {
-  late Function _showDialogListener;
+  Function? _showDialogListener;
   Completer? _dialogCompleter;
 
   /// Registers a callback function. Typically to show the dialog
@@ -10,18 +10,8 @@ class ToastService {
   }
 
   /// Calls the dialog listener and returns a Future that will wait for dialogComplete.
-  Future showDialog({Duration duration = const Duration(seconds: 5)}) {
-    _dialogCompleter = Completer();
-    _showDialogListener();
-
-    // Completing the dialogCompleter after a certain duration
-    Future.delayed(duration, () {
-      dialogComplete();
-    });
-
-    return _dialogCompleter != null
-        ? _dialogCompleter!.future
-        : Future.value(null);
+  Future showDialog() async {
+    return _showDialogListener!();
   }
 
   /// Completes the _dialogCompleter to resume the Future's execution call

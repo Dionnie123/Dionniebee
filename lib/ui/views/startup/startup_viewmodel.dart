@@ -32,6 +32,7 @@ class StartupViewModel extends BaseViewModel {
       await _navigationService.replaceWithDashboardView();
     } else {
       await runBusyFuture(_authService.signInAnonymously()).then((_) async {
+        _toastService.showDialog();
         await _navigationService.replaceWithDashboardView();
       });
     }

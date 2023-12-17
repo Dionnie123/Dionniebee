@@ -8,12 +8,14 @@ class ToastManager extends StatefulWidget {
   const ToastManager({super.key, required this.child});
 
   @override
-  _ToastManagerState createState() => _ToastManagerState();
+  State<ToastManager> createState() => _ToastManagerState();
 }
 
 class _ToastManagerState extends State<ToastManager> {
   final ToastService _toastService = locator<ToastService>();
+
   late FToast fToast;
+
   @override
   void initState() {
     super.initState();
@@ -27,7 +29,7 @@ class _ToastManagerState extends State<ToastManager> {
     return widget.child;
   }
 
-  Future<void> _showToast() async {
+  _showToast() {
     fToast.showToast(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
