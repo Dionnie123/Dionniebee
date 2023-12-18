@@ -16,7 +16,7 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   final _dialogService = locator<DialogService>();
   final _userService = locator<UserService>();
 
-  late FirebaseAuth _firebaseAuth;
+  FirebaseAuth? _firebaseAuth;
 
   @override
   Future<void> init() async {
@@ -25,9 +25,10 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
         options: DefaultFirebaseOptions.currentPlatform,
       );
       _firebaseAuth = FirebaseAuth.instance;
+
       _log.i('Initialized');
     } catch (e) {
-      _log.e('Initialized Failed');
+      _log.e('Initialized Failed: ${e.toString()}');
     }
   }
 
@@ -37,7 +38,7 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
     required String password,
   }) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      await _firebaseAuth?.signInWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
       _log.e(e.toString());
@@ -58,7 +59,7 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   Future signUpWithEmail(
       {required String email, required String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      await _firebaseAuth?.createUserWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
       _log.e(e.toString());
@@ -81,7 +82,7 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   @override
   Future resetPasswordRequest({required String email}) async {
     try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      await _firebaseAuth?.sendPasswordResetEmail(email: email);
     } catch (e) {
       _log.e(e.toString());
       await _dialogService.showDialog(
@@ -94,7 +95,7 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   @override
   Future signOut() async {
     try {
-      await _firebaseAuth.signOut();
+      await _firebaseAuth?.signOut();
     } catch (e) {
       _log.e(e.toString());
       await _dialogService.showDialog(
@@ -107,8 +108,12 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   @override
   Future signInAnonymously() async {
     try {
-      final user = (await _firebaseAuth.signInAnonymously()).user;
-      _userService.currentUser = UserDto(id: user!.uid, email: user.email);
+      final user = (await _firebaseAuth?.signInAnonymously())?.user;
+      if (user != null) {
+        {
+          _userService.currentUser = UserDto(id: user.uid, email: user.email);
+        }
+      }
     } on FirebaseAuthException catch (e) {
       _log.e(e.toString());
       await _dialogService.showDialog(
@@ -120,6 +125,6 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
 
   @override
   void dispose() {
-    _firebaseAuth.app.delete();
+    _firebaseAuth?.app.delete();
   }
 }

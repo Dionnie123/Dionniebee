@@ -212,7 +212,7 @@ class _$LocationDtoImpl implements _LocationDto {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LocationDtoImpl &&
@@ -386,7 +386,7 @@ class _$LatLngDtoImpl implements _LatLngDto {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LatLngDtoImpl &&

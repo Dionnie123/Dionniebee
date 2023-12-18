@@ -1,7 +1,9 @@
 import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/services/auth_service.dart';
+import 'package:dionniebee/services/firebase_auth_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:dionniebee/ui/views/startup/startup_viewmodel.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:mockito/mockito.dart';
