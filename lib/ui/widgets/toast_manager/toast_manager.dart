@@ -29,7 +29,7 @@ class _ToastManagerState extends State<ToastManager> {
     return widget.child;
   }
 
-  _showToast() {
+  _showToast() async {
     fToast.showToast(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),

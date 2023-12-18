@@ -26,10 +26,10 @@ class StartupViewModel extends BaseViewModel {
     if (_userService.hasLoggedInUser) {
       await _navigationService.replaceWithDashboardView();
     } else {
-      await runBusyFuture(_authService.signInAnonymously()).then((_) async {
-        await _toastService.showDialog();
-        await _navigationService.replaceWithDashboardView();
-      });
+      await runBusyFuture(_authService.signInAnonymously()).then((_) async {});
+      await _navigationService
+          .replaceWithDashboardView()
+          .then((value) async {});
     }
     // if (!kIsWeb) FlutterNativeSplash.remove();
   }

@@ -11,7 +11,7 @@ class ToastService {
 
   /// Calls the dialog listener and returns a Future that will wait for dialogComplete.
   Future showDialog() async {
-    return _showDialogListener!();
+    return await _showDialogListener!();
   }
 
   /// Completes the _dialogCompleter to resume the Future's execution call

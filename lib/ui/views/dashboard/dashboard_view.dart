@@ -52,6 +52,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
     DashboardViewModel viewModel,
     Widget? child,
   ) {
+    viewModel.welcome();
     return WillPopScope(
             onWillPop: () async {
               viewModel.setIndex(0);
@@ -70,6 +71,14 @@ class DashboardView extends StackedView<DashboardViewModel> {
                 reverse: viewModel.reverse,
                 child: getViewForIndex(viewModel.currentIndex)) */
         ;
+  }
+
+  @override
+  Future<void> onViewModelReady(DashboardViewModel viewModel) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await viewModel.welcome();
+    });
+    super.onViewModelReady(viewModel);
   }
 
   @override
