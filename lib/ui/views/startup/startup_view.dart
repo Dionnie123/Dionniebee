@@ -17,7 +17,6 @@ class StartupView extends StackedView<StartupViewModel> {
     Widget? child,
   ) {
     return const Scaffold(
-      backgroundColor: Colors.transparent,
       body: Center(
         child: CircularProgressIndicator(),
       ),

@@ -9,6 +9,7 @@ import 'package:dionniebee/app/app.dialogs.dart';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -16,9 +17,9 @@ import 'url_strategy_native.dart'
     if (dart.library.html) 'url_strategy_web.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final x = WidgetsFlutterBinding.ensureInitialized();
 
-  //if (!kIsWeb) FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // if (!kIsWeb) FlutterNativeSplash.preserve(widgetsBinding: x);
 
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
     const ScreenBreakpoints(desktop: 1366, tablet: 768, watch: 200),

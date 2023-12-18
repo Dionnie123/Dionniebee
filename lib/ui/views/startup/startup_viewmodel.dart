@@ -22,19 +22,15 @@ class StartupViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future showToastMessage() async {
-    await _toastService.showDialog();
-    if (!kIsWeb) FlutterNativeSplash.remove();
-  }
-
   Future<void> runStartUpLogic() async {
     if (_userService.hasLoggedInUser) {
       await _navigationService.replaceWithDashboardView();
     } else {
       await runBusyFuture(_authService.signInAnonymously()).then((_) async {
-        _toastService.showDialog();
+        await _toastService.showDialog();
         await _navigationService.replaceWithDashboardView();
       });
     }
+    // if (!kIsWeb) FlutterNativeSplash.remove();
   }
 }
