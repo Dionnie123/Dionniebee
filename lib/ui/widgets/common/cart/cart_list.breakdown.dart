@@ -13,28 +13,10 @@ class CartBreakdown extends StatelessWidget {
     return Container(
       color: kcPrimaryColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "SUBTOTAL",
-                  style: const TextStyle().copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  " ${NumberFormat.simpleCurrency(locale: 'fil_PH').format(subTotal)} ",
-                  style: const TextStyle().copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-            vSpaceSmall,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
