@@ -15,7 +15,6 @@ class StartupViewModel extends BaseViewModel {
   final _fooService = locator<FooService>();
   final _authService = locator<AuthService>();
   final _userService = locator<UserService>();
-  final _toastService = locator<ToastService>();
 
   whoAmI(String val) {
     _fooService.whoAmI = val;
@@ -27,10 +26,7 @@ class StartupViewModel extends BaseViewModel {
       await _navigationService.replaceWithDashboardView();
     } else {
       await runBusyFuture(_authService.signInAnonymously()).then((_) async {});
-      await _navigationService
-          .replaceWithDashboardView()
-          .then((value) async {});
+      await _navigationService.replaceWithDashboardView();
     }
-    // if (!kIsWeb) FlutterNativeSplash.remove();
   }
 }

@@ -22,6 +22,7 @@ class DashboardViewModel extends IndexTrackingViewModel {
 
   Future welcome() async {
     if (userService.hasLoggedInUser) {
+      await Future.delayed(const Duration(seconds: 1));
       await toastService.showDialog();
     }
   }
