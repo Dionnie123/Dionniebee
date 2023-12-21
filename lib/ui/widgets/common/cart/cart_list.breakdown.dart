@@ -11,9 +11,9 @@ class CartBreakdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: kcPrimaryColorDark,
+      color: kcPrimaryColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -38,22 +38,17 @@ class CartBreakdown extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                const Text("TOTAL",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    )),
                 Text(
-                  "TOTAL",
-                  style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  " ${NumberFormat.simpleCurrency(locale: 'fil_PH').format(subTotal)} ",
-                  style: TextStyle(color: kcPrimaryColor.darken()).copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
+                    " ${NumberFormat.simpleCurrency(locale: 'fil_PH').format(subTotal)} ",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    )),
               ],
             ),
           ],
