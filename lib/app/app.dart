@@ -11,6 +11,7 @@ import 'package:dionniebee/ui/views/orders/orders_viewmodel.dart';
 import 'package:dionniebee/ui/views/promo/promo_viewmodel.dart';
 import 'package:dionniebee/ui/views/startup/startup_viewmodel.dart';
 import 'package:dionniebee/ui/views/stores/stores_viewmodel.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:dionniebee/services/auth_service.dart';
@@ -34,7 +35,11 @@ import 'package:dionniebee/services/toast_service.dart';
     MaterialRoute(path: '/', page: StartupView, initial: true),
     MaterialRoute(path: '/', page: AuthView),
     MaterialRoute(path: '/', page: WelcomeView),
-    MaterialRoute(path: '/', page: DashboardView),
+    CustomRoute(
+      path: '/',
+      page: DashboardView,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+    ),
     MaterialRoute(page: ValidationExampleView),
 // @stacked-route
   ],

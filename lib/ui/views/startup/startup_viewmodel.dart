@@ -22,6 +22,7 @@ class StartupViewModel extends BaseViewModel {
   }
 
   Future<void> runStartUpLogic() async {
+    await Future.delayed(const Duration(seconds: 2));
     if (_userService.hasLoggedInUser) {
       await _navigationService.replaceWithDashboardView();
     } else {

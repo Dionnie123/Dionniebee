@@ -25,7 +25,7 @@ class FeaturedProductsListview extends StatelessWidget {
                 ? 2
                 : isTablet(context)
                     ? 3
-                    : 5,
+                    : 7,
             crossAxisSpacing: 8.0,
             mainAxisSpacing: 8.0,
           ),

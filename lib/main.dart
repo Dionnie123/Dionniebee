@@ -52,20 +52,21 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
         theme: ThemeData(
-            fontFamily: GoogleFonts.varelaRound().fontFamily,
-            useMaterial3: false,
-            appBarTheme: AppBarTheme(
-                backgroundColor: kcPrimaryColor,
-                foregroundColor: Colors.white,
-                titleTextStyle: TextStyle(
-                    color: Colors.white,
-                    fontFamily: GoogleFonts.varelaRound().fontFamily,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20)),
-            brightness: Brightness.light,
-            textTheme:
-                GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
-            colorSchemeSeed: kcPrimaryColor),
+          fontFamily: GoogleFonts.varelaRound().fontFamily,
+          useMaterial3: false,
+          appBarTheme: AppBarTheme(
+              backgroundColor: kcPrimaryColor,
+              foregroundColor: Colors.white,
+              titleTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontFamily: GoogleFonts.varelaRound().fontFamily,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18)),
+          brightness: Brightness.light,
+          textTheme:
+              GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
+          colorSchemeSeed: kcPrimaryColor,
+        ),
         darkTheme: ThemeData(
           fontFamily: GoogleFonts.varelaRound().fontFamily,
           useMaterial3: true,

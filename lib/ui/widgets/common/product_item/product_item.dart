@@ -1,6 +1,7 @@
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dionniebee/ui/common/colors.dart';
+import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
@@ -31,9 +32,11 @@ class _ProductItemState extends State<ProductItem> {
 
   toggleAddedToCartOverlay() {
     widget.onAdd();
+    if (!mounted) return;
     setState(() {
       addedToCartOverlayVisible = true;
       Future.delayed(const Duration(milliseconds: 1000), () {
+        if (!mounted) return;
         setState(() {
           addedToCartOverlayVisible = false;
         });
@@ -43,10 +46,12 @@ class _ProductItemState extends State<ProductItem> {
 
   toggleAddedToFavoritesOverlay() {
     widget.onFavorite();
+    if (!mounted) return;
     setState(() {
       addedToFavoritesOverlayVisible = true;
       isFavorite = true;
       Future.delayed(const Duration(milliseconds: 1000), () {
+        if (!mounted) return;
         setState(() {
           addedToFavoritesOverlayVisible = false;
         });
@@ -119,15 +124,13 @@ class _ProductItemState extends State<ProductItem> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Wrap(
-                                    direction: Axis.vertical,
-                                    spacing: 10,
-                                    runSpacing: 8.0,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         widget.product.name.toString(),
                                         maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                                 fontSize: 16,
                                                 color: Colors.white)
@@ -137,6 +140,7 @@ class _ProductItemState extends State<ProductItem> {
                                               .fontFamily,
                                         ),
                                       ),
+                                      vSpaceTiny,
                                       Opacity(
                                         opacity: 0.6,
                                         child: Text(

@@ -51,23 +51,27 @@ class DrawerWidget extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ListTile(
+              AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
                 leading: const Icon(
                   Icons.account_circle_rounded,
                   size: 30,
                   color: Colors.white,
                 ),
-                trailing: TextButton(
-                    onPressed: () async {
-                      await locator<RouterService>().navigateToAuthView();
-                    },
-                    child: const Text(
-                      "Login/Register",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w900),
-                    )),
+                actions: [
+                  TextButton(
+                      onPressed: () async {
+                        await locator<RouterService>().navigateToAuthView();
+                      },
+                      child: const Text(
+                        "Login/Register",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w900),
+                      )),
+                ],
               ),
               const SizedBox(height: 15),
               Column(children: [

@@ -18,7 +18,14 @@ class StartupView extends StackedView<StartupViewModel> {
   ) {
     return const Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(),
+            Text("Dionnie Studios"),
+          ],
+        ),
       ),
     );
   }

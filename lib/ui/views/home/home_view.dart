@@ -1,5 +1,4 @@
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/page_scaffold.dart';

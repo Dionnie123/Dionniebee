@@ -43,9 +43,12 @@ class StackedRouterWeb extends _i7.RootStackRouter {
       );
     },
     DashboardViewRoute.name: (routeData) {
-      return _i7.MaterialPageX<dynamic>(
+      return _i7.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i4.DashboardView(),
+        transitionsBuilder: _i7.TransitionsBuilders.fadeIn,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     ValidationExampleViewRoute.name: (routeData) {

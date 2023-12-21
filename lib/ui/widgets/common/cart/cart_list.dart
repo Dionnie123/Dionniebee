@@ -32,31 +32,38 @@ class CartList extends StatelessWidget {
 
     return LayoutBuilder(builder: (context, size) {
       Widget emptyCart() {
-        return Padding(
-          padding: scaffoldBodyPadding(size: size, vPadding: 15, hPadding: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.max,
-            children: [
-              const Icon(
-                Icons.shopping_bag_outlined,
-                size: 40,
-              ),
-              vSpaceSmall,
-              const Text(
-                "It's Empty Here",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              vSpaceSmall,
-              const Text(
-                "You haven't added anything to you cart yet! Go back to the menu to start ordering.",
-                textAlign: TextAlign.center,
-              ),
-              vSpaceMedium,
-              EzButton(title: "Go back to menu", onPressed: () {})
-            ],
+        return Center(
+          child: Padding(
+            padding:
+                scaffoldBodyPadding(size: size, vPadding: 15, hPadding: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.shopping_bag_outlined,
+                  size: 40,
+                ),
+                vSpaceSmall,
+                const Text(
+                  "It's Empty Here",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                vSpaceSmall,
+                const Text(
+                  "You haven't added anything to you cart yet! \nGo back to the menu to start ordering.",
+                  textAlign: TextAlign.center,
+                ),
+                vSpaceMedium,
+                ElevatedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                    ),
+                    onPressed: () {},
+                    child: const Text("Go back to menu"))
+              ],
+            ),
           ),
         );
       }
