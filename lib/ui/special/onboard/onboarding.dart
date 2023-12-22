@@ -119,7 +119,7 @@ class _OnboardingState extends State<Onboarding> {
                                     child: Text(
                                       "\"${item.testimonial}.\"",
                                       style: const TextStyle(
-                                        fontSize: 24.0,
+                                        fontSize: 18.0,
                                         color: Colors.white,
                                       ).copyWith(
                                         fontWeight: FontWeight.bold,
@@ -130,7 +130,7 @@ class _OnboardingState extends State<Onboarding> {
                                   Text(
                                     item.personName,
                                     style: const TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 14.0,
                                       color: Colors.white,
                                     ).copyWith(
                                       fontWeight: FontWeight.bold,
@@ -139,7 +139,7 @@ class _OnboardingState extends State<Onboarding> {
                                   Text(
                                     item.personTitle,
                                     style: const TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 14.0,
                                       color: Colors.white,
                                     ).copyWith(
                                       fontWeight: FontWeight.bold,

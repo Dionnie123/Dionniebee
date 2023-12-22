@@ -1,5 +1,6 @@
 import 'package:dionniebee/app/models/login_dto.dart';
 import 'package:dionniebee/app/models/register_dto.dart';
+import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/special/onboard/onboarding.dart';
 import 'package:dionniebee/ui/special/scaffold_body_wrapper.dart';
 import 'package:dionniebee/ui/views/auth/widgets/login_form.dart';
@@ -28,7 +29,8 @@ class AuthViewDesktop extends ViewModelWidget<AuthViewModel> {
                 children: [
                   Expanded(
                     flex: 3,
-                    child: SizedBox(
+                    child: Container(
+                        color: kcPrimaryColor,
                         width: size.maxWidth,
                         height: size.maxHeight,
                         child: Padding(
