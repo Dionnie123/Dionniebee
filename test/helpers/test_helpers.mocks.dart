@@ -13,6 +13,7 @@ import 'package:dionniebee/app/models/user_dto.dart' as _i9;
 import 'package:dionniebee/services/auth_service.dart' as _i14;
 import 'package:dionniebee/services/cart_service.dart' as _i20;
 import 'package:dionniebee/services/foo_service.dart' as _i22;
+import 'package:dionniebee/services/loader_service.dart' as _i26;
 import 'package:dionniebee/services/local_storage_service.dart' as _i23;
 import 'package:dionniebee/services/location_service.dart' as _i18;
 import 'package:dionniebee/services/order_service.dart' as _i21;
@@ -224,7 +225,7 @@ class MockNavigationService extends _i1.Mock implements _i10.NavigationService {
     Duration? duration,
     bool? popGesture,
     int? id,
-    _i12.Curve? curve,
+    dynamic curve,
     bool? fullscreenDialog = false,
     bool? preventDuplicates = true,
     _i10.Transition? transitionClass,
@@ -260,7 +261,7 @@ class MockNavigationService extends _i1.Mock implements _i10.NavigationService {
     Duration? duration,
     bool? popGesture,
     int? id,
-    _i12.Curve? curve,
+    dynamic curve,
     bool? fullscreenDialog = false,
     bool? preventDuplicates = true,
     _i10.Transition? transitionClass,
@@ -359,7 +360,7 @@ class MockNavigationService extends _i1.Mock implements _i10.NavigationService {
     dynamic arguments,
     int? id,
     bool? opaque,
-    _i12.Curve? curve,
+    dynamic curve,
     Duration? duration,
     bool? fullscreenDialog = false,
     bool? popGesture,
@@ -1797,30 +1798,46 @@ class MockUserService extends _i1.Mock implements _i24.UserService {
 /// See the documentation for Mockito's code generation for more information.
 class MockToastService extends _i1.Mock implements _i25.ToastService {
   @override
-  void registerDialogListener(Function? showDialogListener) =>
+  void registerCustomToastBuilders(
+          Map<_i25.ToastType, _i25.ToastBuilder>? builders) =>
       super.noSuchMethod(
         Invocation.method(
-          #registerDialogListener,
-          [showDialogListener],
+          #registerCustomToastBuilders,
+          [builders],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  _i7.Future<dynamic> showDialog() => (super.noSuchMethod(
+  dynamic show(_i25.ToastType? type) => super.noSuchMethod(
         Invocation.method(
-          #showDialog,
-          [],
+          #show,
+          [type],
         ),
-        returnValue: _i7.Future<dynamic>.value(),
-        returnValueForMissingStub: _i7.Future<dynamic>.value(),
-      ) as _i7.Future<dynamic>);
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [LoaderService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLoaderService extends _i1.Mock implements _i26.LoaderService {
+  @override
+  void registerCustomLoaderBuilders(
+          Map<_i26.LoaderType, _i26.LoaderBuilder>? builders) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #registerCustomLoaderBuilders,
+          [builders],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
-  void dialogComplete() => super.noSuchMethod(
+  dynamic show(_i26.LoaderType? type) => super.noSuchMethod(
         Invocation.method(
-          #dialogComplete,
-          [],
+          #show,
+          [type],
         ),
         returnValueForMissingStub: null,
       );

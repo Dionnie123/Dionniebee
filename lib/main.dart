@@ -1,5 +1,6 @@
 import 'package:dionniebee/app/helpers/lifecycle_manager/lifecycle_manager.dart';
 import 'package:dionniebee/ui/common/colors.dart';
+import 'package:dionniebee/ui/widgets/loader_manager/loader_manager.dart';
 import 'package:dionniebee/ui/widgets/toast_manager/toast_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -10,6 +11,7 @@ import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'url_strategy_native.dart'
     if (dart.library.html) 'url_strategy_web.dart';
@@ -38,44 +40,47 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LifeCycleManager(
-      child: MaterialApp.router(
-        builder: (context, child) => Overlay(
-          initialEntries: [
-            if (child != null) ...[
-              OverlayEntry(
-                builder: (context) => ToastManager(child: child),
-              ),
+      child: GlobalLoaderOverlay(
+        child: MaterialApp.router(
+          builder: (context, child) => Overlay(
+            initialEntries: [
+              if (child != null) ...[
+                OverlayEntry(
+                  builder: (context) =>
+                      LoaderManager(child: ToastManager(child: child)),
+                ),
+              ],
             ],
-          ],
+          ),
+          scrollBehavior: AppScrollBehavior(),
+          debugShowCheckedModeBanner: false,
+          themeMode: ThemeMode.light,
+          theme: ThemeData(
+            fontFamily: GoogleFonts.varelaRound().fontFamily,
+            useMaterial3: false,
+            appBarTheme: AppBarTheme(
+                backgroundColor: kcPrimaryColor,
+                foregroundColor: Colors.white,
+                titleTextStyle: TextStyle(
+                    color: Colors.white,
+                    fontFamily: GoogleFonts.varelaRound().fontFamily,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18)),
+            brightness: Brightness.light,
+            textTheme:
+                GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
+            colorSchemeSeed: kcPrimaryColor,
+          ),
+          darkTheme: ThemeData(
+            fontFamily: GoogleFonts.varelaRound().fontFamily,
+            useMaterial3: true,
+            brightness: Brightness.dark,
+          ).copyWith(
+              // colorScheme: darkColorScheme,
+              ),
+          routerDelegate: stackedRouter.delegate(),
+          routeInformationParser: stackedRouter.defaultRouteParser(),
         ),
-        scrollBehavior: AppScrollBehavior(),
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.light,
-        theme: ThemeData(
-          fontFamily: GoogleFonts.varelaRound().fontFamily,
-          useMaterial3: false,
-          appBarTheme: AppBarTheme(
-              backgroundColor: kcPrimaryColor,
-              foregroundColor: Colors.white,
-              titleTextStyle: TextStyle(
-                  color: Colors.white,
-                  fontFamily: GoogleFonts.varelaRound().fontFamily,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18)),
-          brightness: Brightness.light,
-          textTheme:
-              GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
-          colorSchemeSeed: kcPrimaryColor,
-        ),
-        darkTheme: ThemeData(
-          fontFamily: GoogleFonts.varelaRound().fontFamily,
-          useMaterial3: true,
-          brightness: Brightness.dark,
-        ).copyWith(
-            // colorScheme: darkColorScheme,
-            ),
-        routerDelegate: stackedRouter.delegate(),
-        routeInformationParser: stackedRouter.defaultRouteParser(),
       ),
     );
   }

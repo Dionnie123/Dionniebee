@@ -15,6 +15,7 @@ import '../services/auth_service.dart';
 import '../services/cart_service.dart';
 import '../services/firebase_auth_service.dart';
 import '../services/foo_service.dart';
+import '../services/loader_service.dart';
 import '../services/local_storage_service.dart';
 import '../services/location_service.dart';
 import '../services/order_service.dart';
@@ -43,6 +44,7 @@ Future<void> setupLocator({
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
+  locator.registerLazySingleton(() => LoaderService());
   locator.registerLazySingleton(() => ToastService());
   locator.registerLazySingleton(() => RouterService());
   locator.registerLazySingleton(() => BottomSheetService());

@@ -70,7 +70,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '407406091517',
     projectId: 'dionniebee-488f2',
     storageBucket: 'dionniebee-488f2.appspot.com',
-    iosClientId: '407406091517-sr0iik0ka9t848r1eebhva3mui4kvd53.apps.googleusercontent.com',
+    iosClientId:
+        '407406091517-sr0iik0ka9t848r1eebhva3mui4kvd53.apps.googleusercontent.com',
     iosBundleId: 'com.dionniestudios.dionniebee',
   );
 }

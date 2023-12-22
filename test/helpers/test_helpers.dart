@@ -11,6 +11,7 @@ import 'package:dionniebee/services/order_service.dart';
 import 'package:dionniebee/services/foo_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:dionniebee/services/toast_service.dart';
+import 'package:dionniebee/services/loader_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -29,6 +30,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<LocalStorageService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<UserService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ToastService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<LoaderService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -46,6 +48,7 @@ void registerServices() {
   getAndRegisterUserService(hasLoggedInUser: false);
   getAndRegisterToastService();
 
+  getAndRegisterLoaderService();
 // @stacked-mock-register
 }
 
@@ -171,6 +174,13 @@ MockToastService getAndRegisterToastService() {
   _removeRegistrationIfExists<ToastService>();
   final service = MockToastService();
   locator.registerSingleton<ToastService>(service);
+  return service;
+}
+
+MockLoaderService getAndRegisterLoaderService() {
+  _removeRegistrationIfExists<LoaderService>();
+  final service = MockLoaderService();
+  locator.registerSingleton<LoaderService>(service);
   return service;
 }
 // @stacked-mock-create

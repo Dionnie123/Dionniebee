@@ -27,6 +27,7 @@ import 'package:dionniebee/services/foo_service.dart';
 import 'package:dionniebee/services/supabase_auth_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:dionniebee/services/toast_service.dart';
+import 'package:dionniebee/services/loader_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -44,6 +45,7 @@ import 'package:dionniebee/services/toast_service.dart';
 // @stacked-route
   ],
   dependencies: [
+    LazySingleton(classType: LoaderService),
     LazySingleton(classType: ToastService),
     LazySingleton(classType: RouterService),
     LazySingleton(classType: BottomSheetService),

@@ -48,7 +48,8 @@ class MapWidget extends StatelessWidget {
       reverseDuration: const Duration(milliseconds: 250),
       child: Builder(builder: (context) {
         if (isBusy) {
-          context.loaderOverlay.show(widget: const MapLoader());
+          context.loaderOverlay
+              .show(widgetBuilder: (progress) => const MapLoader());
         } else {
           context.loaderOverlay.hide();
         }
