@@ -1,13 +1,16 @@
-import 'package:dionniebee/app/app.logger.dart';
 import 'package:dionniebee/app/models/user_dto.dart';
+import 'package:stacked/stacked.dart';
 
-class UserService {
-  final _log = getLogger('UserService');
+class UserService with ListenableServiceMixin {
+  UserService() {
+    listenToReactiveValues([_currentUser]);
+  }
+  final ReactiveValue<UserDto?> _currentUser = ReactiveValue<UserDto?>(null);
+  UserDto? get currentUser => _currentUser.value;
+  set currentUser(UserDto? value) {
+    _currentUser.value = value;
+    notifyListeners();
+  }
 
-  UserDto? _currentUser;
-  UserDto get currentUser => _currentUser!;
-
-  set currentUser(UserDto? value) => _currentUser = value;
-
-  bool get hasLoggedInUser => _currentUser != null;
+  bool get hasLoggedInUser => _currentUser.value?.id != null;
 }

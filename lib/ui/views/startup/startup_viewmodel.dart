@@ -1,11 +1,7 @@
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
-import 'package:dionniebee/services/auth_service.dart';
+
 import 'package:dionniebee/services/foo_service.dart';
-import 'package:dionniebee/services/toast_service.dart';
-import 'package:dionniebee/services/user_service.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -13,8 +9,6 @@ import 'package:stacked_services/stacked_services.dart';
 class StartupViewModel extends BaseViewModel {
   final _navigationService = locator<RouterService>();
   final _fooService = locator<FooService>();
-  final _authService = locator<AuthService>();
-  final _userService = locator<UserService>();
 
   whoAmI(String val) {
     _fooService.whoAmI = val;
@@ -23,11 +17,6 @@ class StartupViewModel extends BaseViewModel {
 
   Future<void> runStartUpLogic() async {
     await Future.delayed(const Duration(seconds: 2));
-    if (_userService.hasLoggedInUser) {
-      await _navigationService.replaceWithDashboardView();
-    } else {
-      await runBusyFuture(_authService.signInAnonymously()).then((_) async {});
-      await _navigationService.replaceWithDashboardView();
-    }
+    await _navigationService.replaceWithDashboardView();
   }
 }

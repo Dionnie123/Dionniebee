@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:dionniebee/app/constants/mapbox.dart';
-import 'package:dionniebee/ui/widgets/common/my_map/widgets/cluster_map.dart';
-import 'package:dionniebee/ui/widgets/common/my_map/widgets/map_marker.dart';
+import 'package:dionniebee/ui/widgets/my_map/widgets/cluster_map.dart';
+import 'package:dionniebee/ui/widgets/my_map/widgets/map_marker.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';

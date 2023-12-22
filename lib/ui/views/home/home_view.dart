@@ -2,14 +2,14 @@ import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/page_scaffold.dart';
-import 'package:dionniebee/ui/widgets/common/product_menu_item/food_menu_item.dart';
+import 'package:dionniebee/ui/widgets/product_menu_item/food_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
-import 'package:dionniebee/ui/widgets/common/product_item/product_item.dart';
-import 'package:dionniebee/ui/widgets/common/featured_products_listview/suggested_product_listview.dart';
-import 'package:dionniebee/ui/widgets/common/product_menu_listview/product_menu_listview.dart';
+import 'package:dionniebee/ui/widgets/product_item/product_item.dart';
+import 'package:dionniebee/ui/widgets/featured_products_listview/suggested_product_listview.dart';
+import 'package:dionniebee/ui/widgets/product_menu_listview/product_menu_listview.dart';
 import 'package:badges/badges.dart' as badges;
 
 class HomeView extends StackedView<HomeViewModel> {

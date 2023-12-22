@@ -1,3 +1,5 @@
+import 'package:dionniebee/services/loader_service.dart';
+
 enum ToastType {
   welcome,
 }
@@ -5,12 +7,13 @@ enum ToastType {
 typedef ToastBuilder = Function();
 
 class ToastService {
+  Function(String? message)? showToast;
   Map<ToastType, ToastBuilder> _toastBuilders = <ToastType, ToastBuilder>{};
   void registerCustomToastBuilders(Map<ToastType, ToastBuilder> builders) {
     _toastBuilders = builders;
   }
 
-  show(ToastType type) {
-    return _toastBuilders[type]?.call();
+  show(String message) {
+    return showToast != null ? showToast!(message) : null;
   }
 }

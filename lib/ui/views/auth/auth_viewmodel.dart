@@ -41,8 +41,8 @@ class AuthViewModel extends BaseViewModel {
   initialiseForms() {
     loginFormModel = LoginDtoForm(
         LoginDtoForm.formElements(LoginDto(
-            email: kDebugMode ? 'bulingitamarkdionnie@gmail.com' : '',
-            password: kDebugMode ? 'abc123' : '')),
+            email: kDebugMode ? 'dionnie_bulingit@yahoo.com' : '',
+            password: kDebugMode ? 'qweqwe123' : '')),
         null);
     if (loginFormModel.form.disabled) {
       loginFormModel.form.markAsDisabled();

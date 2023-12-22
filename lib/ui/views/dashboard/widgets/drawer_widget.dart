@@ -60,17 +60,30 @@ class DrawerWidget extends StatelessWidget {
                   color: Colors.white,
                 ),
                 actions: [
-                  TextButton(
-                      onPressed: () async {
-                        await locator<RouterService>().navigateToAuthView();
-                      },
-                      child: const Text(
-                        "Login/Register",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w900),
-                      )),
+                  viewModel.userService.hasLoggedInUser
+                      ? TextButton(
+                          onPressed: () async {
+                            await viewModel.signOut();
+                          },
+                          child: const Text(
+                            "Sign-out",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w900),
+                          ),
+                        )
+                      : TextButton(
+                          onPressed: () async {
+                            await locator<RouterService>().navigateToAuthView();
+                          },
+                          child: const Text(
+                            "Login/Register",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w900),
+                          )),
                 ],
               ),
               const SizedBox(height: 15),

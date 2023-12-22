@@ -1,7 +1,5 @@
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
-import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/loader_service.dart';
 import 'package:dionniebee/services/location_service.dart';
@@ -13,11 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-const String _productsStreamKey = 'products-stream';
-
 class HomeViewModel extends ReactiveViewModel {
   final locationService = locator<LocationService>();
-  final _authService = locator<AuthService>();
+
   final _navService = locator<RouterService>();
   final _productService = locator<ProductService>();
   final _cartService = locator<CartService>();
@@ -26,7 +22,7 @@ class HomeViewModel extends ReactiveViewModel {
 
   showDiag() async {
     _loaderService.show(LoaderType.show);
-    _toastService.show(ToastType.welcome);
+    _toastService.show("Welcome Dionnie");
     await Future.delayed(const Duration(seconds: 10));
     _loaderService.hide();
   }
@@ -34,7 +30,6 @@ class HomeViewModel extends ReactiveViewModel {
   num get cartCount => _cartService.cartCount;
   num get cartTotal => _cartService.cartTotal;
   List<ProductDto> get cart => _cartService.cart;
-
   List<ProductDto> get products => _productService.items;
 
   Future init() async {
@@ -85,10 +80,5 @@ class HomeViewModel extends ReactiveViewModel {
         );
       },
     );
-  }
-
-  signOut() async {
-    await _authService.signOut();
-    await _navService.replaceWithAuthView();
   }
 }

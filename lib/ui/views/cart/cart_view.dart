@@ -1,8 +1,8 @@
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
-import 'package:dionniebee/ui/widgets/common/cart/cart_list.dart';
-import 'package:dionniebee/ui/widgets/common/cart/cart_item.dart';
-import 'package:dionniebee/ui/widgets/common/cart/cart_list.breakdown.dart';
+import 'package:dionniebee/ui/widgets/cart/cart_list.dart';
+import 'package:dionniebee/ui/widgets/cart/cart_item.dart';
+import 'package:dionniebee/ui/widgets/cart/cart_list.breakdown.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 

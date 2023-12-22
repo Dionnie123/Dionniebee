@@ -1,4 +1,6 @@
 import 'package:dionniebee/app/app.locator.dart';
+import 'package:dionniebee/app/app.router.dart';
+import 'package:dionniebee/app/models/user_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/toast_service.dart';
@@ -20,10 +22,23 @@ class DashboardViewModel extends IndexTrackingViewModel {
     const ValueKey<int>(2)
   ];
 
+  UserDto? get user => userService.currentUser;
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [userService];
+
   Future welcome() async {
     if (userService.hasLoggedInUser) {
       await Future.delayed(const Duration(seconds: 1));
-      await toastService.show(ToastType.welcome);
+      await toastService
+          .show("Welcome ${(userService.currentUser?.email) ?? 'Guest'}");
     }
+  }
+
+  signOut() async {
+    await authService.signOut();
+    await toastService.show("You logged out...");
+    await toastService.show("Welcome Guest");
+    await navigationService.replaceWithDashboardView();
   }
 }

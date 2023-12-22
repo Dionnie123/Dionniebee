@@ -25,7 +25,10 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
         options: DefaultFirebaseOptions.currentPlatform,
       );
       _firebaseAuth = FirebaseAuth.instance;
-
+      final user = _firebaseAuth?.currentUser;
+      if (user != null) {
+        _userService.currentUser = UserDto(id: user.uid, email: user.email);
+      }
       _log.i('Initialized');
     } catch (e) {
       _log.e('Initialized Failed: ${e.toString()}');
@@ -38,8 +41,12 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
     required String password,
   }) async {
     try {
-      await _firebaseAuth?.signInWithEmailAndPassword(
-          email: email, password: password);
+      final user = (await _firebaseAuth?.signInWithEmailAndPassword(
+              email: email, password: password))
+          ?.user;
+      if (user != null) {
+        _userService.currentUser = UserDto(id: user.uid, email: user.email);
+      }
     } on FirebaseAuthException catch (e) {
       _log.e(e.toString());
       await _dialogService.showDialog(
@@ -96,6 +103,7 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   Future signOut() async {
     try {
       await _firebaseAuth?.signOut();
+      _userService.currentUser = null;
     } catch (e) {
       _log.e(e.toString());
       await _dialogService.showDialog(
@@ -110,9 +118,7 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
     try {
       final user = (await _firebaseAuth?.signInAnonymously())?.user;
       if (user != null) {
-        {
-          _userService.currentUser = UserDto(id: user.uid, email: user.email);
-        }
+        _userService.currentUser = UserDto(id: user.uid, email: user.email);
       }
     } on FirebaseAuthException catch (e) {
       _log.e(e.toString());
