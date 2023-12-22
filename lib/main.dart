@@ -40,47 +40,46 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LifeCycleManager(
-      child: GlobalLoaderOverlay(
-        child: MaterialApp.router(
-          builder: (context, child) => Overlay(
+      child: MaterialApp.router(
+        builder: (context, child) => LoaderManager(
+          child: Overlay(
             initialEntries: [
               if (child != null) ...[
                 OverlayEntry(
-                  builder: (context) =>
-                      LoaderManager(child: ToastManager(child: child)),
+                  builder: (context) => ToastManager(child: child),
                 ),
               ],
             ],
           ),
-          scrollBehavior: AppScrollBehavior(),
-          debugShowCheckedModeBanner: false,
-          themeMode: ThemeMode.light,
-          theme: ThemeData(
-            fontFamily: GoogleFonts.varelaRound().fontFamily,
-            useMaterial3: false,
-            appBarTheme: AppBarTheme(
-                backgroundColor: kcPrimaryColor,
-                foregroundColor: Colors.white,
-                titleTextStyle: TextStyle(
-                    color: Colors.white,
-                    fontFamily: GoogleFonts.varelaRound().fontFamily,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18)),
-            brightness: Brightness.light,
-            textTheme:
-                GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
-            colorSchemeSeed: kcPrimaryColor,
-          ),
-          darkTheme: ThemeData(
-            fontFamily: GoogleFonts.varelaRound().fontFamily,
-            useMaterial3: true,
-            brightness: Brightness.dark,
-          ).copyWith(
-              // colorScheme: darkColorScheme,
-              ),
-          routerDelegate: stackedRouter.delegate(),
-          routeInformationParser: stackedRouter.defaultRouteParser(),
         ),
+        scrollBehavior: AppScrollBehavior(),
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.light,
+        theme: ThemeData(
+          fontFamily: GoogleFonts.varelaRound().fontFamily,
+          useMaterial3: false,
+          appBarTheme: AppBarTheme(
+              backgroundColor: kcPrimaryColor,
+              foregroundColor: Colors.white,
+              titleTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontFamily: GoogleFonts.varelaRound().fontFamily,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18)),
+          brightness: Brightness.light,
+          textTheme:
+              GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
+          colorSchemeSeed: kcPrimaryColor,
+        ),
+        darkTheme: ThemeData(
+          fontFamily: GoogleFonts.varelaRound().fontFamily,
+          useMaterial3: true,
+          brightness: Brightness.dark,
+        ).copyWith(
+            // colorScheme: darkColorScheme,
+            ),
+        routerDelegate: stackedRouter.delegate(),
+        routeInformationParser: stackedRouter.defaultRouteParser(),
       ),
     );
   }

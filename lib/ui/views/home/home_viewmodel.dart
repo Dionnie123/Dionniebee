@@ -24,9 +24,11 @@ class HomeViewModel extends ReactiveViewModel {
   final _toastService = locator<ToastService>();
   final _loaderService = locator<LoaderService>();
 
-  showDiag() {
+  showDiag() async {
     _loaderService.show(LoaderType.show);
     _toastService.show(ToastType.welcome);
+    await Future.delayed(const Duration(seconds: 10));
+    _loaderService.hide();
   }
 
   num get cartCount => _cartService.cartCount;

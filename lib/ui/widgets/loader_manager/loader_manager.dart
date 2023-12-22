@@ -16,26 +16,25 @@ class _LoaderManagerState extends State<LoaderManager> {
 
   @override
   void initState() {
+    hideLoader() {
+      context.loaderOverlay.hide();
+    }
+
+    showLoader() {
+      context.loaderOverlay.show();
+    }
+
+    Map<LoaderType, LoaderBuilder> customBuilders = {
+      LoaderType.show: () => showLoader(),
+    };
+
+    _loaderService.hideToast = () => hideLoader();
+    _loaderService.registerCustomLoaderBuilders(customBuilders);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    showLoader() {
-      context.loaderOverlay.show();
-    }
-
-    hideLoader() {
-      context.loaderOverlay.hide();
-    }
-
-    Map<LoaderType, LoaderBuilder> customBuilders = {
-      LoaderType.show: () => showLoader(),
-      LoaderType.hide: () => hideLoader()
-    };
-
-    _loaderService.registerCustomLoaderBuilders(customBuilders);
-
-    return widget.child;
+    return GlobalLoaderOverlay(child: widget.child);
   }
 }
