@@ -199,6 +199,7 @@ class _ProductItemState extends State<ProductItem> {
               width: widget.size.width,
               height: widget.size.height,
               child: Card(
+                  margin: EdgeInsets.zero,
                   color: Colors.black.withOpacity(0.5),
                   child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -221,6 +222,7 @@ class _ProductItemState extends State<ProductItem> {
               width: widget.size.width,
               height: widget.size.height,
               child: Card(
+                  margin: EdgeInsets.zero,
                   color: Colors.black.withOpacity(0.5),
                   child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

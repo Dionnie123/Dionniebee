@@ -13,7 +13,6 @@ class ToastManager extends StatefulWidget {
 
 class _ToastManagerState extends State<ToastManager> {
   final ToastService _toastService = locator<ToastService>();
-
   late FToast fToast;
 
   @override
@@ -21,15 +20,15 @@ class _ToastManagerState extends State<ToastManager> {
     super.initState();
     fToast = FToast();
     fToast.init(context);
-    _toastService.registerDialogListener(_showToast);
+
+    Map<ToastType, ToastBuilder> customBuilders = {
+      ToastType.welcome: () => _showToast()
+    };
+
+    _toastService.registerCustomToastBuilders(customBuilders);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return widget.child;
-  }
-
-  _showToast() async {
+  _showToast() {
     fToast.showToast(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
@@ -54,5 +53,10 @@ class _ToastManagerState extends State<ToastManager> {
         fadeDuration: const Duration(milliseconds: 500),
         gravity: ToastGravity.BOTTOM,
         toastDuration: const Duration(seconds: 2));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
   }
 }

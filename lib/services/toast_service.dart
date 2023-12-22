@@ -1,22 +1,16 @@
-import 'dart:async';
+enum ToastType {
+  welcome,
+}
+
+typedef ToastBuilder = Function();
 
 class ToastService {
-  Function? _showDialogListener;
-  Completer? _dialogCompleter;
-
-  /// Registers a callback function. Typically to show the dialog
-  void registerDialogListener(Function showDialogListener) {
-    _showDialogListener = showDialogListener;
+  Map<ToastType, ToastBuilder> _toastBuilders = <ToastType, ToastBuilder>{};
+  void registerCustomToastBuilders(Map<ToastType, ToastBuilder> builders) {
+    _toastBuilders = builders;
   }
 
-  /// Calls the dialog listener and returns a Future that will wait for dialogComplete.
-  Future showDialog() async {
-    return await _showDialogListener!();
-  }
-
-  /// Completes the _dialogCompleter to resume the Future's execution call
-  void dialogComplete() {
-    _dialogCompleter?.complete();
-    _dialogCompleter = null;
+  show(ToastType type) {
+    return _toastBuilders[type]?.call();
   }
 }

@@ -53,12 +53,11 @@ class CartItem extends StatelessWidget {
                   }),
             ),
           ),
-          hSpaceRegular,
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Container(
               color: Colors.grey.shade200,
-              child: CachedNetworkImage(
+              /*   child: CachedNetworkImage(
                 imageUrl: product.imageUrl.toString(),
                 width: 65,
                 height: 65,
@@ -66,7 +65,7 @@ class CartItem extends StatelessWidget {
                 fit: BoxFit.cover,
                 errorWidget: (context, url, error) => Container(
                     color: kcLightGrey, child: const Icon(Icons.error)),
-              ),
+              ), */
             ),
           ),
           hSpaceRegular,

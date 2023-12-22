@@ -23,7 +23,7 @@ class HomeViewModel extends ReactiveViewModel {
   final _toastService = locator<ToastService>();
 
   Future showDiag() async {
-    await _toastService.showDialog();
+    await _toastService.show(ToastType.welcome);
   }
 
   num get cartCount => _cartService.cartCount;
