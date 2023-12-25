@@ -41,15 +41,20 @@ class AuthViewModel extends BaseViewModel {
   }
 
   init() {
-    loginFormModel = LoginDtoForm(LoginDtoForm.formElements(null), null);
+    loginFormModel = LoginDtoForm(
+      LoginDtoForm.formElements(null),
+      null,
+    );
     if (kDebugMode) {
       loginFormModel.updateValue(LoginDto(
         email: 'dionnie_bulingit@yahoo.com',
         password: 'qweqwe123',
       ));
     }
-    registerFormModel =
-        RegisterDtoForm(RegisterDtoForm.formElements(null), null);
+    registerFormModel = RegisterDtoForm(
+      RegisterDtoForm.formElements(null),
+      null,
+    );
   }
 
   @override
