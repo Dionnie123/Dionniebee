@@ -29,7 +29,7 @@ void main() {
       expect(userService.hasLoggedInUser, false);
       verify(userService.hasLoggedInUser);
       verify(authService.signInAnonymously()).called(1);
-      verify(toastService.showDialog()).called(1);
+      verify(toastService.show('Welcome [User]')).called(1);
       verify(navigationService.replaceWithDashboardView()).called(1);
     });
 

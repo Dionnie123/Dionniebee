@@ -42,12 +42,6 @@ class HomeView extends StackedView<HomeViewModel> {
     return PageScaffold(
         title: "Home ",
         actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle_rounded),
-            onPressed: () async {
-              await parentViewModel.authService.signOut();
-            },
-          ),
           Builder(builder: (context) {
             return IconButton(
               icon: badges.Badge(
@@ -76,8 +70,8 @@ class HomeView extends StackedView<HomeViewModel> {
                 Container(
                   width: double.infinity,
                   height: 200,
-                  decoration:
-                      BoxDecoration(color: Theme.of(context).primaryColor),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary),
                 ),
                 Positioned(
                     right: 20,

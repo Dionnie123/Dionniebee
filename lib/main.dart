@@ -73,11 +73,20 @@ class MainApp extends StatelessWidget {
         ),
         darkTheme: ThemeData(
           fontFamily: GoogleFonts.varelaRound().fontFamily,
-          useMaterial3: true,
+          useMaterial3: false,
+          appBarTheme: AppBarTheme(
+              backgroundColor: kcPrimaryColor,
+              foregroundColor: Colors.white,
+              titleTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontFamily: GoogleFonts.varelaRound().fontFamily,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18)),
           brightness: Brightness.dark,
-        ).copyWith(
-            // colorScheme: darkColorScheme,
-            ),
+          textTheme:
+              GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
+          colorSchemeSeed: kcPrimaryColor,
+        ),
         routerDelegate: stackedRouter.delegate(),
         routeInformationParser: stackedRouter.defaultRouteParser(),
       ),

@@ -23,6 +23,9 @@ class AuthView extends StackedView<AuthViewModel> {
   }
 
   @override
+  bool get disposeViewModel => true;
+
+  @override
   AuthViewModel viewModelBuilder(
     BuildContext context,
   ) =>
@@ -30,7 +33,7 @@ class AuthView extends StackedView<AuthViewModel> {
 
   @override
   Future<void> onViewModelReady(AuthViewModel viewModel) async {
-    viewModel.initialiseForms();
+    viewModel.init();
 
     super.onViewModelReady(viewModel);
   }

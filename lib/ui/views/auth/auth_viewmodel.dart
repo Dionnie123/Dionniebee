@@ -4,6 +4,7 @@ import 'package:dionniebee/app/models/register_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -35,23 +36,27 @@ class AuthViewModel extends BaseViewModel {
   AuthType get authType => _authType;
   set authType(AuthType val) {
     _authType = val;
+    init();
     notifyListeners();
   }
 
-  initialiseForms() {
-    loginFormModel = LoginDtoForm(
-        LoginDtoForm.formElements(LoginDto(
-            email: kDebugMode ? 'dionnie_bulingit@yahoo.com' : '',
-            password: kDebugMode ? 'qweqwe123' : '')),
-        null);
-    if (loginFormModel.form.disabled) {
-      loginFormModel.form.markAsDisabled();
+  init() {
+    loginFormModel = LoginDtoForm(LoginDtoForm.formElements(null), null);
+    if (kDebugMode) {
+      loginFormModel.updateValue(LoginDto(
+        email: 'dionnie_bulingit@yahoo.com',
+        password: 'qweqwe123',
+      ));
     }
     registerFormModel =
-        RegisterDtoForm(RegisterDtoForm.formElements(RegisterDto()), null);
-    if (registerFormModel.form.disabled) {
-      registerFormModel.form.markAsDisabled();
-    }
+        RegisterDtoForm(RegisterDtoForm.formElements(null), null);
+  }
+
+  @override
+  void dispose() {
+    loginFormModel.form.dispose();
+    registerFormModel.form.dispose();
+    super.dispose();
   }
 
   Future signInAnonymously() async {
