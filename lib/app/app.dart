@@ -28,6 +28,7 @@ import 'package:dionniebee/services/supabase_auth_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:dionniebee/services/toast_service.dart';
 import 'package:dionniebee/services/loader_service.dart';
+import 'package:dionniebee/ui/bottom_sheets/cart_info/cart_info_sheet.dart';
 // @stacked-import
 
 @StackedApp(
@@ -79,7 +80,8 @@ import 'package:dionniebee/services/loader_service.dart';
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
+    StackedBottomsheet(classType: CartInfoSheet),
+// @stacked-bottom-sheet
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),

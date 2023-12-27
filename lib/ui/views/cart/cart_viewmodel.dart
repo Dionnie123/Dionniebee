@@ -1,6 +1,8 @@
+import 'package:dionniebee/app/app.bottomsheets.dart';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
+import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/ui/views/product/product_view.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,8 @@ import 'package:stacked_services/stacked_services.dart';
 class CartViewModel extends ReactiveViewModel {
   final _cartService = locator<CartService>();
   final _navService = locator<RouterService>();
+  final _bService = locator<BottomSheetService>();
+  final x = locator<AuthService>();
 
   num get cartCount => _cartService.cartCount;
   num get cartTotal => _cartService.cartTotal;
@@ -20,6 +24,10 @@ class CartViewModel extends ReactiveViewModel {
 
   checkout() async {
     await _cartService.addOrder();
+  }
+
+  cartInfo() async {
+    await _bService.showCustomSheet(variant: BottomSheetType.cartInfo);
   }
 
   addCartItemQuantity(String id) {

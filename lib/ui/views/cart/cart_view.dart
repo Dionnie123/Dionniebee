@@ -41,7 +41,7 @@ class CartView extends StackedView<CartViewModel> {
               onSelect: () {
                 viewModel.toggleSelect(viewModel.cart[index].id ?? "");
               },
-              onAdd: () {
+              onAdd: () async {
                 viewModel.addCartItemQuantity(viewModel.cart[index].id ?? "");
               },
               onMinus: () {

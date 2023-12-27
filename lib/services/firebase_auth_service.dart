@@ -7,6 +7,7 @@ import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -17,6 +18,9 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   final _userService = locator<UserService>();
 
   FirebaseAuth? _firebaseAuth;
+  FirebaseStorage? _firebaseStorage;
+
+  String? imagePath(String val) => _firebaseStorage?.refFromURL(val).fullPath;
 
   @override
   Future<void> init() async {
@@ -25,6 +29,9 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
         options: DefaultFirebaseOptions.currentPlatform,
       );
       _firebaseAuth = FirebaseAuth.instance;
+
+      _firebaseStorage = FirebaseStorage.instance;
+
       final user = _firebaseAuth?.currentUser;
       if (user != null) {
         _userService.currentUser = UserDto(id: user.uid, email: user.email);
