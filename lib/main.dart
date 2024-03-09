@@ -42,17 +42,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return LifeCycleManager(
       child: MaterialApp.router(
-        builder: (context, child) => LoaderOverlayManager(
-          child: Overlay(
-            initialEntries: [
-              if (child != null) ...[
-                OverlayEntry(
-                  builder: (context) => FlutterToastManager(child: child),
-                ),
-              ],
-            ],
-          ),
-        ),
+        builder: (context, child) =>
+            LoaderOverlayManager(child: FlutterToastManager(child: child)),
         scrollBehavior: AppScrollBehavior(),
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,

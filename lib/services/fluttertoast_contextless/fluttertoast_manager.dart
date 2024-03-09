@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class FlutterToastManager extends StatefulWidget {
-  final Widget child;
+  final Widget? child;
   const FlutterToastManager({super.key, required this.child});
 
   @override
@@ -83,6 +83,14 @@ class _FlutterToastManagerState extends State<FlutterToastManager> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.child;
+    return Overlay(
+      initialEntries: [
+        if (widget.child != null) ...[
+          OverlayEntry(
+            builder: (context) => FlutterToastManager(child: widget.child),
+          ),
+        ],
+      ],
+    );
   }
 }
