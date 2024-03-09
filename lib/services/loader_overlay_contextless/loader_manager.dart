@@ -1,5 +1,5 @@
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/services/loader_service.dart';
+import 'package:dionniebee/services/loader_overlay_contextless/loader_service.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -28,7 +28,7 @@ class _LoaderManagerState extends State<LoaderManager> {
       LoaderType.show: () => showLoader(),
     };
 
-    _loaderService.hideToast = () => hideLoader();
+    _loaderService.hideLoader = () => hideLoader();
     _loaderService.registerCustomLoaderBuilders(customBuilders);
     super.initState();
   }

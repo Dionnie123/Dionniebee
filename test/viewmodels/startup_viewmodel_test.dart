@@ -22,7 +22,7 @@ void main() {
         () async {
       var authService = getAndRegisterAuthService();
       var userService = getAndRegisterUserService(hasLoggedInUser: false);
-      var toastService = getAndRegisterToastService();
+      var toastService = getAndRegisterFlutterToastService();
       var navigationService = getAndRegisterRouterService();
       var viewModel = StartupViewModel();
       await viewModel.runStartUpLogic();

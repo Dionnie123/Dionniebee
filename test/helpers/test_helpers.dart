@@ -10,8 +10,8 @@ import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/order_service.dart';
 import 'package:dionniebee/services/foo_service.dart';
 import 'package:dionniebee/services/user_service.dart';
-import 'package:dionniebee/services/toast_service.dart';
-import 'package:dionniebee/services/loader_service.dart';
+import 'package:dionniebee/services/fluttertoast_contextless/fluttertoast_service.dart';
+import 'package:dionniebee/services/loader_overlay_contextless/loader_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -29,7 +29,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<FooService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<LocalStorageService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<UserService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<ToastService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<FlutterToastService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<LoaderService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
@@ -46,7 +46,7 @@ void registerServices() {
   getAndRegisterOrderService();
   getAndRegisterFooService();
   getAndRegisterUserService(hasLoggedInUser: false);
-  getAndRegisterToastService();
+  getAndRegisterFlutterToastService();
 
   getAndRegisterLoaderService();
 // @stacked-mock-register
@@ -170,10 +170,10 @@ MockUserService getAndRegisterUserService({
   return service;
 }
 
-MockToastService getAndRegisterToastService() {
-  _removeRegistrationIfExists<ToastService>();
-  final service = MockToastService();
-  locator.registerSingleton<ToastService>(service);
+MockFlutterToastService getAndRegisterFlutterToastService() {
+  _removeRegistrationIfExists<FlutterToastService>();
+  final service = MockFlutterToastService();
+  locator.registerSingleton<FlutterToastService>(service);
   return service;
 }
 

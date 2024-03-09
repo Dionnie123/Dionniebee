@@ -13,12 +13,14 @@ import 'package:dionniebee/app/models/user_dto.dart' as _i24;
 import 'package:dionniebee/services/auth_service.dart' as _i13;
 import 'package:dionniebee/services/cart_service.dart' as _i19;
 import 'package:dionniebee/services/foo_service.dart' as _i21;
-import 'package:dionniebee/services/loader_service.dart' as _i26;
+import 'package:dionniebee/services/loader_overlay_contextless/loader_service.dart'
+    as _i26;
 import 'package:dionniebee/services/local_storage_service.dart' as _i22;
 import 'package:dionniebee/services/location_service.dart' as _i17;
 import 'package:dionniebee/services/order_service.dart' as _i20;
 import 'package:dionniebee/services/product_service.dart' as _i14;
-import 'package:dionniebee/services/toast_service.dart' as _i25;
+import 'package:dionniebee/services/fluttertoast_contextless/fluttertoast_service.dart'
+    as _i25;
 import 'package:dionniebee/services/user_service.dart' as _i23;
 import 'package:faker/faker.dart' as _i8;
 import 'package:flutter/material.dart' as _i11;
@@ -1814,10 +1816,11 @@ class MockUserService extends _i1.Mock implements _i23.UserService {
       );
 }
 
-/// A class which mocks [ToastService].
+/// A class which mocks [FlutterToastService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockToastService extends _i1.Mock implements _i25.ToastService {
+class MockFlutterToastService extends _i1.Mock
+    implements _i25.FlutterToastService {
   @override
   set showToast(dynamic Function(String?)? _showToast) => super.noSuchMethod(
         Invocation.setter(

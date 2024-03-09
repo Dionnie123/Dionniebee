@@ -3,7 +3,7 @@ import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/user_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
-import 'package:dionniebee/services/toast_service.dart';
+import 'package:dionniebee/services/fluttertoast_contextless/fluttertoast_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
@@ -14,7 +14,7 @@ class DashboardViewModel extends IndexTrackingViewModel {
   final cartService = locator<CartService>();
   final authService = locator<AuthService>();
   final userService = locator<UserService>();
-  final toastService = locator<ToastService>();
+  final toastService = locator<FlutterToastService>();
   List<ValueKey<int>> keys = [
     const ValueKey<int>(0),
     const ValueKey<int>(1),

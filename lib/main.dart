@@ -1,7 +1,8 @@
+import 'package:dionniebee/app/constants/theme-default.dart';
 import 'package:dionniebee/app/helpers/lifecycle_manager/lifecycle_manager.dart';
 import 'package:dionniebee/ui/common/colors.dart';
-import 'package:dionniebee/ui/widgets/loader_manager/loader_manager.dart';
-import 'package:dionniebee/ui/widgets/toast_manager/toast_manager.dart';
+import 'package:dionniebee/services/loader_overlay_contextless/loader_manager.dart';
+import 'package:dionniebee/services/fluttertoast_contextless/fluttertoast_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class MainApp extends StatelessWidget {
             initialEntries: [
               if (child != null) ...[
                 OverlayEntry(
-                  builder: (context) => ToastManager(child: child),
+                  builder: (context) => FlutterToastManager(child: child),
                 ),
               ],
             ],
@@ -55,38 +56,8 @@ class MainApp extends StatelessWidget {
         scrollBehavior: AppScrollBehavior(),
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
-        theme: ThemeData(
-          fontFamily: GoogleFonts.varelaRound().fontFamily,
-          useMaterial3: false,
-          appBarTheme: AppBarTheme(
-              backgroundColor: kcPrimaryColor,
-              foregroundColor: Colors.white,
-              titleTextStyle: TextStyle(
-                  color: Colors.white,
-                  fontFamily: GoogleFonts.varelaRound().fontFamily,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18)),
-          brightness: Brightness.light,
-          textTheme:
-              GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
-          colorSchemeSeed: kcPrimaryColor,
-        ),
-        darkTheme: ThemeData(
-          fontFamily: GoogleFonts.varelaRound().fontFamily,
-          useMaterial3: false,
-          appBarTheme: AppBarTheme(
-              backgroundColor: kcPrimaryColor,
-              foregroundColor: Colors.white,
-              titleTextStyle: TextStyle(
-                  color: Colors.white,
-                  fontFamily: GoogleFonts.varelaRound().fontFamily,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18)),
-          brightness: Brightness.dark,
-          textTheme:
-              GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
-          colorSchemeSeed: kcPrimaryColor,
-        ),
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
         routerDelegate: stackedRouter.delegate(),
         routeInformationParser: stackedRouter.defaultRouteParser(),
       ),

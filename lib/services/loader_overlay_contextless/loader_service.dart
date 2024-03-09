@@ -6,7 +6,7 @@ class LoaderService {
   Map<LoaderType, LoaderBuilder> _loaderCustomBuilders =
       <LoaderType, LoaderBuilder>{};
 
-  LoaderBuilder? hideToast;
+  LoaderBuilder? hideLoader;
 
   void registerCustomLoaderBuilders(Map<LoaderType, LoaderBuilder> builders) {
     _loaderCustomBuilders = builders;
@@ -17,6 +17,6 @@ class LoaderService {
   }
 
   hide() {
-    return hideToast?.call();
+    return hideLoader?.call();
   }
 }

@@ -26,8 +26,8 @@ import 'package:dionniebee/ui/views/validation_example/validation_example_view.d
 import 'package:dionniebee/services/foo_service.dart';
 import 'package:dionniebee/services/supabase_auth_service.dart';
 import 'package:dionniebee/services/user_service.dart';
-import 'package:dionniebee/services/toast_service.dart';
-import 'package:dionniebee/services/loader_service.dart';
+import 'package:dionniebee/services/fluttertoast_contextless/fluttertoast_service.dart';
+import 'package:dionniebee/services/loader_overlay_contextless/loader_service.dart';
 import 'package:dionniebee/ui/bottom_sheets/cart_info/cart_info_sheet.dart';
 // @stacked-import
 
@@ -47,7 +47,7 @@ import 'package:dionniebee/ui/bottom_sheets/cart_info/cart_info_sheet.dart';
   ],
   dependencies: [
     LazySingleton(classType: LoaderService),
-    LazySingleton(classType: ToastService),
+    LazySingleton(classType: FlutterToastService),
     LazySingleton(classType: RouterService),
     LazySingleton(classType: BottomSheetService),
     InitializableSingleton(
