@@ -42,7 +42,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return LifeCycleManager(
       child: MaterialApp.router(
-        builder: (context, child) => LoaderManager(
+        builder: (context, child) => LoaderOverlayManager(
           child: Overlay(
             initialEntries: [
               if (child != null) ...[

@@ -14,6 +14,7 @@ import 'package:stacked_shared/stacked_shared.dart';
 import '../services/auth_service.dart';
 import '../services/cart_service.dart';
 import '../services/firebase_auth_service.dart';
+import '../services/fluttertoast_contextless/fluttertoast_service.dart';
 import '../services/foo_service.dart';
 import '../services/loader_overlay_contextless/loader_service.dart';
 import '../services/local_storage_service.dart';
@@ -21,7 +22,6 @@ import '../services/location_service.dart';
 import '../services/order_service.dart';
 import '../services/product_service.dart';
 import '../services/sharedpreferences_local_storage_service.dart';
-import '../services/fluttertoast_contextless/fluttertoast_service.dart';
 import '../services/user_service.dart';
 import '../ui/views/cart/cart_viewmodel.dart';
 import '../ui/views/dashboard/dashboard_viewmodel.dart';
@@ -44,7 +44,7 @@ Future<void> setupLocator({
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-  locator.registerLazySingleton(() => LoaderService());
+  locator.registerLazySingleton(() => LoaderOverlayService());
   locator.registerLazySingleton(() => FlutterToastService());
   locator.registerLazySingleton(() => RouterService());
   locator.registerLazySingleton(() => BottomSheetService());

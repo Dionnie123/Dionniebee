@@ -1,22 +1,22 @@
-enum LoaderType { show }
+enum LoaderOverlayType { show }
 
-typedef LoaderBuilder = Function();
+typedef LoaderOverlayBuilder = Function();
 
-class LoaderService {
-  Map<LoaderType, LoaderBuilder> _loaderCustomBuilders =
-      <LoaderType, LoaderBuilder>{};
+typedef LoaderOverlayBuilderType = Map<LoaderOverlayType, LoaderOverlayBuilder>;
 
-  LoaderBuilder? hideLoader;
+class LoaderOverlayService {
+  LoaderOverlayBuilderType _loaderCustomBuilders = {};
 
-  void registerCustomLoaderBuilders(Map<LoaderType, LoaderBuilder> builders) {
+  void registerCustomLoaderOverlayBuilders(LoaderOverlayBuilderType builders) {
     _loaderCustomBuilders = builders;
   }
 
-  show(LoaderType type) {
-    return _loaderCustomBuilders[LoaderType.show]?.call();
+  LoaderOverlayBuilder? hideLoaderOverlay;
+  hide() {
+    return hideLoaderOverlay?.call();
   }
 
-  hide() {
-    return hideLoader?.call();
+  show(LoaderOverlayType type) {
+    return _loaderCustomBuilders[LoaderOverlayType.show]?.call();
   }
 }

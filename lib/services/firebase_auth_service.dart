@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.logger.dart';
-import 'package:dionniebee/app/constants/firebase_options.dart';
 import 'package:dionniebee/app/models/user_dto.dart';
+import 'package:dionniebee/firebase_options.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';

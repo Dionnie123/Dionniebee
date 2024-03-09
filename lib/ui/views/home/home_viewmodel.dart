@@ -18,10 +18,10 @@ class HomeViewModel extends ReactiveViewModel {
   final _productService = locator<ProductService>();
   final _cartService = locator<CartService>();
   final _toastService = locator<FlutterToastService>();
-  final _loaderService = locator<LoaderService>();
+  final _loaderService = locator<LoaderOverlayService>();
 
   showDiag() async {
-    await _loaderService.show(LoaderType.show);
+    await _loaderService.show(LoaderOverlayType.show);
 
     _toastService.show("25th Century Fox presents...");
     _toastService.show("Dionne Prodductions");

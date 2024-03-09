@@ -46,7 +46,7 @@ import 'package:dionniebee/ui/bottom_sheets/cart_info/cart_info_sheet.dart';
 // @stacked-route
   ],
   dependencies: [
-    LazySingleton(classType: LoaderService),
+    LazySingleton(classType: LoaderOverlayService),
     LazySingleton(classType: FlutterToastService),
     LazySingleton(classType: RouterService),
     LazySingleton(classType: BottomSheetService),

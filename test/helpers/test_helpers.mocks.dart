@@ -12,6 +12,8 @@ import 'package:dionniebee/app/models/product_dto.dart' as _i15;
 import 'package:dionniebee/app/models/user_dto.dart' as _i24;
 import 'package:dionniebee/services/auth_service.dart' as _i13;
 import 'package:dionniebee/services/cart_service.dart' as _i19;
+import 'package:dionniebee/services/fluttertoast_contextless/fluttertoast_service.dart'
+    as _i25;
 import 'package:dionniebee/services/foo_service.dart' as _i21;
 import 'package:dionniebee/services/loader_overlay_contextless/loader_service.dart'
     as _i26;
@@ -19,8 +21,6 @@ import 'package:dionniebee/services/local_storage_service.dart' as _i22;
 import 'package:dionniebee/services/location_service.dart' as _i17;
 import 'package:dionniebee/services/order_service.dart' as _i20;
 import 'package:dionniebee/services/product_service.dart' as _i14;
-import 'package:dionniebee/services/fluttertoast_contextless/fluttertoast_service.dart'
-    as _i25;
 import 'package:dionniebee/services/user_service.dart' as _i23;
 import 'package:faker/faker.dart' as _i8;
 import 'package:flutter/material.dart' as _i11;
@@ -1822,6 +1822,15 @@ class MockUserService extends _i1.Mock implements _i23.UserService {
 class MockFlutterToastService extends _i1.Mock
     implements _i25.FlutterToastService {
   @override
+  set welcomeToast(_i25.ToastBuilder? _welcomeToast) => super.noSuchMethod(
+        Invocation.setter(
+          #welcomeToast,
+          _welcomeToast,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   set showToast(dynamic Function(String?)? _showToast) => super.noSuchMethod(
         Invocation.setter(
           #showToast,
@@ -1842,6 +1851,15 @@ class MockFlutterToastService extends _i1.Mock
       );
 
   @override
+  dynamic welcome(_i25.ToastType? type) => super.noSuchMethod(
+        Invocation.method(
+          #welcome,
+          [type],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic show(String? message) => super.noSuchMethod(
         Invocation.method(
           #show,
@@ -1851,32 +1869,34 @@ class MockFlutterToastService extends _i1.Mock
       );
 }
 
-/// A class which mocks [LoaderService].
+/// A class which mocks [LoaderOverlayService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoaderService extends _i1.Mock implements _i26.LoaderService {
+class MockLoaderOverlayService extends _i1.Mock
+    implements _i26.LoaderOverlayService {
   @override
-  set hideToast(_i26.LoaderBuilder? _hideToast) => super.noSuchMethod(
+  set hideLoaderOverlay(_i26.LoaderOverlayBuilder? _hideLoaderOverlay) =>
+      super.noSuchMethod(
         Invocation.setter(
-          #hideToast,
-          _hideToast,
+          #hideLoaderOverlay,
+          _hideLoaderOverlay,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void registerCustomLoaderBuilders(
-          Map<_i26.LoaderType, _i26.LoaderBuilder>? builders) =>
+  void registerCustomLoaderOverlayBuilders(
+          Map<_i26.LoaderOverlayType, _i26.LoaderOverlayBuilder>? builders) =>
       super.noSuchMethod(
         Invocation.method(
-          #registerCustomLoaderBuilders,
+          #registerCustomLoaderOverlayBuilders,
           [builders],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  dynamic show(_i26.LoaderType? type) => super.noSuchMethod(
+  dynamic show(_i26.LoaderOverlayType? type) => super.noSuchMethod(
         Invocation.method(
           #show,
           [type],

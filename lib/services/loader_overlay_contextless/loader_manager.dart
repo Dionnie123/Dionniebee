@@ -3,33 +3,33 @@ import 'package:dionniebee/services/loader_overlay_contextless/loader_service.da
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
-class LoaderManager extends StatefulWidget {
+class LoaderOverlayManager extends StatefulWidget {
   final Widget child;
-  const LoaderManager({super.key, required this.child});
+  const LoaderOverlayManager({super.key, required this.child});
 
   @override
-  State<LoaderManager> createState() => _LoaderManagerState();
+  State<LoaderOverlayManager> createState() => _LoaderOverlayManagerState();
 }
 
-class _LoaderManagerState extends State<LoaderManager> {
-  final LoaderService _loaderService = locator<LoaderService>();
+class _LoaderOverlayManagerState extends State<LoaderOverlayManager> {
+  final LoaderOverlayService _loaderService = locator<LoaderOverlayService>();
 
   @override
   void initState() {
-    hideLoader() {
+    hideLoaderOverlay() {
       context.loaderOverlay.hide();
     }
 
-    showLoader() {
+    showLoaderOverlay() {
       context.loaderOverlay.show();
     }
 
-    Map<LoaderType, LoaderBuilder> customBuilders = {
-      LoaderType.show: () => showLoader(),
+    Map<LoaderOverlayType, LoaderOverlayBuilder> customBuilders = {
+      LoaderOverlayType.show: () => showLoaderOverlay(),
     };
 
-    _loaderService.hideLoader = () => hideLoader();
-    _loaderService.registerCustomLoaderBuilders(customBuilders);
+    _loaderService.hideLoaderOverlay = () => hideLoaderOverlay();
+    _loaderService.registerCustomLoaderOverlayBuilders(customBuilders);
     super.initState();
   }
 

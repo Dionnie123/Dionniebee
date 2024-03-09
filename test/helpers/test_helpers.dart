@@ -30,7 +30,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<LocalStorageService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<UserService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<FlutterToastService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<LoaderService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<LoaderOverlayService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -177,10 +177,10 @@ MockFlutterToastService getAndRegisterFlutterToastService() {
   return service;
 }
 
-MockLoaderService getAndRegisterLoaderService() {
-  _removeRegistrationIfExists<LoaderService>();
-  final service = MockLoaderService();
-  locator.registerSingleton<LoaderService>(service);
+MockLoaderOverlayService getAndRegisterLoaderService() {
+  _removeRegistrationIfExists<LoaderOverlayService>();
+  final service = MockLoaderOverlayService();
+  locator.registerSingleton<LoaderOverlayService>(service);
   return service;
 }
 // @stacked-mock-create
