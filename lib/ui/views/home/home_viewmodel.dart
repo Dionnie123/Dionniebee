@@ -7,6 +7,7 @@ import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
 import 'package:dionniebee/ui/views/cart/cart_view.dart';
 import 'package:dionniebee/ui/views/product/product_view.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -30,12 +31,28 @@ class HomeViewModel extends ReactiveViewModel {
     _loaderService.hide();
   }
 
+  Future<String?> getDownloadUrlFromPath(String? imagePath) async {
+    try {
+      var storageReference = FirebaseStorage.instance.ref().child("$imagePath");
+
+      var downloadURL = await storageReference.getDownloadURL();
+      return downloadURL;
+    } catch (e) {
+      print('Error getting download URL from Firebase Storage: $e');
+      return null;
+    }
+  }
+
   num get cartCount => _cartService.cartCount;
   num get cartTotal => _cartService.cartTotal;
   List<ProductDto> get cart => _cartService.cart;
   List<ProductDto> get products => _productService.items;
 
+  String? x;
+
   Future init() async {
+    x = await getDownloadUrlFromPath("products/ck.png");
+    print("x: $x");
     await runBusyFuture(Future.wait([
       _productService.getAll(),
     ]));

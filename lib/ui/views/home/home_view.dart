@@ -173,7 +173,7 @@ class HomeView extends StackedView<HomeViewModel> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Featured Products",
+                        "Featured Productss",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -191,8 +191,8 @@ class HomeView extends StackedView<HomeViewModel> {
                   return SkeletonLoader(
                     loading: viewModel.isBusy,
                     child: ProductItem(
+                      viewModel.products[i].copyWith(imageUrl: viewModel.x),
                       onTap: () {},
-                      viewModel.products[i],
                       size: const Size(double.infinity, 238.0),
                       onAdd: () async {
                         await viewModel.addToCart(viewModel.products[i]);

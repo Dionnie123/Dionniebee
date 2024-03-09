@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -24,8 +25,9 @@ class ProductService with ListenableServiceMixin {
 
   Future getAll() async {
     await collectionReference.get().then((value) {
-      _items.value =
-          value.docs.map((e) => e.data().copyWith(id: e.id)).toList();
+      _items.value = value.docs.map((e) {
+        return e.data().copyWith(id: e.id);
+      }).toList();
     }).onError((error, stackTrace) {
       return Future.error(error.toString());
     });
