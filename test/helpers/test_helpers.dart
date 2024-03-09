@@ -10,8 +10,8 @@ import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/order_service.dart';
 import 'package:dionniebee/services/foo_service.dart';
 import 'package:dionniebee/services/user_service.dart';
-import 'package:dionniebee/services/fluttertoast_contextless/fluttertoast_service.dart';
-import 'package:dionniebee/services/loader_overlay_contextless/loader_service.dart';
+import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
+import 'package:dionniebee/services/loader_overlay/loader_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';

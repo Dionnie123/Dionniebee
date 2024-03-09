@@ -3,7 +3,7 @@ import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/user_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
-import 'package:dionniebee/services/fluttertoast_contextless/fluttertoast_service.dart';
+import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';

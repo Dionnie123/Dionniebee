@@ -1,8 +1,8 @@
 import 'package:dionniebee/app/constants/theme-default.dart';
 import 'package:dionniebee/app/helpers/lifecycle_manager/lifecycle_manager.dart';
 import 'package:dionniebee/ui/common/colors.dart';
-import 'package:dionniebee/services/loader_overlay_contextless/loader_manager.dart';
-import 'package:dionniebee/services/fluttertoast_contextless/fluttertoast_manager.dart';
+import 'package:dionniebee/services/loader_overlay/loader_manager.dart';
+import 'package:dionniebee/services/fluttertoast/fluttertoast_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

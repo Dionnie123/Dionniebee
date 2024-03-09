@@ -12,11 +12,10 @@ import 'package:dionniebee/app/models/product_dto.dart' as _i15;
 import 'package:dionniebee/app/models/user_dto.dart' as _i24;
 import 'package:dionniebee/services/auth_service.dart' as _i13;
 import 'package:dionniebee/services/cart_service.dart' as _i19;
-import 'package:dionniebee/services/fluttertoast_contextless/fluttertoast_service.dart'
+import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart'
     as _i25;
 import 'package:dionniebee/services/foo_service.dart' as _i21;
-import 'package:dionniebee/services/loader_overlay_contextless/loader_service.dart'
-    as _i26;
+import 'package:dionniebee/services/loader_overlay/loader_service.dart' as _i26;
 import 'package:dionniebee/services/local_storage_service.dart' as _i22;
 import 'package:dionniebee/services/location_service.dart' as _i17;
 import 'package:dionniebee/services/order_service.dart' as _i20;
