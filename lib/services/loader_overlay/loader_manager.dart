@@ -35,6 +35,7 @@ class _LoaderOverlayManagerState extends State<LoaderOverlayManager> {
 
   @override
   Widget build(BuildContext context) {
-    return GlobalLoaderOverlay(child: widget.child);
+    return GlobalLoaderOverlay(
+        overlayColor: Colors.black.withOpacity(0.4), child: widget.child);
   }
 }
