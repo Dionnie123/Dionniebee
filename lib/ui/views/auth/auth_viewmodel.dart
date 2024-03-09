@@ -2,6 +2,7 @@ import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/login_dto.dart';
 import 'package:dionniebee/app/models/register_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
+import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
@@ -16,6 +17,8 @@ class AuthViewModel extends BaseViewModel {
   final _authService = locator<AuthService>();
   final _dialogService = locator<DialogService>();
   final _navService = locator<RouterService>();
+
+  final toast = locator<FlutterToastService>();
 
   @override
   void onFutureError(error, Object? key) {
@@ -69,6 +72,8 @@ class AuthViewModel extends BaseViewModel {
   }
 
   Future signIn({required email, required password}) async {
+    toast.show("Frying potatoes...");
+    toast.show("Slicing onions...");
     await runBusyFuture(
       _authService.signInWithEmail(
         email: email,
