@@ -4,14 +4,11 @@ import 'package:latlong2/latlong.dart';
 
 Marker markerWidget(int i, LatLng point, {Color? color}) {
   return Marker(
-    point: point,
-    builder: (context) {
-      return Stack(
+      point: point,
+      child: Stack(
         alignment: Alignment.center,
         children: [
           Icon(Icons.location_pin, size: 35, color: color ?? Colors.red),
         ],
-      );
-    },
-  );
+      ));
 }

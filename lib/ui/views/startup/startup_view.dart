@@ -1,4 +1,5 @@
 import 'package:dionniebee/app/app.locator.dart';
+import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -23,7 +24,11 @@ class StartupView extends StackedView<StartupViewModel> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircularProgressIndicator(),
-            Text("Dionnie Studios"),
+            vSpaceRegular,
+            Text(
+              "Dionnie Studios",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),

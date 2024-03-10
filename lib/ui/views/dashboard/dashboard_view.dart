@@ -7,6 +7,7 @@ import 'package:dionniebee/ui/views/orders/orders_view.dart';
 import 'package:dionniebee/ui/views/orders/orders_viewmodel.dart';
 import 'package:dionniebee/ui/views/promo/promo_view.dart';
 import 'package:dionniebee/ui/views/promo/promo_viewmodel.dart';
+import 'package:dionniebee/ui/views/stores/stores_view.dart';
 import 'package:dionniebee/ui/views/stores/stores_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -37,7 +38,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
       const OrdersView(
         key: ValueKey(2),
       ),
-      const HomeView(
+      const StoresView(
         key: ValueKey(3),
       )
     ];

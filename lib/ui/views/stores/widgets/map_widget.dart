@@ -88,13 +88,13 @@ class MapWidget extends StatelessWidget {
                       ),
                       MarkerClusterLayerWidget(
                         options: MarkerClusterLayerOptions(
-                          anchorPos: AnchorPos.align(AnchorAlign.center),
-                          maxClusterRadius: 100,
-                          size: const Size(40, 40),
-                          fitBoundsOptions: const FitBoundsOptions(
+                          /*   anchorPos: AnchorPos.align(AnchorAlign.center),
+                           fitBoundsOptions: const FitBoundsOptions(
                             forceIntegerZoomLevel: false,
                             padding: EdgeInsets.all(50),
-                          ),
+                          ), */
+                          maxClusterRadius: 100,
+                          size: const Size(40, 40),
                           markers: markers
                               .mapIndexed((i, e) => markerWidget(i, e))
                               .toList(),

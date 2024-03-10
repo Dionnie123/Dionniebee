@@ -19,7 +19,7 @@ class DashboardViewModel extends IndexTrackingViewModel {
     const ValueKey<int>(0),
     const ValueKey<int>(1),
     const ValueKey<int>(2),
-    const ValueKey<int>(2)
+    const ValueKey<int>(3)
   ];
 
   UserDto? get user => userService.currentUser;

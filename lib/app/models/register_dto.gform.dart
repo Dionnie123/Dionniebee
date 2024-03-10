@@ -92,6 +92,13 @@ class ReactiveRegisterDtoForm extends StatelessWidget {
   }
 }
 
+extension ReactiveReactiveRegisterDtoFormExt on BuildContext {
+  RegisterDtoForm? registerDtoFormWatch() => ReactiveRegisterDtoForm.of(this);
+
+  RegisterDtoForm? registerDtoFormRead() =>
+      ReactiveRegisterDtoForm.of(this, listen: false);
+}
+
 class RegisterDtoFormBuilder extends StatefulWidget {
   const RegisterDtoFormBuilder({
     Key? key,
@@ -138,14 +145,7 @@ class _RegisterDtoFormBuilderState extends State<RegisterDtoFormBuilder> {
   @override
   void didUpdateWidget(covariant RegisterDtoFormBuilder oldWidget) {
     if (widget.model != oldWidget.model) {
-      _formModel =
-          RegisterDtoForm(RegisterDtoForm.formElements(widget.model), null);
-
-      if (_formModel.form.disabled) {
-        _formModel.form.markAsDisabled();
-      }
-
-      widget.initState?.call(context, _formModel);
+      _formModel.updateValue(widget.model);
     }
 
     super.didUpdateWidget(oldWidget);
@@ -666,8 +666,9 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
   @override
   RegisterDto get model {
     if (!currentForm.valid) {
-      debugPrint(
-          '[${path ?? 'RegisterDtoForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
+      debugPrintStack(
+          label:
+              '[${path ?? 'RegisterDtoForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
     }
     return RegisterDto(
         fullName: _fullNameValue,
@@ -696,7 +697,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
 
   @override
   void updateValue(
-    RegisterDto value, {
+    RegisterDto? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) =>
@@ -796,7 +797,8 @@ class ReactiveRegisterDtoFormArrayBuilder<T> extends StatelessWidget {
     return ReactiveFormArray<T>(
       formArray: formControl ?? control?.call(formModel),
       builder: (context, formArray, child) {
-        final itemList = (formArray.value ?? [])
+        final values = formArray.controls.map((e) => e.value).toList();
+        final itemList = values
             .asMap()
             .map((i, item) {
               return MapEntry(

@@ -69,26 +69,23 @@ class _AnimatedMapState extends State<MapAnimated> {
 
   Marker dragPointMarker() {
     return Marker(
-        point: dragPoint ?? const LatLng(0, 0),
-        builder: (context) {
-          return const Icon(
-            Icons.location_pin,
-            size: 35,
-            color: Colors.orange,
-          );
-        });
+      point: dragPoint ?? const LatLng(0, 0),
+      child: const Icon(
+        Icons.location_pin,
+        size: 35,
+        color: Colors.orange,
+      ),
+    );
   }
 
   Marker centerPointMarker() {
     return Marker(
         point: widget.centerPoint,
-        builder: (context) {
-          return const Icon(
-            Icons.location_pin,
-            size: 35,
-            color: Colors.orangeAccent,
-          );
-        });
+        child: const Icon(
+          Icons.location_pin,
+          size: 35,
+          color: Colors.orangeAccent,
+        ));
   }
 
   Widget circle() {
@@ -142,14 +139,14 @@ class _AnimatedMapState extends State<MapAnimated> {
             //  circle(),
             MarkerClusterLayerWidget(
               options: MarkerClusterLayerOptions(
-                anchorPos: AnchorPos.align(AnchorAlign.center),
-                maxClusterRadius: 100,
-                size: const Size(40, 40),
-                fitBoundsOptions: const FitBoundsOptions(
+                /*   anchorPos: AnchorPos.align(AnchorAlign.center),
+                  fitBoundsOptions: const CameraFit.bounds(
                   //Pag-tap pakita agad ng branch
                   forceIntegerZoomLevel: false,
                   padding: EdgeInsets.all(50),
-                ),
+                ), */
+                maxClusterRadius: 100,
+                size: const Size(40, 40),
                 markers: [
                   ...widget.markers,
                 ],

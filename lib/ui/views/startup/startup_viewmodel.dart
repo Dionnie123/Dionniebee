@@ -16,7 +16,7 @@ class StartupViewModel extends BaseViewModel {
   }
 
   Future<void> runStartUpLogic() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     await _navigationService.replaceWithDashboardView();
   }
 }

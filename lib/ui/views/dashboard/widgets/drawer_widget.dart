@@ -82,10 +82,10 @@ class DrawerWidget extends StatelessWidget {
                             await locator<RouterService>().navigateToAuthView();
                           },
                           child: const Text(
-                            "Login/Register",
+                            "Sign In",
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w900),
                           )),
                 ],
