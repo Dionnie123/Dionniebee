@@ -1,7 +1,7 @@
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/services/product_service.dart';
-import 'package:fpdart/fpdart.dart';
+
 import 'package:stacked/stacked.dart';
 
 class ProductViewModel extends ReactiveViewModel {
@@ -11,8 +11,9 @@ class ProductViewModel extends ReactiveViewModel {
   ProductDto? get product => _product;
 
   Future init() async {
-    await _productService.findx("N1OGZydwDOc93Eq6zQrj").run().then((value) {
-      _product = value.getRight().toNullable();
+    if (product?.id == null) return;
+    await _productService.find(product!.id).then((value) {
+      _product = value;
       notifyListeners();
     });
   }

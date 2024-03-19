@@ -9,8 +9,6 @@
 /// Maybe this should be generated for the user as well?
 ///
 /// import 'package:customer_app/services/stackdriver/stackdriver_service.dart';
-library;
-
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
@@ -31,8 +29,8 @@ class SimpleLogPrinter extends LogPrinter {
 
   @override
   List<String> log(LogEvent event) {
-    var color = PrettyPrinter.defaultLevelColors[event.level];
-    var emoji = PrettyPrinter.defaultLevelEmojis[event.level];
+    var color = PrettyPrinter.levelColors[event.level];
+    var emoji = PrettyPrinter.levelEmojis[event.level];
     var methodName = _getMethodName();
 
     var methodNameSection =

@@ -17,7 +17,7 @@ class LoginForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const MyText.headingOne("SIGN-IN"),
+          const MyText.headingThree("SIGN-IN"),
           const SizedBox(height: 24.0),
           ReactiveTextField<String>(
             formControl: formModel.emailControl,

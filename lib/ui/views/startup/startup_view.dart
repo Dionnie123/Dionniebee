@@ -23,7 +23,7 @@ class StartupView extends StackedView<StartupViewModel> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(),
+            //  CircularProgressIndicator(),
             vSpaceRegular,
             Text(
               "Dionnie Studios",

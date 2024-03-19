@@ -32,7 +32,7 @@ class RegisterForm extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const EzText.headline('SIGN UP'),
+          const EzText.headingThree('SIGN UP'),
           const SizedBox(height: 24.0),
           ReactiveTextField<String>(
             formControl: formModel.fullNameControl,

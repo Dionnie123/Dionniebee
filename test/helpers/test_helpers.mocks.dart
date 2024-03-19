@@ -7,23 +7,22 @@ import 'dart:async' as _i7;
 import 'dart:ui' as _i12;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i3;
-import 'package:dionniebee/app/models/location_dto.dart' as _i18;
+import 'package:dionniebee/app/models/location_dto.dart' as _i17;
 import 'package:dionniebee/app/models/product_dto.dart' as _i15;
-import 'package:dionniebee/app/models/user_dto.dart' as _i24;
+import 'package:dionniebee/app/models/user_dto.dart' as _i23;
 import 'package:dionniebee/services/auth_service.dart' as _i13;
-import 'package:dionniebee/services/cart_service.dart' as _i19;
+import 'package:dionniebee/services/cart_service.dart' as _i18;
 import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart'
-    as _i25;
-import 'package:dionniebee/services/foo_service.dart' as _i21;
-import 'package:dionniebee/services/loader_overlay/loader_service.dart' as _i26;
-import 'package:dionniebee/services/local_storage_service.dart' as _i22;
-import 'package:dionniebee/services/location_service.dart' as _i17;
-import 'package:dionniebee/services/order_service.dart' as _i20;
+    as _i24;
+import 'package:dionniebee/services/foo_service.dart' as _i20;
+import 'package:dionniebee/services/loader_overlay/loader_service.dart' as _i25;
+import 'package:dionniebee/services/local_storage_service.dart' as _i21;
+import 'package:dionniebee/services/location_service.dart' as _i16;
+import 'package:dionniebee/services/order_service.dart' as _i19;
 import 'package:dionniebee/services/product_service.dart' as _i14;
-import 'package:dionniebee/services/user_service.dart' as _i23;
+import 'package:dionniebee/services/user_service.dart' as _i22;
 import 'package:faker/faker.dart' as _i8;
 import 'package:flutter/material.dart' as _i11;
-import 'package:fpdart/fpdart.dart' as _i16;
 import 'package:geoflutterfire2/geoflutterfire2.dart' as _i6;
 import 'package:geolocator/geolocator.dart' as _i5;
 import 'package:latlong2/latlong.dart' as _i4;
@@ -1174,30 +1173,6 @@ class MockProductService extends _i1.Mock implements _i14.ProductService {
       ) as _i7.Future<_i15.ProductDto?>);
 
   @override
-  _i16.TaskEither<String, _i15.ProductDto?> findx(String? id) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #findx,
-          [id],
-        ),
-        returnValue: _i10.dummyValue<_i16.TaskEither<String, _i15.ProductDto?>>(
-          this,
-          Invocation.method(
-            #findx,
-            [id],
-          ),
-        ),
-        returnValueForMissingStub:
-            _i10.dummyValue<_i16.TaskEither<String, _i15.ProductDto?>>(
-          this,
-          Invocation.method(
-            #findx,
-            [id],
-          ),
-        ),
-      ) as _i16.TaskEither<String, _i15.ProductDto?>);
-
-  @override
   _i7.Future<void> addItem(_i15.ProductDto? product) => (super.noSuchMethod(
         Invocation.method(
           #addItem,
@@ -1268,7 +1243,7 @@ class MockProductService extends _i1.Mock implements _i14.ProductService {
 /// A class which mocks [LocationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocationService extends _i1.Mock implements _i17.LocationService {
+class MockLocationService extends _i1.Mock implements _i16.LocationService {
   @override
   _i4.Distance get distance => (super.noSuchMethod(
         Invocation.getter(#distance),
@@ -1383,22 +1358,22 @@ class MockLocationService extends _i1.Mock implements _i17.LocationService {
       ) as _i7.Future<_i4.LatLng?>);
 
   @override
-  _i7.Stream<List<_i18.LocationDto>> getNearbyPlacesStream(
-          _i18.LocationDto? point) =>
+  _i7.Stream<List<_i17.LocationDto>> getNearbyPlacesStream(
+          _i17.LocationDto? point) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNearbyPlacesStream,
           [point],
         ),
-        returnValue: _i7.Stream<List<_i18.LocationDto>>.empty(),
-        returnValueForMissingStub: _i7.Stream<List<_i18.LocationDto>>.empty(),
-      ) as _i7.Stream<List<_i18.LocationDto>>);
+        returnValue: _i7.Stream<List<_i17.LocationDto>>.empty(),
+        returnValueForMissingStub: _i7.Stream<List<_i17.LocationDto>>.empty(),
+      ) as _i7.Stream<List<_i17.LocationDto>>);
 }
 
 /// A class which mocks [CartService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCartService extends _i1.Mock implements _i19.CartService {
+class MockCartService extends _i1.Mock implements _i18.CartService {
   @override
   _i3.CollectionReference<Object?> get collectionReference =>
       (super.noSuchMethod(
@@ -1559,7 +1534,7 @@ class MockCartService extends _i1.Mock implements _i19.CartService {
 /// A class which mocks [OrderService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockOrderService extends _i1.Mock implements _i20.OrderService {
+class MockOrderService extends _i1.Mock implements _i19.OrderService {
   @override
   _i3.CollectionReference<Object?> get collectionReference =>
       (super.noSuchMethod(
@@ -1622,7 +1597,7 @@ class MockOrderService extends _i1.Mock implements _i20.OrderService {
 /// A class which mocks [FooService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFooService extends _i1.Mock implements _i21.FooService {
+class MockFooService extends _i1.Mock implements _i20.FooService {
   @override
   set whoAmI(String? val) => super.noSuchMethod(
         Invocation.setter(
@@ -1691,7 +1666,7 @@ class MockFooService extends _i1.Mock implements _i21.FooService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockLocalStorageService extends _i1.Mock
-    implements _i22.LocalStorageService {
+    implements _i21.LocalStorageService {
   @override
   bool get enableLogs => (super.noSuchMethod(
         Invocation.getter(#enableLogs),
@@ -1757,9 +1732,9 @@ class MockLocalStorageService extends _i1.Mock
 /// A class which mocks [UserService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserService extends _i1.Mock implements _i23.UserService {
+class MockUserService extends _i1.Mock implements _i22.UserService {
   @override
-  set currentUser(_i24.UserDto? value) => super.noSuchMethod(
+  set currentUser(_i23.UserDto? value) => super.noSuchMethod(
         Invocation.setter(
           #currentUser,
           value,
@@ -1823,9 +1798,9 @@ class MockUserService extends _i1.Mock implements _i23.UserService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockFlutterToastService extends _i1.Mock
-    implements _i25.FlutterToastService {
+    implements _i24.FlutterToastService {
   @override
-  set welcomeToast(_i25.ToastBuilder? _welcomeToast) => super.noSuchMethod(
+  set welcomeToast(_i24.ToastBuilder? _welcomeToast) => super.noSuchMethod(
         Invocation.setter(
           #welcomeToast,
           _welcomeToast,
@@ -1844,7 +1819,7 @@ class MockFlutterToastService extends _i1.Mock
 
   @override
   void registerCustomToastBuilders(
-          Map<_i25.ToastType, _i25.ToastBuilder>? builders) =>
+          Map<_i24.ToastType, _i24.ToastBuilder>? builders) =>
       super.noSuchMethod(
         Invocation.method(
           #registerCustomToastBuilders,
@@ -1854,7 +1829,7 @@ class MockFlutterToastService extends _i1.Mock
       );
 
   @override
-  dynamic welcome(_i25.ToastType? type) => super.noSuchMethod(
+  dynamic welcome(_i24.ToastType? type) => super.noSuchMethod(
         Invocation.method(
           #welcome,
           [type],
@@ -1876,9 +1851,9 @@ class MockFlutterToastService extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockLoaderOverlayService extends _i1.Mock
-    implements _i26.LoaderOverlayService {
+    implements _i25.LoaderOverlayService {
   @override
-  set hideLoaderOverlay(_i26.LoaderOverlayBuilder? _hideLoaderOverlay) =>
+  set hideLoaderOverlay(_i25.LoaderOverlayBuilder? _hideLoaderOverlay) =>
       super.noSuchMethod(
         Invocation.setter(
           #hideLoaderOverlay,
@@ -1889,7 +1864,7 @@ class MockLoaderOverlayService extends _i1.Mock
 
   @override
   void registerCustomLoaderOverlayBuilders(
-          Map<_i26.LoaderOverlayType, _i26.LoaderOverlayBuilder>? builders) =>
+          Map<_i25.LoaderOverlayType, _i25.LoaderOverlayBuilder>? builders) =>
       super.noSuchMethod(
         Invocation.method(
           #registerCustomLoaderOverlayBuilders,
@@ -1899,7 +1874,7 @@ class MockLoaderOverlayService extends _i1.Mock
       );
 
   @override
-  dynamic show(_i26.LoaderOverlayType? type) => super.noSuchMethod(
+  dynamic show(_i25.LoaderOverlayType? type) => super.noSuchMethod(
         Invocation.method(
           #show,
           [type],

@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -33,15 +31,10 @@ class ProductService with ListenableServiceMixin {
     });
   }
 
-  Future<ProductDto?> find(String id) async {
+  Future<ProductDto?> find(String? id) async {
     await collectionReference.doc(id).get().then((value) => value.data());
     return null;
   }
-
-  TaskEither<String, ProductDto?> findx(String id) => TaskEither.tryCatch(
-        collectionReference.doc(id).get,
-        (e, __) => e.toString(),
-      ).map((r) => r.data());
 
   Future<void> addItem(ProductDto product) async {
     await collectionReference.add(product);
