@@ -6,6 +6,13 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     fontFamily: GoogleFonts.varelaRound().fontFamily,
     useMaterial3: false,
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      filled: true,
+    ),
     appBarTheme: AppBarTheme(
         backgroundColor: kcPrimaryColor,
         foregroundColor: Colors.white,

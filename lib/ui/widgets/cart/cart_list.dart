@@ -1,7 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
+import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
+import 'package:dionniebee/ui/special/ez_text.dart';
 import 'package:flutter/material.dart';
 
 class CartList extends StatelessWidget {
@@ -45,23 +47,23 @@ class CartList extends StatelessWidget {
                   size: 40,
                 ),
                 vSpaceSmall,
-                const Text(
-                  "It's Empty Here",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                vSpaceSmall,
+                const EzText.headingThree("It's Empty Here"),
+                vSpaceMedium,
                 const Text(
                   "You haven't added anything to you cart yet! \nGo back to the menu to start ordering.",
                   textAlign: TextAlign.center,
                 ),
                 vSpaceMedium,
                 ElevatedButton(
-                    style: OutlinedButton.styleFrom(
-                      shape: const StadiumBorder(),
-                    ),
-                    onPressed: () {},
-                    child: const Text("Go back to menu"))
+                  style: const ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll(kcPrimaryColor)),
+                  onPressed: () async {},
+                  child: const Text(
+                    "Order Now",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                )
               ],
             ),
           ),

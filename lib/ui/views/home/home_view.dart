@@ -52,13 +52,13 @@ class HomeView extends StackedView<HomeViewModel> {
                     parentViewModel.cartService.cartCount.toString(),
                     style: const TextStyle(color: Colors.white),
                   ),
-                  child: const Icon(Icons.shopping_cart_rounded)),
+                  child: const Icon(Icons.shopping_bag_rounded)),
               onPressed: () async {
                 await viewModel.goToCartView();
               },
             );
           }),
-          hSpaceRegular,
+          hSpaceMedium,
         ],
         body: RefreshIndicator(
           onRefresh: () async {
