@@ -16,42 +16,33 @@ class AuthView extends StackedView<AuthViewModel> {
     AuthViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      body: LayoutBuilder(builder: (context, size) {
-        return CustomScrollView(
-          slivers: [
-            SliverPadding(
-              padding: scaffoldBodyPadding(size: size, targetWidth: 500),
-              sliver: SliverFillRemaining(
-                hasScrollBody: false,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      vSpaceRegular,
-                      (viewModel.authType == AuthType.signIn)
-                          ? ReactiveLoginDtoForm(
-                              key: ObjectKey(viewModel.loginFormModel),
-                              form: viewModel.loginFormModel,
-                              child: const LoginForm(),
-                            )
-                          : ReactiveRegisterDtoForm(
-                              key: ObjectKey(viewModel.registerFormModel),
-                              form: viewModel.registerFormModel,
-                              child: const RegisterForm(),
-                            ),
-                      vSpaceRegular,
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
+    return Scaffold(body: Center(
+      child: LayoutBuilder(builder: (context, size) {
+        return SingleChildScrollView(
+          padding: scaffoldBodyPadding(
+              size: size, targetWidth: 500, hPadding: 15, vPadding: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              vSpaceRegular,
+              (viewModel.authType == AuthType.signIn)
+                  ? ReactiveLoginDtoForm(
+                      key: ObjectKey(viewModel.loginFormModel),
+                      form: viewModel.loginFormModel,
+                      child: const LoginForm(),
+                    )
+                  : ReactiveRegisterDtoForm(
+                      key: ObjectKey(viewModel.registerFormModel),
+                      form: viewModel.registerFormModel,
+                      child: const RegisterForm(),
+                    ),
+              vSpaceRegular,
+            ],
+          ),
         );
       }),
-    );
+    ));
   }
 
   @override

@@ -75,20 +75,24 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   Future signUpWithEmail(
       {required String email, required String password}) async {
     try {
-      await _firebaseAuth?.createUserWithEmailAndPassword(
-          email: email, password: password);
+      final user = (await _firebaseAuth?.createUserWithEmailAndPassword(
+              email: email, password: password))
+          ?.user;
+      if (user != null) {
+        _userService.currentUser = UserDto(id: user.uid, email: user.email);
+      }
     } on FirebaseAuthException catch (e) {
       _log.e(e.toString());
       await _dialogService.showDialog(
-        title: "Sign-up Error",
-        description: e.toString(),
-      );
+          title: "Sign-up Error",
+          description: e.toString(),
+          dialogPlatform: DialogPlatform.Custom);
     } catch (e) {
       _log.e(e.toString());
       await _dialogService.showDialog(
-        title: "Sign-up Error",
-        description: e.toString(),
-      );
+          title: "Sign-up Error",
+          description: e.toString(),
+          dialogPlatform: DialogPlatform.Custom);
     }
   }
 

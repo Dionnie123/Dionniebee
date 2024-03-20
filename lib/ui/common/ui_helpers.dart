@@ -49,5 +49,5 @@ EdgeInsets scaffoldBodyPadding({
   final width = (size.maxWidth - targetWidth) / 2;
   return EdgeInsets.symmetric(
       vertical: vPadding,
-      horizontal: (size.maxWidth >= targetWidth) ? width : hPadding);
+      horizontal: ((size.maxWidth > 500)) ? width : hPadding);
 }

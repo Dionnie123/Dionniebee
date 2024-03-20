@@ -1,4 +1,5 @@
 import 'package:dionniebee/app/app.locator.dart';
+import 'package:dionniebee/ui/common/my_texts.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -25,9 +26,19 @@ class StartupView extends StackedView<StartupViewModel> {
           children: [
             //  CircularProgressIndicator(),
             vSpaceRegular,
-            Text(
-              "Dionnie Studios",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Center(
+              child: Column(
+                children: [
+                  Image.asset(
+                    "logo-red.png",
+                    width: 70,
+                  ),
+                  vSpaceSmall,
+                  const MyText.headingThree(
+                    "Dionnie Studios",
+                  ),
+                ],
+              ),
             ),
           ],
         ),

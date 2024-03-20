@@ -28,7 +28,7 @@ class AuthViewModel extends BaseViewModel {
           title: "Error",
           barrierDismissible: true,
           description: error.toString(),
-          dialogPlatform: DialogPlatform.Custom);
+          dialogPlatform: DialogPlatform.Material);
     });
   }
 
@@ -84,7 +84,7 @@ class AuthViewModel extends BaseViewModel {
         await _dialogService.showDialog(
             title: "Notice",
             description: value.toString(),
-            dialogPlatform: DialogPlatform.Custom);
+            dialogPlatform: DialogPlatform.Material);
       } else {
         await _navService.replaceWithDashboardView();
       }
@@ -100,7 +100,7 @@ class AuthViewModel extends BaseViewModel {
         await _dialogService.showDialog(
             title: "Notice",
             description: value.toString(),
-            dialogPlatform: DialogPlatform.Custom);
+            dialogPlatform: DialogPlatform.Material);
       } else {
         await _navService.replaceWithDashboardView();
       }

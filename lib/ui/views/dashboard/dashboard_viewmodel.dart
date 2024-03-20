@@ -30,8 +30,10 @@ class DashboardViewModel extends IndexTrackingViewModel {
   Future welcome() async {
     if (userService.hasLoggedInUser) {
       await Future.delayed(const Duration(seconds: 1));
-      await toastService
-          .show("Welcome ${(userService.currentUser?.email) ?? 'Guest'}");
+      await toastService.show("Welcome ${(userService.currentUser?.email)}");
+    } else {
+      await Future.delayed(const Duration(seconds: 1));
+      await toastService.show("Welcome Guest");
     }
   }
 
