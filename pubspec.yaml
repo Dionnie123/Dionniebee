@@ -98,4 +98,5 @@ flutter:
     - assets/
     - assets/products/
     - assets/icons/
+
   uses-material-design: true
