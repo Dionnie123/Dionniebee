@@ -91,6 +91,13 @@ class ReactiveLoginDtoForm extends StatelessWidget {
   }
 }
 
+extension ReactiveReactiveLoginDtoFormExt on BuildContext {
+  LoginDtoForm? loginDtoFormWatch() => ReactiveLoginDtoForm.of(this);
+
+  LoginDtoForm? loginDtoFormRead() =>
+      ReactiveLoginDtoForm.of(this, listen: false);
+}
+
 class LoginDtoFormBuilder extends StatefulWidget {
   const LoginDtoFormBuilder({
     Key? key,
@@ -135,13 +142,7 @@ class _LoginDtoFormBuilderState extends State<LoginDtoFormBuilder> {
   @override
   void didUpdateWidget(covariant LoginDtoFormBuilder oldWidget) {
     if (widget.model != oldWidget.model) {
-      _formModel = LoginDtoForm(LoginDtoForm.formElements(widget.model), null);
-
-      if (_formModel.form.disabled) {
-        _formModel.form.markAsDisabled();
-      }
-
-      widget.initState?.call(context, _formModel);
+      _formModel.updateValue(widget.model);
     }
 
     super.didUpdateWidget(oldWidget);
@@ -373,8 +374,9 @@ class LoginDtoForm implements FormModel<LoginDto> {
   @override
   LoginDto get model {
     if (!currentForm.valid) {
-      debugPrint(
-          '[${path ?? 'LoginDtoForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
+      debugPrintStack(
+          label:
+              '[${path ?? 'LoginDtoForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
     }
     return LoginDto(email: _emailValue, password: _passwordValue);
   }
@@ -398,7 +400,7 @@ class LoginDtoForm implements FormModel<LoginDto> {
 
   @override
   void updateValue(
-    LoginDto value, {
+    LoginDto? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) =>
@@ -474,7 +476,8 @@ class ReactiveLoginDtoFormArrayBuilder<T> extends StatelessWidget {
     return ReactiveFormArray<T>(
       formArray: formControl ?? control?.call(formModel),
       builder: (context, formArray, child) {
-        final itemList = (formArray.value ?? [])
+        final values = formArray.controls.map((e) => e.value).toList();
+        final itemList = values
             .asMap()
             .map((i, item) {
               return MapEntry(

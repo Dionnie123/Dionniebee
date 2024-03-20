@@ -7,12 +7,12 @@ class EZBottomNavbar extends StatelessWidget {
   final Function(int index) onTap;
   final int currentIndex;
   const EZBottomNavbar({
-    Key? key,
+    super.key,
     required this.items,
     required this.onTap,
     required this.currentIndex,
     this.colorTheme = Colors.blue,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

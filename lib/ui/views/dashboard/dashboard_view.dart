@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/split_view.dart';
 import 'package:dionniebee/ui/views/home/home_view.dart';
@@ -13,13 +14,12 @@ import 'package:stacked/stacked.dart';
 import 'dashboard_viewmodel.dart';
 
 class DashboardView extends StackedView<DashboardViewModel> {
-  const DashboardView({Key? key}) : super(key: key);
+  const DashboardView({super.key});
 
   @override
   void onDispose(DashboardViewModel viewModel) {
     locator<HomeViewModel>().setOnModelReadyCalled(false);
     locator<HomeViewModel>().setInitialised(false);
-
     locator<PromoViewModel>().setOnModelReadyCalled(false);
     locator<OrdersViewModel>().setOnModelReadyCalled(false);
     locator<StoresViewModel>().setOnModelReadyCalled(false);
@@ -28,28 +28,22 @@ class DashboardView extends StackedView<DashboardViewModel> {
   }
 
   Widget getViewForIndex(int index) {
-    switch (index) {
-      case 0:
-        return const HomeView(
-          key: ValueKey('HomeView'),
-        );
-      case 1:
-        return const PromoView(
-          key: ValueKey('PromoView'),
-        );
-      case 2:
-        return const OrdersView(
-          key: ValueKey('OrdersView'),
-        );
-      case 3:
-        return const StoresView(
-          key: ValueKey('StoresView'),
-        );
-      default:
-        return const HomeView(
-          key: ValueKey('HomeView'),
-        );
-    }
+    final pages = [
+      const HomeView(
+        key: ValueKey(0),
+      ),
+      const PromoView(
+        key: ValueKey(1),
+      ),
+      const OrdersView(
+        key: ValueKey(2),
+      ),
+      const StoresView(
+        key: ValueKey(3),
+      )
+    ];
+
+    return pages.elementAt(index);
   }
 
   @override
@@ -59,13 +53,31 @@ class DashboardView extends StackedView<DashboardViewModel> {
     Widget? child,
   ) {
     return WillPopScope(
-        onWillPop: () async {
-          viewModel.setIndex(0);
+            onWillPop: () async {
+              viewModel.setIndex(0);
 
-          return await Future.value(false);
-        },
-        child: SplitView(
-            key: UniqueKey(), child: getViewForIndex(viewModel.currentIndex)));
+              return await Future.value(false);
+            },
+            child: SplitView(child: getViewForIndex(viewModel.currentIndex)))
+
+        /*    AnimatedSwitcher(
+                  key: ValueKey<int>(viewModel.currentIndex),
+                duration: const Duration(milliseconds: 300),
+                child: getViewForIndex(viewModel.currentIndex)) */
+
+        /*  PageTransition(
+                index: viewModel.currentIndex,
+                reverse: viewModel.reverse,
+                child: getViewForIndex(viewModel.currentIndex)) */
+        ;
+  }
+
+  @override
+  Future<void> onViewModelReady(DashboardViewModel viewModel) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await viewModel.welcome();
+    });
+    super.onViewModelReady(viewModel);
   }
 
   @override
@@ -73,4 +85,39 @@ class DashboardView extends StackedView<DashboardViewModel> {
     BuildContext context,
   ) =>
       locator<DashboardViewModel>();
+}
+
+class PageTransition extends StatelessWidget {
+  const PageTransition({
+    super.key,
+    required this.child,
+    required this.reverse,
+    required this.index,
+  });
+
+  final bool reverse;
+  final int index;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return PageTransitionSwitcher(
+      reverse: reverse,
+      duration: const Duration(milliseconds: 300),
+      transitionBuilder: (
+        Widget child,
+        Animation<double> primaryAnimation,
+        Animation<double> secondaryAnimation,
+      ) {
+        return SharedAxisTransition(
+          animation: primaryAnimation,
+          secondaryAnimation: secondaryAnimation,
+          transitionType: SharedAxisTransitionType.horizontal,
+          fillColor: Colors.red,
+          child: child,
+        );
+      },
+      child: child,
+    );
+  }
 }

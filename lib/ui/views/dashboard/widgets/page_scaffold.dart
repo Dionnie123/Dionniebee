@@ -1,15 +1,14 @@
-import 'package:dionniebee/ui/common/colors.dart';
 import 'package:flutter/material.dart';
 
 class PageScaffold extends StatelessWidget {
   const PageScaffold({
-    Key? key,
+    super.key,
     required this.title,
     this.actions = const [],
     this.body,
     this.floatingActionButton,
     this.bottomSheet,
-  }) : super(key: key);
+  });
   final String title;
   final List<Widget> actions;
   final Widget? body;

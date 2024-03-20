@@ -106,26 +106,6 @@ class StoresViewModel extends MultipleStreamViewModel {
 
   List<LatLng> get markers => _markers;
 
-  /*  LatLng calculateCenterPoint() {
-    if (nearbyLocations.isEmpty) {
-      return const LatLng(
-          14.565310, 120.998703); // Default center if the list is empty
-    }
-
-    num sumLat = 0.0;
-    num sumLng = 0.0;
-
-    for (var point in nearbyLocations) {
-      sumLat += point.geopoint?.latitude ?? 0.0;
-      sumLng += point.geopoint?.longitude ?? 0.0;
-    }
-
-    double avgLat = sumLat / nearbyLocations.length;
-    double avgLng = sumLng / nearbyLocations.length;
-
-    return LatLng(avgLat, avgLng);
-  } */
-
   start() async {
     await runBusyFuture(
         locationService.determinePosition().then((value) {

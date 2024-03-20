@@ -1,5 +1,7 @@
 import 'package:dionniebee/app/models/register_dto.dart';
 import 'package:dionniebee/ui/common/colors.dart';
+import 'package:dionniebee/ui/common/my_texts.dart';
+import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
 import 'package:dionniebee/ui/special/ez_text.dart';
 import 'package:dionniebee/ui/views/auth/auth_viewmodel.dart';
@@ -32,7 +34,18 @@ class RegisterForm extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const EzText.headline('SIGN UP'),
+          Center(
+            child: Column(
+              children: [
+                Image.asset(
+                  "logo-red.png",
+                  width: 70,
+                ),
+                vSpaceSmall,
+                const MyText.headingThree("SIGN-UP"),
+              ],
+            ),
+          ),
           const SizedBox(height: 24.0),
           ReactiveTextField<String>(
             formControl: formModel.fullNameControl,

@@ -6,10 +6,10 @@ class SplitView extends StatelessWidget {
   final int selectedIndex;
   final Widget child;
   const SplitView({
-    Key? key,
+    super.key,
     required this.child,
     this.selectedIndex = 0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

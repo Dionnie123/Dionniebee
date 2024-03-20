@@ -2,9 +2,10 @@ import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/login_dto.dart';
 import 'package:dionniebee/app/models/register_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
+import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -17,6 +18,8 @@ class AuthViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _navService = locator<RouterService>();
 
+  final toast = locator<FlutterToastService>();
+
   @override
   void onFutureError(error, Object? key) {
     super.onFutureError(error, key);
@@ -25,7 +28,7 @@ class AuthViewModel extends BaseViewModel {
           title: "Error",
           barrierDismissible: true,
           description: error.toString(),
-          dialogPlatform: DialogPlatform.Custom);
+          dialogPlatform: DialogPlatform.Material);
     });
   }
 
@@ -36,50 +39,52 @@ class AuthViewModel extends BaseViewModel {
   AuthType get authType => _authType;
   set authType(AuthType val) {
     _authType = val;
+    init();
     notifyListeners();
   }
 
-  initialiseForms() {
+  init() {
     loginFormModel = LoginDtoForm(
-        LoginDtoForm.formElements(LoginDto(
-            email: kDebugMode ? 'bulingitamarkdionnie@gmail.com' : '',
-            password: kDebugMode ? 'abc123' : '')),
-        null);
-    if (loginFormModel.form.disabled) {
-      loginFormModel.form.markAsDisabled();
+      LoginDtoForm.formElements(null),
+      null,
+    );
+    if (kDebugMode) {
+      loginFormModel.updateValue(LoginDto(
+        email: 'dionnie_bulingit@yahoo.com',
+        password: 'qweqwe123',
+      ));
     }
-    registerFormModel =
-        RegisterDtoForm(RegisterDtoForm.formElements(RegisterDto()), null);
-    if (registerFormModel.form.disabled) {
-      registerFormModel.form.markAsDisabled();
-    }
+    registerFormModel = RegisterDtoForm(
+      RegisterDtoForm.formElements(null),
+      null,
+    );
+  }
+
+  @override
+  void dispose() {
+    loginFormModel.form.dispose();
+    registerFormModel.form.dispose();
+    super.dispose();
   }
 
   Future signInAnonymously() async {
-    await runBusyFuture(_authService.signInAnonymously(), throwException: true)
-        .then((value) async {
-      if (value == null) {
-        await Fluttertoast.showToast(
-            msg: "Signed-in anonymously...",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            textColor: Colors.white,
-            fontSize: 16.0);
-      }
-    });
+    await runBusyFuture(_authService.signInAnonymously(), throwException: true);
   }
 
   Future signIn({required email, required password}) async {
+    toast.show("Frying potatoes...");
+    toast.show("Slicing onions...");
     await runBusyFuture(
-            _authService.signInWithEmail(email: email, password: password),
-            throwException: true)
-        .then((value) async {
+      _authService.signInWithEmail(
+        email: email,
+        password: password,
+      ),
+    ).then((value) async {
       if (value != null) {
         await _dialogService.showDialog(
             title: "Notice",
             description: value.toString(),
-            dialogPlatform: DialogPlatform.Custom);
+            dialogPlatform: DialogPlatform.Material);
       } else {
         await _navService.replaceWithDashboardView();
       }
@@ -95,7 +100,7 @@ class AuthViewModel extends BaseViewModel {
         await _dialogService.showDialog(
             title: "Notice",
             description: value.toString(),
-            dialogPlatform: DialogPlatform.Custom);
+            dialogPlatform: DialogPlatform.Material);
       } else {
         await _navService.replaceWithDashboardView();
       }

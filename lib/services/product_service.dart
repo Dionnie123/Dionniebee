@@ -2,38 +2,48 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
-class ProductService {
-  final CollectionReference collectionReference =
-      FirebaseFirestore.instance.collection('products');
+@LazySingleton()
+class ProductService with ListenableServiceMixin {
+  final collectionReference =
+      FirebaseFirestore.instance.collection('products').withConverter(
+            fromFirestore: ProductDto.fromFirestore,
+            toFirestore: ProductDto.toFirestore,
+          );
 
-  Stream<List<ProductDto>> getItemsStream() {
-    return collectionReference.snapshots().map((snapshot) {
-      return snapshot.docs
-          .map((doc) => ProductDto.fromJson(doc.data() as Map<String, dynamic>)
-              .copyWith(id: doc.id))
-          .toList();
+  ProductService() {
+    listenToReactiveValues([_items]);
+  }
+
+  final ReactiveValue<List<ProductDto>> _items =
+      ReactiveValue<List<ProductDto>>([]);
+  List<ProductDto> get items => _items.value;
+
+  Future getAll() async {
+    await collectionReference.get().then((value) {
+      _items.value = value.docs.map((e) {
+        return e.data().copyWith(id: e.id);
+      }).toList();
+    }).onError((error, stackTrace) {
+      return Future.error(error.toString());
     });
   }
 
-  Stream<ProductDto?> getItemStream(String? productId) {
-    if (productId != null) {
-      return collectionReference.doc(productId).snapshots().map((snapshot) {
-        return ProductDto.fromJson(snapshot.data() as Map<String, dynamic>)
-            .copyWith(id: snapshot.id);
-      });
-    }
-    return const Stream.empty();
+  Future<ProductDto?> find(String? id) async {
+    await collectionReference.doc(id).get().then((value) => value.data());
+    return null;
+  }
+
+  Future<void> addItem(ProductDto product) async {
+    await collectionReference.add(product);
   }
 
   Future<void> updateItem(ProductDto product) async {
     await collectionReference
         .doc(product.id.toString())
         .update(product.toJson());
-  }
-
-  Future<void> addItem(ProductDto product) async {
-    await collectionReference.add(product.toJson);
   }
 
   Future<void> deleteItem(int id) async {

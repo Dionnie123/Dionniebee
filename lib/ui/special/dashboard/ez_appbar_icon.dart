@@ -6,12 +6,12 @@ class EZAppBarIcon extends StatelessWidget {
   final VoidCallback? onTap;
   final int notificationCount;
   const EZAppBarIcon({
-    Key? key,
+    super.key,
     this.onTap,
     this.text,
     required this.iconData,
     this.notificationCount = 0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

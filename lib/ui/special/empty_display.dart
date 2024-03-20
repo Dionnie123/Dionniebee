@@ -7,12 +7,11 @@ class EmptyDisplay extends StatelessWidget {
   final String title;
   final String subtitle;
   const EmptyDisplay(
-      {Key? key,
+      {super.key,
       required this.icon,
       required this.title,
       this.subtitle = "",
-      this.iconColor})
-      : super(key: key);
+      this.iconColor});
 
   @override
   Widget build(BuildContext context) {

@@ -4,3 +4,7 @@ targets:
       stacked_generator|stackedRouterGenerator:
         options:
           navigator2: true
+      mockito|mockBuilder:
+        generate_for:
+          - test/**.dart
+          - integration_test/**.dart

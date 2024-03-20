@@ -19,7 +19,7 @@ class DrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: ListTile(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         tileColor: selected ? kcPrimaryColor : null,
@@ -45,35 +45,58 @@ class DrawerWidget extends StatelessWidget {
     final viewModel = getParentViewModel<DashboardViewModel>(context);
     int currentIndex = viewModel.currentIndex;
 
+    final ancestorScaffold = Scaffold.maybeOf(context);
+    // 2. check if it has a drawer
+    final hasDrawer = ancestorScaffold != null && ancestorScaffold.hasDrawer;
+
     return Drawer(
       backgroundColor: kcPrimaryColorDark,
       child: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ListTile(
+              AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
                 leading: const Icon(
                   Icons.account_circle_rounded,
                   size: 30,
                   color: Colors.white,
                 ),
-                trailing: TextButton(
-                    onPressed: () async {
-                      await locator<RouterService>().navigateToAuthView();
-                    },
-                    child: const Text(
-                      "Login/Register",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w900),
-                    )),
+                actions: [
+                  viewModel.userService.hasLoggedInUser
+                      ? TextButton(
+                          onPressed: () async {
+                            await viewModel.signOut();
+                          },
+                          child: const Text(
+                            "Sign-out",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w900),
+                          ),
+                        )
+                      : TextButton(
+                          onPressed: () async {
+                            await locator<RouterService>().navigateToAuthView();
+                          },
+                          child: const Text(
+                            "Sign In",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w900),
+                          )),
+                ],
               ),
+              const SizedBox(height: 15),
               Column(children: [
                 DrawerMenu(
                   selected: currentIndex == 0,
                   title: "Home",
                   onTap: () async {
+                    ancestorScaffold?.closeDrawer();
                     viewModel.setIndex(0);
                   },
                 ),
@@ -81,6 +104,7 @@ class DrawerWidget extends StatelessWidget {
                   selected: currentIndex == 1,
                   title: "Promos",
                   onTap: () async {
+                    ancestorScaffold?.closeDrawer();
                     viewModel.setIndex(1);
                   },
                 ),
@@ -88,6 +112,7 @@ class DrawerWidget extends StatelessWidget {
                   selected: currentIndex == 2,
                   title: "Orders",
                   onTap: () async {
+                    ancestorScaffold?.closeDrawer();
                     viewModel.setIndex(2);
                   },
                 ),
@@ -95,6 +120,7 @@ class DrawerWidget extends StatelessWidget {
                   selected: currentIndex == 3,
                   title: "Stores",
                   onTap: () async {
+                    ancestorScaffold?.closeDrawer();
                     viewModel.setIndex(3);
                   },
                 ),

@@ -29,6 +29,13 @@
             {
               "client_id": "407406091517-i3934jbp15tl9ajcj6o1nisesoosiqhd.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "407406091517-sr0iik0ka9t848r1eebhva3mui4kvd53.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dionniestudios.dionniebee"
+              }
             }
           ]
         }

@@ -5,150 +5,88 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i13;
-import 'package:stacked/stacked.dart' as _i12;
-import 'package:stacked_services/stacked_services.dart' as _i11;
+import 'package:flutter/material.dart' as _i8;
+import 'package:stacked/stacked.dart' as _i7;
+import 'package:stacked_services/stacked_services.dart' as _i6;
 
 import '../ui/views/auth/auth_view.dart' as _i2;
-import '../ui/views/cart/cart_view.dart' as _i3;
-import '../ui/views/dashboard/dashboard_view.dart' as _i10;
-import '../ui/views/home/home_view.dart' as _i4;
-import '../ui/views/orders/orders_view.dart' as _i5;
-import '../ui/views/product/product_view.dart' as _i8;
-import '../ui/views/promo/promo_view.dart' as _i7;
+import '../ui/views/dashboard/dashboard_view.dart' as _i4;
 import '../ui/views/startup/startup_view.dart' as _i1;
-import '../ui/views/stores/stores_view.dart' as _i6;
-import '../ui/views/welcome/welcome_view.dart' as _i9;
+import '../ui/views/validation_example/validation_example_view.dart' as _i5;
+import '../ui/views/welcome/welcome_view.dart' as _i3;
 
 final stackedRouter =
-    StackedRouterWeb(navigatorKey: _i11.StackedService.navigatorKey);
+    StackedRouterWeb(navigatorKey: _i6.StackedService.navigatorKey);
 
-class StackedRouterWeb extends _i12.RootStackRouter {
-  StackedRouterWeb({_i13.GlobalKey<_i13.NavigatorState>? navigatorKey})
+class StackedRouterWeb extends _i7.RootStackRouter {
+  StackedRouterWeb({_i8.GlobalKey<_i8.NavigatorState>? navigatorKey})
       : super(navigatorKey);
 
   @override
-  final Map<String, _i12.PageFactory> pagesMap = {
+  final Map<String, _i7.PageFactory> pagesMap = {
     StartupViewRoute.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.StartupView(),
       );
     },
     AuthViewRoute.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.AuthView(),
       );
     },
-    CartViewRoute.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i3.CartView(),
-      );
-    },
-    HomeViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
-        routeData: routeData,
-        child: const _i4.HomeView(),
-        opaque: true,
-        barrierDismissible: false,
-      );
-    },
-    OrdersViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
-        routeData: routeData,
-        child: const _i5.OrdersView(),
-        opaque: true,
-        barrierDismissible: false,
-      );
-    },
-    StoresViewRoute.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i6.StoresView(),
-      );
-    },
-    PromoViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
-        routeData: routeData,
-        child: const _i7.PromoView(),
-        opaque: true,
-        barrierDismissible: false,
-      );
-    },
-    ProductViewRoute.name: (routeData) {
-      final args = routeData.argsAs<ProductViewArgs>();
-      return _i12.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: _i8.ProductView(
-          args.id,
-          key: args.key,
-        ),
-      );
-    },
     WelcomeViewRoute.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.WelcomeView(),
+        child: const _i3.WelcomeView(),
       );
     },
     DashboardViewRoute.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i7.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i10.DashboardView(),
+        child: const _i4.DashboardView(),
+        transitionsBuilder: _i7.TransitionsBuilders.fadeIn,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ValidationExampleViewRoute.name: (routeData) {
+      return _i7.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i5.ValidationExampleView(),
       );
     },
   };
 
   @override
-  List<_i12.RouteConfig> get routes => [
-        _i12.RouteConfig(
+  List<_i7.RouteConfig> get routes => [
+        _i7.RouteConfig(
           StartupViewRoute.name,
           path: '/',
         ),
-        _i12.RouteConfig(
+        _i7.RouteConfig(
           AuthViewRoute.name,
-          path: '/auth-view',
+          path: '/',
         ),
-        _i12.RouteConfig(
-          CartViewRoute.name,
-          path: '/cart-view',
-        ),
-        _i12.RouteConfig(
-          HomeViewRoute.name,
-          path: '/home-view',
-        ),
-        _i12.RouteConfig(
-          OrdersViewRoute.name,
-          path: '/orders-view',
-        ),
-        _i12.RouteConfig(
-          StoresViewRoute.name,
-          path: '/stores-view',
-        ),
-        _i12.RouteConfig(
-          PromoViewRoute.name,
-          path: '/promo-view',
-        ),
-        _i12.RouteConfig(
-          ProductViewRoute.name,
-          path: '/product-view',
-        ),
-        _i12.RouteConfig(
+        _i7.RouteConfig(
           WelcomeViewRoute.name,
-          path: '/welcome-view',
+          path: '/',
         ),
-        _i12.RouteConfig(
+        _i7.RouteConfig(
           DashboardViewRoute.name,
-          path: '/dashboard-view',
+          path: '/',
+        ),
+        _i7.RouteConfig(
+          ValidationExampleViewRoute.name,
+          path: '/validation-example-view',
         ),
       ];
 }
 
 /// generated route for
 /// [_i1.StartupView]
-class StartupViewRoute extends _i12.PageRouteInfo<void> {
+class StartupViewRoute extends _i7.PageRouteInfo<void> {
   const StartupViewRoute()
       : super(
           StartupViewRoute.name,
@@ -160,137 +98,55 @@ class StartupViewRoute extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.AuthView]
-class AuthViewRoute extends _i12.PageRouteInfo<void> {
+class AuthViewRoute extends _i7.PageRouteInfo<void> {
   const AuthViewRoute()
       : super(
           AuthViewRoute.name,
-          path: '/auth-view',
+          path: '/',
         );
 
   static const String name = 'AuthView';
 }
 
 /// generated route for
-/// [_i3.CartView]
-class CartViewRoute extends _i12.PageRouteInfo<void> {
-  const CartViewRoute()
-      : super(
-          CartViewRoute.name,
-          path: '/cart-view',
-        );
-
-  static const String name = 'CartView';
-}
-
-/// generated route for
-/// [_i4.HomeView]
-class HomeViewRoute extends _i12.PageRouteInfo<void> {
-  const HomeViewRoute()
-      : super(
-          HomeViewRoute.name,
-          path: '/home-view',
-        );
-
-  static const String name = 'HomeView';
-}
-
-/// generated route for
-/// [_i5.OrdersView]
-class OrdersViewRoute extends _i12.PageRouteInfo<void> {
-  const OrdersViewRoute()
-      : super(
-          OrdersViewRoute.name,
-          path: '/orders-view',
-        );
-
-  static const String name = 'OrdersView';
-}
-
-/// generated route for
-/// [_i6.StoresView]
-class StoresViewRoute extends _i12.PageRouteInfo<void> {
-  const StoresViewRoute()
-      : super(
-          StoresViewRoute.name,
-          path: '/stores-view',
-        );
-
-  static const String name = 'StoresView';
-}
-
-/// generated route for
-/// [_i7.PromoView]
-class PromoViewRoute extends _i12.PageRouteInfo<void> {
-  const PromoViewRoute()
-      : super(
-          PromoViewRoute.name,
-          path: '/promo-view',
-        );
-
-  static const String name = 'PromoView';
-}
-
-/// generated route for
-/// [_i8.ProductView]
-class ProductViewRoute extends _i12.PageRouteInfo<ProductViewArgs> {
-  ProductViewRoute({
-    required String id,
-    _i13.Key? key,
-  }) : super(
-          ProductViewRoute.name,
-          path: '/product-view',
-          args: ProductViewArgs(
-            id: id,
-            key: key,
-          ),
-        );
-
-  static const String name = 'ProductView';
-}
-
-class ProductViewArgs {
-  const ProductViewArgs({
-    required this.id,
-    this.key,
-  });
-
-  final String id;
-
-  final _i13.Key? key;
-
-  @override
-  String toString() {
-    return 'ProductViewArgs{id: $id, key: $key}';
-  }
-}
-
-/// generated route for
-/// [_i9.WelcomeView]
-class WelcomeViewRoute extends _i12.PageRouteInfo<void> {
+/// [_i3.WelcomeView]
+class WelcomeViewRoute extends _i7.PageRouteInfo<void> {
   const WelcomeViewRoute()
       : super(
           WelcomeViewRoute.name,
-          path: '/welcome-view',
+          path: '/',
         );
 
   static const String name = 'WelcomeView';
 }
 
 /// generated route for
-/// [_i10.DashboardView]
-class DashboardViewRoute extends _i12.PageRouteInfo<void> {
+/// [_i4.DashboardView]
+class DashboardViewRoute extends _i7.PageRouteInfo<void> {
   const DashboardViewRoute()
       : super(
           DashboardViewRoute.name,
-          path: '/dashboard-view',
+          path: '/',
         );
 
   static const String name = 'DashboardView';
 }
 
-extension RouterStateExtension on _i11.RouterService {
+/// generated route for
+/// [_i5.ValidationExampleView]
+class ValidationExampleViewRoute extends _i7.PageRouteInfo<void> {
+  const ValidationExampleViewRoute()
+      : super(
+          ValidationExampleViewRoute.name,
+          path: '/validation-example-view',
+        );
+
+  static const String name = 'ValidationExampleView';
+}
+
+extension RouterStateExtension on _i6.RouterService {
   Future<dynamic> navigateToStartupView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const StartupViewRoute(),
       onFailure: onFailure,
@@ -298,69 +154,15 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToAuthView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const AuthViewRoute(),
       onFailure: onFailure,
     );
   }
 
-  Future<dynamic> navigateToCartView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return navigateTo(
-      const CartViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> navigateToHomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return navigateTo(
-      const HomeViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> navigateToOrdersView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return navigateTo(
-      const OrdersViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> navigateToStoresView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return navigateTo(
-      const StoresViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> navigateToPromoView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return navigateTo(
-      const PromoViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> navigateToProductView({
-    required String id,
-    _i13.Key? key,
-    void Function(_i12.NavigationFailure)? onFailure,
-  }) async {
-    return navigateTo(
-      ProductViewRoute(
-        id: id,
-        key: key,
-      ),
-      onFailure: onFailure,
-    );
-  }
-
   Future<dynamic> navigateToWelcomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const WelcomeViewRoute(),
       onFailure: onFailure,
@@ -368,15 +170,23 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToDashboardView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const DashboardViewRoute(),
       onFailure: onFailure,
     );
   }
 
+  Future<dynamic> navigateToValidationExampleView(
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const ValidationExampleViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> replaceWithStartupView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const StartupViewRoute(),
       onFailure: onFailure,
@@ -384,69 +194,15 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithAuthView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const AuthViewRoute(),
       onFailure: onFailure,
     );
   }
 
-  Future<dynamic> replaceWithCartView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return replaceWith(
-      const CartViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> replaceWithHomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return replaceWith(
-      const HomeViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> replaceWithOrdersView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return replaceWith(
-      const OrdersViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> replaceWithStoresView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return replaceWith(
-      const StoresViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> replaceWithPromoView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return replaceWith(
-      const PromoViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
-  Future<dynamic> replaceWithProductView({
-    required String id,
-    _i13.Key? key,
-    void Function(_i12.NavigationFailure)? onFailure,
-  }) async {
-    return replaceWith(
-      ProductViewRoute(
-        id: id,
-        key: key,
-      ),
-      onFailure: onFailure,
-    );
-  }
-
   Future<dynamic> replaceWithWelcomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const WelcomeViewRoute(),
       onFailure: onFailure,
@@ -454,9 +210,17 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithDashboardView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const DashboardViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> replaceWithValidationExampleView(
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const ValidationExampleViewRoute(),
       onFailure: onFailure,
     );
   }

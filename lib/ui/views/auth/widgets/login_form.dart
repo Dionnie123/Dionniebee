@@ -1,5 +1,6 @@
 import 'package:dionniebee/app/models/login_dto.dart';
 import 'package:dionniebee/ui/common/my_texts.dart';
+import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
 import 'package:dionniebee/ui/views/auth/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,18 @@ class LoginForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const MyText.headingOne("SIGN-IN"),
+          Center(
+            child: Column(
+              children: [
+                Image.asset(
+                  "logo-red.png",
+                  width: 70,
+                ),
+                vSpaceSmall,
+                const MyText.headingThree("SIGN-IN"),
+              ],
+            ),
+          ),
           const SizedBox(height: 24.0),
           ReactiveTextField<String>(
             formControl: formModel.emailControl,

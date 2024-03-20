@@ -12,16 +12,23 @@ import 'package:stacked_services/src/navigation/router_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/auth_service.dart';
-import '../services/authentication_service.firebase.dart';
 import '../services/cart_service.dart';
+import '../services/firebase_auth_service.dart';
+import '../services/fluttertoast/fluttertoast_service.dart';
+import '../services/foo_service.dart';
+import '../services/loader_overlay/loader_service.dart';
 import '../services/local_storage_service.dart';
 import '../services/location_service.dart';
 import '../services/order_service.dart';
 import '../services/product_service.dart';
+import '../services/sharedpreferences_local_storage_service.dart';
+import '../services/user_service.dart';
+import '../ui/views/cart/cart_viewmodel.dart';
 import '../ui/views/dashboard/dashboard_viewmodel.dart';
 import '../ui/views/home/home_viewmodel.dart';
 import '../ui/views/orders/orders_viewmodel.dart';
 import '../ui/views/promo/promo_viewmodel.dart';
+import '../ui/views/startup/startup_viewmodel.dart';
 import '../ui/views/stores/stores_viewmodel.dart';
 import 'app.router.dart';
 
@@ -37,26 +44,34 @@ Future<void> setupLocator({
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-  final sharedPreferencesService = SharedPreferencesService();
-  await sharedPreferencesService.init();
-  locator.registerSingleton(sharedPreferencesService);
+  locator.registerLazySingleton(() => LoaderOverlayService());
+  locator.registerLazySingleton(() => FlutterToastService());
+  locator.registerLazySingleton(() => RouterService());
+  locator.registerLazySingleton(() => BottomSheetService());
+  final sharedPreferencesLocalStorageService =
+      SharedPreferencesLocalStorageService();
+  await sharedPreferencesLocalStorageService.init();
+  locator.registerSingleton<LocalStorageService>(
+      sharedPreferencesLocalStorageService);
 
+  locator.registerLazySingleton(() => FooService());
+  locator.registerLazySingleton(() => DialogService());
+  locator.registerLazySingleton(() => UserService());
   final firebaseAuthService = FirebaseAuthService();
   await firebaseAuthService.init();
   locator.registerSingleton<AuthService>(firebaseAuthService);
 
-  locator.registerLazySingleton(() => BottomSheetService());
-  locator.registerLazySingleton(() => DialogService());
-  locator.registerLazySingleton(() => RouterService());
   locator.registerLazySingleton(() => ProductService());
   locator.registerLazySingleton(() => LocationService());
   locator.registerLazySingleton(() => CartService());
   locator.registerLazySingleton(() => OrderService());
+  locator.registerSingleton(StartupViewModel());
   locator.registerSingleton(DashboardViewModel());
   locator.registerSingleton(HomeViewModel());
   locator.registerSingleton(PromoViewModel());
   locator.registerSingleton(OrdersViewModel());
   locator.registerSingleton(StoresViewModel());
+  locator.registerSingleton(CartViewModel());
   if (stackedRouter == null) {
     throw Exception(
         'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');

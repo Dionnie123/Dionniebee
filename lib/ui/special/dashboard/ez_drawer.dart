@@ -23,14 +23,13 @@ class EZDrawer extends StatelessWidget {
   final Function(int index) onTap;
   final int currentIndex;
   const EZDrawer(
-      {Key? key,
+      {super.key,
       this.drawerHeader,
       required this.items,
       this.appBar,
       required this.onTap,
       required this.currentIndex,
-      this.colorTheme = Colors.blue})
-      : super(key: key);
+      this.colorTheme = Colors.blue});
 
   @override
   Widget build(BuildContext context) {

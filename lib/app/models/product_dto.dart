@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'product_dto.freezed.dart';
@@ -23,4 +24,12 @@ class ProductDto with _$ProductDto {
 
   factory ProductDto.fromJson(Map<String, dynamic> json) =>
       _$ProductDtoFromJson(json);
+
+  factory ProductDto.fromFirestore(
+          DocumentSnapshot snapshot, SnapshotOptions? options) =>
+      ProductDto.fromJson(snapshot.data() as Map<String, dynamic>);
+
+  static Map<String, Object?> toFirestore(
+          ProductDto product, SetOptions? options) =>
+      product.toJson();
 }

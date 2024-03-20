@@ -5,7 +5,7 @@ import 'package:stacked/stacked.dart';
 import 'orders_viewmodel.dart';
 
 class OrdersView extends StackedView<OrdersViewModel> {
-  const OrdersView({Key? key}) : super(key: key);
+  const OrdersView({super.key});
 
   @override
   Widget builder(
@@ -14,13 +14,13 @@ class OrdersView extends StackedView<OrdersViewModel> {
     Widget? child,
   ) {
     return PageScaffold(
-      title: 'HOME',
+      title: 'ORDERS',
       body: Container(
-          padding: const EdgeInsets.only(
-            left: 25.0,
-            right: 25.0,
-          ),
-          child: const Text("Orders")),
+        padding: const EdgeInsets.only(
+          left: 25.0,
+          right: 25.0,
+        ),
+      ),
     );
   }
 

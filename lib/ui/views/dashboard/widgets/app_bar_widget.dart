@@ -22,12 +22,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
       ),
       actions: [
-        IconButton(
-          icon: const Icon(Icons.account_circle_rounded),
-          onPressed: () async {
-            onSignOut();
-          },
-        ),
         Builder(builder: (context) {
           return IconButton(
             icon: badges.Badge(
@@ -52,7 +46,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(56.0);
 }
-
 
 /*
  actions: [
