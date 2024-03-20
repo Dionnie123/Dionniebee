@@ -22,7 +22,7 @@ class LoginForm extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(
-                  "logo-red.png",
+                  "assets/logo-red.png",
                   width: 70,
                 ),
                 vSpaceSmall,
