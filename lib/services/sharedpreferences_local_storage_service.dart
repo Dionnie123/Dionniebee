@@ -15,7 +15,7 @@ class SharedPreferencesLocalStorageService implements LocalStorageService {
   Future<void> init() async {
     try {
       _preferences = await SharedPreferences.getInstance();
-      _log.d('Initialized');
+      _log.i('Initialized');
     } catch (e) {
       _log.e('Initialized Failed');
     }

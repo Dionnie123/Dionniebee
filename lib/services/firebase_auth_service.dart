@@ -4,6 +4,7 @@ import 'package:dionniebee/app/app.logger.dart';
 import 'package:dionniebee/app/models/user_dto.dart';
 import 'package:dionniebee/firebase_options.dart';
 import 'package:dionniebee/services/auth_service.dart';
+import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,6 +37,7 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
       if (user != null) {
         _userService.currentUser = UserDto(id: user.uid, email: user.email);
       }
+
       _log.i('Initialized');
     } catch (e) {
       _log.e('Initialized Failed: ${e.toString()}');

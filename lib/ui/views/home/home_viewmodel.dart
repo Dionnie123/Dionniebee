@@ -14,7 +14,6 @@ import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends ReactiveViewModel {
   final locationService = locator<LocationService>();
-
   final _navService = locator<RouterService>();
   final _productService = locator<ProductService>();
   final _cartService = locator<CartService>();
@@ -48,11 +47,7 @@ class HomeViewModel extends ReactiveViewModel {
   List<ProductDto> get cart => _cartService.cart;
   List<ProductDto> get products => _productService.items;
 
-  String? x;
-
   Future init() async {
-    x = await getDownloadUrlFromPath("products/ck.png");
-    print("x: $x");
     await runBusyFuture(Future.wait([
       _productService.getAll(),
     ]));

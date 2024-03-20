@@ -47,7 +47,6 @@ void registerServices() {
   getAndRegisterFooService();
   getAndRegisterUserService(hasLoggedInUser: false);
   getAndRegisterFlutterToastService();
-
   getAndRegisterLoaderService();
 // @stacked-mock-register
 }

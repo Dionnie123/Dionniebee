@@ -1,5 +1,5 @@
-.PHONY: dev-web
-dev-web:
+.PHONY: devweb
+devweb:
 	flutter clean 
 	flutter pub get 
 	flutter pub run build_runner build --delete-conflicting-outputs 

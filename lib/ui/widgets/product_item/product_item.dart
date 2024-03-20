@@ -2,6 +2,7 @@ import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
@@ -29,6 +30,18 @@ class _ProductItemState extends State<ProductItem> {
   bool addedToCartOverlayVisible = false;
   bool addedToFavoritesOverlayVisible = false;
   bool isFavorite = false;
+
+  Future<String?> getDownloadUrlFromPath(String? imagePath) async {
+    try {
+      var storageReference = FirebaseStorage.instance.ref().child("$imagePath");
+
+      var downloadURL = await storageReference.getDownloadURL();
+      return downloadURL;
+    } catch (e) {
+      print('Error getting download URL from Firebase Storage: $e');
+      return null;
+    }
+  }
 
   toggleAddedToCartOverlay() {
     widget.onAdd();
@@ -81,18 +94,26 @@ class _ProductItemState extends State<ProductItem> {
                         Stack(
                           clipBehavior: Clip.antiAlias,
                           children: [
-                            CachedNetworkImage(
-                              imageUrl: widget.product.imageUrl.toString(),
-                              placeholder: (context, url) =>
-                                  Container(color: kcLightGrey),
-                              errorWidget: (context, url, error) => Container(
-                                color: kcLightGrey,
-                                child: const Icon(Icons.error),
-                              ),
-                              height: 120,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
+                            Builder(builder: (context) {
+                              return FutureBuilder<String?>(
+                                  future: getDownloadUrlFromPath(
+                                      widget.product.imageUrl),
+                                  builder: (context, snapshot) {
+                                    return CachedNetworkImage(
+                                      imageUrl: "${snapshot.data}",
+                                      placeholder: (context, url) =>
+                                          Container(color: kcLightGrey),
+                                      errorWidget: (context, url, error) =>
+                                          Container(
+                                        color: kcLightGrey,
+                                        child: const Icon(Icons.error),
+                                      ),
+                                      height: 120,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    );
+                                  });
+                            }),
                             Positioned(
                               right: 0,
                               top: 0,

@@ -2,11 +2,9 @@ import 'package:dionniebee/app/extensions/null_operators.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
 import 'cart_item.button.dart';
 
 class CartItem extends StatelessWidget {
