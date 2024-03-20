@@ -25,6 +25,3 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
-
-# Except for the build folder
-!build/
