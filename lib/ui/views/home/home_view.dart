@@ -77,7 +77,7 @@ class HomeView extends StackedView<HomeViewModel> {
                     right: 20,
                     bottom: -20,
                     child: Image.asset(
-                      "assets/jollibot/chickenjoy.png",
+                      "assets/products/chickenjoy.png",
                       width: 180,
                     )),
                 Padding(
