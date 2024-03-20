@@ -14,13 +14,13 @@ class OrdersView extends StackedView<OrdersViewModel> {
     Widget? child,
   ) {
     return PageScaffold(
-      title: 'HOME',
+      title: 'ORDERS',
       body: Container(
-          padding: const EdgeInsets.only(
-            left: 25.0,
-            right: 25.0,
-          ),
-          child: const Text("Orders")),
+        padding: const EdgeInsets.only(
+          left: 25.0,
+          right: 25.0,
+        ),
+      ),
     );
   }
 

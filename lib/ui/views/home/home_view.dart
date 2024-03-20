@@ -1,4 +1,5 @@
 import 'package:dionniebee/app/app.locator.dart';
+import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/page_scaffold.dart';
@@ -70,8 +71,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 Container(
                   width: double.infinity,
                   height: 200,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary),
+                  decoration: const BoxDecoration(color: kcPrimaryAccent),
                 ),
                 Positioned(
                     right: 20,

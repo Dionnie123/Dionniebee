@@ -1,6 +1,7 @@
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dionniebee/ui/common/colors.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
@@ -20,6 +21,19 @@ class FoodMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<String?> getDownloadUrlFromPath(String? imagePath) async {
+      try {
+        var storageReference =
+            FirebaseStorage.instance.ref().child("$imagePath");
+
+        var downloadURL = await storageReference.getDownloadURL();
+        return downloadURL;
+      } catch (e) {
+        print('Error getting download URL from Firebase Storage: $e');
+        return null;
+      }
+    }
+
     return GestureDetector(
       onTap: () => onTap(),
       child: Center(
@@ -38,17 +52,21 @@ class FoodMenuItem extends StatelessWidget {
                     Stack(
                       clipBehavior: Clip.antiAlias,
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: product.imageUrl.toString(),
-                          placeholder: (context, url) =>
-                              Container(color: kcLightGrey),
-                          errorWidget: (context, url, error) => Container(
-                              color: kcLightGrey,
-                              child: const Icon(Icons.error)),
-                          height: 108,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
+                        FutureBuilder<String?>(
+                            future: getDownloadUrlFromPath(product.imageUrl),
+                            builder: (context, snapshot) {
+                              return CachedNetworkImage(
+                                imageUrl: "${snapshot.data}",
+                                placeholder: (context, url) =>
+                                    Container(color: kcLightGrey),
+                                errorWidget: (context, url, error) => Container(
+                                    color: kcLightGrey,
+                                    child: const Icon(Icons.error)),
+                                height: 108,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              );
+                            }),
                       ],
                     ),
                   ],
