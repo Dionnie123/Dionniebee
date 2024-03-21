@@ -52,7 +52,7 @@ class RegisterDto with _$RegisterDto {
   // ignore: invalid_annotation_target
   @JsonSerializable(fieldRename: FieldRename.snake)
   factory RegisterDto({
-    @RfControl(validators: [RequiredValidator()]) String? fullName,
+    @RfControl(validators: [RequiredValidator()]) String? name,
     @RfControl(validators: [RequiredValidator(), EmailValidator()])
     String? email,
     @RfControl(validators: [

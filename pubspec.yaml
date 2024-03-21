@@ -30,14 +30,15 @@ dependencies:
   stacked: ^3.4.1
   stacked_services: ^1.2.0
   stacked_themes: ^0.3.12
+  stacked_firebase_auth: ^2.20.0
   rxdart: ^0.27.7
   dartz: ^0.10.1
   flutter_hooks: ^0.20.1
 
   #FORMS
-  reactive_forms: ^16.0.2
+  reactive_forms: ^16.1.1
   reactive_date_time_picker: ^3.0.0
-  reactive_forms_annotations: ^4.0.0
+  reactive_forms_annotations: ^4.3.0
 
   #WIDGETS
   carousel_slider: ^4.2.1
@@ -89,7 +90,7 @@ dev_dependencies:
   freezed: ^2.3.5
   stacked_generator: ^1.6.0
   hive_generator: ^2.0.0
-  reactive_forms_generator: ^4.0.0
+  reactive_forms_generator: ^4.5.2
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.1

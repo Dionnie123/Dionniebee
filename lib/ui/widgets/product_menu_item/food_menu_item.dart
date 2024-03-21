@@ -1,11 +1,8 @@
 import 'package:dionniebee/app/models/product_dto.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:firebase_cached_image/firebase_cached_image.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stacked/stacked.dart';
 
 class FoodMenuItem extends StatelessWidget {
   final Function() onTap;
@@ -22,19 +19,6 @@ class FoodMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<String?> getDownloadUrlFromPath(String? imagePath) async {
-      try {
-        var storageReference =
-            FirebaseStorage.instance.ref().child("$imagePath");
-
-        var downloadURL = await storageReference.getDownloadURL();
-        return downloadURL;
-      } catch (e) {
-        print('Error getting download URL from Firebase Storage: $e');
-        return null;
-      }
-    }
-
     return GestureDetector(
       onTap: () => onTap(),
       child: Center(

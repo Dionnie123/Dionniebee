@@ -21,7 +21,7 @@ RegisterDto _$RegisterDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$RegisterDto {
   @RfControl(validators: [RequiredValidator()])
-  String? get fullName => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   @RfControl(validators: [RequiredValidator(), EmailValidator()])
   String? get email => throw _privateConstructorUsedError;
   @RfControl(validators: [RequiredValidator()])
@@ -47,7 +47,7 @@ abstract class $RegisterDtoCopyWith<$Res> {
       _$RegisterDtoCopyWithImpl<$Res, RegisterDto>;
   @useResult
   $Res call(
-      {@RfControl(validators: [RequiredValidator()]) String? fullName,
+      {@RfControl(validators: [RequiredValidator()]) String? name,
       @RfControl(validators: [RequiredValidator(), EmailValidator()])
       String? email,
       @RfControl(validators: [RequiredValidator()]) String? password,
@@ -72,16 +72,16 @@ class _$RegisterDtoCopyWithImpl<$Res, $Val extends RegisterDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fullName = freezed,
+    Object? name = freezed,
     Object? email = freezed,
     Object? password = freezed,
     Object? passwordConfirmation = freezed,
     Object? acceptLicense = freezed,
   }) {
     return _then(_value.copyWith(
-      fullName: freezed == fullName
-          ? _value.fullName
-          : fullName // ignore: cast_nullable_to_non_nullable
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
       email: freezed == email
           ? _value.email
@@ -112,7 +112,7 @@ abstract class _$$RegisterDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@RfControl(validators: [RequiredValidator()]) String? fullName,
+      {@RfControl(validators: [RequiredValidator()]) String? name,
       @RfControl(validators: [RequiredValidator(), EmailValidator()])
       String? email,
       @RfControl(validators: [RequiredValidator()]) String? password,
@@ -135,16 +135,16 @@ class __$$RegisterDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fullName = freezed,
+    Object? name = freezed,
     Object? email = freezed,
     Object? password = freezed,
     Object? passwordConfirmation = freezed,
     Object? acceptLicense = freezed,
   }) {
     return _then(_$RegisterDtoImpl(
-      fullName: freezed == fullName
-          ? _value.fullName
-          : fullName // ignore: cast_nullable_to_non_nullable
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
       email: freezed == email
           ? _value.email
@@ -171,7 +171,7 @@ class __$$RegisterDtoImplCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$RegisterDtoImpl implements _RegisterDto {
   _$RegisterDtoImpl(
-      {@RfControl(validators: [RequiredValidator()]) this.fullName,
+      {@RfControl(validators: [RequiredValidator()]) this.name,
       @RfControl(validators: [RequiredValidator(), EmailValidator()])
       this.email,
       @RfControl(validators: [RequiredValidator()]) this.password,
@@ -187,7 +187,7 @@ class _$RegisterDtoImpl implements _RegisterDto {
 
   @override
   @RfControl(validators: [RequiredValidator()])
-  final String? fullName;
+  final String? name;
   @override
   @RfControl(validators: [RequiredValidator(), EmailValidator()])
   final String? email;
@@ -206,7 +206,7 @@ class _$RegisterDtoImpl implements _RegisterDto {
 
   @override
   String toString() {
-    return 'RegisterDto(fullName: $fullName, email: $email, password: $password, passwordConfirmation: $passwordConfirmation, acceptLicense: $acceptLicense)';
+    return 'RegisterDto(name: $name, email: $email, password: $password, passwordConfirmation: $passwordConfirmation, acceptLicense: $acceptLicense)';
   }
 
   @override
@@ -214,8 +214,7 @@ class _$RegisterDtoImpl implements _RegisterDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RegisterDtoImpl &&
-            (identical(other.fullName, fullName) ||
-                other.fullName == fullName) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password) &&
@@ -227,8 +226,8 @@ class _$RegisterDtoImpl implements _RegisterDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, fullName, email, password,
-      passwordConfirmation, acceptLicense);
+  int get hashCode => Object.hash(
+      runtimeType, name, email, password, passwordConfirmation, acceptLicense);
 
   @JsonKey(ignore: true)
   @override
@@ -246,7 +245,7 @@ class _$RegisterDtoImpl implements _RegisterDto {
 
 abstract class _RegisterDto implements RegisterDto {
   factory _RegisterDto(
-      {@RfControl(validators: [RequiredValidator()]) final String? fullName,
+      {@RfControl(validators: [RequiredValidator()]) final String? name,
       @RfControl(validators: [RequiredValidator(), EmailValidator()])
       final String? email,
       @RfControl(validators: [RequiredValidator()]) final String? password,
@@ -263,7 +262,7 @@ abstract class _RegisterDto implements RegisterDto {
 
   @override
   @RfControl(validators: [RequiredValidator()])
-  String? get fullName;
+  String? get name;
   @override
   @RfControl(validators: [RequiredValidator(), EmailValidator()])
   String? get email;

@@ -4,6 +4,7 @@ class EzButton extends StatelessWidget {
   final String title;
   final bool disabled;
   final bool busy;
+  final Color? backgroundColor;
 
   final void Function() onPressed;
   final void Function()? onLongPress;
@@ -15,6 +16,7 @@ class EzButton extends StatelessWidget {
     this.busy = false,
     required this.onPressed,
     this.onLongPress,
+    this.backgroundColor,
   });
 
   @override
@@ -36,6 +38,8 @@ class EzButton extends StatelessWidget {
       width: double.infinity,
       height: 44,
       child: FilledButton(
+        style: ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(backgroundColor)),
         onPressed: disabled
             ? null
             : busy

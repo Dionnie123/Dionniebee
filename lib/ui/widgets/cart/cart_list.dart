@@ -3,8 +3,6 @@ import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
-import 'package:dionniebee/ui/special/ez_button.dart';
-import 'package:dionniebee/ui/special/ez_text.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 

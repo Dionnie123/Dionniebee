@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'validation_example_viewmodel.dart';
 
 class ValidationExampleView extends StackedView<ValidationExampleViewModel> {
-  const ValidationExampleView({Key? key}) : super(key: key);
+  const ValidationExampleView({super.key});
 
   @override
   Widget builder(

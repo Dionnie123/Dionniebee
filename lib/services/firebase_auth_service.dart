@@ -4,7 +4,6 @@ import 'package:dionniebee/app/app.logger.dart';
 import 'package:dionniebee/app/models/user_dto.dart';
 import 'package:dionniebee/firebase_options.dart';
 import 'package:dionniebee/services/auth_service.dart';
-import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -45,7 +44,7 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
   }
 
   @override
-  Future<void> signInWithEmail({
+  Future signInWithEmail({
     required String email,
     required String password,
   }) async {
@@ -58,16 +57,10 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
       }
     } on FirebaseAuthException catch (e) {
       _log.e(e.toString());
-      await _dialogService.showDialog(
-          title: "Sign-in Error",
-          description: e.toString(),
-          dialogPlatform: DialogPlatform.Custom);
+      return Future.error(Exception(e.toString()));
     } catch (e) {
       _log.e(e.toString());
-      await _dialogService.showDialog(
-          title: "Sign-in Error",
-          description: e.toString(),
-          dialogPlatform: DialogPlatform.Custom);
+      return Future.error(Exception(e.toString()));
     }
   }
 
@@ -83,16 +76,10 @@ class FirebaseAuthService with InitializableDependency implements AuthService {
       }
     } on FirebaseAuthException catch (e) {
       _log.e(e.toString());
-      await _dialogService.showDialog(
-          title: "Sign-up Error",
-          description: e.toString(),
-          dialogPlatform: DialogPlatform.Custom);
+      return Future.error(Exception(e.toString()));
     } catch (e) {
       _log.e(e.toString());
-      await _dialogService.showDialog(
-          title: "Sign-up Error",
-          description: e.toString(),
-          dialogPlatform: DialogPlatform.Custom);
+      return Future.error(Exception(e.toString()));
     }
   }
 

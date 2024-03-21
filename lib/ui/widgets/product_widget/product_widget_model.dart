@@ -1,4 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:stacked/stacked.dart';
 
 class ProductWidgetModel extends BaseViewModel {

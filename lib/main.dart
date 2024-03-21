@@ -1,6 +1,6 @@
-import 'package:dionniebee/app/constants/theme-default.dart';
+import 'package:dionniebee/app/constants/theme_default.dart';
 import 'package:dionniebee/app/helpers/lifecycle_manager/lifecycle_manager.dart';
-import 'package:dionniebee/ui/common/colors.dart';
+
 import 'package:dionniebee/services/loader_overlay/loader_manager.dart';
 import 'package:dionniebee/services/fluttertoast/fluttertoast_manager.dart';
 import 'package:flutter/foundation.dart';
@@ -11,8 +11,6 @@ import 'package:dionniebee/app/app.dialogs.dart';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'url_strategy_native.dart'
     if (dart.library.html) 'url_strategy_web.dart';

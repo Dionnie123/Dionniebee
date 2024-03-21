@@ -6,6 +6,7 @@
 
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
+import 'package:stacked_firebase_auth/src/firebase_authentication_service.dart';
 import 'package:stacked_services/src/bottom_sheet/bottom_sheet_service.dart';
 import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/router_service.dart';
@@ -18,7 +19,6 @@ import '../services/fluttertoast/fluttertoast_service.dart';
 import '../services/foo_service.dart';
 import '../services/loader_overlay/loader_service.dart';
 import '../services/local_storage_service.dart';
-import '../services/location_service.dart';
 import '../services/order_service.dart';
 import '../services/product_service.dart';
 import '../services/sharedpreferences_local_storage_service.dart';
@@ -57,12 +57,12 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => FooService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => UserService());
+  locator.registerLazySingleton(() => FirebaseAuthenticationService());
   final firebaseAuthService = FirebaseAuthService();
   await firebaseAuthService.init();
   locator.registerSingleton<AuthService>(firebaseAuthService);
 
   locator.registerLazySingleton(() => ProductService());
-  locator.registerLazySingleton(() => LocationService());
   locator.registerLazySingleton(() => CartService());
   locator.registerLazySingleton(() => OrderService());
   locator.registerSingleton(StartupViewModel());

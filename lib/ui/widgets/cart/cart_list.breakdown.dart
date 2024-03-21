@@ -1,6 +1,4 @@
-import 'package:dionniebee/app/extensions/color_extension.dart';
 import 'package:dionniebee/ui/common/colors.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

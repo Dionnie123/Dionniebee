@@ -12,6 +12,9 @@ class FlutterToastService {
   }
 
   ToastBuilder? welcomeToast;
+
+  Function clear = () {};
+
   welcome(ToastType type) {
     return _toastCustomBuilders[ToastType.welcome]?.call();
   }

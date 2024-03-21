@@ -13,18 +13,17 @@ import 'package:dionniebee/ui/views/startup/startup_viewmodel.dart';
 import 'package:dionniebee/ui/views/stores/stores_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/ui/views/auth/auth_view.dart';
 import 'package:dionniebee/ui/views/startup/startup_view.dart';
-import 'package:dionniebee/services/location_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/ui/views/welcome/welcome_view.dart';
 import 'package:dionniebee/services/order_service.dart';
 import 'package:dionniebee/ui/views/dashboard/dashboard_view.dart';
 import 'package:dionniebee/ui/views/validation_example/validation_example_view.dart';
 import 'package:dionniebee/services/foo_service.dart';
-import 'package:dionniebee/services/supabase_auth_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
 import 'package:dionniebee/services/loader_overlay/loader_service.dart';
@@ -58,13 +57,14 @@ import 'package:dionniebee/ui/bottom_sheets/cart_info/cart_info_sheet.dart';
     LazySingleton(classType: FooService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: UserService),
+    LazySingleton(classType: FirebaseAuthenticationService),
     InitializableSingleton(
       classType: FirebaseAuthService,
       asType: AuthService,
     ),
 
     LazySingleton(classType: ProductService),
-    LazySingleton(classType: LocationService),
+
     LazySingleton(classType: CartService),
     LazySingleton(classType: OrderService),
 

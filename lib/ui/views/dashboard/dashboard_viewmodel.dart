@@ -39,6 +39,7 @@ class DashboardViewModel extends IndexTrackingViewModel {
 
   signOut() async {
     await authService.signOut();
+    toastService.clear();
     toastService.show("You logged out...");
     toastService.show("Welcome Guest");
     await navigationService.replaceWithDashboardView();

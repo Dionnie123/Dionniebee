@@ -1,7 +1,5 @@
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:stacked/stacked.dart';
 
 class ProductMenuListView extends StatelessWidget {
   final Size size;

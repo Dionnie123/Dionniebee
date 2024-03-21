@@ -180,7 +180,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
     this.path,
   );
 
-  static const String fullNameControlName = "fullName";
+  static const String nameControlName = "name";
 
   static const String emailControlName = "email";
 
@@ -194,7 +194,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
 
   final String? path;
 
-  String fullNameControlPath() => pathBuilder(fullNameControlName);
+  String nameControlPath() => pathBuilder(nameControlName);
 
   String emailControlPath() => pathBuilder(emailControlName);
 
@@ -205,7 +205,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
 
   String acceptLicenseControlPath() => pathBuilder(acceptLicenseControlName);
 
-  String? get _fullNameValue => fullNameControl?.value;
+  String? get _nameValue => nameControl?.value;
 
   String? get _emailValue => emailControl?.value;
 
@@ -215,9 +215,9 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
 
   bool? get _acceptLicenseValue => acceptLicenseControl?.value;
 
-  bool get containsFullName {
+  bool get containsName {
     try {
-      form.control(fullNameControlPath());
+      form.control(nameControlPath());
       return true;
     } catch (e) {
       return false;
@@ -260,7 +260,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
     }
   }
 
-  Object? get fullNameErrors => fullNameControl?.errors;
+  Object? get nameErrors => nameControl?.errors;
 
   Object? get emailErrors => emailControl?.errors;
 
@@ -270,7 +270,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
 
   Object? get acceptLicenseErrors => acceptLicenseControl?.errors;
 
-  void get fullNameFocus => form.focus(fullNameControlPath());
+  void get nameFocus => form.focus(nameControlPath());
 
   void get emailFocus => form.focus(emailControlPath());
 
@@ -281,15 +281,15 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
 
   void get acceptLicenseFocus => form.focus(acceptLicenseControlPath());
 
-  void fullNameRemove({
+  void nameRemove({
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    if (containsFullName) {
+    if (containsName) {
       final controlPath = path;
       if (controlPath == null) {
         form.removeControl(
-          fullNameControlName,
+          nameControlName,
           updateParent: updateParent,
           emitEvent: emitEvent,
         );
@@ -298,7 +298,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
 
         if (formGroup is FormGroup) {
           formGroup.removeControl(
-            fullNameControlName,
+            nameControlName,
             updateParent: updateParent,
             emitEvent: emitEvent,
           );
@@ -411,12 +411,12 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
     }
   }
 
-  void fullNameValueUpdate(
+  void nameValueUpdate(
     String? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    fullNameControl?.updateValue(value,
+    nameControl?.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -456,12 +456,12 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
-  void fullNameValuePatch(
+  void nameValuePatch(
     String? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    fullNameControl?.patchValue(value,
+    nameControl?.patchValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -501,14 +501,14 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
-  void fullNameValueReset(
+  void nameValueReset(
     String? value, {
     bool updateParent = true,
     bool emitEvent = true,
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      fullNameControl?.reset(
+      nameControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   void emailValueReset(
@@ -551,8 +551,8 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
       acceptLicenseControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
-  FormControl<String>? get fullNameControl => containsFullName
-      ? form.control(fullNameControlPath()) as FormControl<String>?
+  FormControl<String>? get nameControl => containsName
+      ? form.control(nameControlPath()) as FormControl<String>?
       : null;
 
   FormControl<String>? get emailControl => containsEmail
@@ -573,18 +573,18 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
       ? form.control(acceptLicenseControlPath()) as FormControl<bool>?
       : null;
 
-  void fullNameSetDisabled(
+  void nameSetDisabled(
     bool disabled, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
     if (disabled) {
-      fullNameControl?.markAsDisabled(
+      nameControl?.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      fullNameControl?.markAsEnabled(
+      nameControl?.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
@@ -671,7 +671,7 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
               '[${path ?? 'RegisterDtoForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
     }
     return RegisterDto(
-        fullName: _fullNameValue,
+        name: _nameValue,
         email: _emailValue,
         password: _passwordValue,
         passwordConfirmation: _passwordConfirmationValue,
@@ -719,8 +719,8 @@ class RegisterDtoForm implements FormModel<RegisterDto> {
       [path, pathItem].whereType<String>().join(".");
 
   static FormGroup formElements(RegisterDto? registerDto) => FormGroup({
-        fullNameControlName: FormControl<String>(
-            value: registerDto?.fullName,
+        nameControlName: FormControl<String>(
+            value: registerDto?.name,
             validators: [RequiredValidator()],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,

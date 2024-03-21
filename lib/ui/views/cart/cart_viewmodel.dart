@@ -1,6 +1,5 @@
 import 'package:dionniebee/app/app.bottomsheets.dart';
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/cart_service.dart';

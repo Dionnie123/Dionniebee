@@ -5,7 +5,6 @@ import 'package:dionniebee/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/product_service.dart';
-import 'package:dionniebee/services/location_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/order_service.dart';
 import 'package:dionniebee/services/foo_service.dart';
@@ -23,7 +22,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<AuthService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ProductService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<LocationService>(onMissingStub: OnMissingStub.returnDefault),
+
   MockSpec<CartService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<OrderService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<FooService>(onMissingStub: OnMissingStub.returnDefault),
@@ -41,7 +40,7 @@ void registerServices() {
   getAndRegisterDialogService();
   getAndRegisterAuthService();
   getAndRegisterProductService();
-  getAndRegisterLocationService();
+
   getAndRegisterCartService();
   getAndRegisterOrderService();
   getAndRegisterFooService();
@@ -128,13 +127,6 @@ MockAuthService getAndRegisterAuthService() {
   final service = MockAuthService();
 
   locator.registerSingleton<AuthService>(service);
-  return service;
-}
-
-MockLocationService getAndRegisterLocationService() {
-  _removeRegistrationIfExists<LocationService>();
-  final service = MockLocationService();
-  locator.registerSingleton<LocationService>(service);
   return service;
 }
 

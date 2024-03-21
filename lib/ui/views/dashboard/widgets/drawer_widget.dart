@@ -47,7 +47,7 @@ class DrawerWidget extends StatelessWidget {
 
     final ancestorScaffold = Scaffold.maybeOf(context);
     // 2. check if it has a drawer
-    final hasDrawer = ancestorScaffold != null && ancestorScaffold.hasDrawer;
+    // final hasDrawer = ancestorScaffold != null && ancestorScaffold.hasDrawer;
 
     return Drawer(
       backgroundColor: kcPrimaryColorDark,
@@ -70,10 +70,10 @@ class DrawerWidget extends StatelessWidget {
                             await viewModel.signOut();
                           },
                           child: const Text(
-                            "Sign-out",
+                            "SIGN OUT",
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w900),
                           ),
                         )
@@ -82,7 +82,7 @@ class DrawerWidget extends StatelessWidget {
                             await locator<RouterService>().navigateToAuthView();
                           },
                           child: const Text(
-                            "Sign In",
+                            "SIGN IN",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,

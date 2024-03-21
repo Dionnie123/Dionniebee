@@ -1,8 +1,11 @@
+import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/login_dto.dart';
+import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/my_texts.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
 import 'package:dionniebee/ui/views/auth/auth_viewmodel.dart';
+import 'package:dionniebee/ui/views/auth/busykeys.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:stacked/stacked.dart';
@@ -63,7 +66,7 @@ class LoginForm extends StatelessWidget {
           const SizedBox(height: 8.0),
           ReactiveLoginDtoFormConsumer(builder: (context, formModel, child) {
             return EzButton(
-              busy: viewModel.isBusy,
+              busy: viewModel.busy(signInKey),
               title: 'SIGN IN',
               disabled: formModel.form.hasErrors ? true : false,
               onPressed: () async {
@@ -73,6 +76,23 @@ class LoginForm extends StatelessWidget {
               },
             );
           }),
+          vSpaceSmall,
+          EzButton(
+            backgroundColor: kcDark,
+            title: 'ORDER AS GUEST',
+            onPressed: () async {
+              await viewModel.navService.replaceWithDashboardView();
+            },
+          ),
+          vSpaceSmall,
+          EzButton(
+            busy: viewModel.busy(loginWithGoogleKey),
+            backgroundColor: Colors.blue,
+            title: 'SIGN IN WITH GOOGLE',
+            onPressed: () async {
+              await viewModel.signInWithGoogle();
+            },
+          ),
           const SizedBox(height: 18.0),
           TextButton(
               onPressed: () {

@@ -2,7 +2,6 @@ import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/special/sliver_grid_delegate.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
 class FeaturedProductsListview extends StatelessWidget {
   final Size size;
@@ -24,7 +23,7 @@ class FeaturedProductsListview extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       sliver: isBusy
           ? SliverGrid.builder(
-              itemCount: products.length,
+              itemCount: 8,
               gridDelegate:
                   SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
                 height: size.height,

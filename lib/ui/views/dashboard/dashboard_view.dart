@@ -52,12 +52,11 @@ class DashboardView extends StackedView<DashboardViewModel> {
     DashboardViewModel viewModel,
     Widget? child,
   ) {
-    return WillPopScope(
-            onWillPop: () async {
+    return PopScope(
+            onPopInvoked: (didPop) async {
               viewModel.setIndex(0);
-
-              return await Future.value(false);
             },
+            canPop: false,
             child: SplitView(child: getViewForIndex(viewModel.currentIndex)))
 
         /*    AnimatedSwitcher(

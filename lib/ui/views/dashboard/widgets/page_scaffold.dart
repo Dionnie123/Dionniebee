@@ -10,12 +10,14 @@ class PageScaffold extends StatelessWidget {
     this.floatingActionButton,
     this.bottomSheet,
     this.isBusy = false,
+    this.refreshIndicatorTask,
   });
   final String title;
   final List<Widget> actions;
   final Widget? body;
   final Widget? floatingActionButton;
   final Widget? bottomSheet;
+  final Function? refreshIndicatorTask;
   final bool isBusy;
 
   @override
@@ -40,13 +42,26 @@ class PageScaffold extends StatelessWidget {
         title: Text(title),
         actions: actions,
       ),
-      body: isBusy
-          ? Shimmer.fromColors(
-              enabled: true,
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              child: body ?? const SizedBox.shrink())
-          : body,
+      body: RefreshIndicator(
+        notificationPredicate: (notification) =>
+            refreshIndicatorTask != null ? true : false,
+        onRefresh: () async {
+          await refreshIndicatorTask!();
+        },
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 500),
+          child: isBusy
+              ? Shimmer.fromColors(
+                  key: const ValueKey('first'),
+                  enabled: true,
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: body ?? const SizedBox.shrink())
+              : SizedBox(
+                  key: const ValueKey('sec'),
+                  child: body ?? const SizedBox.shrink()),
+        ),
+      ),
       floatingActionButton: floatingActionButton,
       bottomSheet: bottomSheet,
     );

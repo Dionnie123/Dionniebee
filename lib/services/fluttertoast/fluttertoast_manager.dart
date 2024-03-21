@@ -92,6 +92,8 @@ class _FlutterToastWidgetState extends State<FlutterToastWidget> {
           toastDuration: const Duration(seconds: 2));
     }
 
+    _toastService.clear = fToast.removeQueuedCustomToasts;
+
     _toastService.welcomeToast = welcomeToast;
     _toastService.showToast = showToast;
     super.initState();

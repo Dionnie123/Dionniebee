@@ -1,12 +1,15 @@
 import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/login_dto.dart';
 import 'package:dionniebee/app/models/register_dto.dart';
-import 'package:dionniebee/services/auth_service.dart';
+import 'package:dionniebee/app/models/user_dto.dart';
 import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
+import 'package:dionniebee/services/user_service.dart';
+import 'package:dionniebee/ui/views/auth/busykeys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../app/app.locator.dart';
@@ -14,21 +17,24 @@ import '../../../app/app.locator.dart';
 enum AuthType { signIn, signUp, passwordResetRequest }
 
 class AuthViewModel extends BaseViewModel {
-  final _authService = locator<AuthService>();
   final _dialogService = locator<DialogService>();
-  final _navService = locator<RouterService>();
-
+  final navService = locator<RouterService>();
+  final firebaseAuthenticationService =
+      locator<FirebaseAuthenticationService>();
   final toast = locator<FlutterToastService>();
+
+  final _userService = locator<UserService>();
 
   @override
   void onFutureError(error, Object? key) {
     super.onFutureError(error, key);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _dialogService.showDialog(
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _dialogService.showDialog(
           title: "Error",
           barrierDismissible: true,
           description: error.toString(),
-          dialogPlatform: DialogPlatform.Custom);
+          dialogPlatform: DialogPlatform.Custom,
+          buttonTitle: "OK");
     });
   }
 
@@ -48,16 +54,22 @@ class AuthViewModel extends BaseViewModel {
       LoginDtoForm.formElements(null),
       null,
     );
-    if (kDebugMode) {
-      loginFormModel.updateValue(LoginDto(
-        email: 'dionnie_bulingit@yahoo.com',
-        password: 'qweqwe123',
-      ));
-    }
     registerFormModel = RegisterDtoForm(
       RegisterDtoForm.formElements(null),
       null,
     );
+    if (kDebugMode || true) {
+      loginFormModel.updateValue(LoginDto(
+        email: 'admin@example.com',
+        password: 'admin123',
+      ));
+      registerFormModel.updateValue(RegisterDto(
+          name: 'foo',
+          email: 'admin@example.com',
+          password: 'admin',
+          passwordConfirmation: 'admin',
+          acceptLicense: true));
+    }
   }
 
   @override
@@ -67,43 +79,68 @@ class AuthViewModel extends BaseViewModel {
     super.dispose();
   }
 
-  Future signInAnonymously() async {
-    await runBusyFuture(_authService.signInAnonymously(), throwException: true);
+  Future signInWithGoogle() async {
+    setBusyForObject(loginWithGoogleKey, true);
+
+    final result = await firebaseAuthenticationService.signInWithGoogle();
+    if (result.hasError) {
+      onFutureError(result.errorMessage, null);
+      setBusyForObject(loginWithGoogleKey, false);
+      return;
+    }
+    if (result.user != null) {
+      _userService.currentUser = UserDto(
+        id: result.user!.uid,
+        email: result.user!.email,
+      );
+      await navService.replaceWithDashboardView();
+    }
+    setBusyForObject(loginWithGoogleKey, false);
   }
 
   Future signIn({required email, required password}) async {
+    setBusyForObject(signInKey, true);
     toast.show("Frying potatoes...");
     toast.show("Slicing onions...");
-    await runBusyFuture(
-      _authService.signInWithEmail(
-        email: email,
-        password: password,
-      ),
-    ).then((value) async {
-      if (value != null) {
-        await _dialogService.showDialog(
-            title: "Notice",
-            description: value.toString(),
-            dialogPlatform: DialogPlatform.Custom);
-      } else {
-        await _navService.replaceWithDashboardView();
-      }
-    });
+
+    final result = await firebaseAuthenticationService.loginWithEmail(
+      email: email,
+      password: password,
+    );
+    if (result.hasError) {
+      onFutureError(result.errorMessage, null);
+      setBusyForObject(signInKey, false);
+      return;
+    }
+    if (result.user != null) {
+      _userService.currentUser = UserDto(
+        id: result.user!.uid,
+        email: result.user!.email,
+      );
+      await navService.replaceWithDashboardView();
+    }
+    setBusyForObject(signInKey, false);
   }
 
   Future signUp({required email, required password}) async {
-    await runBusyFuture(
-            _authService.signUpWithEmail(email: email, password: password),
-            throwException: true)
-        .then((value) async {
-      if (value != null) {
-        await _dialogService.showDialog(
-            title: "Notice",
-            description: value.toString(),
-            dialogPlatform: DialogPlatform.Custom);
-      } else {
-        await _navService.replaceWithDashboardView();
-      }
-    });
+    setBusyForObject(signUpKey, true);
+
+    final result = await firebaseAuthenticationService.createAccountWithEmail(
+      email: email,
+      password: password,
+    );
+    if (result.hasError) {
+      onFutureError(result.errorMessage, null);
+      setBusyForObject(signUpKey, false);
+      return;
+    }
+    if (result.user != null) {
+      _userService.currentUser = UserDto(
+        id: result.user!.uid,
+        email: result.user!.email,
+      );
+      await navService.replaceWithDashboardView();
+    }
+    setBusyForObject(signUpKey, false);
   }
 }
