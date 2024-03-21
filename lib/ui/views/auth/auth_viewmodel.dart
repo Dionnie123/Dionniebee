@@ -64,7 +64,7 @@ class AuthViewModel extends BaseViewModel {
         password: 'admin123',
       ));
       registerFormModel.updateValue(RegisterDto(
-          name: 'foo',
+          name: 'admin',
           email: 'admin@example.com',
           password: 'admin',
           passwordConfirmation: 'admin',

@@ -48,19 +48,13 @@ class PageScaffold extends StatelessWidget {
         onRefresh: () async {
           await refreshIndicatorTask!();
         },
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 500),
-          child: isBusy
-              ? Shimmer.fromColors(
-                  key: const ValueKey('first'),
-                  enabled: true,
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
-                  child: body ?? const SizedBox.shrink())
-              : SizedBox(
-                  key: const ValueKey('sec'),
-                  child: body ?? const SizedBox.shrink()),
-        ),
+        child: isBusy
+            ? Shimmer.fromColors(
+                enabled: true,
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: body ?? const SizedBox.shrink())
+            : SizedBox(child: body ?? const SizedBox.shrink()),
       ),
       floatingActionButton: floatingActionButton,
       bottomSheet: bottomSheet,
