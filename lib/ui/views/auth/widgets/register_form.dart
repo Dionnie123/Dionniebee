@@ -133,6 +133,7 @@ class RegisterForm extends StatelessWidget {
           ReactiveRegisterDtoFormConsumer(
             builder: (context, formModel, child) {
               return EzButton(
+                backgroundColor: kcPrimaryColor,
                 busy: viewModel.busy(signUpKey),
                 title: 'SIGN UP',
                 disabled: formModel.form.hasErrors ? true : false,
