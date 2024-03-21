@@ -1,19 +1,21 @@
-import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_cached_image/firebase_cached_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
-class ProductItem extends StatefulWidget {
+import 'product_widget_model.dart';
+
+class ProductWidget extends StackedView<ProductWidgetModel> {
   final Function() onTap;
   final Function() onAdd;
   final Function() onFavorite;
   final ProductDto product;
   final Size size;
-  const ProductItem(
+
+  const ProductWidget(
     this.product, {
     super.key,
     required this.size,
@@ -23,65 +25,22 @@ class ProductItem extends StatefulWidget {
   });
 
   @override
-  State<ProductItem> createState() => _ProductItemState();
-}
-
-class _ProductItemState extends State<ProductItem> {
-  bool addedToCartOverlayVisible = false;
-  bool addedToFavoritesOverlayVisible = false;
-  bool isFavorite = false;
-
-  Future<String?> getDownloadUrlFromPath(String? imagePath) async {
-    try {
-      var storageReference = FirebaseStorage.instance.ref().child("$imagePath");
-
-      var downloadURL = await storageReference.getDownloadURL();
-      return downloadURL;
-    } catch (e) {
-      print('Error getting download URL from Firebase Storage: $e');
-      return null;
-    }
-  }
-
-  toggleAddedToCartOverlay() {
-    widget.onAdd();
-    if (!mounted) return;
-    setState(() {
-      addedToCartOverlayVisible = true;
-      Future.delayed(const Duration(milliseconds: 1000), () {
-        if (!mounted) return;
-        setState(() {
-          addedToCartOverlayVisible = false;
-        });
-      });
-    });
-  }
-
-  toggleAddedToFavoritesOverlay() {
-    widget.onFavorite();
-    if (!mounted) return;
-    setState(() {
-      addedToFavoritesOverlayVisible = true;
-      isFavorite = true;
-      Future.delayed(const Duration(milliseconds: 1000), () {
-        if (!mounted) return;
-        setState(() {
-          addedToFavoritesOverlayVisible = false;
-        });
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget builder(
+    BuildContext context,
+    ProductWidgetModel viewModel,
+    Widget? child,
+  ) {
     return GestureDetector(
-      onTap: () => toggleAddedToCartOverlay(),
+      onTap: () async {
+        onAdd();
+        await viewModel.toggleAddedToCartOverlay();
+      },
       child: Stack(
         children: [
           Center(
             child: SizedBox(
-              width: widget.size.width,
-              height: widget.size.height,
+              width: size.width,
+              height: size.height,
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
@@ -95,24 +54,36 @@ class _ProductItemState extends State<ProductItem> {
                           clipBehavior: Clip.antiAlias,
                           children: [
                             Builder(builder: (context) {
-                              return FutureBuilder<String?>(
-                                  future: getDownloadUrlFromPath(
-                                      widget.product.imageUrl),
-                                  builder: (context, snapshot) {
-                                    return CachedNetworkImage(
-                                      imageUrl: "${snapshot.data}",
-                                      placeholder: (context, url) =>
-                                          Container(color: kcLightGrey),
-                                      errorWidget: (context, url, error) =>
-                                          Container(
-                                        color: kcLightGrey,
-                                        child: const Icon(Icons.error),
-                                      ),
+                              return Image(
+                                height: 120,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                                image: FirebaseImageProvider(
+                                  FirebaseUrl(product.imageUrl.toString()),
+                                  options: const CacheOptions(
+                                    checkForMetadataChange: true,
+                                  ),
+                                ),
+                                errorBuilder: (context, url, error) =>
+                                    Container(
+                                  color: kcLightGrey,
+                                  child: const Icon(Icons.error),
+                                ),
+                                loadingBuilder: (_, Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    // Show the loaded image if loading is complete.
+                                    return child;
+                                  } else {
+                                    // Show a loading indicator with progress information.
+                                    return Container(
+                                      color: kcLightGrey,
                                       height: 120,
                                       width: double.infinity,
-                                      fit: BoxFit.cover,
                                     );
-                                  });
+                                  }
+                                },
+                              );
                             }),
                             Positioned(
                               right: 0,
@@ -149,24 +120,16 @@ class _ProductItemState extends State<ProductItem> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        widget.product.name.toString(),
-                                        maxLines: 2,
-                                        style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white)
-                                            .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: GoogleFonts.quicksand()
-                                              .fontFamily,
-                                        ),
-                                      ),
+                                      Text(product.name.toString(),
+                                          maxLines: 2,
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.white)),
                                       vSpaceTiny,
                                       Opacity(
                                         opacity: 0.6,
                                         child: Text(
-                                            widget.product.description
-                                                .toString(),
+                                            product.description.toString(),
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
@@ -184,18 +147,10 @@ class _ProductItemState extends State<ProductItem> {
                                       ),
                                       Row(
                                         children: [
-                                          Text(
-                                            "\$${widget.product.price}",
-                                            style: const TextStyle(
-                                                    fontSize: 16,
-                                                    color: Colors.white)
-                                                .copyWith(
-                                              fontWeight: FontWeight.w900,
-                                              fontFamily:
-                                                  GoogleFonts.varelaRound()
-                                                      .fontFamily,
-                                            ),
-                                          ),
+                                          Text("\$${product.price}",
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.white)),
                                         ],
                                       ),
                                     ],
@@ -213,12 +168,12 @@ class _ProductItemState extends State<ProductItem> {
             ),
           ),
           AnimatedOpacity(
-            opacity: addedToCartOverlayVisible ? 1.0 : 0.0,
+            opacity: viewModel.addedToCartOverlayVisible ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 300),
             curve: Curves.decelerate,
             child: SizedBox(
-              width: widget.size.width,
-              height: widget.size.height,
+              width: size.width,
+              height: size.height,
               child: Card(
                   margin: EdgeInsets.zero,
                   color: Colors.black.withOpacity(0.5),
@@ -236,12 +191,12 @@ class _ProductItemState extends State<ProductItem> {
             ),
           ),
           AnimatedOpacity(
-            opacity: addedToFavoritesOverlayVisible ? 1.0 : 0.0,
+            opacity: viewModel.addedToFavoritesOverlayVisible ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 300),
             curve: Curves.decelerate,
             child: SizedBox(
-              width: widget.size.width,
-              height: widget.size.height,
+              width: size.width,
+              height: size.height,
               child: Card(
                   margin: EdgeInsets.zero,
                   color: Colors.black.withOpacity(0.5),
@@ -262,11 +217,12 @@ class _ProductItemState extends State<ProductItem> {
             bottom: 0,
             right: 0,
             child: IconButton(
-                onPressed: () {
-                  toggleAddedToFavoritesOverlay();
+                onPressed: () async {
+                  onFavorite();
+                  await viewModel.toggleAddedToFavoritesOverlay();
                 },
                 icon: Icon(
-                  isFavorite
+                  viewModel.isFavorite
                       ? Icons.favorite_rounded
                       : Icons.favorite_outline_rounded,
                   color: Colors.white,
@@ -276,4 +232,13 @@ class _ProductItemState extends State<ProductItem> {
       ),
     );
   }
+
+  @override
+  bool get fireOnViewModelReadyOnce => true;
+
+  @override
+  ProductWidgetModel viewModelBuilder(
+    BuildContext context,
+  ) =>
+      ProductWidgetModel();
 }

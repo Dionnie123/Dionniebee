@@ -19,7 +19,7 @@ class CartView extends StackedView<CartViewModel> {
   ) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Cart"),
+          title: const Text("CART"),
         ),
         bottomSheet: viewModel.cart.isEmpty
             ? null

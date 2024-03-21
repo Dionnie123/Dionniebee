@@ -1,10 +1,12 @@
 import 'package:collection/collection.dart';
+import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
 import 'package:dionniebee/ui/special/ez_text.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class CartList extends StatelessWidget {
   final List<Widget> actionButtons;
@@ -47,7 +49,10 @@ class CartList extends StatelessWidget {
                   size: 40,
                 ),
                 vSpaceSmall,
-                const EzText.headingThree("It's Empty Here"),
+                const Text(
+                  "It's empty here",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                ),
                 vSpaceMedium,
                 const Text(
                   "You haven't added anything to you cart yet! \nGo back to the menu to start ordering.",
@@ -58,7 +63,9 @@ class CartList extends StatelessWidget {
                   style: const ButtonStyle(
                       backgroundColor:
                           MaterialStatePropertyAll(kcPrimaryColor)),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    locator<RouterService>().pop();
+                  },
                   child: const Text(
                     "Order Now",
                     style: TextStyle(fontSize: 16),

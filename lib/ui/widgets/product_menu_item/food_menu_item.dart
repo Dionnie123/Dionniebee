@@ -1,6 +1,7 @@
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dionniebee/ui/common/colors.dart';
+import 'package:firebase_cached_image/firebase_cached_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,21 +53,35 @@ class FoodMenuItem extends StatelessWidget {
                     Stack(
                       clipBehavior: Clip.antiAlias,
                       children: [
-                        FutureBuilder<String?>(
-                            future: getDownloadUrlFromPath(product.imageUrl),
-                            builder: (context, snapshot) {
-                              return CachedNetworkImage(
-                                imageUrl: "${snapshot.data}",
-                                placeholder: (context, url) =>
-                                    Container(color: kcLightGrey),
-                                errorWidget: (context, url, error) => Container(
-                                    color: kcLightGrey,
-                                    child: const Icon(Icons.error)),
+                        Image(
+                          height: 108,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          image: FirebaseImageProvider(
+                            FirebaseUrl(product.imageUrl.toString()),
+                            options: const CacheOptions(
+                              checkForMetadataChange: true,
+                            ),
+                          ),
+                          errorBuilder: (context, url, error) => Container(
+                            color: kcLightGrey,
+                            child: const Icon(Icons.error),
+                          ),
+                          loadingBuilder: (_, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) {
+                              // Show the loaded image if loading is complete.
+                              return child;
+                            } else {
+                              // Show a loading indicator with progress information.
+                              return Container(
+                                color: kcLightGrey,
                                 height: 108,
                                 width: double.infinity,
-                                fit: BoxFit.cover,
                               );
-                            }),
+                            }
+                          },
+                        )
                       ],
                     ),
                   ],

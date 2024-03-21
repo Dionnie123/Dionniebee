@@ -50,6 +50,7 @@ class HomeViewModel extends ReactiveViewModel {
   Future init() async {
     await runBusyFuture(Future.wait([
       _productService.getAll(),
+      Future.delayed(const Duration(milliseconds: 500))
     ]));
   }
 

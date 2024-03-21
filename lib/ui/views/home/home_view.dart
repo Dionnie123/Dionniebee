@@ -4,11 +4,11 @@ import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:dionniebee/ui/widgets/product_menu_item/food_menu_item.dart';
+import 'package:dionniebee/ui/widgets/product_widget/product_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:loader_overlay/loader_overlay.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
-import 'package:dionniebee/ui/widgets/product_item/product_item.dart';
 import 'package:dionniebee/ui/widgets/featured_products_listview/suggested_product_listview.dart';
 import 'package:dionniebee/ui/widgets/product_menu_listview/product_menu_listview.dart';
 import 'package:badges/badges.dart' as badges;
@@ -41,7 +41,8 @@ class HomeView extends StackedView<HomeViewModel> {
         getParentViewModel<DashboardViewModel>(context, listen: false);
 
     return PageScaffold(
-        title: "Home ",
+        isBusy: viewModel.isBusy,
+        title: "HOME",
         actions: [
           Builder(builder: (context) {
             return IconButton(
@@ -143,24 +144,35 @@ class HomeView extends StackedView<HomeViewModel> {
               ),
             if (viewModel.products.isNotEmpty)
               ProductMenuListView(
+                isBusy: viewModel.isBusy,
                 size: const Size(double.infinity, 108.0),
                 products: viewModel.products,
+                loadingItemBuilder: (context, i) {
+                  return const Padding(
+                    padding: EdgeInsets.only(right: 4.0),
+                    child: Card(
+                      margin: EdgeInsets.zero,
+                      elevation: 1.0,
+                      child: SizedBox(
+                        width: 120,
+                        height: 108,
+                      ),
+                    ),
+                  );
+                },
                 itemBuilder: (context, i) {
                   return Padding(
                       padding: const EdgeInsets.only(right: 4.0),
-                      child: SkeletonLoader(
-                        loading: viewModel.isBusy,
-                        child: FoodMenuItem(
-                          onTap: () {
-                            viewModel.productView(
-                                viewModel.products[i].id.toString());
-                          },
-                          viewModel.products[i],
-                          size: const Size(120, 108.0),
-                          onAdd: () async {
-                            await viewModel.addToCart(viewModel.products[i]);
-                          },
-                        ),
+                      child: FoodMenuItem(
+                        onTap: () {
+                          viewModel
+                              .productView(viewModel.products[i].id.toString());
+                        },
+                        viewModel.products[i],
+                        size: const Size(120, 108.0),
+                        onAdd: () async {
+                          await viewModel.addToCart(viewModel.products[i]);
+                        },
                       ));
                 },
               ),
@@ -185,20 +197,31 @@ class HomeView extends StackedView<HomeViewModel> {
               ),
             if (viewModel.products.isNotEmpty)
               FeaturedProductsListview(
+                isBusy: viewModel.isBusy,
                 size: const Size(double.infinity, 238.0),
                 products: viewModel.products,
-                itemBuilder: (context, i) {
-                  return SkeletonLoader(
-                    loading: viewModel.isBusy,
-                    child: ProductItem(
-                      viewModel.products[i],
-                      onTap: () {},
-                      size: const Size(double.infinity, 238.0),
-                      onAdd: () async {
-                        await viewModel.addToCart(viewModel.products[i]);
-                      },
-                      onFavorite: () {},
+                loadingItemBuilder: (context, i) {
+                  return const Padding(
+                    padding: EdgeInsets.only(right: 4.0),
+                    child: Card(
+                      margin: EdgeInsets.zero,
+                      elevation: 1.0,
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 238.0,
+                      ),
                     ),
+                  );
+                },
+                itemBuilder: (context, i) {
+                  return ProductWidget(
+                    viewModel.products[i],
+                    onTap: () {},
+                    size: const Size(double.infinity, 238.0),
+                    onAdd: () async {
+                      await viewModel.addToCart(viewModel.products[i]);
+                    },
+                    onFavorite: () {},
                   );
                 },
               ),

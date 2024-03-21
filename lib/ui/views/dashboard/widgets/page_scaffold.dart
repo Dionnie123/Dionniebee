@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class PageScaffold extends StatelessWidget {
   const PageScaffold({
@@ -8,12 +9,14 @@ class PageScaffold extends StatelessWidget {
     this.body,
     this.floatingActionButton,
     this.bottomSheet,
+    this.isBusy = false,
   });
   final String title;
   final List<Widget> actions;
   final Widget? body;
   final Widget? floatingActionButton;
   final Widget? bottomSheet;
+  final bool isBusy;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,13 @@ class PageScaffold extends StatelessWidget {
         title: Text(title),
         actions: actions,
       ),
-      body: body,
+      body: isBusy
+          ? Shimmer.fromColors(
+              enabled: true,
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: body ?? const SizedBox.shrink())
+          : body,
       floatingActionButton: floatingActionButton,
       bottomSheet: bottomSheet,
     );
