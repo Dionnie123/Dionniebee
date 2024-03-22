@@ -48,7 +48,7 @@ class FoodMenuItem extends StatelessWidget {
                             ),
                           ),
                           errorBuilder: (context, url, error) => Container(
-                            color: kcLightGrey,
+                            color: Colors.grey[300],
                             child: const Icon(Icons.error),
                           ),
                           loadingBuilder: (_, Widget child,
@@ -59,7 +59,7 @@ class FoodMenuItem extends StatelessWidget {
                             } else {
                               // Show a loading indicator with progress information.
                               return Container(
-                                color: kcLightGrey,
+                                color: Colors.grey[300],
                                 height: 108,
                                 width: double.infinity,
                               );

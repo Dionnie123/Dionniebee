@@ -18,8 +18,8 @@ class HomeViewModel extends ReactiveViewModel {
 
   showDiag() async {
     // await _loaderService.show(LoaderOverlayType.show);
-    _toastService.show("Dionnie Studios: Dionniebee App");
-    _toastService.show("made by Mark Dionnie Bulingit");
+    _toastService.show("Dionniebee 2024");
+    _toastService.show("Mark Dionnie Bulingit");
     _toastService.show("dionnie_bulingit@yahoo.com");
     /*   await Future.delayed(const Duration(seconds: 10));
     _loaderService.hide(); */

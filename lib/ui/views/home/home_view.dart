@@ -107,117 +107,113 @@ class HomeView extends StackedView<HomeViewModel> {
               ),
             ]),
           ),
-          if (viewModel.products.isNotEmpty)
-            const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Menu",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        Text(
-                          "View All",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        Icon(Icons.chevron_right_rounded)
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          if (viewModel.products.isNotEmpty)
-            ProductMenuListView(
-              isBusy: viewModel.isBusy,
-              size: const Size(double.infinity, 108.0),
-              products: viewModel.products,
-              loadingItemBuilder: (context, i) {
-                return const Padding(
-                  padding: EdgeInsets.only(right: 8.0),
-                  child: Card(
-                    margin: EdgeInsets.zero,
-                    elevation: 1.0,
-                    child: SizedBox(
-                      width: 120,
-                      height: 108,
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Menu",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                );
-              },
-              itemBuilder: (context, i) {
-                return Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: FoodMenuItem(
-                      onTap: () {
-                        /*  viewModel
-                            .productView(viewModel.products[i].id.toString()); */
-                      },
-                      viewModel.products[i],
-                      size: const Size(120, 108.0),
-                      onAdd: () async {
-                        await viewModel.addToCart(viewModel.products[i]);
-                      },
-                    ));
-              },
-            ),
-          if (viewModel.products.isNotEmpty)
-            const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Featured Products",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    alignment: WrapAlignment.center,
+                    children: [
+                      Text(
+                        "View All",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  ],
-                ),
+                      Icon(Icons.chevron_right_rounded)
+                    ],
+                  ),
+                ],
               ),
             ),
-          if (viewModel.products.isNotEmpty)
-            FeaturedProductsListview(
-              isBusy: viewModel.isBusy,
-              size: const Size(double.infinity, 238.0),
-              products: viewModel.products,
-              loadingItemBuilder: (context, i) {
-                return const Card(
+          ),
+          ProductMenuListView(
+            isBusy: viewModel.isBusy,
+            size: const Size(double.infinity, 108.0),
+            products: viewModel.products,
+            loadingItemBuilder: (context, i) {
+              return const Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Card(
                   margin: EdgeInsets.zero,
                   elevation: 1.0,
                   child: SizedBox(
-                    width: double.infinity,
-                    height: 238.0,
+                    width: 120,
+                    height: 108,
                   ),
-                );
-              },
-              itemBuilder: (context, i) {
-                return ProductWidget(
-                  viewModel.products[i],
-                  onTap: () {},
-                  size: const Size(double.infinity, 238.0),
-                  onAdd: () async {
-                    await viewModel.addToCart(viewModel.products[i]);
-                  },
-                  onFavorite: () {},
-                );
-              },
+                ),
+              );
+            },
+            itemBuilder: (context, i) {
+              return Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: FoodMenuItem(
+                    onTap: () {
+                      /*  viewModel
+                            .productView(viewModel.products[i].id.toString()); */
+                    },
+                    viewModel.products[i],
+                    size: const Size(120, 108.0),
+                    onAdd: () async {
+                      await viewModel.addToCart(viewModel.products[i]);
+                    },
+                  ));
+            },
+          ),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Featured Products",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
+          ),
+          FeaturedProductsListview(
+            isBusy: viewModel.isBusy,
+            size: const Size(double.infinity, 238.0),
+            products: viewModel.products,
+            loadingItemBuilder: (context, i) {
+              return const Card(
+                margin: EdgeInsets.zero,
+                elevation: 1.0,
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 238.0,
+                ),
+              );
+            },
+            itemBuilder: (context, i) {
+              return ProductWidget(
+                viewModel.products[i],
+                onTap: () {},
+                size: const Size(double.infinity, 238.0),
+                onAdd: () async {
+                  await viewModel.addToCart(viewModel.products[i]);
+                },
+                onFavorite: () {},
+              );
+            },
+          ),
           if (viewModel.products.isNotEmpty)
             SliverToBoxAdapter(
               child: Padding(

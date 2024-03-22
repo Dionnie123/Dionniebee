@@ -31,9 +31,9 @@ dependencies:
   stacked_services: ^1.2.0
   stacked_themes: ^0.3.12
   stacked_firebase_auth: ^2.20.0
+  stacked_hooks: ^0.2.3
   rxdart: ^0.27.7
   dartz: ^0.10.1
-  flutter_hooks: ^0.20.1
 
   #FORMS
   reactive_forms: ^16.1.1
@@ -67,7 +67,7 @@ dependencies:
   #MOBILE
   app_settings: ^5.0.0
   permission_handler: ^11.0.1
-  flutter_native_splash: ^2.3.7
+  flutter_native_splash: ^2.4.0
   flutter_launcher_icons: ^0.13.1
 
   #MAP

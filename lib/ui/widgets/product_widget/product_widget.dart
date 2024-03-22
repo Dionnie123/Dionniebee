@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'product_widget_model.dart';
 
+// Form that makes use of the ViewModel provided above but also makes use of hooks
+
 class ProductWidget extends StackedView<ProductWidgetModel> {
   final Function() onTap;
   final Function() onAdd;
@@ -51,38 +53,35 @@ class ProductWidget extends StackedView<ProductWidgetModel> {
                         Stack(
                           clipBehavior: Clip.antiAlias,
                           children: [
-                            Builder(builder: (context) {
-                              return Image(
-                                height: 120,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                                image: FirebaseImageProvider(
-                                  FirebaseUrl(product.imageUrl.toString()),
-                                  options: const CacheOptions(
-                                    checkForMetadataChange: true,
-                                  ),
+                            Image(
+                              height: 120,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                              image: FirebaseImageProvider(
+                                FirebaseUrl(product.imageUrl.toString()),
+                                options: const CacheOptions(
+                                  checkForMetadataChange: true,
                                 ),
-                                errorBuilder: (context, url, error) =>
-                                    Container(
-                                  color: kcLightGrey,
-                                  child: const Icon(Icons.error),
-                                ),
-                                loadingBuilder: (_, Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    // Show the loaded image if loading is complete.
-                                    return child;
-                                  } else {
-                                    // Show a loading indicator with progress information.
-                                    return Container(
-                                      color: kcLightGrey,
-                                      height: 120,
-                                      width: double.infinity,
-                                    );
-                                  }
-                                },
-                              );
-                            }),
+                              ),
+                              errorBuilder: (context, url, error) => Container(
+                                color: Colors.grey[300],
+                                child: const Icon(Icons.error),
+                              ),
+                              loadingBuilder: (_, Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  // Show the loaded image if loading is complete.
+                                  return child;
+                                } else {
+                                  // Show a loading indicator with progress information.
+                                  return Container(
+                                    color: Colors.grey[300],
+                                    height: 120,
+                                    width: double.infinity,
+                                  );
+                                }
+                              },
+                            ),
                             Positioned(
                               right: 0,
                               top: 0,
