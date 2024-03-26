@@ -9,7 +9,7 @@ class CartBreakdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: kcPrimaryColor,
+      color: kcPrimary,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
         child: Column(

@@ -11,7 +11,7 @@ class Carousel extends StatelessWidget {
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       child: Container(
-        color: kcPrimaryColor,
+        color: kcPrimary,
         width: 700,
         child: CarouselSlider(
           options: CarouselOptions(

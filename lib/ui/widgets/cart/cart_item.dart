@@ -42,7 +42,7 @@ class CartItem extends StatelessWidget {
               scale: 1.1,
               child: Checkbox(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  activeColor: kcPrimaryColor,
+                  activeColor: kcPrimary,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)),
                   value: product.isSelected,

@@ -66,7 +66,7 @@ class LoginForm extends StatelessWidget {
           const SizedBox(height: 8.0),
           ReactiveLoginDtoFormConsumer(builder: (context, formModel, child) {
             return EzButton(
-              backgroundColor: kcPrimaryColor,
+              backgroundColor: kcPrimary,
               busy: viewModel.busy(signInKey),
               title: 'SIGN IN',
               disabled: formModel.form.hasErrors ? true : false,

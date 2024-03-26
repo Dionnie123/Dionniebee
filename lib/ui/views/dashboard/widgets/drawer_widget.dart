@@ -22,7 +22,7 @@ class DrawerMenu extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: ListTile(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        tileColor: selected ? kcPrimaryColor : null,
+        tileColor: selected ? kcPrimary : null,
         splashColor: Colors.transparent,
         onTap: () {
           //    Navigator.pop(context);
@@ -50,7 +50,7 @@ class DrawerWidget extends StatelessWidget {
     // final hasDrawer = ancestorScaffold != null && ancestorScaffold.hasDrawer;
 
     return Drawer(
-      backgroundColor: kcPrimaryColorDark,
+      backgroundColor: kcPrimaryDark,
       child: SafeArea(
         child: SingleChildScrollView(
           child: Column(

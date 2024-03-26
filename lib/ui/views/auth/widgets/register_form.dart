@@ -118,7 +118,7 @@ class RegisterForm extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)),
                   formControl: formModel.acceptLicenseControl,
-                  activeColor: kcPrimaryColor,
+                  activeColor: kcPrimary,
                 ),
               ),
               const SizedBox(width: 8),
@@ -133,7 +133,7 @@ class RegisterForm extends StatelessWidget {
           ReactiveRegisterDtoFormConsumer(
             builder: (context, formModel, child) {
               return EzButton(
-                backgroundColor: kcPrimaryColor,
+                backgroundColor: kcPrimary,
                 busy: viewModel.busy(signUpKey),
                 title: 'SIGN UP',
                 disabled: formModel.form.hasErrors ? true : false,

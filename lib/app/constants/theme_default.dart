@@ -14,7 +14,7 @@ class AppTheme {
       filled: true,
     ),
     appBarTheme: AppBarTheme(
-        backgroundColor: kcPrimaryColor,
+        backgroundColor: kcPrimary,
         foregroundColor: Colors.white,
         titleTextStyle: TextStyle(
             color: Colors.white,
@@ -22,14 +22,14 @@ class AppTheme {
             fontWeight: FontWeight.bold,
             fontSize: 18)),
     brightness: Brightness.light,
-    colorSchemeSeed: kcPrimaryColor,
+    colorSchemeSeed: kcPrimary,
   );
 
   static ThemeData darkTheme = ThemeData(
     fontFamily: GoogleFonts.varelaRound().fontFamily,
     useMaterial3: false,
     appBarTheme: AppBarTheme(
-        backgroundColor: kcPrimaryColor,
+        backgroundColor: kcPrimary,
         foregroundColor: Colors.white,
         titleTextStyle: TextStyle(
             color: Colors.white,
@@ -37,6 +37,6 @@ class AppTheme {
             fontWeight: FontWeight.bold,
             fontSize: 18)),
     brightness: Brightness.dark,
-    colorSchemeSeed: kcPrimaryColor,
+    colorSchemeSeed: kcPrimary,
   );
 }

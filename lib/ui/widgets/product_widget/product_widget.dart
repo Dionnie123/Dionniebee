@@ -127,8 +127,6 @@ class ProductWidget extends StackedView<ProductWidgetModel> {
                                         opacity: 0.6,
                                         child: Text(
                                             product.description.toString(),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.white)),

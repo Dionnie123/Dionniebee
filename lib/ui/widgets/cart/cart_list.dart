@@ -59,8 +59,7 @@ class CartList extends StatelessWidget {
                 vSpaceMedium,
                 ElevatedButton(
                   style: const ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(kcPrimaryColor)),
+                      backgroundColor: MaterialStatePropertyAll(kcPrimary)),
                   onPressed: () async {
                     locator<RouterService>().pop();
                   },
