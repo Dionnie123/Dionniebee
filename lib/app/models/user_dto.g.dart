@@ -10,12 +10,10 @@ _$UserDtoImpl _$$UserDtoImplFromJson(Map<String, dynamic> json) =>
     _$UserDtoImpl(
       id: json['id'] as String,
       email: json['email'] as String?,
-      defaultAddress: json['default_address'] as String?,
     );
 
 Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'email': instance.email,
-      'default_address': instance.defaultAddress,
     };

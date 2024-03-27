@@ -20,11 +20,11 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProductDto {
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  String get excerpt => throw _privateConstructorUsedError;
+  String get featuredImage => throw _privateConstructorUsedError;
   bool get isSelected => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
   num? get price => throw _privateConstructorUsedError;
   num? get quantityInStock => throw _privateConstructorUsedError;
   num? get quantityInCart => throw _privateConstructorUsedError;
@@ -43,11 +43,11 @@ abstract class $ProductDtoCopyWith<$Res> {
       _$ProductDtoCopyWithImpl<$Res, ProductDto>;
   @useResult
   $Res call(
-      {String? id,
+      {String id,
+      String title,
+      String excerpt,
+      String featuredImage,
       bool isSelected,
-      String? imageUrl,
-      String? name,
-      String? description,
       num? price,
       num? quantityInStock,
       num? quantityInCart,
@@ -67,37 +67,37 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
+    Object? title = null,
+    Object? excerpt = null,
+    Object? featuredImage = null,
     Object? isSelected = null,
-    Object? imageUrl = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
     Object? price = freezed,
     Object? quantityInStock = freezed,
     Object? quantityInCart = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      excerpt: null == excerpt
+          ? _value.excerpt
+          : excerpt // ignore: cast_nullable_to_non_nullable
+              as String,
+      featuredImage: null == featuredImage
+          ? _value.featuredImage
+          : featuredImage // ignore: cast_nullable_to_non_nullable
+              as String,
       isSelected: null == isSelected
           ? _value.isSelected
           : isSelected // ignore: cast_nullable_to_non_nullable
               as bool,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -127,11 +127,11 @@ abstract class _$$ProductDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? id,
+      {String id,
+      String title,
+      String excerpt,
+      String featuredImage,
       bool isSelected,
-      String? imageUrl,
-      String? name,
-      String? description,
       num? price,
       num? quantityInStock,
       num? quantityInCart,
@@ -149,37 +149,37 @@ class __$$ProductDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
+    Object? title = null,
+    Object? excerpt = null,
+    Object? featuredImage = null,
     Object? isSelected = null,
-    Object? imageUrl = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
     Object? price = freezed,
     Object? quantityInStock = freezed,
     Object? quantityInCart = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_$ProductDtoImpl(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      excerpt: null == excerpt
+          ? _value.excerpt
+          : excerpt // ignore: cast_nullable_to_non_nullable
+              as String,
+      featuredImage: null == featuredImage
+          ? _value.featuredImage
+          : featuredImage // ignore: cast_nullable_to_non_nullable
+              as String,
       isSelected: null == isSelected
           ? _value.isSelected
           : isSelected // ignore: cast_nullable_to_non_nullable
               as bool,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -205,42 +205,48 @@ class __$$ProductDtoImplCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$ProductDtoImpl implements _ProductDto {
   _$ProductDtoImpl(
-      {this.id,
+      {required this.id,
+      this.title = '',
+      this.excerpt = '',
+      this.featuredImage = '',
       this.isSelected = false,
-      this.imageUrl,
-      this.name,
-      this.description,
-      this.price,
-      this.quantityInStock,
-      this.quantityInCart,
+      this.price = 0,
+      this.quantityInStock = 0,
+      this.quantityInCart = 0,
       this.createdAt});
 
   factory _$ProductDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductDtoImplFromJson(json);
 
   @override
-  final String? id;
+  final String id;
+  @override
+  @JsonKey()
+  final String title;
+  @override
+  @JsonKey()
+  final String excerpt;
+  @override
+  @JsonKey()
+  final String featuredImage;
   @override
   @JsonKey()
   final bool isSelected;
   @override
-  final String? imageUrl;
-  @override
-  final String? name;
-  @override
-  final String? description;
-  @override
+  @JsonKey()
   final num? price;
   @override
+  @JsonKey()
   final num? quantityInStock;
   @override
+  @JsonKey()
   final num? quantityInCart;
   @override
   final DateTime? createdAt;
 
   @override
   String toString() {
-    return 'ProductDto(id: $id, isSelected: $isSelected, imageUrl: $imageUrl, name: $name, description: $description, price: $price, quantityInStock: $quantityInStock, quantityInCart: $quantityInCart, createdAt: $createdAt)';
+    return 'ProductDto(id: $id, title: $title, excerpt: $excerpt, featuredImage: $featuredImage, isSelected: $isSelected, price: $price, quantityInStock: $quantityInStock, quantityInCart: $quantityInCart, createdAt: $createdAt)';
   }
 
   @override
@@ -249,13 +255,12 @@ class _$ProductDtoImpl implements _ProductDto {
         (other.runtimeType == runtimeType &&
             other is _$ProductDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.excerpt, excerpt) || other.excerpt == excerpt) &&
+            (identical(other.featuredImage, featuredImage) ||
+                other.featuredImage == featuredImage) &&
             (identical(other.isSelected, isSelected) ||
                 other.isSelected == isSelected) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.quantityInStock, quantityInStock) ||
                 other.quantityInStock == quantityInStock) &&
@@ -267,8 +272,17 @@ class _$ProductDtoImpl implements _ProductDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, isSelected, imageUrl, name,
-      description, price, quantityInStock, quantityInCart, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      excerpt,
+      featuredImage,
+      isSelected,
+      price,
+      quantityInStock,
+      quantityInCart,
+      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -286,11 +300,11 @@ class _$ProductDtoImpl implements _ProductDto {
 
 abstract class _ProductDto implements ProductDto {
   factory _ProductDto(
-      {final String? id,
+      {required final String id,
+      final String title,
+      final String excerpt,
+      final String featuredImage,
       final bool isSelected,
-      final String? imageUrl,
-      final String? name,
-      final String? description,
       final num? price,
       final num? quantityInStock,
       final num? quantityInCart,
@@ -300,15 +314,15 @@ abstract class _ProductDto implements ProductDto {
       _$ProductDtoImpl.fromJson;
 
   @override
-  String? get id;
+  String get id;
+  @override
+  String get title;
+  @override
+  String get excerpt;
+  @override
+  String get featuredImage;
   @override
   bool get isSelected;
-  @override
-  String? get imageUrl;
-  @override
-  String? get name;
-  @override
-  String? get description;
   @override
   num? get price;
   @override

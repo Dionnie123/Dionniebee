@@ -42,7 +42,7 @@ class FoodMenuItem extends StatelessWidget {
                           width: double.infinity,
                           fit: BoxFit.cover,
                           image: FirebaseImageProvider(
-                            FirebaseUrl(product.imageUrl.toString()),
+                            FirebaseUrl(product.featuredImage),
                             options: const CacheOptions(
                               checkForMetadataChange: true,
                             ),
@@ -85,7 +85,7 @@ class FoodMenuItem extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      product.name.toString(),
+                      product.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,

@@ -1,14 +1,13 @@
-import 'package:dionniebee/app/app.router.dart';
-import 'package:dionniebee/app/models/login_dto.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/my_texts.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
 import 'package:dionniebee/ui/views/auth/auth_viewmodel.dart';
 import 'package:dionniebee/ui/views/auth/busykeys.dart';
-import 'package:flutter/material.dart';
+
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter/material.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -16,7 +15,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = getParentViewModel<AuthViewModel>(context);
-    return ReactiveLoginDtoFormConsumer(builder: (context, formModel, _) {
+    return ReactiveFormConsumer(builder: (context, formModel, _) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +34,7 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 24.0),
           ReactiveTextField<String>(
-            formControl: formModel.emailControl,
+            formControlName: LoginKeys.email.name,
             textInputAction: TextInputAction.next,
             validationMessages: {
               ValidationMessage.required: (_) => 'Required',
@@ -50,7 +49,7 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           ReactiveTextField<String>(
-            formControl: formModel.passwordControl,
+            formControlName: LoginKeys.password.name,
             obscureText: true,
             validationMessages: {
               ValidationMessage.required: (_) => 'Required',
@@ -64,25 +63,24 @@ class LoginForm extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8.0),
-          ReactiveLoginDtoFormConsumer(builder: (context, formModel, child) {
-            return EzButton(
-              backgroundColor: kcPrimary,
-              busy: viewModel.busy(signInKey),
-              title: 'SIGN IN',
-              disabled: formModel.form.hasErrors ? true : false,
-              onPressed: () async {
-                await viewModel.signIn(
-                    email: formModel.emailControl?.value,
-                    password: formModel.passwordControl?.value);
-              },
-            );
-          }),
+          EzButton(
+            backgroundColor: kcPrimary,
+            busy: viewModel.busy(signInKey),
+            title: 'SIGN IN',
+            disabled: formModel.invalid ? true : false,
+            onPressed: () async {
+              await viewModel.signIn(
+                email: formModel.controls[LoginKeys.email.name]?.value,
+                password: formModel.controls[LoginKeys.password.name]?.value,
+              );
+            },
+          ),
           vSpaceSmall,
           EzButton(
             backgroundColor: kcDark,
             title: 'ORDER AS GUEST',
             onPressed: () async {
-              await viewModel.navService.replaceWithDashboardView();
+              await viewModel.goToDashboard();
             },
           ),
           vSpaceSmall,
@@ -97,7 +95,7 @@ class LoginForm extends StatelessWidget {
           const SizedBox(height: 18.0),
           TextButton(
               onPressed: () {
-                formModel.form.reset();
+                formModel.reset();
 
                 viewModel.authType = AuthType.signUp;
               },

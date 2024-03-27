@@ -22,7 +22,6 @@ UserDto _$UserDtoFromJson(Map<String, dynamic> json) {
 mixin _$UserDto {
   String get id => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
-  String? get defaultAddress => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +33,7 @@ abstract class $UserDtoCopyWith<$Res> {
   factory $UserDtoCopyWith(UserDto value, $Res Function(UserDto) then) =
       _$UserDtoCopyWithImpl<$Res, UserDto>;
   @useResult
-  $Res call({String id, String? email, String? defaultAddress});
+  $Res call({String id, String? email});
 }
 
 /// @nodoc
@@ -52,7 +51,6 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
   $Res call({
     Object? id = null,
     Object? email = freezed,
-    Object? defaultAddress = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -62,10 +60,6 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      defaultAddress: freezed == defaultAddress
-          ? _value.defaultAddress
-          : defaultAddress // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -78,7 +72,7 @@ abstract class _$$UserDtoImplCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
       __$$UserDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String? email, String? defaultAddress});
+  $Res call({String id, String? email});
 }
 
 /// @nodoc
@@ -94,7 +88,6 @@ class __$$UserDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? email = freezed,
-    Object? defaultAddress = freezed,
   }) {
     return _then(_$UserDtoImpl(
       id: null == id
@@ -105,10 +98,6 @@ class __$$UserDtoImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      defaultAddress: freezed == defaultAddress
-          ? _value.defaultAddress
-          : defaultAddress // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -117,7 +106,7 @@ class __$$UserDtoImplCopyWithImpl<$Res>
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$UserDtoImpl implements _UserDto {
-  _$UserDtoImpl({required this.id, this.email, this.defaultAddress});
+  _$UserDtoImpl({required this.id, this.email});
 
   factory _$UserDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDtoImplFromJson(json);
@@ -126,12 +115,10 @@ class _$UserDtoImpl implements _UserDto {
   final String id;
   @override
   final String? email;
-  @override
-  final String? defaultAddress;
 
   @override
   String toString() {
-    return 'UserDto(id: $id, email: $email, defaultAddress: $defaultAddress)';
+    return 'UserDto(id: $id, email: $email)';
   }
 
   @override
@@ -140,14 +127,12 @@ class _$UserDtoImpl implements _UserDto {
         (other.runtimeType == runtimeType &&
             other is _$UserDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.defaultAddress, defaultAddress) ||
-                other.defaultAddress == defaultAddress));
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, email, defaultAddress);
+  int get hashCode => Object.hash(runtimeType, id, email);
 
   @JsonKey(ignore: true)
   @override
@@ -164,10 +149,8 @@ class _$UserDtoImpl implements _UserDto {
 }
 
 abstract class _UserDto implements UserDto {
-  factory _UserDto(
-      {required final String id,
-      final String? email,
-      final String? defaultAddress}) = _$UserDtoImpl;
+  factory _UserDto({required final String id, final String? email}) =
+      _$UserDtoImpl;
 
   factory _UserDto.fromJson(Map<String, dynamic> json) = _$UserDtoImpl.fromJson;
 
@@ -175,8 +158,6 @@ abstract class _UserDto implements UserDto {
   String get id;
   @override
   String? get email;
-  @override
-  String? get defaultAddress;
   @override
   @JsonKey(ignore: true)
   _$$UserDtoImplCopyWith<_$UserDtoImpl> get copyWith =>

@@ -30,7 +30,7 @@ class ProductView extends StackedView<ProductViewModel> {
               AspectRatio(
                   aspectRatio: 4 / 3,
                   child: CachedNetworkImage(
-                    imageUrl: "${viewModel.product?.imageUrl}",
+                    imageUrl: "${viewModel.product?.featuredImage}",
                     fit: BoxFit.contain,
                     placeholder: (context, url) {
                       return const SizedBox.shrink();
@@ -41,14 +41,14 @@ class ProductView extends StackedView<ProductViewModel> {
                   )),
               vSpaceRegular,
               Text(
-                "${viewModel.product?.name}",
+                "${viewModel.product?.title}",
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               vSpaceSmall,
-              Text("${viewModel.product?.description}"),
+              Text("${viewModel.product?.excerpt}"),
             ],
           ),
         );

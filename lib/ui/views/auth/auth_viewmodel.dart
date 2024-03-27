@@ -1,12 +1,8 @@
 import 'package:dionniebee/app/app.router.dart';
-import 'package:dionniebee/app/models/login_dto.dart';
-import 'package:dionniebee/app/models/register_dto.dart';
 import 'package:dionniebee/app/models/user_dto.dart';
 import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:dionniebee/ui/views/auth/busykeys.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
@@ -18,12 +14,22 @@ enum AuthType { signIn, signUp, passwordResetRequest }
 
 enum LoginKeys { email, name, password, passwordConfirmation }
 
+enum RegisterKeys {
+  email,
+  name,
+  password,
+  Address,
+  passwordConfirmation,
+  acceptLicense
+}
+
+enum Address { city, state }
+
 class AuthViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
-  final navService = locator<RouterService>();
-  final firebaseAuthenticationService =
-      locator<FirebaseAuthenticationService>();
-  final toast = locator<FlutterToastService>();
+  final _navService = locator<RouterService>();
+  final _authService = locator<FirebaseAuthenticationService>();
+  final _toastService = locator<FlutterToastService>();
   final _userService = locator<UserService>();
 
   @override
@@ -39,51 +45,63 @@ class AuthViewModel extends BaseViewModel {
     });
   }
 
-  late LoginDtoForm loginFormModel;
-  late RegisterDtoForm registerFormModel;
-
   AuthType _authType = AuthType.signIn;
   AuthType get authType => _authType;
   set authType(AuthType val) {
     _authType = val;
-    init();
     notifyListeners();
   }
 
-  init() {
-    loginFormModel = LoginDtoForm(
-      LoginDtoForm.formElements(null),
-      null,
-    );
-    registerFormModel = RegisterDtoForm(
-      RegisterDtoForm.formElements(null),
-      null,
-    );
-    if (kDebugMode || true) {
-      loginFormModel.updateValue(LoginDto(
-        email: 'admin@example.com',
-        password: 'admin123',
-      ));
-      registerFormModel.updateValue(RegisterDto(
-          name: 'admin',
-          email: 'admin@example.com',
-          password: 'admin',
-          passwordConfirmation: 'admin',
-          acceptLicense: true));
-    }
-  }
+  final loginForm = FormGroup({
+    LoginKeys.email.name: FormControl<String>(validators: [
+      Validators.required,
+      Validators.email,
+    ]),
+    LoginKeys.password.name: FormControl<String>(validators: [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
+  });
+
+  final registerForm = FormGroup({
+    RegisterKeys.name.name: FormControl<String>(
+      validators: [Validators.required],
+    ),
+    RegisterKeys.email.name: FormControl<String>(validators: [
+      Validators.required,
+      Validators.email,
+    ]),
+    RegisterKeys.password.name: FormControl<String>(validators: [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
+    RegisterKeys.passwordConfirmation.name: FormControl<String>(),
+    RegisterKeys.acceptLicense.name: FormControl<bool>(
+      validators: [Validators.required],
+    ),
+  }, validators: [
+    //Validators.mustMatch(RegisterKeys.email.name, 'emailConfirmation'),
+    Validators.mustMatch(
+        RegisterKeys.password.name, RegisterKeys.passwordConfirmation.name),
+  ]);
+
+  init() {}
 
   @override
   void dispose() {
-    loginFormModel.form.dispose();
-    registerFormModel.form.dispose();
+    loginForm.dispose();
+    registerForm.dispose();
     super.dispose();
+  }
+
+  Future goToDashboard() async {
+    await _navService.replaceWithDashboardView();
   }
 
   Future signInWithGoogle() async {
     setBusyForObject(loginWithGoogleKey, true);
 
-    final result = await firebaseAuthenticationService.signInWithGoogle();
+    final result = await _authService.signInWithGoogle();
     if (result.hasError) {
       onFutureError(result.errorMessage, null);
       setBusyForObject(loginWithGoogleKey, false);
@@ -94,17 +112,15 @@ class AuthViewModel extends BaseViewModel {
         id: result.user!.uid,
         email: result.user!.email,
       );
-      await navService.replaceWithDashboardView();
+      await goToDashboard();
     }
     setBusyForObject(loginWithGoogleKey, false);
   }
 
   Future signIn({required email, required password}) async {
     setBusyForObject(signInKey, true);
-    toast.show("Frying potatoes...");
-    toast.show("Slicing onions...");
 
-    final result = await firebaseAuthenticationService.loginWithEmail(
+    final result = await _authService.loginWithEmail(
       email: email,
       password: password,
     );
@@ -118,7 +134,7 @@ class AuthViewModel extends BaseViewModel {
         id: result.user!.uid,
         email: result.user!.email,
       );
-      await navService.replaceWithDashboardView();
+      await goToDashboard();
     }
     setBusyForObject(signInKey, false);
   }
@@ -126,7 +142,7 @@ class AuthViewModel extends BaseViewModel {
   Future signUp({required email, required password}) async {
     setBusyForObject(signUpKey, true);
 
-    final result = await firebaseAuthenticationService.createAccountWithEmail(
+    final result = await _authService.createAccountWithEmail(
       email: email,
       password: password,
     );
@@ -140,7 +156,7 @@ class AuthViewModel extends BaseViewModel {
         id: result.user!.uid,
         email: result.user!.email,
       );
-      await navService.replaceWithDashboardView();
+      await goToDashboard();
     }
     setBusyForObject(signUpKey, false);
   }

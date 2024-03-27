@@ -80,7 +80,7 @@ class CartItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            product.name.toString(),
+                            product.title,
                             maxLines: 2,
                             style: const TextStyle().copyWith(
                               fontWeight: FontWeight.bold,

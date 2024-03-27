@@ -1,5 +1,3 @@
-import 'package:dionniebee/app/app.router.dart';
-import 'package:dionniebee/app/models/register_dto.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/my_texts.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
@@ -24,14 +22,7 @@ class RegisterForm extends StatelessWidget {
       }
     }
 
-    return ReactiveRegisterDtoFormConsumer(builder: (context, formModel, _) {
-      /*    formModel.form.updateValue({
-        'name': 'Mark Dionnie Bulingit',
-        'email': 'bulingitmarkdionnie@gmail.com',
-        'password': 'qweqwe123',
-        'passwordConfirmation': 'qweqwe123',
-        'acceptLicense': true
-      }); */
+    return ReactiveFormConsumer(builder: (context, formModel, _) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -49,7 +40,7 @@ class RegisterForm extends StatelessWidget {
           ),
           const SizedBox(height: 24.0),
           ReactiveTextField<String>(
-            formControl: formModel.nameControl,
+            formControlName: RegisterKeys.name.name,
             validationMessages: {
               ValidationMessage.required: (_) => 'Required',
             },
@@ -64,7 +55,7 @@ class RegisterForm extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           ReactiveTextField<String>(
-            formControl: formModel.emailControl,
+            formControlName: RegisterKeys.email.name,
             validationMessages: {
               ValidationMessage.required: (_) => 'Required',
               ValidationMessage.email: (_) => 'Invalid email'
@@ -80,7 +71,7 @@ class RegisterForm extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           ReactiveTextField<String>(
-            formControl: formModel.passwordControl,
+            formControlName: RegisterKeys.password.name,
             obscureText: true,
             validationMessages: {ValidationMessage.required: (_) => 'Required'},
             textInputAction: TextInputAction.next,
@@ -94,7 +85,7 @@ class RegisterForm extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           ReactiveTextField<String>(
-            formControl: formModel.passwordConfirmationControl,
+            formControlName: RegisterKeys.passwordConfirmation.name,
             obscureText: true,
             validationMessages: {
               ValidationMessage.required: (_) => 'Required',
@@ -117,7 +108,7 @@ class RegisterForm extends StatelessWidget {
                   onChanged: (control) {},
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)),
-                  formControl: formModel.acceptLicenseControl,
+                  formControlName: RegisterKeys.acceptLicense.name,
                   activeColor: kcPrimary,
                 ),
               ),
@@ -130,19 +121,16 @@ class RegisterForm extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24.0),
-          ReactiveRegisterDtoFormConsumer(
-            builder: (context, formModel, child) {
-              return EzButton(
-                backgroundColor: kcPrimary,
-                busy: viewModel.busy(signUpKey),
-                title: 'SIGN UP',
-                disabled: formModel.form.hasErrors ? true : false,
-                onPressed: () async {
-                  removeFocus();
-                  await viewModel.signUp(
-                      email: formModel.emailControl?.value,
-                      password: formModel.passwordControl?.value);
-                },
+          EzButton(
+            backgroundColor: kcPrimary,
+            busy: viewModel.busy(signUpKey),
+            title: 'SIGN UP',
+            disabled: formModel.invalid ? true : false,
+            onPressed: () async {
+              removeFocus();
+              await viewModel.signUp(
+                email: formModel.controls[LoginKeys.email.name]?.value,
+                password: formModel.controls[LoginKeys.password.name]?.value,
               );
             },
           ),
@@ -151,13 +139,13 @@ class RegisterForm extends StatelessWidget {
             backgroundColor: kcDark,
             title: 'ORDER AS GUEST',
             onPressed: () async {
-              await viewModel.navService.replaceWithDashboardView();
+              await viewModel.goToDashboard();
             },
           ),
           const SizedBox(height: 18.0),
           TextButton(
               onPressed: () {
-                formModel.form.reset();
+                formModel.reset();
 
                 viewModel.authType = AuthType.signIn;
               },
