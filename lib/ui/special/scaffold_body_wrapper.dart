@@ -1,4 +1,4 @@
-import 'package:dionniebee/global/ui_helpers.dart';
+import 'package:dionniebee/global/spacing.dart';
 import 'package:flutter/material.dart';
 
 class ScaffoldBodyWrapper extends StatelessWidget {

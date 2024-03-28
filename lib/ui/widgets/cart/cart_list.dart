@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/global/colors.dart';
-import 'package:dionniebee/global/ui_helpers.dart';
+import 'package:dionniebee/global/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 

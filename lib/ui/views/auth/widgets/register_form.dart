@@ -1,5 +1,5 @@
 import 'package:dionniebee/global/colors.dart';
-import 'package:dionniebee/global/ui_helpers.dart';
+import 'package:dionniebee/global/spacing.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
 import 'package:dionniebee/global/typography.dart';
 import 'package:dionniebee/ui/views/auth/auth_viewmodel.dart';

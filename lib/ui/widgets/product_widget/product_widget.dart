@@ -1,6 +1,6 @@
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/global/colors.dart';
-import 'package:dionniebee/global/ui_helpers.dart';
+import 'package:dionniebee/global/spacing.dart';
 import 'package:firebase_cached_image/firebase_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';

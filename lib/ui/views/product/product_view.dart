@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dionniebee/global/ui_helpers.dart';
+import 'package:dionniebee/global/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
