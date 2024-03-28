@@ -1,9 +1,10 @@
-import 'package:dionniebee/ui/common/colors.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/colors.dart';
+import 'package:dionniebee/global/ui_helpers.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
-import 'package:dionniebee/ui/special/ez_text.dart';
+import 'package:dionniebee/global/typography.dart';
 import 'package:dionniebee/ui/views/auth/auth_viewmodel.dart';
 import 'package:dionniebee/ui/views/auth/busykeys.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:stacked/stacked.dart';
@@ -15,6 +16,12 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = getParentViewModel<AuthViewModel>(context);
+    if (kDebugMode) {
+      viewModel.loginForm.patchValue({
+        LoginKeys.email.name: 'dionnie_bulingit@yahoo.com',
+        LoginKeys.password.name: 'qweqwe123'
+      });
+    }
     return ReactiveFormConsumer(builder: (context, formModel, _) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,

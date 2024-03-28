@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 const double _tinySize = 4.0;
 const double _smallSize = 8.0;
@@ -21,26 +20,7 @@ const Widget vSpaceRegular = SizedBox(height: _regularSize);
 const Widget vSpaceMedium = SizedBox(height: _mediumSize);
 const Widget vSpaceLarge = SizedBox(height: _largeSize);
 
-bool isMobile(BuildContext context) {
-  var deviceType = getDeviceType(MediaQuery.of(context).size);
-  return deviceType == DeviceScreenType.mobile;
-}
-
-bool isTablet(BuildContext context) {
-  var deviceType = getDeviceType(MediaQuery.of(context).size);
-  return deviceType == DeviceScreenType.tablet;
-}
-
-bool isDesktop(BuildContext context) {
-  var deviceType = getDeviceType(MediaQuery.of(context).size);
-  return deviceType == DeviceScreenType.desktop;
-}
-
-screenWidth(BuildContext context) {
-  return MediaQuery.of(context).size.width;
-}
-
-EdgeInsets scaffoldBodyPadding({
+EdgeInsets fluidPadding({
   required BoxConstraints size,
   double targetWidth = 800,
   double hPadding = 0.0,

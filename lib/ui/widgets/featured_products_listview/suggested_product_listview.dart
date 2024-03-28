@@ -1,5 +1,5 @@
 import 'package:dionniebee/app/models/product_dto.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/breakpoints.dart';
 import 'package:dionniebee/ui/special/sliver_grid_delegate.dart';
 import 'package:flutter/material.dart';
 

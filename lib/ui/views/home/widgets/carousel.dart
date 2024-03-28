@@ -1,4 +1,4 @@
-import 'package:dionniebee/ui/common/colors.dart';
+import 'package:dionniebee/global/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 

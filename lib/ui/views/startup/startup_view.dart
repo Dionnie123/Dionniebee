@@ -1,6 +1,6 @@
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
-import 'package:dionniebee/ui/special/ez_text.dart';
+import 'package:dionniebee/global/ui_helpers.dart';
+import 'package:dionniebee/global/typography.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 

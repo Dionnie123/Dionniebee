@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
-import 'package:dionniebee/ui/common/colors.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/colors.dart';
+import 'package:dionniebee/global/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -36,8 +36,7 @@ class CartList extends StatelessWidget {
       Widget emptyCart() {
         return Center(
           child: Padding(
-            padding:
-                scaffoldBodyPadding(size: size, vPadding: 15, hPadding: 15),
+            padding: fluidPadding(size: size, vPadding: 15, hPadding: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -77,8 +76,7 @@ class CartList extends StatelessWidget {
       return items.isEmpty
           ? emptyCart()
           : SingleChildScrollView(
-              padding:
-                  scaffoldBodyPadding(size: size, hPadding: 8, vPadding: 8),
+              padding: fluidPadding(size: size, hPadding: 8, vPadding: 8),
               child: Column(
                 children: [
                   Card(

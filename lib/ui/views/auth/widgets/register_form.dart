@@ -1,7 +1,7 @@
-import 'package:dionniebee/ui/common/colors.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/colors.dart';
+import 'package:dionniebee/global/ui_helpers.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
-import 'package:dionniebee/ui/special/ez_text.dart';
+import 'package:dionniebee/global/typography.dart';
 import 'package:dionniebee/ui/views/auth/auth_viewmodel.dart';
 import 'package:dionniebee/ui/views/auth/busykeys.dart';
 import 'package:flutter/material.dart';

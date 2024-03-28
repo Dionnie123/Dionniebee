@@ -1,5 +1,5 @@
 import 'package:dionniebee/app/models/product_dto.dart';
-import 'package:dionniebee/ui/common/colors.dart';
+import 'package:dionniebee/global/colors.dart';
 import 'package:firebase_cached_image/firebase_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

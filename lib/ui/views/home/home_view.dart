@@ -1,6 +1,6 @@
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/ui/common/colors.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/colors.dart';
+import 'package:dionniebee/global/ui_helpers.dart';
 import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:dionniebee/ui/widgets/product_menu_item/food_menu_item.dart';

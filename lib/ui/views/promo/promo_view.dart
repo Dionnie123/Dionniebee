@@ -1,5 +1,5 @@
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/ui_helpers.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -18,7 +18,7 @@ class PromoView extends StackedView<PromoViewModel> {
       title: 'PROMO',
       body: LayoutBuilder(builder: (context, size) {
         return SingleChildScrollView(
-          padding: scaffoldBodyPadding(size: size, hPadding: 15, vPadding: 15),
+          padding: fluidPadding(size: size, hPadding: 15, vPadding: 15),
           child: const Column(
             children: [],
           ),

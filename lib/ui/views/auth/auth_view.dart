@@ -1,4 +1,4 @@
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:stacked/stacked.dart';
@@ -19,7 +19,7 @@ class AuthView extends StackedView<AuthViewModel> {
       child: Scaffold(body: Center(
         child: LayoutBuilder(builder: (context, size) {
           return SingleChildScrollView(
-            padding: scaffoldBodyPadding(
+            padding: fluidPadding(
                 size: size, targetWidth: 500, hPadding: 15, vPadding: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

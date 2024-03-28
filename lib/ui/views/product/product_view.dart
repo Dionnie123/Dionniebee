@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -23,7 +23,7 @@ class ProductView extends StackedView<ProductViewModel> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: LayoutBuilder(builder: (context, size) {
         return SingleChildScrollView(
-          padding: scaffoldBodyPadding(
+          padding: fluidPadding(
               size: size, targetWidth: 400, vPadding: 15, hPadding: 15),
           child: Column(
             children: [
