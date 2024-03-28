@@ -1,4 +1,4 @@
-import 'package:dionniebee/app/constants/theme_default.dart';
+import 'package:dionniebee/ui/common/theme_default.dart';
 import 'package:dionniebee/app/helpers/lifecycle_manager/lifecycle_manager.dart';
 
 import 'package:dionniebee/services/loader_overlay/loader_manager.dart';

@@ -1,14 +1,9 @@
 import 'package:flutter/rendering.dart';
 
-class SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight
-    extends SliverGridDelegate {
-  /// Creates a delegate that makes grid layouts with a fixed number of tiles in
-  /// the cross axis.
-  ///
-  /// All of the arguments must not be null. The `mainAxisSpacing` and
-  /// `crossAxisSpacing` arguments must not be negative. The `crossAxisCount`
-  /// and `childAspectRatio` arguments must be greater than zero.
-  const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight({
+class SliverGridCrossAxis extends SliverGridDelegate {
+  /// Used for SliverGrid.builder to create horizontal and vertical grid with fixed hight items.Copied from SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight
+  /// solution from https://github.com/flutter/flutter/issues/55290#issuecomment-703117248
+  const SliverGridCrossAxis({
     required this.crossAxisCount,
     this.mainAxisSpacing = 0.0,
     this.crossAxisSpacing = 0.0,
@@ -18,16 +13,9 @@ class SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight
         assert(crossAxisSpacing >= 0),
         assert(height > 0);
 
-  /// The number of children in the cross axis.
   final int crossAxisCount;
-
-  /// The number of logical pixels between each child along the main axis.
   final double mainAxisSpacing;
-
-  /// The number of logical pixels between each child along the cross axis.
   final double crossAxisSpacing;
-
-  /// The height of the crossAxis.
   final double height;
 
   bool _debugAssertIsValid() {
@@ -56,8 +44,7 @@ class SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight
   }
 
   @override
-  bool shouldRelayout(
-      SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight oldDelegate) {
+  bool shouldRelayout(SliverGridCrossAxis oldDelegate) {
     return oldDelegate.crossAxisCount != crossAxisCount ||
         oldDelegate.mainAxisSpacing != mainAxisSpacing ||
         oldDelegate.crossAxisSpacing != crossAxisSpacing ||

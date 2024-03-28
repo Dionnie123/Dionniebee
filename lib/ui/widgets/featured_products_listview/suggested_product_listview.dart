@@ -24,8 +24,7 @@ class FeaturedProductsListview extends StatelessWidget {
       sliver: isBusy
           ? SliverGrid.builder(
               itemCount: 8,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+              gridDelegate: SliverGridCrossAxis(
                 height: size.height,
                 crossAxisCount: isMobile(context)
                     ? 2
@@ -41,8 +40,7 @@ class FeaturedProductsListview extends StatelessWidget {
             )
           : SliverGrid.builder(
               itemCount: products.length,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+              gridDelegate: SliverGridCrossAxis(
                 height: size.height,
                 crossAxisCount: isMobile(context)
                     ? 2

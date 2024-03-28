@@ -14,15 +14,18 @@ class HomeViewModel extends ReactiveViewModel {
   final _navService = locator<RouterService>();
   final _productService = locator<ProductService>();
   final _cartService = locator<CartService>();
-  final _toastService = locator<FlutterToastService>();
-
-  showDiag() async {
-    // await _loaderService.show(LoaderOverlayType.show);
-    _toastService.show("Dionniebee 2024");
-    _toastService.show("Mark Dionnie Bulingit");
-    _toastService.show("dionnie_bulingit@yahoo.com");
-    /*   await Future.delayed(const Duration(seconds: 10));
-    _loaderService.hide(); */
+  final _dialogService = locator<DialogService>();
+  @override
+  void onFutureError(error, Object? key) {
+    super.onFutureError(error, key);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _dialogService.showDialog(
+          title: "Error",
+          barrierDismissible: true,
+          description: error.toString(),
+          dialogPlatform: DialogPlatform.Custom,
+          buttonTitle: "OK");
+    });
   }
 
   num get cartCount => _cartService.cartCount;
@@ -31,10 +34,12 @@ class HomeViewModel extends ReactiveViewModel {
   List<ProductDto> get products => _productService.items;
 
   Future init() async {
-    await runBusyFuture(Future.wait([
-      _productService.getAll(),
-      Future.delayed(const Duration(seconds: 2))
-    ]));
+    await runBusyFuture(
+        Future.wait([
+          _productService.getAll(),
+          Future.delayed(const Duration(seconds: 2))
+        ]),
+        throwException: true);
   }
 
   @override

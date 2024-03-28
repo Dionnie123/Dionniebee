@@ -1,4 +1,3 @@
-import 'package:dionniebee/app/extensions/null_operators.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/ui/common/colors.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
@@ -102,7 +101,7 @@ class CartItem extends StatelessWidget {
                     hSpaceRegular,
                     Text(
                       NumberFormat.simpleCurrency(locale: 'fil_PH').format(
-                        product.price?.imul(product.quantityInCart ?? 0) ?? 0,
+                        product.price,
                       ),
                       maxLines: 2,
                       style: const TextStyle().copyWith(

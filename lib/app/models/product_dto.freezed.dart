@@ -205,7 +205,7 @@ class __$$ProductDtoImplCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$ProductDtoImpl implements _ProductDto {
   _$ProductDtoImpl(
-      {required this.id,
+      {this.id = '',
       this.title = '',
       this.excerpt = '',
       this.featuredImage = '',
@@ -219,6 +219,7 @@ class _$ProductDtoImpl implements _ProductDto {
       _$$ProductDtoImplFromJson(json);
 
   @override
+  @JsonKey()
   final String id;
   @override
   @JsonKey()
@@ -300,7 +301,7 @@ class _$ProductDtoImpl implements _ProductDto {
 
 abstract class _ProductDto implements ProductDto {
   factory _ProductDto(
-      {required final String id,
+      {final String id,
       final String title,
       final String excerpt,
       final String featuredImage,

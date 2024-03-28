@@ -11,7 +11,7 @@ class ProductDto with _$ProductDto {
     fieldRename: FieldRename.snake,
   )
   factory ProductDto({
-    required String id,
+    @Default('') String id,
     @Default('') String title,
     @Default('') String excerpt,
     @Default('') String featuredImage,

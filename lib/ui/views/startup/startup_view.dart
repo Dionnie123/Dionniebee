@@ -1,6 +1,6 @@
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/ui/common/my_texts.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/ui/special/ez_text.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -21,8 +21,6 @@ class StartupView extends StackedView<StartupViewModel> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //  CircularProgressIndicator(),
-            vSpaceRegular,
             Center(
               child: Column(
                 children: [
@@ -31,7 +29,7 @@ class StartupView extends StackedView<StartupViewModel> {
                     width: 70,
                   ),
                   vSpaceSmall,
-                  const MyText.headingThree(
+                  const EzText.headingThree(
                     "Dionnie Studios",
                   ),
                 ],

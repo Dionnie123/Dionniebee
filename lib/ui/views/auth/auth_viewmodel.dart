@@ -1,6 +1,6 @@
+import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/user_dto.dart';
-import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:dionniebee/ui/views/auth/busykeys.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
@@ -8,20 +8,11 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import '../../../app/app.locator.dart';
-
 enum AuthType { signIn, signUp, passwordResetRequest }
 
 enum LoginKeys { email, name, password, passwordConfirmation }
 
-enum RegisterKeys {
-  email,
-  name,
-  password,
-  Address,
-  passwordConfirmation,
-  acceptLicense
-}
+enum RegisterKeys { email, name, password, passwordConfirmation, acceptLicense }
 
 enum Address { city, state }
 
@@ -29,7 +20,6 @@ class AuthViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _navService = locator<RouterService>();
   final _authService = locator<FirebaseAuthenticationService>();
-  final _toastService = locator<FlutterToastService>();
   final _userService = locator<UserService>();
 
   @override

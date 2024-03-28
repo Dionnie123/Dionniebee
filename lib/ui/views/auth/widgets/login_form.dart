@@ -1,7 +1,7 @@
 import 'package:dionniebee/ui/common/colors.dart';
-import 'package:dionniebee/ui/common/my_texts.dart';
 import 'package:dionniebee/ui/common/ui_helpers.dart';
 import 'package:dionniebee/ui/special/ez_button.dart';
+import 'package:dionniebee/ui/special/ez_text.dart';
 import 'package:dionniebee/ui/views/auth/auth_viewmodel.dart';
 import 'package:dionniebee/ui/views/auth/busykeys.dart';
 
@@ -28,7 +28,7 @@ class LoginForm extends StatelessWidget {
                   width: 70,
                 ),
                 vSpaceSmall,
-                const MyText.headingThree("SIGN-IN"),
+                const EzText.headingThree("SIGN-IN"),
               ],
             ),
           ),
