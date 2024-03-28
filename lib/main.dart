@@ -1,9 +1,11 @@
+import 'package:dionniebee/firebase_options.dart';
 import 'package:dionniebee/global/breakpoints.dart';
 import 'package:dionniebee/global/themes.dart';
 import 'package:dionniebee/app/helpers/lifecycle_manager/lifecycle_manager.dart';
 import 'package:dionniebee/global/typography.dart';
 import 'package:dionniebee/services/loader_overlay/loader_manager.dart';
 import 'package:dionniebee/services/fluttertoast/fluttertoast_manager.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:dionniebee/app/app.bottomsheets.dart';
@@ -16,6 +18,9 @@ import 'url_strategy_native.dart'
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   setScreenBreakPoints();
 

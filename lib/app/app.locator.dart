@@ -12,9 +12,7 @@ import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/router_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
-import '../services/auth_service.dart';
 import '../services/cart_service.dart';
-import '../services/firebase_auth_service.dart';
 import '../services/fluttertoast/fluttertoast_service.dart';
 import '../services/foo_service.dart';
 import '../services/loader_overlay/loader_service.dart';
@@ -58,10 +56,6 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => UserService());
   locator.registerLazySingleton(() => FirebaseAuthenticationService());
-  final firebaseAuthService = FirebaseAuthService();
-  await firebaseAuthService.init();
-  locator.registerSingleton<AuthService>(firebaseAuthService);
-
   locator.registerLazySingleton(() => ProductService());
   locator.registerLazySingleton(() => CartService());
   locator.registerLazySingleton(() => OrderService());

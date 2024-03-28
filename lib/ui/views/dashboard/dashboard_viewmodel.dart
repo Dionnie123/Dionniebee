@@ -1,18 +1,18 @@
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
 import 'package:dionniebee/app/models/user_dto.dart';
-import 'package:dionniebee/services/auth_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
 import 'package:dionniebee/services/user_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class DashboardViewModel extends IndexTrackingViewModel {
   final navigationService = locator<RouterService>();
   final cartService = locator<CartService>();
-  final authService = locator<AuthService>();
+  final authService = locator<FirebaseAuthenticationService>();
   final userService = locator<UserService>();
   final toastService = locator<FlutterToastService>();
   List<ValueKey<int>> keys = [
@@ -38,7 +38,7 @@ class DashboardViewModel extends IndexTrackingViewModel {
   }
 
   signOut() async {
-    await authService.signOut();
+    await authService.logout().then((value) => userService.currentUser = null);
     toastService.clear();
     toastService.show("You logged out...");
     toastService.show("Welcome Guest");

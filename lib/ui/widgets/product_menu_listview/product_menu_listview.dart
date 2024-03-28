@@ -26,7 +26,8 @@ class ProductMenuListView extends StatelessWidget {
         height: size.height,
         child: isBusy
             ? ListView.builder(
-                itemCount: 12,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 16,
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {

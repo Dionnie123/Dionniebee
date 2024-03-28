@@ -23,7 +23,7 @@ class FeaturedProductsListview extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       sliver: isBusy
           ? SliverGrid.builder(
-              itemCount: 8,
+              itemCount: 16,
               gridDelegate: SliverGridCrossAxis(
                 height: size.height,
                 crossAxisCount: isMobile(context)

@@ -2,8 +2,9 @@ import 'package:dionniebee/services/local_storage_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:dionniebee/app/app.locator.dart';
+import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:dionniebee/services/auth_service.dart';
+
 import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/services/cart_service.dart';
 import 'package:dionniebee/services/order_service.dart';
@@ -20,7 +21,8 @@ import 'test_helpers.mocks.dart';
   MockSpec<RouterService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<AuthService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<FirebaseAuthenticationService>(
+      onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ProductService>(onMissingStub: OnMissingStub.returnDefault),
 
   MockSpec<CartService>(onMissingStub: OnMissingStub.returnDefault),
@@ -38,7 +40,7 @@ void registerServices() {
   getAndRegisterRouterService();
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
-  getAndRegisterAuthService();
+  getAndRegisterFirebaseAuthenticationService();
   getAndRegisterProductService();
 
   getAndRegisterCartService();
@@ -122,11 +124,12 @@ MockProductService getAndRegisterProductService() {
   return service;
 }
 
-MockAuthService getAndRegisterAuthService() {
-  _removeRegistrationIfExists<AuthService>();
-  final service = MockAuthService();
+MockFirebaseAuthenticationService
+    getAndRegisterFirebaseAuthenticationService() {
+  _removeRegistrationIfExists<FirebaseAuthenticationService>();
+  final service = MockFirebaseAuthenticationService();
 
-  locator.registerSingleton<AuthService>(service);
+  locator.registerSingleton<FirebaseAuthenticationService>(service);
   return service;
 }
 
