@@ -1,4 +1,4 @@
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/spacing.dart';
 import 'package:flutter/material.dart';
 
 class EmptyDisplay extends StatelessWidget {

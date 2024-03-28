@@ -12,7 +12,6 @@ class UserDto with _$UserDto {
   factory UserDto({
     required String id,
     String? email,
-    String? defaultAddress,
   }) = _UserDto;
 
   factory UserDto.fromJson(Map<String, dynamic> json) =>

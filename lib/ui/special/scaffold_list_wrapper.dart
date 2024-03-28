@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/breakpoints.dart';
 import 'package:flutter/material.dart';
 
 class ScaffoldListWrapper extends StatelessWidget {

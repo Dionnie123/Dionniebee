@@ -1,4 +1,4 @@
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/spacing.dart';
 import 'package:flutter/material.dart';
 
 class ScaffoldBodyWrapper extends StatelessWidget {
@@ -60,8 +60,7 @@ class ScaffoldBodyWrapper extends StatelessWidget {
                     : const AlwaysScrollableScrollPhysics(),
                 padding: isFullWidth
                     ? padding
-                    : scaffoldBodyPadding(
-                        size: const BoxConstraints(maxWidth: 800)),
+                    : fluidPadding(size: const BoxConstraints(maxWidth: 800)),
                 child: builder(context, constraints));
       }
 

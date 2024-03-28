@@ -1,6 +1,6 @@
 import 'package:dionniebee/app/models/product_dto.dart';
-import 'package:dionniebee/ui/common/colors.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/colors.dart';
+import 'package:dionniebee/global/spacing.dart';
 import 'package:firebase_cached_image/firebase_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -58,7 +58,7 @@ class ProductWidget extends StackedView<ProductWidgetModel> {
                               width: double.infinity,
                               fit: BoxFit.cover,
                               image: FirebaseImageProvider(
-                                FirebaseUrl(product.imageUrl.toString()),
+                                FirebaseUrl(product.featuredImage),
                                 options: const CacheOptions(
                                   checkForMetadataChange: true,
                                 ),
@@ -117,7 +117,7 @@ class ProductWidget extends StackedView<ProductWidgetModel> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(product.name.toString(),
+                                      Text(product.title,
                                           maxLines: 2,
                                           style: const TextStyle(
                                               fontSize: 16,
@@ -125,8 +125,7 @@ class ProductWidget extends StackedView<ProductWidgetModel> {
                                       vSpaceTiny,
                                       Opacity(
                                         opacity: 0.6,
-                                        child: Text(
-                                            product.description.toString(),
+                                        child: Text(product.excerpt,
                                             style: const TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.white)),

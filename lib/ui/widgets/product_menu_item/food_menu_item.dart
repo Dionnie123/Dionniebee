@@ -1,5 +1,5 @@
 import 'package:dionniebee/app/models/product_dto.dart';
-import 'package:dionniebee/ui/common/colors.dart';
+import 'package:dionniebee/global/colors.dart';
 import 'package:firebase_cached_image/firebase_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,7 +42,7 @@ class FoodMenuItem extends StatelessWidget {
                           width: double.infinity,
                           fit: BoxFit.cover,
                           image: FirebaseImageProvider(
-                            FirebaseUrl(product.imageUrl.toString()),
+                            FirebaseUrl(product.featuredImage),
                             options: const CacheOptions(
                               checkForMetadataChange: true,
                             ),
@@ -85,7 +85,7 @@ class FoodMenuItem extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      product.name.toString(),
+                      product.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,

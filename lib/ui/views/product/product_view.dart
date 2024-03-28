@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -23,14 +23,14 @@ class ProductView extends StackedView<ProductViewModel> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: LayoutBuilder(builder: (context, size) {
         return SingleChildScrollView(
-          padding: scaffoldBodyPadding(
+          padding: fluidPadding(
               size: size, targetWidth: 400, vPadding: 15, hPadding: 15),
           child: Column(
             children: [
               AspectRatio(
                   aspectRatio: 4 / 3,
                   child: CachedNetworkImage(
-                    imageUrl: "${viewModel.product?.imageUrl}",
+                    imageUrl: "${viewModel.product?.featuredImage}",
                     fit: BoxFit.contain,
                     placeholder: (context, url) {
                       return const SizedBox.shrink();
@@ -41,14 +41,14 @@ class ProductView extends StackedView<ProductViewModel> {
                   )),
               vSpaceRegular,
               Text(
-                "${viewModel.product?.name}",
+                "${viewModel.product?.title}",
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               vSpaceSmall,
-              Text("${viewModel.product?.description}"),
+              Text("${viewModel.product?.excerpt}"),
             ],
           ),
         );

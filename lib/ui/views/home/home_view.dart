@@ -1,6 +1,6 @@
 import 'package:dionniebee/app/app.locator.dart';
-import 'package:dionniebee/ui/common/colors.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/colors.dart';
+import 'package:dionniebee/global/spacing.dart';
 import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:dionniebee/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:dionniebee/ui/widgets/product_menu_item/food_menu_item.dart';
@@ -94,9 +94,7 @@ class HomeView extends StackedView<HomeViewModel> {
                       style: const ButtonStyle(
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.orange)),
-                      onPressed: () async {
-                        await viewModel.showDiag();
-                      },
+                      onPressed: () async {},
                       child: const Text(
                         "Order Now",
                         style: TextStyle(fontSize: 16),

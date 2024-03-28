@@ -4,6 +4,9 @@ enum ToastType {
 
 typedef ToastBuilder = Function();
 
+/// Usage: _toastService.show("Dionniebee 2024");
+///  _toastService.welcome();
+/// _toastService.clear();
 class FlutterToastService {
   var _toastCustomBuilders = <ToastType, ToastBuilder>{};
 

@@ -1,36 +1,28 @@
-import 'package:dionniebee/app/constants/theme_default.dart';
+import 'package:dionniebee/global/breakpoints.dart';
+import 'package:dionniebee/global/themes.dart';
 import 'package:dionniebee/app/helpers/lifecycle_manager/lifecycle_manager.dart';
-
+import 'package:dionniebee/global/typography.dart';
 import 'package:dionniebee/services/loader_overlay/loader_manager.dart';
 import 'package:dionniebee/services/fluttertoast/fluttertoast_manager.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:dionniebee/app/app.bottomsheets.dart';
 import 'package:dionniebee/app/app.dialogs.dart';
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'url_strategy_native.dart'
     if (dart.library.html) 'url_strategy_web.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  setScreenBreakPoints();
 
-  ResponsiveSizingConfig.instance.setCustomBreakpoints(
-    const ScreenBreakpoints(desktop: 1366, tablet: 768, watch: 200),
-  );
   await setupLocator(stackedRouter: stackedRouter);
   setupDialogUi();
   setupBottomSheetUi();
-  LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString('google_fonts/OFL.txt');
-    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
-  });
-
+  setGoogleFontLicense();
   runApp(const MainApp());
   urlConfig();
 }

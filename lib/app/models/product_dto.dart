@@ -11,14 +11,14 @@ class ProductDto with _$ProductDto {
     fieldRename: FieldRename.snake,
   )
   factory ProductDto({
-    String? id,
+    @Default('') String id,
+    @Default('') String title,
+    @Default('') String excerpt,
+    @Default('') String featuredImage,
     @Default(false) bool isSelected,
-    String? imageUrl,
-    String? name,
-    String? description,
-    num? price,
-    num? quantityInStock,
-    num? quantityInCart,
+    @Default(0) num? price,
+    @Default(0) num? quantityInStock,
+    @Default(0) num? quantityInCart,
     DateTime? createdAt,
   }) = _ProductDto;
 

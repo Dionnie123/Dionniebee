@@ -1,6 +1,6 @@
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/app.router.dart';
-import 'package:dionniebee/ui/common/colors.dart';
+import 'package:dionniebee/global/colors.dart';
 import 'package:dionniebee/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';

@@ -1,10 +1,10 @@
-import 'package:dionniebee/ui/common/colors.dart';
+import 'package:dionniebee/global/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'typography.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
-    fontFamily: GoogleFonts.varelaRound().fontFamily,
+    fontFamily: appFont,
     useMaterial3: false,
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
@@ -18,7 +18,7 @@ class AppTheme {
         foregroundColor: Colors.white,
         titleTextStyle: TextStyle(
             color: Colors.white,
-            fontFamily: GoogleFonts.varelaRound().fontFamily,
+            fontFamily: appFont,
             fontWeight: FontWeight.bold,
             fontSize: 18)),
     brightness: Brightness.light,
@@ -26,14 +26,14 @@ class AppTheme {
   );
 
   static ThemeData darkTheme = ThemeData(
-    fontFamily: GoogleFonts.varelaRound().fontFamily,
+    fontFamily: appFont,
     useMaterial3: false,
     appBarTheme: AppBarTheme(
         backgroundColor: kcPrimary,
         foregroundColor: Colors.white,
         titleTextStyle: TextStyle(
             color: Colors.white,
-            fontFamily: GoogleFonts.varelaRound().fontFamily,
+            fontFamily: appFont,
             fontWeight: FontWeight.bold,
             fontSize: 18)),
     brightness: Brightness.dark,

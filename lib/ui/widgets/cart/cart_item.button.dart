@@ -1,4 +1,4 @@
-import 'package:dionniebee/ui/common/colors.dart';
+import 'package:dionniebee/global/colors.dart';
 import 'package:flutter/material.dart';
 
 /// A round button with an icon that can be tapped or held

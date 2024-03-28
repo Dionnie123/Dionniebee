@@ -1,7 +1,6 @@
-import 'package:dionniebee/app/extensions/null_operators.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
-import 'package:dionniebee/ui/common/colors.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/colors.dart';
+import 'package:dionniebee/global/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -80,7 +79,7 @@ class CartItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            product.name.toString(),
+                            product.title,
                             maxLines: 2,
                             style: const TextStyle().copyWith(
                               fontWeight: FontWeight.bold,
@@ -102,7 +101,7 @@ class CartItem extends StatelessWidget {
                     hSpaceRegular,
                     Text(
                       NumberFormat.simpleCurrency(locale: 'fil_PH').format(
-                        product.price?.imul(product.quantityInCart ?? 0) ?? 0,
+                        product.price,
                       ),
                       maxLines: 2,
                       style: const TextStyle().copyWith(

@@ -1,5 +1,5 @@
 import 'package:dionniebee/app/models/product_dto.dart';
-import 'package:dionniebee/ui/common/ui_helpers.dart';
+import 'package:dionniebee/global/breakpoints.dart';
 import 'package:dionniebee/ui/special/sliver_grid_delegate.dart';
 import 'package:flutter/material.dart';
 
@@ -24,8 +24,7 @@ class FeaturedProductsListview extends StatelessWidget {
       sliver: isBusy
           ? SliverGrid.builder(
               itemCount: 8,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+              gridDelegate: SliverGridCrossAxis(
                 height: size.height,
                 crossAxisCount: isMobile(context)
                     ? 2
@@ -41,8 +40,7 @@ class FeaturedProductsListview extends StatelessWidget {
             )
           : SliverGrid.builder(
               itemCount: products.length,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+              gridDelegate: SliverGridCrossAxis(
                 height: size.height,
                 crossAxisCount: isMobile(context)
                     ? 2
