@@ -17,6 +17,7 @@ dev:
 
 dist:
 	flutter build web --release
+	flutter build apk --release
 
 rename:
 	flutter pub global run rename  setAppName --value $(APP_TITLE)
