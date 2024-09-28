@@ -1,3 +1,4 @@
+import 'package:dionniebee/global/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -28,6 +29,7 @@ class PageScaffold extends StatelessWidget {
     final hasDrawer = ancestorScaffold != null && ancestorScaffold.hasDrawer;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: kcPrimaryAccent,
         elevation: 0,
         // 3. add a non-null leading argument if we have a drawer
         automaticallyImplyLeading: hasDrawer,

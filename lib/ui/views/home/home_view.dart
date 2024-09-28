@@ -42,12 +42,12 @@ class HomeView extends StackedView<HomeViewModel> {
     return PageScaffold(
         refreshIndicatorTask: viewModel.init,
         isBusy: viewModel.isBusy,
-        title: "HOME",
+        title: "",
         actions: [
           Builder(builder: (context) {
             return IconButton(
               icon: badges.Badge(
-                  position: badges.BadgePosition.custom(top: -15, end: -10),
+                  position: badges.BadgePosition.topEnd(),
                   showBadge: true,
                   badgeAnimation: const badges.BadgeAnimation.scale(),
                   badgeContent: Text(
@@ -60,7 +60,7 @@ class HomeView extends StackedView<HomeViewModel> {
               },
             );
           }),
-          hSpaceMedium,
+          hSpaceSmall,
         ],
         body: CustomScrollView(slivers: [
           SliverToBoxAdapter(

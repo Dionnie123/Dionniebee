@@ -1,6 +1,7 @@
 import 'package:dionniebee/app/app.locator.dart';
 import 'package:dionniebee/app/models/product_dto.dart';
 import 'package:dionniebee/services/cart_service.dart';
+import 'package:dionniebee/services/loader_overlay/loader_service.dart';
 
 import 'package:dionniebee/services/product_service.dart';
 import 'package:dionniebee/services/fluttertoast/fluttertoast_service.dart';
@@ -15,6 +16,9 @@ class HomeViewModel extends ReactiveViewModel {
   final _productService = locator<ProductService>();
   final _cartService = locator<CartService>();
   final _dialogService = locator<DialogService>();
+
+  final loader = locator<LoaderOverlayService>();
+  final toaster = locator<FlutterToastService>();
   @override
   void onFutureError(error, Object? key) {
     super.onFutureError(error, key);
@@ -34,12 +38,15 @@ class HomeViewModel extends ReactiveViewModel {
   List<ProductDto> get products => _productService.items;
 
   Future init() async {
-    await runBusyFuture(
+    loader.show(LoaderOverlayType.show);
+    /*    await runBusyFuture(
         Future.wait([
           _productService.getAll(),
           Future.delayed(const Duration(seconds: 2))
         ]),
-        throwException: true);
+        throwException: false); */
+    await Future.delayed(Duration(seconds: 2));
+    loader.hide();
   }
 
   @override
